@@ -51,8 +51,8 @@
 							</div>
 							<div class="top_bar_user">
 								<div class="user_icon"><img src="images/user.svg" alt=""></div>
-								<div><a href="#">Register</a></div>
-								<div><a href="#">Sign in</a></div>
+								<div><a href="./register.jsp">Register</a></div>
+								<div><a href="./login.jsp">Sign in</a></div>
 							</div>
 						</div>
 					</div>
