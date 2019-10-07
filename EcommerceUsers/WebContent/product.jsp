@@ -53,7 +53,7 @@
 						<div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div>
 						<div class="product_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum. laoreet turpis, nec sollicitudin dolor cursus at. Maecenas aliquet, dolor a faucibus efficitur, nisi tellus cursus urna, eget dictum lacus turpis.</p></div>
 						<div class="order_info d-flex flex-row">
-							<form action="#">
+						<form action="#">
 								<div class="clearfix" style="z-index: 1000;">
 
 									<!-- Product Quantity -->
@@ -86,7 +86,10 @@
 								<div class="product_price">$2000</div>
 								<div class="button_container">
 									<button type="button" class="button cart_button">Add to Cart</button>
-									<div class="product_fav"><i class="fas fa-heart"></i></div>
+									<div class="product_fav">
+										<i class="fas fa-heart">
+										</i>
+									</div>
 								</div>
 								
 							</form>

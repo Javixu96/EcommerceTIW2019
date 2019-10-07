@@ -1878,56 +1878,7 @@ select option
 	z-index: 1;
 	display: none;
 }
-.product_fav
-{
-	position: absolute;
-	top: 33px;
-	right: 12px;
-	width: 36px;
-	height: 36px;
-	background: #FFFFFF;
-	box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
-	border-radius: 50%;
-	visibility: hidden;
-	opacity: 0;
-	-webkit-transition: all 200ms ease;
-	-moz-transition: all 200ms ease;
-	-ms-transition: all 200ms ease;
-	-o-transition: all 200ms ease;
-	transition: all 200ms ease;
-}
-.product_fav:hover
-{
-	box-shadow: 0px 1px 5px rgba(0,0,0,0.3);
-}
-.product_item:hover .product_fav
-{
-	top: 18px;
-}
-.product_fav i
-{
-	display: block;
-	position: absolute;
-	left: 50%;
-	-webkit-transform: translateX(-50%);
-	-moz-transform: translateX(-50%);
-	-ms-transform: translateX(-50%);
-	-o-transform: translateX(-50%);
-	transform: translateX(-50%);
-	color: #cccccc;
-	line-height: 36px;
-	pointer-events: none;
-	z-index: 0;
-	-webkit-transition: all 200ms ease;
-	-moz-transition: all 200ms ease;
-	-ms-transition: all 200ms ease;
-	-o-transition: all 200ms ease;
-	transition: all 200ms ease;
-}
-.product_fav.active i
-{
-	color: red;
-}
+
 .product_item:hover .product_fav
 {
 	visibility: visible;
@@ -2459,52 +2410,7 @@ select option
 	visibility: visible;
 	opacity: 1;
 }
-.arrivals_single .product_fav
-{
-	position: absolute;
-	top: -15px;
-	right: 0px;
-	width: 36px;
-	height: 36px;
-	background: #FFFFFF;
-	box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
-	border-radius: 50%;
-	visibility: visible;
-	opacity: 1;
-	-webkit-transition: all 200ms ease;
-	-moz-transition: all 200ms ease;
-	-ms-transition: all 200ms ease;
-	-o-transition: all 200ms ease;
-	transition: all 200ms ease;
-}
-.product_fav:hover
-{
-	box-shadow: 0px 1px 5px rgba(0,0,0,0.3);
-}
-.product_fav i
-{
-	display: block;
-	position: absolute;
-	left: 50%;
-	-webkit-transform: translateX(-50%);
-	-moz-transform: translateX(-50%);
-	-ms-transform: translateX(-50%);
-	-o-transform: translateX(-50%);
-	transform: translateX(-50%);
-	color: #cccccc;
-	line-height: 36px;
-	pointer-events: none;
-	z-index: 0;
-	-webkit-transition: all 200ms ease;
-	-moz-transition: all 200ms ease;
-	-ms-transition: all 200ms ease;
-	-o-transition: all 200ms ease;
-	transition: all 200ms ease;
-}
-.product_fav.active i
-{
-	color: red;
-}
+
 
 /*********************************
 10. Hot Best Sellers
