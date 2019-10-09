@@ -72,8 +72,7 @@
 											<span>Talla: </span>
 											<div class="color_mark_container"><div id="selected_color" class="color_mark"></div></div>
 											<div class="color_dropdown_button"><i class="fas fa-chevron-down"></i></div>
-
-											<ul class="color_list" id="">
+											<ul class="color_list" id="sizelist">
 												<li><div class="color_mark" >S</div></li>
 												<li><div class="color_mark" >M</div></li>
 												<li><div class="color_mark" >L</div></li>
