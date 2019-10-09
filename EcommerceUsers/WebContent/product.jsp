@@ -53,7 +53,7 @@
 						<div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div>
 						<div class="product_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum. laoreet turpis, nec sollicitudin dolor cursus at. Maecenas aliquet, dolor a faucibus efficitur, nisi tellus cursus urna, eget dictum lacus turpis.</p></div>
 						<div class="order_info d-flex flex-row">
-							<form action="#">
+						<form action="#">
 								<div class="clearfix" style="z-index: 1000;">
 
 									<!-- Product Quantity -->
@@ -69,14 +69,14 @@
 									<!-- Product Color -->
 									<ul class="product_color">
 										<li>
-											<span>Color: </span>
+											<span>Talla: </span>
 											<div class="color_mark_container"><div id="selected_color" class="color_mark"></div></div>
 											<div class="color_dropdown_button"><i class="fas fa-chevron-down"></i></div>
 
-											<ul class="color_list">
-												<li><div class="color_mark" style="background: #999999;"></div></li>
-												<li><div class="color_mark" style="background: #b19c83;"></div></li>
-												<li><div class="color_mark" style="background: #000000;"></div></li>
+											<ul class="color_list" id="">
+												<li><div class="color_mark" >S</div></li>
+												<li><div class="color_mark" >M</div></li>
+												<li><div class="color_mark" >L</div></li>
 											</ul>
 										</li>
 									</ul>
@@ -86,7 +86,10 @@
 								<div class="product_price">$2000</div>
 								<div class="button_container">
 									<button type="button" class="button cart_button">Add to Cart</button>
-									<div class="product_fav"><i class="fas fa-heart"></i></div>
+									<div class="product_fav">
+										<i class="fas fa-heart">
+										</i>
+									</div>
 								</div>
 								
 							</form>
