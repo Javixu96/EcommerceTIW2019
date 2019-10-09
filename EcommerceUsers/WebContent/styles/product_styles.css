@@ -1368,6 +1368,7 @@ select option
 	padding-left: 25px;
 	float: left;
 	margin-right: 30px;
+	margin-top:30px;
 }
 .product_quantity span
 {
@@ -1447,6 +1448,7 @@ select option
 	border-radius: 5px;
 	float: left;
 	cursor: pointer;
+	margin-top:30px;
 }
 .product_color span
 {
@@ -1498,6 +1500,7 @@ select option
 {
 	width: 20px;
 	height: 20px;
+	border-radius: 50%;
 }
 .product_color > li
 {
@@ -1542,6 +1545,121 @@ select option
 {
 	margin-left: auto;
 }
+.size_mark_container
+{
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 20px;
+	height: 48px;
+	left:25px;
+	top:-2px;
+	color: rgba(0,0,0,0.5);
+	text-align: left;
+}
+.size_mark
+{
+	width: 20px;
+	height: 20px;
+}
+
+.product_size
+{
+	width: 182px;
+	height: 50px;
+	border: solid 1px #e5e5e5;
+	border-radius: 5px;
+	float: left;
+	cursor: pointer;
+	margin-right:30px;
+	margin-top:30px;
+}
+.product_size span
+{
+	display: block;
+	height: 50px;
+	font-size: 16px;
+	font-weight: 300;
+	color: rgba(0,0,0,0.5);
+	line-height: 50px;
+	float: left;
+}
+
+.product_size > li
+{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding-left: 25px;
+	padding-right: 49px;
+}
+.product_size li ul
+{
+	position: absolute;
+	top: calc(100% + 15px);
+	right: 0;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	width: auto;
+	visibility: hidden;
+	opacity: 0;
+	box-shadow: 0px 5px 20px rgba(0,0,0,0.1);
+	background: #FFFFFF;
+	color: rgba(0,0,0,0.5);
+	-webkit-transition: all 200ms ease;
+	-moz-transition: all 200ms ease;
+	-ms-transition: all 200ms ease;
+	-o-transition: all 200ms ease;
+	transition: all 200ms ease;
+}
+.product_size > li:hover ul
+{
+	top: 100%;
+	visibility: visible;
+	opacity: 1;
+}
+.product_size li ul li
+{
+	padding-right: 49px;
+	padding-left: 49px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.product_size li ul li div
+{
+	margin-left: auto;
+}
+.size_dropdown_button
+{
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 50px;
+	height: 100%;
+}
+.size_dropdown_button i
+{
+	font-size: 11px;
+	color: rgba(0,0,0,0.3);
+	pointer-events: none;
+}
+
+
+
+
 .product_price
 {
 	display: inline-block;

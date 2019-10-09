@@ -38,6 +38,7 @@ $(document).ready(function()
 	initViewedSlider();
 	initBrandsSlider();
 	initQuantity();
+	initSize();
 	initColor();
 	initFavs();
 	initImage();
@@ -356,18 +357,38 @@ $(document).ready(function()
 
 	*/
 
+	function initSize()
+	{
+		if($('.product_size').length)
+		{
+			$('#talla1').on('click',function()
+			{
+				document.getElementById("selected_size").innerHTML=document.getElementById("talla1").innerHTML;	
+			})
+			$('#talla2').on('click',function()
+			{
+				document.getElementById("selected_size").innerHTML=document.getElementById("talla2").innerHTML;	
+			})	
+			$('#talla3').on('click',function()
+			{
+				document.getElementById("selected_size").innerHTML=document.getElementById("talla3").innerHTML;	
+			})	
+		}
+	}
+	
 	function initColor()
 	{
 		if($('.product_color').length)
 		{
 			var selectedCol = $('#selected_color');
-			var colorItems = $('.color_list li div');
+			var colorItems = $('.color_list li .color_mark');
 			colorItems.each(function()
 			{
 				var colorItem = $(this);
 				colorItem.on('click', function()
 				{
-					selectedCol.innerHTML = colorItems.innerHTML;
+					var color = colorItem.css('backgroundColor');
+					selectedCol.css('backgroundColor', color);
 				});
 			});
 		}

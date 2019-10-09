@@ -58,7 +58,7 @@
 
 									<!-- Product Quantity -->
 									<div class="product_quantity clearfix">
-										<span>Quantity: </span>
+										<span>Cantidad: </span>
 										<input id="quantity_input" type="text" pattern="[0-9]*" value="1">
 										<div class="quantity_buttons">
 											<div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fas fa-chevron-up"></i></div>
@@ -67,19 +67,33 @@
 									</div>
 
 									<!-- Product Color -->
-									<ul class="product_color">
+									<ul class="product_size">
 										<li>
 											<span>Talla: </span>
-											<div class="color_mark_container"><div id="selected_color" class="color_mark"></div></div>
-											<div class="color_dropdown_button"><i class="fas fa-chevron-down"></i></div>
-											<ul class="color_list" id="sizelist">
-												<li><div class="color_mark" >S</div></li>
-												<li><div class="color_mark" >M</div></li>
-												<li><div class="color_mark" >L</div></li>
+											<div class="size_mark_container"><div id="selected_size" class="size_mark"></div></div>
+											<div class="size_dropdown_button"><i class="fas fa-chevron-down"></i></div>
+
+											<ul class="color_size">
+												<li><div class="size_mark" id="talla1" >S</div></li>
+												<li><div class="size_mark" id="talla2" >M</div></li>
+												<li><div class="size_mark" id="talla3" >L</div></li>
 											</ul>
 										</li>
 									</ul>
+									
+									<ul class="product_color">
+										<li>
+											<span>Color: </span>
+											<div class="color_mark_container"><div id="selected_color" class="color_mark"></div></div>
+											<div class="color_dropdown_button"><i class="fas fa-chevron-down"></i></div>
 
+											<ul class="color_list">
+												<li><div class="color_mark" style="background: #999999;"></div></li>
+												<li><div class="color_mark" style="background: #b19c83;"></div></li>
+												<li><div class="color_mark" style="background: #000000;"></div></li>
+											</ul>
+										</li>
+									</ul>
 								</div>
 
 								<div class="product_price">$2000</div>
