@@ -361,14 +361,13 @@ $(document).ready(function()
 		if($('.product_color').length)
 		{
 			var selectedCol = $('#selected_color');
-			var colorItems = $('.color_list li .color_mark');
+			var colorItems = $('.color_list li div');
 			colorItems.each(function()
 			{
 				var colorItem = $(this);
 				colorItem.on('click', function()
 				{
-					var color = colorItem.css('backgroundColor');
-					selectedCol.css('backgroundColor', color);
+					selectedCol.innerHTML = colorItems.innerHTML;
 				});
 			});
 		}
