@@ -1693,6 +1693,27 @@ select option
 {
 	color: #0e8ce4;
 }
+.sidebar_subcategories
+{
+	margin-top: 37px;
+}
+.sidebar_subcategories li
+{
+	margin-bottom: 7px;
+	margin-left: 100px;
+}
+.sidebar_subcategories li a
+{
+	-webkit-transition: all 200ms ease;
+	-moz-transition: all 200ms ease;
+	-ms-transition: all 200ms ease;
+	-o-transition: all 200ms ease;
+	transition: all 200ms ease;
+}
+.sidebar_subcategories li a:hover
+{
+	color: #0e8ce4;
+}
 .filter_by_section
 {
 	margin-top: 45px;
