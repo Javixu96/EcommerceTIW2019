@@ -712,6 +712,7 @@ section
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
 }
+
 .custom_list li a:hover
 {
 	color: #0e8ce4;
@@ -1211,7 +1212,22 @@ select option
 /*********************************
 4. Cart
 *********************************/
-
+.contact_form_button{
+	position:relative;
+	left:40%;
+	margin-bottom:30px;
+}
+.contact_submit_button
+{
+	padding-left: 35px;
+	padding-right: 35px;
+	color: #FFFFFF;
+	font-size: 18px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	margin-top: 24px;
+}
 .cart_section
 {
 	width: 100%;
