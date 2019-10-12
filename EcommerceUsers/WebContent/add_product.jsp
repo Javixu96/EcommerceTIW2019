@@ -36,11 +36,15 @@
 							<div class="row_container">
 								<div class="row_item">
 									<h4 class="input_title">Nombre</h4>
-									<input type="text" id="register_name" class="contact_form_name input_field" placeholder="Introduce tu nombre" required="required" data-error="El nombre es un dato obligatorio.">
+									<input type="text" id="register_name" class="contact_form_name input_field" placeholder="Introduce el nombre del producto" required="required" data-error="El nombre es un dato obligatorio.">
 								</div>
 								<div class="row_item">
+									<h4 class="input_title">Imagen</h4>
+									<input type="text" id="register_surname" class="contact_form_name input_field" placeholder="Introduce la URL de la imagen del producto" required="required" data-error="Los apellidos es un dato obligatorio.">
+								</div>		
+								<div style="flex: 0.2; margin: 0 30px;">
 									<h4 class="input_title">Precio</h4>
-									<input type="text" id="register_surname" class="contact_form_name input_field" placeholder="Introduce tus apellidos" required="required" data-error="Los apellidos es un dato obligatorio.">
+									<input type="text" id="register_surname" class="contact_form_name input_field" placeholder="Precio" required="required" data-error="Los apellidos es un dato obligatorio.">
 								</div>							
 							</div>
 							
@@ -53,11 +57,12 @@
 							<div class="row_container clearfix">
 							
 								<div class="row_item">
-									<h4 style="padding-bottom: 10px">Categoría</h4>
+									<h4>Categoría</h4>
 									<ul class="product_size">
 										<li>
-											<span>Categoría: </span>
-											<div class="size_mark_container"><div id="selected_categ" class="size_mark"></div></div>
+											
+											<div class="size_mark_container"><div id="selected_categ" class="size_mark">
+												Categoría</div></div>
 											<div class="size_dropdown_button"><i class="fas fa-chevron-down"></i></div>
 
 											<ul class="color_size">
@@ -69,11 +74,13 @@
 									</ul>
 								</div>
 								<div class="row_item">
-									<h4 style="padding-bottom: 10px">Subcategoría</h4>
+									<h4>Subcategoría</h4>
 									<ul class="product_subcateg">
 										<li>
-											<span>Subcategoría: </span>
-											<div class="size_mark_container"><div id="selected_subcateg" class="size_mark"></div></div>
+											
+											<div class="size_mark_container"><div id="selected_subcateg" class="size_mark">
+												Subcategoría
+											</div></div>
 											<div class="size_dropdown_button"><i class="fas fa-chevron-down"></i></div>
 
 											<ul class="color_size">
@@ -85,7 +92,8 @@
 											</ul>
 										</li>
 									</ul>
-								</div>							
+								</div>		
+													
 							</div>
 							
 							
