@@ -30,7 +30,18 @@
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1">
 					<div class="cart_container">
-						<div class="cart_title">Lista de productos</div>
+						<div class="cart_title">Mi tienda</div>
+						
+						
+						<!-- lista vacia -->
+						<div class="cart_items">
+							<h4>Parece que no tiene ningún producto en venta.</h4>
+							<div class="contact_form_button">
+								<button type="submit" class="button contact_submit_button">Mi producto a la venta!</button>
+							</div>	
+						</div>
+						
+						<!-- lista -->
 						<div class="cart_items">
 							<ul class="cart_list">
 								<li class="cart_item clearfix" style="display:flex">
