@@ -54,13 +54,12 @@
 							</div>
 							
 							
-							<div class="row_container clearfix">
+							<div class="row_container clearfix" style="z-index: 1000;">
 							
 								<div class="row_item">
 									<h4>Categoría</h4>
 									<ul class="product_size">
 										<li>
-											
 											<div class="size_mark_container"><div id="selected_categ" class="size_mark">
 												Categoría</div></div>
 											<div class="size_dropdown_button"><i class="fas fa-chevron-down"></i></div>
@@ -79,10 +78,10 @@
 										<li>
 											
 											<div class="size_mark_container"><div id="selected_subcateg" class="size_mark">
-												Subcategoría
-											</div></div>
+												Subcategoría</div></div>
+											
 											<div class="size_dropdown_button"><i class="fas fa-chevron-down"></i></div>
-
+											
 											<ul class="color_size">
 												<li><div class="size_mark" id="subcateg1" >Abrigos</div></li>
 												<li><div class="size_mark" id="subcateg2" >Camisas</div></li>

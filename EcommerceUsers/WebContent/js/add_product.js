@@ -378,7 +378,7 @@ $(document).ready(function()
 	
 	function initSubcateg()
 	{
-		if($('.product_subcateg').length)
+		if($('.product_size').length)
 		{
 			$('#subcateg1').on('click',function()
 			{
