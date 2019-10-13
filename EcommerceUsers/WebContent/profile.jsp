@@ -33,10 +33,13 @@
 					<div class="contact_form_container">
 					
 					<!-- Perfil -->
-						<div class="contact_form_title profile_line">Perfil</div>
+						<div class="contact_form_title profile_line">Datos personales</div>
 
 						<form action="#" id="contact_form">
 							<div class="contact_form_inputs">
+								<div class="div_profile_photo">
+									<img class="profile_photo" src="images/photo_profile.png" alt="">
+								</div>
 								<div class="div_profile_left">
 									<div class="profile_div_name">
 										<h4 class="profile_name">Nombre </h4>
@@ -53,14 +56,26 @@
 									<div class="profile_div_name">
 										<h4 class="profile_name">Dirección de envío</h4>
 									</div>
+									<div class="profile_div_name">
+										<h4 class="profile_name">Nº de productos comprados</h4>
+									</div>
+									<div class="profile_div_name">
+										<h4 class="profile_name">Nº de productos vendidos</h4>
+									</div>
 								</div>	
 								<div class="div_profile_right">
-								<input type="text" id="contact_form_name" class="profile_form input_field" placeholder="Your name" required="required" data-error="Name is required."value="Alberto">
-								<input type="text" id="contact_form_surname" class="profile_form input_field" placeholder="Your surname" required="required" data-error="surname is required."value="García">
-								<input type="text" id="contact_form_email" class="profile_form input_field" placeholder="Your phone number" value="623785928">
-								<input type="text" id="contact_form_phone" class="profile_form input_field" placeholder="Your email" required="required" data-error="email is required." value="AlbertoG@gmail.com">
-								<input type="text" id="contact_form_direction" class="profile_form input_field" placeholder="Your email" required="required" data-error="email is required."value="Calle real 54 1ºB, Colmenarejo,Madrid 28270">
-								
+									<input type="text" id="contact_form_name" class="profile_form input_field" placeholder="Nombre" required="required" data-error="Campo obligatorio."value="Alberto">
+									<input type="text" id="contact_form_surname" class="profile_form input_field" placeholder="Apellidos" required="required" data-error="Campo obligatorio."value="García">
+									<input type="text" id="contact_form_email" class="profile_form input_field" placeholder="Nº de teléfono" value="AlbertoG@gmail.com">
+									<input type="text" id="contact_form_phone" class="profile_form input_field" placeholder="Correo electrónico" data-error="Campo obligatorio." value="623785928">
+									<input type="text" id="contact_form_direction" class="profile_form input_field" placeholder="Dirección de envío" required="required" data-error="Campo obligatorio."value="Calle real 54 1ºB, Colmenarejo,Madrid 28270">
+									<div class="profile_form">
+										<h5 class="product_number"><b>35</b></h5>
+									</div>
+									<div class="profile_form">
+										<h5 class="product_number"><b>17&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										 <a href="">Acceder a mi tienda</a></b></h5>
+									</div>
 								</div>	
 							</div>						
 						

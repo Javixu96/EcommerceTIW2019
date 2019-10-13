@@ -21,16 +21,16 @@
 		<div class="container">
 			<div class="row">
 
-				<div class="col-lg-3 footer_col">
+				<div class="col-lg-4 footer_col">
 					<div class="footer_column footer_contact">
 						<div class="logo_container">
-							<div class="logo"><a href="#">OneTech</a></div>
+							<div class="logo"><a href="#">Ecommerce</a></div>
 						</div>
-						<div class="footer_title">Got Question? Call Us 24/7</div>
-						<div class="footer_phone">+38 068 005 3570</div>
+						<div class="footer_title">¿Tienes preguntas? Ponte en contacto con nosotros</div>
+						<div class="footer_phone">+34 91 654 43 21</div>
 						<div class="footer_contact_text">
-							<p>17 Princess Road, London</p>
-							<p>Grester London NW18JR, UK</p>
+							<p>Av. de Gregorio Peces-Barba Martínez 22 </p>
+							<p>28270 Colmenarejo, Madrid</p>
 						</div>
 						<div class="footer_social">
 							<ul>
@@ -43,51 +43,9 @@
 						</div>
 					</div>
 				</div>
-
-				<div class="col-lg-2 offset-lg-2">
-					<div class="footer_column">
-						<div class="footer_title">Find it Fast</div>
-						<ul class="footer_list">
-							<li><a href="#">Computers & Laptops</a></li>
-							<li><a href="#">Cameras & Photos</a></li>
-							<li><a href="#">Hardware</a></li>
-							<li><a href="#">Smartphones & Tablets</a></li>
-							<li><a href="#">TV & Audio</a></li>
-						</ul>
-						<div class="footer_subtitle">Gadgets</div>
-						<ul class="footer_list">
-							<li><a href="#">Car Electronics</a></li>
-						</ul>
-					</div>
+				<div class="col-lg-8 footer_col">
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3031.8226554692496!2d-4.014091884566984!3d40.54550707935041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd419e40feb9da1b%3A0xdbfb4203b67e7e3b!2sUC3M%20Colmenarejo%20Campus!5e0!3m2!1sen!2ses!4v1570902803603!5m2!1sen!2ses" width="600" height="225" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
 				</div>
-
-				<div class="col-lg-2">
-					<div class="footer_column">
-						<ul class="footer_list footer_list_2">
-							<li><a href="#">Video Games & Consoles</a></li>
-							<li><a href="#">Accessories</a></li>
-							<li><a href="#">Cameras & Photos</a></li>
-							<li><a href="#">Hardware</a></li>
-							<li><a href="#">Computers & Laptops</a></li>
-						</ul>
-					</div>
-				</div>
-
-				<div class="col-lg-2">
-					<div class="footer_column">
-						<div class="footer_title">Customer Care</div>
-						<ul class="footer_list">
-							<li><a href="#">My Account</a></li>
-							<li><a href="#">Order Tracking</a></li>
-							<li><a href="#">Wish List</a></li>
-							<li><a href="#">Customer Services</a></li>
-							<li><a href="#">Returns / Exchange</a></li>
-							<li><a href="#">FAQs</a></li>
-							<li><a href="#">Product Support</a></li>
-						</ul>
-					</div>
-				</div>
-
 			</div>
 		</div>
 	</footer>

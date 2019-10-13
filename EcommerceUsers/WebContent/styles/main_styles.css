@@ -1224,6 +1224,14 @@ select option
 	text-transform: uppercase;
 	letter-spacing: 0.038em;
 }
+.banner_subtitle
+{
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 150;
+	line-height: 1.166;
+	color: #7599b2;
+	letter-spacing: 0.038em;
+}
 .banner_price
 {
 
@@ -1257,7 +1265,7 @@ select option
 	font-size: 18px;
 	font-weight: 400;
 	color: #000000;
-	margin-top: 8px;
+	margin-top: 95px;
 }
 .banner_button
 {

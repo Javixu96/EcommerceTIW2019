@@ -51,7 +51,18 @@
 										<div style="flex: 0.1" class="cart_item_quantity cart_info_col">
 											<div class="cart_item_title">Cantidad</div>
 											
-											<div class="cart_item_text"><input style="text-align:center; width: 90%; height: 70%; padding: 5px" value=1></div>
+											<div class="cart_item_text">
+											<div class="cart_item_text">
+												<div class="product_quantity">
+											
+												<input id="quantity_input" type="text" pattern="[0-9]*" value="1">
+													<div class="quantity_buttons">
+													<div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fas fa-chevron-up"></i></div>
+													<div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fas fa-chevron-down"></i></div>
+													</div>
+												</div>
+											</div>
+											</div>
 										</div>	
 										<div style="flex: 0.1" class="cart_item_price cart_info_col">
 											<div class="cart_item_title">Precio</div>
@@ -61,10 +72,10 @@
 											<div class="cart_item_title">Subtotal</div>
 											<div class="cart_item_text">19.99&euro;</div>
 										</div>
-										<div style="flex: 0.1" class="cart_item_total cart_info_col">	
-											<div class="cart_item_text"><i class="material-icons" style="text-align: center">delete</i></div>
+										<div class="product_trash">
+											<i class="fas fa-trash">
+										</i>
 										</div>
-										
 									</div>
 								</li>
 								
@@ -86,7 +97,16 @@
 										<div style="flex: 0.1" class="cart_item_quantity cart_info_col">
 											<div class="cart_item_title">Cantidad</div>
 											
-											<div class="cart_item_text"><input style="text-align:center; width: 90%; height: 70%; padding: 5px" value=1></div>
+											<div class="cart_item_text">
+												<div class="product_quantity">
+											
+												<input id="quantity_input" type="text" pattern="[0-9]*" value="1">
+													<div class="quantity_buttons">
+													<div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fas fa-chevron-up"></i></div>
+													<div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fas fa-chevron-down"></i></div>
+													</div>
+												</div>
+											</div>
 										</div>	
 										<div style="flex: 0.1" class="cart_item_price cart_info_col">
 											<div class="cart_item_title">Precio</div>
@@ -96,10 +116,10 @@
 											<div class="cart_item_title">Subtotal</div>
 											<div class="cart_item_text">19.99&euro;</div>
 										</div>
-										<div style="flex: 0.1" class="cart_item_total cart_info_col">	
-											<div class="cart_item_text"><i class="material-icons" style="text-align: center">delete</i></div>
+										<div class="product_trash">
+											<i class="fas fa-trash">
+										</i>
 										</div>
-										
 									</div>
 								</li>
 							</ul>
