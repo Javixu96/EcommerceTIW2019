@@ -34,12 +34,12 @@
 						<form action="#" id="contact_form">
 							<div class="row_container">
 								<div class="row_item">
-									<h4 class="input_title"> Nombre </h4>
-									<input type="text" id="register_name" class="contact_form_name input_field" placeholder="Introduce tu nombre" required="required" data-error="El nombre es un dato obligatorio.">
+									<h4 class="input_title"> E-mail </h4>
+									<input type="email" id="register_email" class="contact_form_name input_field" placeholder="Introduce tu e-mail" required="required" data-error="Introduzca su e-mail.">
 								</div>
 								<div class="row_item">
-									<h4 class="input_title"> Apellidos </h4>
-									<input type="text" id="register_surname" class="contact_form_name input_field" placeholder="Introduce tus apellidos" required="required" data-error="Los apellidos es un dato obligatorio.">
+									<h4 class="input_title"> Contraseña </h4>
+									<input type="text" id="register_password" class="contact_form_name input_field" placeholder="Introduce tu contraseña" required="required" data-error="Introduzca su contraseña.">
 								</div>							
 							</div>
 							<div class="contact_form_button center_horizontal">
