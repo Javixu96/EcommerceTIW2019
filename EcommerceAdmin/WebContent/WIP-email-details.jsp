@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!doctype html>
 <html lang="en">
  
@@ -19,10 +21,10 @@
     <!-- main wrapper -->
     <!-- ============================================================== -->
     <div class="dashboard-main-wrapper">
-         <!-- ============================================================== -->
+        <!-- ============================================================== -->
         <!-- navbar -->
         <!-- ============================================================== -->
-         <div class="dashboard-header">
+          <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
                 <a class="navbar-brand" href="../index.html">Concept</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +55,8 @@
                                             <a href="#" class="list-group-item list-group-item-action">
                                                 <div class="notification-info">
                                                     <div class="notification-list-user-img"><img src="../assets/images/avatar-3.jpg" alt="" class="user-avatar-md rounded-circle"></div>
-                                                    <div class="notification-list-user-block"><span class="notification-list-user-name">John Abraham</span>is now following you
+                                                    <div class="notification-list-user-block"><span class="notification-list-user-name">
+John Abraham</span>is now following you
                                                         <div class="notification-date">2 days ago</div>
                                                     </div>
                                                 </div>
@@ -118,7 +121,8 @@
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../assets/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
-                                    <h5 class="mb-0 text-white nav-user-name">John Abraham</h5>
+                                    <h5 class="mb-0 text-white nav-user-name">
+John Abraham</h5>
                                     <span class="status"></span><span class="ml-2">Available</span>
                                 </div>
                                 <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
@@ -429,168 +433,95 @@
         <!-- ============================================================== -->
         <div class="dashboard-wrapper">
             <div class="container-fluid">
-                <aside class="page-aside">
-                    <div class="aside-content">
-                        <div class="aside-header">
-                            <button class="navbar-toggle" data-target=".aside-nav" data-toggle="collapse" type="button"><span class="icon"><i class="fas fa-caret-down"></i></span></button><span class="title">Mail Service</span>
-                            <p class="description">Service description</p>
-                        </div>
-                        <div class="aside-compose"><a class="btn btn-lg btn-secondary btn-block" href="#">Compose Email</a></div>
-                        <div class="aside-nav collapse">
-                            <ul class="nav">
-                                <li class="active"><a href="#"><span class="icon"><i class="fas fa-fw fa-inbox"></i></span>Inbox<span class="badge badge-primary float-right">8</span></a></li>
-                                <li><a href="#"><span class="icon"><i class="fas fa-fw  fa-envelope"></i></span>Sent Mail</a></li>
-                                <li><a href="#"><span class="icon"><i class="fas fa-fw fa-briefcase"></i></span>Important<span class="badge badge-secondary float-right">4</span></a></li>
-                                <li><a href="#"><span class="icon"><i class="fas fa-fw fa-file"></i></span>Drafts</a></li>
-                                <li><a href="#"><span class="icon"><i class="fas fa-fw fa-star"></i></span>Tags</a></li>
-                                <li><a href="#"><span class="icon"><i class="fas fa-fw fa-trash"></i></span>Trash</a></li>
-                            </ul><span class="title">Labels</span>
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href="#"><i class="m-r-10 mdi mdi-label text-secondary"></i>
-                                    Important </a></li>
-                                <li><a href="#">
-                                   <i class="m-r-10 mdi mdi-label text-primary"></i> Business   </a></li>
-                                <li><a href="#"> <i class="m-r-10 mdi mdi-label text-brand"></i>
-                                   Inspiration </a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </aside>
-                <div class="main-content container-fluid p-0">
-                    <div class="email-inbox-header">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="email-title"><span class="icon"><i class="fas fa-inbox"></i></span> Inbox <span class="new-messages">(2 new messages)</span> </div>
+                
+                    <aside class="page-aside">
+                        <div class="aside-content">
+                            <div class="aside-header">
+                                <button class="navbar-toggle" data-target=".aside-nav" data-toggle="collapse" type="button"><span class="icon"><i class="fas fa-caret-down"></i></span></button><span class="title">Mail Service</span>
+                                <p class="description">Service description</p>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="email-search">
-                                    <div class="input-group input-search">
-                                        <input class="form-control" type="text" placeholder="Search mail..."><span class="input-group-btn">
-                                       <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button></span>
+                            <div class="aside-nav collapse">
+                                <ul class="nav">
+                                    <li><a href="#"><span class="icon"><i class="fas fa-fw fa-inbox"></i></span>Inbox<span class="badge badge-primary float-right">8</span></a></li>
+                                    <li class="active"><a href="#"><span class="icon"><i class="fas fa-fw  fa-envelope"></i></span>Sent Mail</a></li>
+                                    <li><a href="#"><span class="icon"><i class="fas fa-fw fa-briefcase"></i></span>Important<span class="badge badge-secondary float-right">4</span></a></li>
+                                    <li><a href="#"><span class="icon"><i class="fas fa-fw fa-file"></i></span>Drafts</a></li>
+                                    <li><a href="#"><span class="icon"><i class="fas fa-fw fa-star"></i></span>Tags</a></li>
+                                    <li><a href="#"><span class="icon"><i class="fas fa-fw fa-trash"></i></span>Trash</a></li>
+                                </ul><span class="title">Labels</span>
+                                 <ul class="nav nav-pills nav-stacked">
+                                    <li><a href="#"><i class="m-r-10 mdi mdi-label text-secondary"></i>
+                                    Important </a></li>
+                                    <li><a href="#">
+                                   <i class="m-r-10 mdi mdi-label text-primary"></i> Business   </a></li>
+                                    <li><a href="#"> <i class="m-r-10 mdi mdi-label text-brand"></i>
+                                   Inspiration </a></li>
+                                </ul>
+                                <div class="aside-compose"><a class="btn btn-lg btn-primary btn-block" href="#">Compose Email</a></div>
+                            </div>
+                        </div>
+                    </aside>
+                    <div class="main-content container-fluid p-0">
+                        <div class="email-head">
+                            <div class="email-head-subject">
+                                <div class="title"><a class="active" href="#"><span class="icon"><i class="fas fa-star"></i></span></a> <span>Development Files</span>
+                                    <div class="icons"><a href="#" class="icon"><i class="fas fa-reply"></i></a><a href="#" class="icon"><i class="fas fa-print"></i></a><a href="#" class="icon"><i class="fas fa-trash"></i></a></div>
+                                </div>
+                            </div>
+                            <div class="email-head-sender">
+                                <div class="date">August 23, 3:37</div>
+                                <div class="avatar"><img src="../assets/images/avatar-2.jpg" alt="Avatar" class="rounded-circle user-avatar-md"></div>
+                                <div class="sender"><a href="#">Justine Myranda</a> to <a href="#">me</a>
+                                    <div class="actions"><a class="icon toggle-dropdown" href="#" data-toggle="dropdown"><i class="fas fa-caret-down"></i></a>
+                                        <div class="dropdown-menu" role="menu"><a class="dropdown-item" href="#">Mark as read</a><a class="dropdown-item" href="#">Mark as unread</a><a class="dropdown-item" href="#">Spam</a>
+                                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#">Delete</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="email-filters">
-                        <div class="email-filters-left">
-                            <label class="custom-control custom-checkbox be-select-all">
-                                <input class="custom-control-input chk_all" type="checkbox" name="chk_all"><span class="custom-control-label"></span>
-                            </label>
-                            <div class="btn-group">
-                                <button class="btn btn-light dropdown-toggle" data-toggle="dropdown" type="button">
-                                    With selected <span class="caret"></span></button>
-                                <div class="dropdown-menu" role="menu"><a class="dropdown-item" href="#">Mark as rea</a><a class="dropdown-item" href="#">Mark as unread</a><a class="dropdown-item" href="#">Spam</a>
-                                    <div class="dropdown-divider"></div><a class="dropdown-item" href="#">Delete</a>
-                                </div>
-                            </div>
-                            <div class="btn-group">
-                                <button class="btn btn-light" type="button">Archive</button>
-                                <button class="btn btn-light" type="button">Span</button>
-                                <button class="btn btn-light" type="button">Delete</button>
-                            </div>
-                            <div class="btn-group">
-                                <button class="btn btn-light dropdown-toggle" data-toggle="dropdown" type="button">Order by <span class="caret"></span></button>
-                                <div class="dropdown-menu dropdown-menu-right" role="menu"><a class="dropdown-item" href="#">Date</a><a class="dropdown-item" href="#">From</a><a class="dropdown-item" href="#">Subject</a>
-                                    <div class="dropdown-divider"></div><a class="dropdown-item" href="#">Size</a>
-                                </div>
-                            </div>
+                        <div class="email-body">
+                            <p>Hello,</p>
+                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+                            <p>Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna.</p>
+                            <p><strong>Regards</strong>,
+                                <br> Justine Myranda</p>
                         </div>
-                        <div class="email-filters-right"><span class="email-pagination-indicator">1-50 of 253</span>
-                            <div class="btn-group email-pagination-nav">
-                                <button class="btn btn-light" type="button"><i class="fas fa-angle-left"></i></button>
-                                <button class="btn btn-light" type="button"><i class="fas fa-angle-right"></i></button>
-                            </div>
+                        <div class="email-attachments">
+                            <div class="title">Attachments <span>(2 files, 16,24 KB)</span></div>
+                            <ul>
+                                <li><a href="#"><span class="icon mdi mdi-attachment-alt"></span> new-release.zip <span>(5.12 KB)</span></a></li>
+                                <li><a href="#"><span class="icon mdi mdi-attachment-alt"></span> guidelines.pdf <span>(11.3 MB)</span></a></li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="email-list">
-                        <div class="email-list-item email-list-item--unread">
-                            <div class="email-list-actions">
-                                <label class="custom-control custom-checkbox">
-                                    <input class="custom-control-input checkboxes" type="checkbox" value="1" id="one"><span class="custom-control-label"></span>
-                                </label><a class="favorite active" href="#"><span><i class="fas fa-star"></i></span></a>
-                            </div>
-                            <div class="email-list-detail"><span class="date float-right"><span class="icon"><i class="fas fa-paperclip"></i> </span>28 Jul</span><span class="from">Penelope Thornton</span>
-                                <p class="msg">Urgent - You forgot your keys in the class room, please come imediatly!</p>
-                            </div>
-                        </div>
-                        <div class="email-list-item email-list-item--unread">
-                            <div class="email-list-actions">
-                                <label class="custom-control custom-checkbox">
-                                    <input class="custom-control-input checkboxes" type="checkbox" value="2" id="two"><span class="custom-control-label"></span>
-                                </label><a class="favorite" href="#"><span><i class="fas fa-star"></i></span></a>
-                            </div>
-                            <div class="email-list-detail"><span class="date float-right"></span><span class="date float-right"><span class="icon"><i class="fas fa-paperclip"></i></span> 13 Jul</span><span class="from">Benji Harper</span>
-                                <p class="msg">Urgent - You forgot your keys in the class room, please come imediatly!</p>
-                            </div>
-                        </div>
-                        <div class="email-list-item">
-                            <div class="email-list-actions">
-                                <label class="custom-control custom-checkbox">
-                                    <input class="custom-control-input checkboxes" type="checkbox" value="3" id="three"><span class="custom-control-label"></span>
-                                </label><a class="favorite" href="#"><span><i class="fas fa-star"></i></span></a>
-                            </div>
-                            <div class="email-list-detail"><span class="date float-right">23 Jun</span><span class="from">Justine Myranda</span>
-                                <p class="msg">Urgent - You forgot your keys in the class room, please come imediatly!</p>
-                            </div>
-                        </div>
-                        <div class="email-list-item">
-                            <div class="email-list-actions">
-                                <label class="custom-control custom-checkbox">
-                                    <input class="custom-control-input checkboxes" type="checkbox" value="4" id="four"><span class="custom-control-label"></span>
-                                </label><a class="favorite" href="#"><span><i class="fas fa-star"></i></span></a>
-                            </div>
-                            <div class="email-list-detail"><span class="date float-right">17 May</span><span class="from">John Doe</span>
-                                <p class="msg">Urgent - You forgot your keys in the class room, please come imediatly!</p>
-                            </div>
-                        </div>
-                        <div class="email-list-item">
-                            <div class="email-list-actions">
-                                <label class="custom-control custom-checkbox">
-                                    <input class="custom-control-input checkboxes" type="checkbox" value="5" id="five"><span class="custom-control-label"></span>
-                                </label><a class="favorite" href="#"><span><i class="fas fa-star"></i></span></a>
-                            </div>
-                            <div class="email-list-detail"><span class="date float-right">16 May</span><span class="from">Sherwood Clifford</span>
-                                <p class="msg">Urgent - You forgot your keys in the class room, please come imediatly!</p>
-                            </div>
-                        </div>
-                        <div class="email-list-item">
-                            <div class="email-list-actions">
-                                <label class="custom-control custom-checkbox">
-                                    <input class="custom-control-input checkboxes" type="checkbox" value="6" id="six"><span class="custom-control-label"></span>
-                                </label><a class="favorite" href="#"><span><i class="fas fa-star"></i></span></a>
-                            </div>
-                            <div class="email-list-detail"><span class="date float-right">12 May</span><span class="from">Kristopher Donny</span>
-                                <p class="msg">Urgent - You forgot your keys in the class room, please come imediatly!</p>
-                            </div>
-                        </div>
-                        <div class="email-list-item">
-                            <div class="email-list-actions">
-                                <label class="custom-control custom-checkbox">
-                                    <input class="custom-control-input checkboxes" type="checkbox" value="7" id="seven"><span class="custom-control-label"></span>
-                                </label><a class="favorite" href="#"><span><i class="fas fa-star"></i></span></a>
-                            </div>
-                            <div class="email-list-detail"><span class="date float-right">12 May</span><span class="from">Kristopher Donny</span>
-                                <p class="msg">Urgent - You forgot your keys in the class room, please come imediatly!</p>
-                            </div>
-                        </div>
-                        <div class="email-list-item">
-                            <div class="email-list-actions">
-                                <label class="custom-control custom-checkbox">
-                                    <input class="custom-control-input checkboxes" type="checkbox" value="8" id="eight"><span class="custom-control-label"></span>
-                                </label><a class="favorite" href="#"><span><i class="fas fa-star"></i></span></a>
-                            </div>
-                            <div class="email-list-detail"><span class="date float-right">12 May</span><span class="from">Kristopher Donny</span>
-                                <p class="msg">Urgent - You forgot your keys in the class room, please come imediatly!</p>
-                            </div>
+                
+            </div>
+        </div>
+         <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <div class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                        Copyright © 2018 Concept. All rights reserved. Dashboard by <a href="https://colorlib.com/wp/">Colorlib</a>.
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                        <div class="text-md-right footer-links d-none d-sm-block">
+                            <a href="javascript: void(0);">About</a>
+                            <a href="javascript: void(0);">Support</a>
+                            <a href="javascript: void(0);">Contact Us</a>
                         </div>
                     </div>
                 </div>
             </div>
-             
         </div>
+        <!-- ============================================================== -->
+        <!-- end footer -->
+        <!-- ============================================================== -->
     </div>
-    <!-- ============================================================== -->
+   <!-- ============================================================== -->
     <!-- end main wrapper -->
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
@@ -598,34 +529,6 @@
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
     <script src="../assets/libs/js/main-js.js"></script>
-    <script>
-    $(document).ready(function() {
-
-        // binding the check all box to onClick event
-        $(".chk_all").click(function() {
-
-            var checkAll = $(".chk_all").prop('checked');
-            if (checkAll) {
-                $(".checkboxes").prop("checked", true);
-            } else {
-                $(".checkboxes").prop("checked", false);
-            }
-
-        });
-
-        // if all checkboxes are selected, then checked the main checkbox class and vise versa
-        $(".checkboxes").click(function() {
-
-            if ($(".checkboxes").length == $(".subscheked:checked").length) {
-                $(".chk_all").attr("checked", "checked");
-            } else {
-                $(".chk_all").removeAttr("checked");
-            }
-
-        });
-
-    });
-    </script>
 </body>
  
 </html>

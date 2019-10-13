@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+
 <!doctype html>
 <html lang="en">
  
@@ -10,11 +13,10 @@
     <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/libs/css/style.css">
     <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
-    <title>Nuevo usuario</title>
+    <title>Modificar usuario</title>
 </head>
 
 <body>
-   
     <div class="dashboard-main-wrapper">
         <!-- Aquí cargar el header de la página de index -->
         <div class="dashboard-header">
@@ -124,7 +126,7 @@
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="page-header">
-                                <h3 class="mb-2">Crear nuevo usuario</h3>
+                                <h3 class="mb-2">Modificar perfil</h3>
                                 <p class="pageheader-text">texto para mostrar, ahora mismo escondido con css</p>
                             </div>
                         </div>
@@ -144,12 +146,12 @@
                                             <label for="inputUserName">Apellidos</label>
                                             <input id="inputUserName" type="text" name="name" data-parsley-trigger="change" required="" placeholder="" autocomplete="off" class="form-control">
                                         </div>
-                                        
                                         <div class="form-group">
-                                            <label for="inputEmail">Dirección de envío</label>
-                                            <input id="inputEmail" type="email" name="email" data-parsley-trigger="change" required="" placeholder="" autocomplete="off" class="form-control">
+                                            <label for="inputUserName">Dirección de envío</label>
+                                            <input id="inputUserName" type="text" name="name" data-parsley-trigger="change" required="" placeholder="" autocomplete="off" class="form-control">
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group"> 
+                                            <!-- Esto tengo que modificarlo para que no se pueda modificar -->
                                             <label for="inputUserName">Dirección de correo electrónico</label>
                                             <div class="input-group input-group-sm mb-3">
                                                 <div class="input-group-prepend"><span class="input-group-text">@</span></div>
@@ -157,7 +159,11 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="inputPassword">Contraseña</label>
+                                                <label for="inputPassword">Contraseña actual</label>
+                                                <input id="inputPassword" type="password" placeholder="" required="" class="form-control">
+                                            </div>
+                                        <div class="form-group">
+                                            <label for="inputPassword">Nueva contraseña</label>
                                             <input id="inputPassword" type="password" placeholder="" required="" class="form-control">
                                         </div>
                                         <div class="form-group">
@@ -172,7 +178,8 @@
                                             </div>
                                             <div class="col-sm-6 pl-0">
                                                 <p class="text-right">
-                                                    <button type="submit" class="btn btn-space btn-primary">Guardar</button>
+                                                    <button type="submit" class="btn btn-space btn-primary">Actualizar</button>
+                                                    <button type="submit" class="btn btn-space btn-danger">Eliminar</button>
                                                     <button class="btn btn-space btn-secondary">Cancelar</button>
                                                 </p>
                                             </div>

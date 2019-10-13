@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!doctype html>
 <html lang="en">
  
@@ -10,6 +12,8 @@
     <link href="../assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/libs/css/style.css">
     <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="../assets/vendor/select2/css/select2.css">
+    <link rel="stylesheet" href="../assets/vendor/summernote/css/summernote-bs4.css">
     <link rel="stylesheet" href="../assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
     <title>Concept - Bootstrap 4 Admin Dashboard Template</title>
 </head>
@@ -19,10 +23,10 @@
     <!-- main wrapper -->
     <!-- ============================================================== -->
     <div class="dashboard-main-wrapper">
-        <!-- ============================================================== -->
+         <!-- ============================================================== -->
         <!-- navbar -->
         <!-- ============================================================== -->
-          <div class="dashboard-header">
+         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
                 <a class="navbar-brand" href="../index.html">Concept</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -431,102 +435,138 @@ John Abraham</h5>
         <!-- ============================================================== -->
         <div class="dashboard-wrapper">
             <div class="container-fluid">
-                
-                    <aside class="page-aside">
-                        <div class="aside-content">
-                            <div class="aside-header">
-                                <button class="navbar-toggle" data-target=".aside-nav" data-toggle="collapse" type="button"><span class="icon"><i class="fas fa-caret-down"></i></span></button><span class="title">Mail Service</span>
-                                <p class="description">Service description</p>
-                            </div>
-                            <div class="aside-nav collapse">
-                                <ul class="nav">
-                                    <li><a href="#"><span class="icon"><i class="fas fa-fw fa-inbox"></i></span>Inbox<span class="badge badge-primary float-right">8</span></a></li>
-                                    <li class="active"><a href="#"><span class="icon"><i class="fas fa-fw  fa-envelope"></i></span>Sent Mail</a></li>
-                                    <li><a href="#"><span class="icon"><i class="fas fa-fw fa-briefcase"></i></span>Important<span class="badge badge-secondary float-right">4</span></a></li>
-                                    <li><a href="#"><span class="icon"><i class="fas fa-fw fa-file"></i></span>Drafts</a></li>
-                                    <li><a href="#"><span class="icon"><i class="fas fa-fw fa-star"></i></span>Tags</a></li>
-                                    <li><a href="#"><span class="icon"><i class="fas fa-fw fa-trash"></i></span>Trash</a></li>
-                                </ul><span class="title">Labels</span>
-                                 <ul class="nav nav-pills nav-stacked">
-                                    <li><a href="#"><i class="m-r-10 mdi mdi-label text-secondary"></i>
+                <aside class="page-aside">
+                    <div class="aside-content">
+                        <div class="aside-header">
+                            <button class="navbar-toggle" data-target=".aside-nav" data-toggle="collapse" type="button"><span class="icon"><i class="fas fa-caret-down"></i></span></button><span class="title">Mail Service</span>
+                            <p class="description">Service description</p>
+                        </div>
+                        <div class="aside-compose"><a class="btn btn-lg btn-secondary btn-block" href="#">Compose Email</a></div>
+                        <div class="aside-nav collapse">
+                            <ul class="nav">
+                                <li><a href="#"><span class="icon"><i class="fas fa-fw fa-inbox"></i></span>Inbox<span class="badge badge-primary float-right">8</span></a></li>
+                                <li class="active"><a href="#"><span class="icon"><i class="fas fa-fw  fa-envelope"></i></span>Sent Mail</a></li>
+                                <li><a href="#"><span class="icon"><i class="fas fa-fw fa-briefcase"></i></span>Important<span class="badge badge-secondary float-right">4</span></a></li>
+                                <li><a href="#"><span class="icon"><i class="fas fa-fw fa-file"></i></span>Drafts</a></li>
+                                <li><a href="#"><span class="icon"><i class="fas fa-fw fa-star"></i></span>Tags</a></li>
+                                <li><a href="#"><span class="icon"><i class="fas fa-fw fa-trash"></i></span>Trash</a></li>
+                            </ul><span class="title">Labels</span>
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="#"><i class="m-r-10 mdi mdi-label text-secondary"></i>
                                     Important </a></li>
-                                    <li><a href="#">
+                                <li><a href="#">
                                    <i class="m-r-10 mdi mdi-label text-primary"></i> Business   </a></li>
-                                    <li><a href="#"> <i class="m-r-10 mdi mdi-label text-brand"></i>
+                                <li><a href="#"> <i class="m-r-10 mdi mdi-label text-brand"></i>
                                    Inspiration </a></li>
-                                </ul>
-                                <div class="aside-compose"><a class="btn btn-lg btn-primary btn-block" href="#">Compose Email</a></div>
-                            </div>
-                        </div>
-                    </aside>
-                    <div class="main-content container-fluid p-0">
-                        <div class="email-head">
-                            <div class="email-head-subject">
-                                <div class="title"><a class="active" href="#"><span class="icon"><i class="fas fa-star"></i></span></a> <span>Development Files</span>
-                                    <div class="icons"><a href="#" class="icon"><i class="fas fa-reply"></i></a><a href="#" class="icon"><i class="fas fa-print"></i></a><a href="#" class="icon"><i class="fas fa-trash"></i></a></div>
-                                </div>
-                            </div>
-                            <div class="email-head-sender">
-                                <div class="date">August 23, 3:37</div>
-                                <div class="avatar"><img src="../assets/images/avatar-2.jpg" alt="Avatar" class="rounded-circle user-avatar-md"></div>
-                                <div class="sender"><a href="#">Justine Myranda</a> to <a href="#">me</a>
-                                    <div class="actions"><a class="icon toggle-dropdown" href="#" data-toggle="dropdown"><i class="fas fa-caret-down"></i></a>
-                                        <div class="dropdown-menu" role="menu"><a class="dropdown-item" href="#">Mark as read</a><a class="dropdown-item" href="#">Mark as unread</a><a class="dropdown-item" href="#">Spam</a>
-                                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#">Delete</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="email-body">
-                            <p>Hello,</p>
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-                            <p>Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna.</p>
-                            <p><strong>Regards</strong>,
-                                <br> Justine Myranda</p>
-                        </div>
-                        <div class="email-attachments">
-                            <div class="title">Attachments <span>(2 files, 16,24 KB)</span></div>
-                            <ul>
-                                <li><a href="#"><span class="icon mdi mdi-attachment-alt"></span> new-release.zip <span>(5.12 KB)</span></a></li>
-                                <li><a href="#"><span class="icon mdi mdi-attachment-alt"></span> guidelines.pdf <span>(11.3 MB)</span></a></li>
                             </ul>
                         </div>
                     </div>
-                
-            </div>
-        </div>
-         <!-- ============================================================== -->
-        <!-- footer -->
-        <!-- ============================================================== -->
-        <div class="footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                        Copyright © 2018 Concept. All rights reserved. Dashboard by <a href="https://colorlib.com/wp/">Colorlib</a>.
+                </aside>
+                <div class="main-content container-fluid p-0">
+                    <div class="email-head">
+                        <div class="email-head-title">Compose new message<span class="icon mdi mdi-edit"></span></div>
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                        <div class="text-md-right footer-links d-none d-sm-block">
-                            <a href="javascript: void(0);">About</a>
-                            <a href="javascript: void(0);">Support</a>
-                            <a href="javascript: void(0);">Contact Us</a>
+                    <div class="email-compose-fields">
+                        <div class="to">
+                            <div class="form-group row pt-0">
+                                <label class="col-md-1 control-label">To:</label>
+                                <div class="col-md-11">
+                                    <select class="js-example-basic-multiple" multiple="multiple">
+                                        <option value="Yellow" selected="selected">Yellow</option>
+                                        <option value="White">White</option>
+                                        <option value="Blue" selected="selected">Blue</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="to cc">
+                            <div class="form-group row pt-2">
+                                <label class="col-md-1 control-label">Cc</label>
+                                <div class="col-md-11">
+                                    <select class="js-example-basic-multiple" multiple="multiple">
+                                        <option value="Alabama">Alabama</option>
+                                        <option value="Alaska" selected="selected">Alaska</option>
+                                        <option value="Melbourne">Melbourne</option>
+                                        <option value="Victoria" selected="selected">Victoria</option>
+                                        <option value="Newyork">Newyork</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="subject">
+                            <div class="form-group row pt-2">
+                                <label class="col-md-1 control-label">Subject</label>
+                                <div class="col-md-11">
+                                    <input class="form-control" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="email editor">
+                        <div class="col-md-12 p-0">
+                            <div class="form-group">
+                                <label class="control-label sr-only" for="summernote">Descriptions </label>
+                                <textarea class="form-control" id="summernote" name="editordata" rows="6" placeholder="Write Descriptions"></textarea>
+                            </div>
+                        </div>
+                        <div class="email action-send">
+                            <div class="col-md-12 ">
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-space" type="submit"><i class="icon s7-mail"></i> Send</button>
+                                    <button class="btn btn-secondary btn-space" type="button"><i class="icon s7-close"></i> Cancel</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <div class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            Copyright © 2018 Concept. All rights reserved. Dashboard by <a href="https://colorlib.com/wp/">Colorlib</a>.
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="text-md-right footer-links d-none d-sm-block">
+                                <a href="javascript: void(0);">About</a>
+                                <a href="javascript: void(0);">Support</a>
+                                <a href="javascript: void(0);">Contact Us</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end footer -->
+            <!-- ============================================================== -->
         </div>
-        <!-- ============================================================== -->
-        <!-- end footer -->
-        <!-- ============================================================== -->
     </div>
-   <!-- ============================================================== -->
+    <!-- ============================================================== -->
     <!-- end main wrapper -->
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
     <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+    <script src="../assets/vendor/select2/js/select2.min.js"></script>
+    <script src="../assets/vendor/summernote/js/summernote-bs4.js"></script>
     <script src="../assets/libs/js/main-js.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('.js-example-basic-multiple').select2({ tags: true });
+    });
+    </script>
+    <script>
+    $(document).ready(function() {
+        $('#summernote').summernote({
+            height: 300
+
+        });
+    });
+    </script>
 </body>
  
 </html>

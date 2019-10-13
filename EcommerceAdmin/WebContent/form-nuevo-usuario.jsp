@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!doctype html>
 <html lang="en">
  
@@ -10,7 +12,7 @@
     <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/libs/css/style.css">
     <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
-    <title>Página vacía</title>
+    <title>Nuevo usuario</title>
 </head>
 
 <body>
@@ -53,7 +55,7 @@
         <div class="nav-left-sidebar sidebar-dark">
             <div class="menu-list">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="d-xl-none d-lg-none" href="#">Inicio</a>
+                        <!-- <a class="d-xl-none d-lg-none" href="#">Inicio</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
@@ -90,26 +92,29 @@
                                     <div id="submenu-2" class="collapse submenu" style="">
                                         <ul class="nav flex-column">
                                             <li class="nav-item">
-                                                <a class="nav-link" href="pages/lista-usuarios.html">Lista de usuarios</a>
+                                                <a class="nav-link" href="pages/general.html">Lista de u</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="pages/form-nuevo-usuario.html">Nuevo usuario<span class="badge badge-secondary">New</span></a>
+                                                <a class="nav-link" href="pages/cards.html">Nuevo comprador<span class="badge badge-secondary">New</span></a>
                                             </li>
                                         </ul>
                                     </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-fw fa-chart-pie"></i>Productos</a>
+                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-fw fa-chart-pie"></i>Vendedores</a>
                                     <div id="submenu-3" class="collapse submenu" style="">
                                         <ul class="nav flex-column">
                                             <li class="nav-item">
-                                                <a class="nav-link" href="pages/general.html">Lista de productos</a>
+                                                <a class="nav-link" href="pages/general.html">Lista de vendedores</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="pages/cards.html">Nuevo vendedor<span class="badge badge-secondary">New</span></a>
                                             </li>
                                         </ul>
                                     </div>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                     </nav>
             </div>
         </div>
@@ -121,13 +126,67 @@
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="page-header">
-                                <h3 class="mb-2">Título</h3>
+                                <h3 class="mb-2">Crear nuevo usuario</h3>
                                 <p class="pageheader-text">texto para mostrar, ahora mismo escondido con css</p>
                             </div>
                         </div>
                     </div>
 
-<!-- Añadir a partir de aquí los elementos de la nueva página -->
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+                            <div class="card">
+                                <!-- <h5 class="card-header">Basic Form</h5> -->
+                                <div class="card-body">
+                                    <form action="#" id="basicform" data-parsley-validate="">
+                                        <div class="form-group">
+                                            <label for="inputUserName">Nombre</label>
+                                            <input id="inputUserName" type="text" name="name" data-parsley-trigger="change" required="" placeholder="" autocomplete="off" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputUserName">Apellidos</label>
+                                            <input id="inputUserName" type="text" name="name" data-parsley-trigger="change" required="" placeholder="" autocomplete="off" class="form-control">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="inputEmail">Dirección de envío</label>
+                                            <input id="inputEmail" type="email" name="email" data-parsley-trigger="change" required="" placeholder="" autocomplete="off" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputUserName">Dirección de correo electrónico</label>
+                                            <div class="input-group input-group-sm mb-3">
+                                                <div class="input-group-prepend"><span class="input-group-text">@</span></div>
+                                                <input id="inputUserName" type="email" name="name" data-parsley-trigger="change" required="" placeholder="" autocomplete="off" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputPassword">Contraseña</label>
+                                            <input id="inputPassword" type="password" placeholder="" required="" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputRepeatPassword">Repetir contraseña</label>
+                                            <input id="inputRepeatPassword" data-parsley-equalto="#inputPassword" type="password" required="" placeholder="" class="form-control">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
+                                                <!-- <label class="be-checkbox custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input"><span class="custom-control-label">Remember me</span>
+                                                </label> -->
+                                            </div>
+                                            <div class="col-sm-6 pl-0">
+                                                <p class="text-right">
+                                                    <button type="submit" class="btn btn-space btn-primary">Guardar</button>
+                                                    <button class="btn btn-space btn-secondary">Cancelar</button>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
 
                 </div>
             </div>
