@@ -3,7 +3,7 @@
 <div class="nav-left-sidebar sidebar-dark">
     <div class="menu-list">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="d-xl-none d-lg-none" href="#">Inicio</a>
+            
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -13,21 +13,21 @@
                         Menu
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Inicio<span class="badge badge-success">6</span></a>
+                        <a class="nav-link" href="index.jsp" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Inicio</a>
                         <div id="submenu-1" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                     <li class="nav-item">
-                                            <a class="nav-link" href="dashboard-finance.html">Vista general</a>
+                                            <a class="nav-link" href="index.jsp">Resumen</a>
                                         </li>
                                     <li class="nav-item">
-                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1-2" aria-controls="submenu-1-2">Mensajes</a>
+                                    <a class="nav-link" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1-2" aria-controls="submenu-1-2">Mensajes</a>
                                     <div id="submenu-1-2" class="collapse submenu" style="">
                                         <ul class="nav flex-column">
                                             <li class="nav-item">
-                                                <a class="nav-link" href="index.html">Bandeja de Entrada</a>
+                                                <a class="nav-link" href="WIP-inbox.jsp">Bandeja de Entrada</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="ecommerce-product.html">Nuevo mensaje</a>
+                                                <a class="nav-link" href="WIP-email-compose.jsp">Nuevo mensaje</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -36,24 +36,24 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-shopping-cart"></i>Usuarios</a>
+                        <a class="nav-link" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-shopping-cart"></i>Usuarios</a>
                         <div id="submenu-2" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="lista-usuarios.html">Lista de usuarios</a>
+                                    <a class="nav-link" href="lista-usuarios.jsp">Lista de usuarios</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="form-nuevo-usuario.html">Nuevo usuario<span class="badge badge-secondary">New</span></a>
+                                    <a class="nav-link" href="nuevo-usuario.jsp">Nuevo usuario</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-fw fa-chart-pie"></i>Productos</a>
+                        <a class="nav-link" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-fw fa-chart-pie"></i>Productos</a>
                         <div id="submenu-3" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="pages/general.html">Lista de productos</a>
+                                    <a class="nav-link" href="lista-productos.jsp">Lista de productos</a>
                                 </li>
                                 
                             </ul>
