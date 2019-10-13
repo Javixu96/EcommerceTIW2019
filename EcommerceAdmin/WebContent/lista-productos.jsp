@@ -12,7 +12,7 @@
     <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/libs/css/style.css">
     <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
-    <title>Página vacía</title>
+    <title>Productos a la venta - Ecommerce</title>
 </head>
 
 <body>
