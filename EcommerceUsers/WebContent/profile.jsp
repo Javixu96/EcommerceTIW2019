@@ -35,7 +35,7 @@
 					<!-- Perfil -->
 						<div class="contact_form_title profile_line">Datos personales</div>
 
-						<form action="#" id="contact_form">
+						<form action="./index.jsp" id="contact_form">
 							<div class="contact_form_inputs">
 								<div class="div_profile_photo">
 									<img class="profile_photo" src="images/photo_profile.png" alt="">
@@ -105,7 +105,7 @@
 								<input type="text" id="contact_form_repeatpassword" class="profile_form input_field" placeholder="Repetir la contraseña nueva" required="required" data-error="email is required.">
 								</div>	
 							</div>						
-						
+							
 							<div class="contact_form_button">
 								<button type="submit" class="button contact_submit_button">Guardar cambios</button>
 							</div>
