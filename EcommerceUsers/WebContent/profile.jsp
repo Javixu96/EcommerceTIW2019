@@ -74,7 +74,7 @@
 									</div>
 									<div class="profile_form">
 										<h5 class="product_number"><b>17&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										 <a href="">Acceder a mi tienda</a></b></h5>
+										 <a href="./product_list_seller.jsp">Acceder a mi tienda</a></b></h5>
 									</div>
 								</div>	
 							</div>						

@@ -37,7 +37,7 @@
 						<div class="cart_items">
 							<h4>Parece que no tiene ningún producto en venta.</h4>
 							<div class="contact_form_button">
-								<button type="submit" class="button contact_submit_button">Mi producto a la venta!</button>
+								<button class="button contact_submit_button">Mi producto a la venta!</button>
 							</div>	
 						</div>
 						
@@ -71,10 +71,14 @@
 											<div class="cart_item_title">Precio</div>
 											<div class="cart_item_text">19.99&euro;</div>
 										</div>
-										<div class="product_setting">
-											<i class="fas fa-cog">
-										</i>
-										</div>
+										<form action="./modif_product.jsp">
+											<div class="product_setting">
+											 <button type="submit" class="setting_button">
+												<i class="fas fa-cog">
+												</i>
+											</button>
+											</div>
+										</form>
 										<div class="product_trash">
 											<i class="fas fa-trash">
 										</i>
@@ -107,10 +111,14 @@
 											<div class="cart_item_title">Precio</div>
 											<div class="cart_item_text">19.99&euro;</div>
 										</div>
-										<div class="product_trash">
-											<i class="fas fa-cog">
-										</i>
-										</div>
+										<form action="./modif_product.jsp">
+											<div class="product_setting">
+											 <button type="submit" class="setting_button">
+												<i class="fas fa-cog">
+												</i>
+											</button>
+											</div>
+										</form>
 										<div class="product_trash">
 											<i class="fas fa-trash">
 										</i>
@@ -128,13 +136,13 @@
 								<div class="order_total_amount">       </div>
 								<div class="order_total_title">Valor total:</div>
 								<div class="order_total_amount">850&euro;</div>
-								
 							</div>
 						</div>
-
+						<form action="./profile.jsp">
 						<div class="cart_buttons">
-							<button type="button" class="button cart_button_checkout">Guardar cambios</button>
+							<button type="submit" class="button cart_button_checkout">Guardar cambios</button>
 						</div>
+						</form>
 					</div>
 				</div>
 			</div>
