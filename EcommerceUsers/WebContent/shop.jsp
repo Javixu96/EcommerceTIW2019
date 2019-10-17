@@ -20,7 +20,6 @@
 </head>
 
 <body>
-
 <div class="super_container">
 	
 	<!-- Header -->
@@ -32,7 +31,7 @@
 		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg"></div>
 		<div class="home_overlay"></div>
 		<div class="home_content d-flex flex-column align-items-center justify-content-center">
-			<h2 class="home_title">Smartphones & Tablets</h2>
+			<h2 class="home_title">¡Compra online las 24 horas del día!</h2>
 		</div>
 	</div>
 
@@ -46,25 +45,39 @@
 					<!-- Shop Sidebar -->
 					<div class="shop_sidebar">
 						<div class="sidebar_section">
-							<div class="sidebar_title">Categories</div>
+							<div class="sidebar_title">Categorias</div>
 							<ul class="sidebar_categories">
-								<li><a href="#">Computers & Laptops</a></li>
-								<li><a href="#">Cameras & Photos</a></li>
-								<li><a href="#">Hardware</a></li>
-								<li><a href="#">Smartphones & Tablets</a></li>
-								<li><a href="#">TV & Audio</a></li>
-								<li><a href="#">Gadgets</a></li>
-								<li><a href="#">Car Electronics</a></li>
-								<li><a href="#">Video Games & Consoles</a></li>
-								<li><a href="#">Accessories</a></li>
+								<li><a href="#">Hombre</a></li>
+									<ul class="sidebar_subcategories">
+										<li><a href="#" style="margin-left: 20px">Abrigos</a></li>
+										<li><a href="#" style="margin-left: 20px">Camisas</a></li>
+										<li><a href="#" style="margin-left: 20px">Camisetas</a></li>
+										<li><a href="#" style="margin-left: 20px">Pantalones</a></li>
+										<li><a href="#" style="margin-left: 20px">Sudaderas</a></li>
+									</ul>
+								<li><a href="#">Mujer</a></li>
+									<ul class="sidebar_subcategories">
+										<li><a href="#" style="margin-left: 20px">Abrigos</a></li>
+										<li><a href="#" style="margin-left: 20px">Blusas</a></li>
+										<li><a href="#" style="margin-left: 20px">Camisetas</a></li>
+										<li><a href="#" style="margin-left: 20px">Pantalones</a></li>
+										<li><a href="#" style="margin-left: 20px">Vestidos</a></li>
+									</ul>
+								<li><a href="#">Niños</a></li>
+									<ul class="sidebar_subcategories">
+										<li><a href="#" style="margin-left: 20px">Accesorios</a></li>
+										<li><a href="#" style="margin-left: 20px">Camisetas</a></li>
+										<li><a href="#" style="margin-left: 20px">Pantalones</a></li>
+										<li><a href="#" style="margin-left: 20px">Zapatos</a></li>
+									</ul>
 							</ul>
 						</div>
 						<div class="sidebar_section filter_by_section">
-							<div class="sidebar_title">Filter By</div>
-							<div class="sidebar_subtitle">Price</div>
+							<div class="sidebar_title">Filtrar por</div>
+							<div class="sidebar_subtitle">Precio</div>
 							<div class="filter_price">
 								<div id="slider-range" class="slider_range"></div>
-								<p>Range: </p>
+								<p>Rango: </p>
 								<p><input type="text" id="amount" class="amount" readonly style="border:0; font-weight:bold;"></p>
 							</div>
 						</div>
@@ -79,6 +92,7 @@
 								<li class="color"><a href="#" style="background: #ffffff; border: solid 1px #e1e1e1;"></a></li>
 							</ul>
 						</div>
+						<!--
 						<div class="sidebar_section">
 							<div class="sidebar_subtitle brands_subtitle">Brands</div>
 							<ul class="brands_list">
@@ -92,6 +106,7 @@
 								<li class="brand"><a href="#">Xiaomi</a></li>
 							</ul>
 						</div>
+						-->
 					</div>
 
 				</div>
@@ -102,16 +117,16 @@
 
 					<div class="shop_content">
 						<div class="shop_bar clearfix">
-							<div class="shop_product_count"><span>186</span> products found</div>
+							<div class="shop_product_count"><span>186</span> Productos encontrados</div>
 							<div class="shop_sorting">
-								<span>Sort by:</span>
+								<span>Ordenar por:</span>
 								<ul>
 									<li>
-										<span class="sorting_text">highest rated<i class="fas fa-chevron-down"></span></i>
+										<span class="sorting_text">Mejor valoración<i class="fas fa-chevron-down"></span></i>
 										<ul>
-											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "original-order" }'>highest rated</li>
-											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "name" }'>name</li>
-											<li class="shop_sorting_button"data-isotope-option='{ "sortBy": "price" }'>price</li>
+											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "original-order" }'>Mejor valoración</li>
+											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "name" }'>Nombre</li>
+											<li class="shop_sorting_button"data-isotope-option='{ "sortBy": "price" }'>Precio</li>
 										</ul>
 									</li>
 								</ul>
@@ -427,13 +442,15 @@
 
 						<div class="shop_page_nav d-flex flex-row">
 							<div class="page_prev d-flex flex-column align-items-center justify-content-center"><i class="fas fa-chevron-left"></i></div>
-							<ul class="page_nav d-flex flex-row">
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">...</a></li>
-								<li><a href="#">21</a></li>
-							</ul>
+							<div class="page_nav align-items-center justify-content-center">
+								<ul style="display: flex; flex-direction: row'">
+									<li><a href="#">1</a></li>
+									<li><a href="#">2</a></li>
+									<li><a href="#">3</a></li>
+									<li><a href="#">...</a></li>
+									<li><a href="#">21</a></li>
+								</ul>
+							</div>
 							<div class="page_next d-flex flex-column align-items-center justify-content-center"><i class="fas fa-chevron-right"></i></div>
 						</div>
 
@@ -451,7 +468,7 @@
 			<div class="row">
 				<div class="col">
 					<div class="viewed_title_container">
-						<h3 class="viewed_title">Recently Viewed</h3>
+						<h3 class="viewed_title">Productos vistos recientemente</h3>
 						<div class="viewed_nav_container">
 							<div class="viewed_nav viewed_prev"><i class="fas fa-chevron-left"></i></div>
 							<div class="viewed_nav viewed_next"><i class="fas fa-chevron-right"></i></div>
@@ -562,14 +579,14 @@
 	</div>
 
 	<!-- Brands -->
-
+	<!--
 	<div class="brands">
 		<div class="container">
 			<div class="row">
 				<div class="col">
 					<div class="brands_slider_container">
 						
-						<!-- Brands Slider -->
+						Brands Slider
 
 						<div class="owl-carousel owl-theme brands_slider">
 							
@@ -584,7 +601,7 @@
 
 						</div>
 						
-						<!-- Brands Slider Navigation -->
+						Brands Slider Navigation
 						<div class="brands_nav brands_prev"><i class="fas fa-chevron-left"></i></div>
 						<div class="brands_nav brands_next"><i class="fas fa-chevron-right"></i></div>
 
@@ -593,6 +610,7 @@
 			</div>
 		</div>
 	</div>
+	-->
 
 	<!-- Newsletter -->
 
@@ -608,7 +626,7 @@
 						</div>
 						<div class="newsletter_content clearfix">
 							<form action="#" class="newsletter_form">
-								<input type="email" class="newsletter_input" required="required" placeholder="Enter your email address">
+								<input type="email" class="newsletter_input" required="required" placeholder="Introduzca su email">
 								<button class="newsletter_button">Suscribirse</button>
 							</form>
 						</div>
