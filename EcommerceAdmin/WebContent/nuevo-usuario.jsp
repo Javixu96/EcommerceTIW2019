@@ -12,7 +12,7 @@
     <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/libs/css/style.css">
     <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
-    <title>Nuevo usuario</title>
+    <title>Nuevo usuario vendedor</title>
 </head>
 
 <body>
@@ -43,7 +43,7 @@
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="page-header">
-                                <h3 class="mb-2">Crear nuevo usuario</h3>
+                                <h3 class="mb-2">Crear nuevo usuario vendedor</h3>
                                 <p class="pageheader-text">texto para mostrar, ahora mismo escondido con css</p>
                             </div>
                         </div>
@@ -63,48 +63,37 @@
                                             <label for="inputUserName">Apellidos</label>
                                             <input id="inputUserName" type="text" name="name" data-parsley-trigger="change" required="" placeholder="" autocomplete="off" class="form-control">
                                         </div>
-                                        
                                         <div class="form-group">
-                                            <label for="inputEmail">Dirección de envío</label>
-                                            <input id="inputEmail" type="email" name="email" data-parsley-trigger="change" required="" placeholder="" autocomplete="off" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputUserName">Dirección de correo electrónico</label>
+                                            <label for="inputUserName">Direccion de correo electronico</label>
                                             <div class="input-group input-group-sm mb-3">
                                                 <div class="input-group-prepend"><span class="input-group-text">@</span></div>
                                                 <input id="inputUserName" type="email" name="name" data-parsley-trigger="change" required="" placeholder="" autocomplete="off" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="inputPassword">Contraseña</label>
+                                            <label for="inputPassword">Contrase�a</label>
                                             <input id="inputPassword" type="password" placeholder="" required="" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label for="inputRepeatPassword">Repetir contraseña</label>
+                                            <label for="inputRepeatPassword">Repetir contrase�a</label>
                                             <input id="inputRepeatPassword" data-parsley-equalto="#inputPassword" type="password" required="" placeholder="" class="form-control">
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
-                                                <!-- <label class="be-checkbox custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input"><span class="custom-control-label">Remember me</span>
-                                                </label> -->
-                                            </div>
-                                            <div class="col-sm-6 pl-0">
-                                                <p class="text-right">
-                                                    <button type="submit" class="btn btn-space btn-primary">Guardar</button>
-                                                    <button class="btn btn-space btn-secondary">Cancelar</button>
-                                                </p>
-                                            </div>
+                                        <div class="form-group" style="display: none">
+                                            <label class="be-checkbox custom-control custom-checkbox">
+                                            	<input type="checkbox" class="custom-control-input" value="1"><span class="custom-control-label">Es vendedor</span>
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                        	<p class="text-right">
+	                                            <button type="submit" class="btn btn-space btn-primary">Guardar</button>
+	                                            <button class="btn btn-space btn-secondary">Cancelar</button>
+                                            </p>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-
-
                 </div>
             </div>
             <!-- ============================================================== -->

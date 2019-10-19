@@ -40,10 +40,10 @@
             <div class="card-body">
                 <form>
                     <div class="form-group">
-                        <input class="form-control form-control-lg" id="username" type="email" placeholder="Correo Electrónico" autocomplete="off">
+                        <input class="form-control form-control-lg" id="username" type="email" placeholder="Correo Electronico" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <input class="form-control form-control-lg" id="password" type="password" placeholder="Contraseña">
+                        <input class="form-control form-control-lg" id="password" type="password" placeholder="Contrase�a">
                     </div>
                     <!-- <div class="form-group">
                         <label class="custom-control custom-checkbox">
@@ -53,13 +53,16 @@
                     <button type="submit" class="btn btn-primary btn-lg btn-block">Entrar</button>
                 </form>
             </div>
-            <div class="card-footer bg-white p-0  ">
+           <!-- 
+           <div class="card-footer bg-white p-0">
                 <div class="card-footer-item card-footer-item-bordered">
-                    <a href="#" class="footer-link">Crear nueva cuenta</a></div>
+                    <a href="#" class="footer-link">Crear nueva cuenta</a>
+                </div>
                 <div class="card-footer-item card-footer-item-bordered">
                     <a href="#" class="footer-link">No puedo entrar</a>
                 </div>
             </div>
+            --> 
         </div>
     </div>
   

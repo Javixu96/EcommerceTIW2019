@@ -63,27 +63,27 @@
                                             <input id="inputUserName" type="text" name="name" data-parsley-trigger="change" required="" placeholder="" autocomplete="off" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label for="inputUserName">Dirección de envío</label>
+                                            <label for="inputUserName">Direccion de envio</label>
                                             <input id="inputUserName" type="text" name="name" data-parsley-trigger="change" required="" placeholder="" autocomplete="off" class="form-control">
                                         </div>
                                         <div class="form-group"> 
                                             <!-- Esto tengo que modificarlo para que no se pueda modificar -->
-                                            <label for="inputUserName">Dirección de correo electrónico</label>
+                                            <label for="inputUserName">Direccion de correo electronico</label>
                                             <div class="input-group input-group-sm mb-3">
                                                 <div class="input-group-prepend"><span class="input-group-text">@</span></div>
                                                 <input id="inputUserName" type="email" name="name" data-parsley-trigger="change" required="" placeholder="" autocomplete="off" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                                <label for="inputPassword">Contraseña actual</label>
+                                                <label for="inputPassword">Contrase�a actual</label>
                                                 <input id="inputPassword" type="password" placeholder="" required="" class="form-control">
                                             </div>
                                         <div class="form-group">
-                                            <label for="inputPassword">Nueva contraseña</label>
+                                            <label for="inputPassword">Nueva contrase�a</label>
                                             <input id="inputPassword" type="password" placeholder="" required="" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label for="inputRepeatPassword">Repetir contraseña</label>
+                                            <label for="inputRepeatPassword">Repetir contrase�a</label>
                                             <input id="inputRepeatPassword" data-parsley-equalto="#inputPassword" type="password" required="" placeholder="" class="form-control">
                                         </div>
                                         <div class="row">
