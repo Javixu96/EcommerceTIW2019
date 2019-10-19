@@ -12,13 +12,18 @@
 <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
 <link rel="stylesheet" type="text/css" href="plugins/slick-1.8.0/slick.css">
 <link rel="stylesheet" type="text/css" href="styles/header.css">
+<script type="text/javascript">
+		function logout(){   
+			System.out.println("Script");
+
+		}
+</script>
 </head>
 <body>
 
 <!-- Header -->
 	
 	<header class="header">
-
 		<!-- Top Bar -->
 
 		<div class="top_bar">
@@ -49,9 +54,17 @@
 								</ul>
 							</div>
 							<div class="top_bar_user">
-								<div class="user_icon"><img src="images/user.svg" alt=""></div>
+								<% if(session.getAttribute("user") != null) {
+								%>
+								<div class="user_icon"><img src="https://cdn1.iconfinder.com/data/icons/navigation-elements/512/user-login-man-human-body-mobile-person-512.png" alt=""></div>
+								<div><a href="javascript:logout();login.jsp;">Logout</a></div>
+								<%} %>
+								<% if(session.getAttribute("user") == null) {
+								%>
 								<div><a href="./register.jsp">Register</a></div>
 								<div><a href="./login.jsp">Sign in</a></div>
+								<%} %>
+								
 							</div>
 						</div>
 					</div>
