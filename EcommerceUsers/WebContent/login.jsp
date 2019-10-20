@@ -31,21 +31,29 @@
 					<div class="contact_form_container">
 						<div class="contact_form_title">Iniciar sesión</div>
 
-						<form action="#" id="contact_form">
+						<form action="loggingin.html" id="contact_form" method="post">
 							<div class="row_container">
 								<div class="row_item">
-									<h4 class="input_title"> Nombre </h4>
-									<input type="text" id="register_name" class="contact_form_name input_field" placeholder="Introduce tu nombre" required="required" data-error="El nombre es un dato obligatorio.">
+									<h4 class="input_title"> E-mail </h4>
+									<input type="email" name="register_email" id="register_email" class="contact_form_name input_field" placeholder="Introduce tu e-mail" required="required" data-error="Introduzca su e-mail.">
 								</div>
 								<div class="row_item">
-									<h4 class="input_title"> Apellidos </h4>
-									<input type="text" id="register_surname" class="contact_form_name input_field" placeholder="Introduce tus apellidos" required="required" data-error="Los apellidos es un dato obligatorio.">
+									<h4 class="input_title"> Contraseña </h4>
+									<input type="password" name="register_password" id="register_password" class="contact_form_name input_field" placeholder="Introduce tu contraseña" required="required" data-error="Introduzca su contraseña.">
 								</div>							
 							</div>
+							<% if(request.getAttribute("passwordError") != null) {%>
+							<span style="color: red;"> Contraseña incorrecta </span>
+							<%} %>
+							<% if(request.getAttribute("notRegisteredError") != null) {%>
+							<span style="color: red;"> E-mail no registrado <a href="register.jsp">Registrarse</a></span>
+							<%} %>
 							<div class="contact_form_button center_horizontal">
 								<button type="submit" class="button contact_submit_button">Entrar</button>
 							</div>
+						
 						</form>
+						
 						<div class="contact_form_button center_horizontal" style="padding-top: 20px; padding-bottom: 20px" >
 							<a href="./register.jsp" style="color: #0e8ce4; font-size: 16px">Aún no tengo una cuenta</a>
 						</div>
