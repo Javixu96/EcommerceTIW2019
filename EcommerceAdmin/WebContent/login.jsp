@@ -36,7 +36,7 @@
     <!-- ============================================================== -->
     <div class="splash-container">
         <div class="card ">
-            <div class="card-header text-center"><a class="navbar-brand" href="index.html">Ecommerce</a><span class="splash-description">Inicio administrador</span></div>
+            <div class="card-header text-center"><a class="navbar-brand" href="index.jsp">Ecommerce</a><span class="splash-description">Inicio administrador</span></div>
             <div class="card-body">
                 <form>
                     <div class="form-group">
@@ -45,24 +45,9 @@
                     <div class="form-group">
                         <input class="form-control form-control-lg" id="password" type="password" placeholder="ContraseÒa">
                     </div>
-                    <!-- <div class="form-group">
-                        <label class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox"><span class="custom-control-label">Mantener sesi√≥n iniciada</span>
-                        </label>
-                    </div> -->
                     <button type="submit" class="btn btn-primary btn-lg btn-block">Entrar</button>
                 </form>
             </div>
-           <!-- 
-           <div class="card-footer bg-white p-0">
-                <div class="card-footer-item card-footer-item-bordered">
-                    <a href="#" class="footer-link">Crear nueva cuenta</a>
-                </div>
-                <div class="card-footer-item card-footer-item-bordered">
-                    <a href="#" class="footer-link">No puedo entrar</a>
-                </div>
-            </div>
-            --> 
         </div>
     </div>
   
