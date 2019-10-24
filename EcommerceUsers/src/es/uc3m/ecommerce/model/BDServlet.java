@@ -1,4 +1,4 @@
-package servlet;
+package es.uc3m.ecommerce.model;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,13 +17,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import javax.transaction.UserTransaction;
 
 /**
  * Servlet implementation class BDServlet
  */
-@WebServlet({ "/BDServlet", "*.html" })
+@WebServlet({ "/BDServlet" })
 public class BDServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -61,27 +62,30 @@ public class BDServlet extends HttpServlet {
 		
 		out.println("Dentro de try <br>");
 		
-		/*
-		 * Esto funciona
-		 * 	 String jpql = "SELECT p.productName FROM Product p";
-		 *   Query products = em.createQuery(jpql);
-		 *   List<String> results = products.getResultList();
-		 */
-		String jpql = "SELECT p.productName FROM Product p WHERE p.productId = ?1";
+
+		String jpql = "SELECT p"
+				+ " FROM Product p "
+				+ " WHERE p.productid = ?1";
 		Query products = em.createQuery(jpql);
 		products.setParameter(1, 3);
 		products.setMaxResults(1);
 				
-		// Query query = em.createQuery(jpql);
-		// query.setParameter(1, 1);
-		// query.setMaxResults(10);
+		List<Product> results = products.getResultList();
 		
+		for (Product product : results){
+			out.println("<FONT color=\"#ff0000\">"+product.getProductName()+"</FONT><BR>");
+		}
 		
+		/*
 		List<String> results = products.getResultList();
 		
-		for (String productName : results){
-			out.println("<FONT color=\"#ff0000\">"+productName+"</FONT><BR>");
+		for (String product : results){
+			out.println("<FONT color=\"#ff0000\">"+product+"</FONT><BR>");
 		}
+		*/
+		
+		HttpSession sesion = req.getSession();
+		sesion.setAttribute("product", results);
 		
 		ut.commit();
 	
@@ -89,20 +93,6 @@ public class BDServlet extends HttpServlet {
 	} catch (Exception e) {
 		out.println("<FONT color=\"#ff0000\">"+e.getMessage()+"</FONT><BR>");
 	}
-	
-	
-/*
-	try {
-		String jpql = "SELECT * FROM Product";
-		Query customers = em.createQuery(jpql);
-		List results = customers.getResultList();
-		out.println("<FONT color=\"#ff0000\">"+ results.get(0) +"</FONT><BR>");
-			
-	} catch (Exception e) {
-		out.println("<FONT color=\"#ff0000\">"+e.getMessage()+"</FONT><BR>");
-	}
-*/
-
 
 	out.println("</FORM>");
 	out.println("</BODY></HTML>");
@@ -116,6 +106,44 @@ public class BDServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+	
+	public List<Product> getProducts() {
+		// PrintWriter out = res.getWriter();
+		try {
+			ut.begin();
+			
+			System.out.println("Dentro de try <br>");
+			
+
+			String jpql = "SELECT p"
+					+ " FROM Product p "
+					+ " WHERE p.productid = ?1";
+			Query products = em.createQuery(jpql);
+			products.setParameter(1, 3);
+			products.setMaxResults(1);
+					
+			List<Product> results = products.getResultList();
+			
+			for (Product product : results){
+				System.out.println("<FONT color=\"#ff0000\">"+product.getProductName()+"</FONT><BR>");
+			}
+			
+			/*
+			List<String> results = products.getResultList();
+			
+			for (String product : results){
+				out.println("<FONT color=\"#ff0000\">"+product+"</FONT><BR>");
+			}
+			*/
+			
+			ut.commit();
+			return results;
+			
+		} catch (Exception e) {
+			System.out.println("<FONT color=\"#ff0000\">"+e.getMessage()+"</FONT><BR>");
+		}
+		return null;
 	}
 
 }

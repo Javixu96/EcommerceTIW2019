@@ -1,4 +1,4 @@
-package servlet;
+package es.uc3m.ecommerce.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -15,15 +15,12 @@ public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int productId;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int productid;
 
-	private int category;
-
-	private String imageurl;
+	private String category;
 
 	private String longDesc;
-
-	private String name;
 
 	private int price;
 
@@ -32,6 +29,8 @@ public class Product implements Serializable {
 	@Lob
 	private byte[] productPicture;
 
+	private int sellerId;
+
 	private String shortDesc;
 
 	private int stock;
@@ -39,40 +38,33 @@ public class Product implements Serializable {
 	private int subcategory;
 
 	//bi-directional many-to-one association to Appuser
-	@ManyToOne
-	@JoinColumn(name="sellerId")
-	private Appuser appuser1;
+	//@ManyToOne
+	//@JoinColumn(name="userId", referencedColumnName="userId")
+	//private Appuser appuser;
 
-	//bi-directional many-to-one association to Appuser
+	//bi-directional many-to-one association to Category
+	/*
 	@ManyToOne
-	@JoinColumn(name="userId")
-	private Appuser appuser2;
-
+	@JoinColumn(name="category")
+	private Category categoryBean;
+	*/
 	public Product() {
 	}
 
-	public int getproductId() {
-		return this.productId;
+	public int getProductid() {
+		return this.productid;
 	}
 
-	public void setproductId(int productId) {
-		this.productId = productId;
+	public void setProductid(int productid) {
+		this.productid = productid;
 	}
 
-	public int getCategory() {
+	public String getCategory() {
 		return this.category;
 	}
 
-	public void setCategory(int category) {
+	public void setCategory(String category) {
 		this.category = category;
-	}
-
-	public String getImageurl() {
-		return this.imageurl;
-	}
-
-	public void setImageurl(String imageurl) {
-		this.imageurl = imageurl;
 	}
 
 	public String getLongDesc() {
@@ -81,14 +73,6 @@ public class Product implements Serializable {
 
 	public void setLongDesc(String longDesc) {
 		this.longDesc = longDesc;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public int getPrice() {
@@ -115,6 +99,14 @@ public class Product implements Serializable {
 		this.productPicture = productPicture;
 	}
 
+	public int getSellerId() {
+		return this.sellerId;
+	}
+
+	public void setSellerId(int sellerId) {
+		this.sellerId = sellerId;
+	}
+
 	public String getShortDesc() {
 		return this.shortDesc;
 	}
@@ -138,21 +130,21 @@ public class Product implements Serializable {
 	public void setSubcategory(int subcategory) {
 		this.subcategory = subcategory;
 	}
-
-	public Appuser getAppuser1() {
-		return this.appuser1;
+/*
+	public Appuser getAppuser() {
+		return this.appuser;
 	}
 
-	public void setAppuser1(Appuser appuser1) {
-		this.appuser1 = appuser1;
+	public void setAppuser(Appuser appuser) {
+		this.appuser = appuser;
+	}*/
+/*
+	public Category getCategoryBean() {
+		return this.categoryBean;
 	}
 
-	public Appuser getAppuser2() {
-		return this.appuser2;
+	public void setCategoryBean(Category categoryBean) {
+		this.categoryBean = categoryBean;
 	}
-
-	public void setAppuser2(Appuser appuser2) {
-		this.appuser2 = appuser2;
-	}
-
+*/
 }

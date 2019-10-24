@@ -1,4 +1,4 @@
-package servlet;
+package es.uc3m.ecommerce.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -16,6 +16,7 @@ public class Appuser implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int userid;
 
 	private String address;
@@ -41,13 +42,9 @@ public class Appuser implements Serializable {
 
 	private String userSurnames;
 
-	//bi-directional many-to-one association to Product
-	@OneToMany(mappedBy="appuser1")
-	private List<Product> products1;
-
-	//bi-directional many-to-one association to Product
-	@OneToMany(mappedBy="appuser2")
-	private List<Product> products2;
+	//bi-directional many-to-onide association to Product
+	//@OneToMany(mappedBy="sellerId")
+	//private List<Product> products;
 
 	public Appuser() {
 	}
@@ -148,48 +145,26 @@ public class Appuser implements Serializable {
 		this.userSurnames = userSurnames;
 	}
 
-	public List<Product> getProducts1() {
-		return this.products1;
+	/*public List<Product> getProducts() {
+		return this.products;
+	}*/
+
+	/*public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 
-	public void setProducts1(List<Product> products1) {
-		this.products1 = products1;
+	public Product addProduct(Product product) {
+		getProducts().add(product);
+		product.setAppuser(this);
+
+		return product;
 	}
 
-	public Product addProducts1(Product products1) {
-		getProducts1().add(products1);
-		products1.setAppuser1(this);
+	public Product removeProduct(Product product) {
+		getProducts().remove(product);
+		product.setAppuser(null);
 
-		return products1;
-	}
-
-	public Product removeProducts1(Product products1) {
-		getProducts1().remove(products1);
-		products1.setAppuser1(null);
-
-		return products1;
-	}
-
-	public List<Product> getProducts2() {
-		return this.products2;
-	}
-
-	public void setProducts2(List<Product> products2) {
-		this.products2 = products2;
-	}
-
-	public Product addProducts2(Product products2) {
-		getProducts2().add(products2);
-		products2.setAppuser2(this);
-
-		return products2;
-	}
-
-	public Product removeProducts2(Product products2) {
-		getProducts2().remove(products2);
-		products2.setAppuser2(null);
-
-		return products2;
-	}
+		return product;
+	}*/
 
 }
