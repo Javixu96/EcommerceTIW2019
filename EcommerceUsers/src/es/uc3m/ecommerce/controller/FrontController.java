@@ -35,6 +35,7 @@ public class FrontController extends HttpServlet {
 	    // handlerHash.put("/login.html", new es.uc3m.ecommerce.controller.ShowRecordRequestHandler());
 	    // handlerHash.put("/showInfo.html", new es.uc3m.ecommerce.controller.ShowRecordRequestHandler());
 		handlerHash.put("/index.html", new es.uc3m.ecommerce.controller.ShowProductHandler());
+		handlerHash.put("/shop.html", new es.uc3m.ecommerce.controller.ShowAllProductsHandler());
 	  }
 
 	  
