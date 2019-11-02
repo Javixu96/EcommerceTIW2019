@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     import="es.uc3m.ecommerce.model.Product, java.util.*"
     pageEncoding="ISO-8859-1"%>
+    <%@ page import="java.util.List,java.util.ArrayList,org.apache.commons.codec.binary.StringUtils,org.apache.commons.codec.binary.Base64;" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -136,13 +137,21 @@
 						
 						
 						<div class="product_grid">
+						
+						
 						<% List<Product> productList = (List<Product>)request.getAttribute("allProducts"); %>
 							<div class="product_grid_border"></div>
 							
 							<% for (Product product: productList){ %>
 							<div class="product_item is_new">
 							<div class="product_border"></div>
-								<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/new_5.jpg" alt=""></div>
+								<div class="product_image d-flex flex-column align-items-center justify-content-center">
+									
+									<img style="height: 50px;" src="<% StringBuilder sb = new StringBuilder();
+									sb.append("data:image/png;base64,");
+									sb.append(StringUtils.newStringUtf8(Base64.encodeBase64(product.getProductPicture(), false)));
+									out.print(sb.toString()); %>">
+								</div>
 								<div class="product_content">
 									<div class="product_price"><% out.println(product.getPrice()); %>&euro;</div>
 									<div class="product_name"><div><a href="#" tabindex="0"><% out.println(product.getProductName()); %></a></div></div>
