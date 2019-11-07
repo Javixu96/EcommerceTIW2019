@@ -3,10 +3,8 @@
   <display-name>EcommerceUsers</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>profile.html</welcome-file>
+    <welcome-file>modifyUser.html</welcome-file>
+    <welcome-file>insert_product.html</welcome-file>
   </welcome-file-list>
 </web-app>

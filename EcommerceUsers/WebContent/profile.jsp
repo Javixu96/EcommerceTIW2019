@@ -23,7 +23,6 @@
 <body>
 
 <div class="super_container">
-	
 	<!-- Header -->
 	<%@ include file="header.jsp" %>
 
@@ -40,7 +39,7 @@
 					<!-- Perfil -->
 						<div class="contact_form_title profile_line">Datos personales</div>
 
-						<form method="POST" action="./src/servlet/BDServlet.java" id="contact_form">
+						<form method="POST" action="modifyUser.html" id="contact_form">
 							<div class="contact_form_inputs">
 								<div class="div_profile_photo">
 									<img class="profile_photo" src="images/photo_profile.png" alt="">
@@ -69,11 +68,13 @@
 									</div>
 								</div>	
 								<div class="div_profile_right">
-									<input type="text" name ="name" id="contact_form_name" class="profile_form input_field" placeholder="Nombre" required="required" data-error="Campo obligatorio."value="Alberto">
-									<input type="text" name ="surnames" id="contact_form_surname" class="profile_form input_field" placeholder="Apellidos" required="required" data-error="Campo obligatorio."value="García">
-									<input type="text" id="contact_form_email" class="profile_form input_field" placeholder="Nº de teléfono" value="AlbertoG@gmail.com">
-									<input type="text" id="contact_form_phone" class="profile_form input_field" placeholder="Correo electrónico" data-error="Campo obligatorio." value="623785928">
-									<input type="text" id="contact_form_direction" class="profile_form input_field" placeholder="Dirección de envío" required="required" data-error="Campo obligatorio."value="Calle real 54 1ºB, Colmenarejo,Madrid 28270">
+								<jsp:useBean id="user" scope="request" type="es.uc3m.ecommerce.model.Appuser">
+								</jsp:useBean>
+									<input type="text" name ="name" id="contact_form_name" class="profile_form input_field" placeholder="Nombre" required="required" data-error="Campo obligatorio." value=<% out.println(user.getUserName()); %>>
+									<input type="text" name ="surnames" id="contact_form_surname" class="profile_form input_field" placeholder="Apellidos" required="required" data-error="Campo obligatorio."value=<% out.println(user.getUserSurnames()); %>>
+									<input type="text" name ="email" id="contact_form_email" class="profile_form input_field" placeholder="Nº de teléfono" value=<% out.println(user.getEmail()); %>>
+									<input type="text" name ="phone" id="contact_form_phone" class="profile_form input_field" placeholder="Correo electrónico" data-error="Campo obligatorio." >
+									<input type="text" name ="direction" id="contact_form_direction" class="profile_form input_field" placeholder="Dirección de envío" required="required" data-error="Campo obligatorio."value=<% out.println(user.getPostalAddress()); %>>
 									<div class="profile_form">
 										<h5 class="product_number"><b>35</b></h5>
 									</div>

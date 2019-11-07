@@ -1,7 +1,8 @@
-package servlet;
+package es.uc3m.ecommerce.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -14,20 +15,17 @@ import javax.persistence.*;
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int productId;
-
-	private String category;
-
-	private String imageURL;
 
 	private String longDesc;
 
-	private String name;
-
 	private int price;
+
+	private String productName;
+
+	@Lob
+	private byte[] productPicture;
 
 	private String shortDesc;
 
@@ -35,8 +33,17 @@ public class Product implements Serializable {
 
 	//bi-directional many-to-one association to Appuser
 	@ManyToOne
-	@JoinColumn(name="userId")
+	@JoinColumn(name="sellerId")
 	private Appuser appuser;
+
+	//bi-directional many-to-one association to Category
+	@ManyToOne
+	@JoinColumn(name="category")
+	private Category categoryBean;
+
+	//bi-directional many-to-one association to Purchas
+	@OneToMany(mappedBy="product")
+	private List<Purchas> purchases;
 
 	public Product() {
 	}
@@ -49,22 +56,6 @@ public class Product implements Serializable {
 		this.productId = productId;
 	}
 
-	public String getCategory() {
-		return this.category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	public String getImageURL() {
-		return this.imageURL;
-	}
-
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
-	}
-
 	public String getLongDesc() {
 		return this.longDesc;
 	}
@@ -73,20 +64,28 @@ public class Product implements Serializable {
 		this.longDesc = longDesc;
 	}
 
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public int getPrice() {
 		return this.price;
 	}
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public String getProductName() {
+		return this.productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public byte[] getProductPicture() {
+		return this.productPicture;
+	}
+
+	public void setProductPicture(byte[] productPicture) {
+		this.productPicture = productPicture;
 	}
 
 	public String getShortDesc() {
@@ -111,6 +110,36 @@ public class Product implements Serializable {
 
 	public void setAppuser(Appuser appuser) {
 		this.appuser = appuser;
+	}
+
+	public Category getCategoryBean() {
+		return this.categoryBean;
+	}
+
+	public void setCategoryBean(Category categoryBean) {
+		this.categoryBean = categoryBean;
+	}
+
+	public List<Purchas> getPurchases() {
+		return this.purchases;
+	}
+
+	public void setPurchases(List<Purchas> purchases) {
+		this.purchases = purchases;
+	}
+
+	public Purchas addPurchas(Purchas purchas) {
+		getPurchases().add(purchas);
+		purchas.setProduct(this);
+
+		return purchas;
+	}
+
+	public Purchas removePurchas(Purchas purchas) {
+		getPurchases().remove(purchas);
+		purchas.setProduct(null);
+
+		return purchas;
 	}
 
 }

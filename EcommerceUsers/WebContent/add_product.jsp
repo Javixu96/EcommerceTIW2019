@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="org.apache.commons.codec.binary.StringUtils" %>
+<%@ page import="org.apache.commons.codec.binary.Base64;" %>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,26 +33,40 @@
 					<div class="contact_form_container">
 						<div class="contact_form_title">Añadir producto</div>
 
-						<form action="#" id="contact_form">
+						<form action="insert_product.html" id="contact_form" method="post" enctype="multipart/form-data">
 							
 							<div class="row_container">
 								<div class="row_item">
 									<h4 class="input_title">Nombre</h4>
-									<input type="text" id="register_name" class="contact_form_name input_field" placeholder="Introduce el nombre del producto" required="required" data-error="El nombre es un dato obligatorio.">
+									<input type="text" name="product_name"  class="contact_form_name input_field" placeholder="Introduce el nombre del producto" required="required">
 								</div>
 								<div class="row_item">
 									<h4 class="input_title">Imagen</h4>
-									<input type="text" id="register_surname" class="contact_form_name input_field" placeholder="Introduce la URL de la imagen del producto" required="required" data-error="Los apellidos es un dato obligatorio.">
+									<input type="file" id="fileToUpload" name ="fileToUpload"  class="contact_form_name input_field" required="required">
 								</div>		
 								<div style="flex: 0.2; margin: 0 30px;">
 									<h4 class="input_title">Precio</h4>
-									<input type="text" id="register_surname" class="contact_form_name input_field" placeholder="Precio" required="required" data-error="Los apellidos es un dato obligatorio.">
+									<input type="text" name ="product_price" class="contact_form_name input_field" placeholder="Precio &euro;" required="required">
 								</div>							
 							</div>
 							
-							<h4 style="padding-bottom: 10px">Descripción</h4>
+							<h4 style="padding-bottom: 10px;padding-top:10px">Descripción</h4>
 							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
-								<textarea rows="4" placeholder="Introduce la descripción del producto"></textarea>
+								<textarea class="input_field" name="pShortDesc" rows="2" placeholder="Introduce la descripción del producto"></textarea>
+							</div>
+							
+							<h4 style="padding-bottom: 10px">Descripción detallada</h4>
+							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+								<textarea class="input_field" name="pLongDesc" rows="4" placeholder="Introduce la descripción detallada del producto"></textarea>
+							</div>
+							
+							<div class="row_container clearfix" style="z-index: 1000;margin-bottom: 25px;width:500px;">
+							
+								<div class="row_item">
+									<h4 class="input_title">Stock</h4>
+									<input type="text" name="product_stock"  class="contact_form_name input_field" placeholder="Introduce el stock" required="required">
+								</div>
+													
 							</div>
 							
 							
@@ -60,14 +76,17 @@
 									<h4>Categoría</h4>
 									<ul class="product_size">
 										<li>
-											<div class="size_mark_container"><div id="selected_categ" class="size_mark">
-												Categoría</div></div>
+											<div class="size_mark_container">
+											
+												<input type="text" name="category" id="selected_categ"  value = "Categoría">
+												
+											</div>
 											<div class="size_dropdown_button"><i class="fas fa-chevron-down"></i></div>
 
 											<ul class="color_size">
-												<li><div class="size_mark" id="categ1" >Hombre</div></li>
-												<li><div class="size_mark" id="categ2" >Mujer</div></li>
-												<li><div class="size_mark" id="categ3" >Niño</div></li>
+												<li><input type="button"  class="size_mark" id="categ1" value="Hombre" ></li>
+												<li><input type="button"  class="size_mark" id="categ2" value="Mujer" ></li>
+												<li><input type="button"  class="size_mark" id="categ3" value="Niño"></li>
 											</ul>
 										</li>
 									</ul>
@@ -77,17 +96,17 @@
 									<ul class="product_subcateg">
 										<li>
 											
-											<div class="size_mark_container"><div id="selected_subcateg" class="size_mark">
-												Subcategoría</div></div>
+											<div class="size_mark_container">
+											
+												<input type="text" name="subcategory" id="selected_subcateg"  value = "Subcategoría">
+											
+											</div>
 											
 											<div class="size_dropdown_button"><i class="fas fa-chevron-down"></i></div>
 											
 											<ul class="color_size">
-												<li><div class="size_mark" id="subcateg1" >Abrigos</div></li>
-												<li><div class="size_mark" id="subcateg2" >Camisas</div></li>
-												<li><div class="size_mark" id="subcateg3" >Camisetas</div></li>
-												<li><div class="size_mark" id="subcateg4" >Pantalones</div></li>
-												<li><div class="size_mark" id="subcateg5" >Sudaderas</div></li>
+												<li><input type="button"  class="size_mark" id="subcateg1" value="Abrigos" ></li>
+												<li><input type="button"  class="size_mark" id="subcateg2" value=Camisas></li>
 											</ul>
 										</li>
 									</ul>

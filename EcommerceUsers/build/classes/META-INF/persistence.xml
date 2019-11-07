@@ -3,8 +3,10 @@
 	<persistence-unit name="EcommerceUsersJPA" transaction-type="JTA">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<jta-data-source>EcommerceDS</jta-data-source>
-		<class>servlet.Appuser</class>
-		<class>servlet.Product</class>
+		<class>es.uc3m.ecommerce.model.Appuser</class>
+		<class>es.uc3m.ecommerce.model.Category</class>
+		<class>es.uc3m.ecommerce.model.Product</class>
+		<class>es.uc3m.ecommerce.model.Purchas</class>
 		<properties>
 			<property name="eclipselink.logging.level" value="FINE"/>
 			<property name="javax.persistence.schema-generation.database.action" value="create"/>
