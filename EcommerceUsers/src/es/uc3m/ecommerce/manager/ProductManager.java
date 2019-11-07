@@ -96,8 +96,29 @@ public class ProductManager {
 	public Product findById(int id) {
 		Product resultado;
 	
-			resultado  = em.find(Product.class, id);
+		resultado  = em.find(Product.class, id);
 		
 		return resultado;
+	}
+	
+	public void removeById(Product product) throws Exception {
+		try {
+			ut.begin();
+			em.remove(product);
+			ut.commit();
+		} catch (Exception ex) {
+			try {
+				if (em.getTransaction().isActive()) {
+					em.getTransaction().rollback();
+				}
+			} catch (Exception e) {
+				ex.printStackTrace();
+				throw e;
+			}
+			throw ex;
+		} finally {
+			em.close();
+		}
+		return;
 	}
 }

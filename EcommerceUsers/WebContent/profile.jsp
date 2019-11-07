@@ -55,9 +55,6 @@
 										<h4 class="profile_name">Email</h4>
 									</div>
 									<div class="profile_div_name">
-										<h4 class="profile_name">Telefóno</h4>
-									</div>
-									<div class="profile_div_name">
 										<h4 class="profile_name">Dirección de envío</h4>
 									</div>
 									<div class="profile_div_name">

@@ -40,6 +40,7 @@
 											<div class="cart_item_title">Producto</div>
 											<div class="cart_item_text">Pantalon basico</div>
 										</div>
+										<!--  
 										<div style="flex: 0.20" class="cart_item_color cart_info_col">
 											<div class="cart_item_title">Color</div>
 											<div class="cart_item_text"><span style="background-color:#999999;"></span>Plateado</div>
@@ -48,6 +49,7 @@
 											<div class="cart_item_title">Talla</div>
 											<div class="cart_item_text">M</div>
 										</div>
+										-->
 										<div style="flex: 0.1" class="cart_item_quantity cart_info_col">
 											<div class="cart_item_title">Cantidad</div>
 											
@@ -79,49 +81,6 @@
 									</div>
 								</li>
 								
-								<li class="cart_item clearfix" style="display:flex">
-									<div class="cart_item_image" style="flex: 0.15"><img src="images/shopping_cart.jpg" alt=""></div>
-									<div style="flex: 0.85" class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
-										<div style="flex: 0.25" class="cart_item_name cart_info_col">
-											<div class="cart_item_title">Producto</div>
-											<div class="cart_item_text">Otro producto</div>
-										</div>
-										<div style="flex: 0.20" class="cart_item_color cart_info_col">
-											<div class="cart_item_title">Color</div>
-											<div class="cart_item_text"><span style="background-color:#000;"></span>Negro</div>
-										</div>
-										<div style="flex: 0.1" class="cart_item_color cart_info_col">
-											<div class="cart_item_title">Talla</div>
-											<div class="cart_item_text">L</div>
-										</div>
-										<div style="flex: 0.1" class="cart_item_quantity cart_info_col">
-											<div class="cart_item_title">Cantidad</div>
-											
-											<div class="cart_item_text">
-												<div class="product_quantity">
-											
-												<input id="quantity_input" type="text" pattern="[0-9]*" value="1">
-													<div class="quantity_buttons">
-													<div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fas fa-chevron-up"></i></div>
-													<div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fas fa-chevron-down"></i></div>
-													</div>
-												</div>
-											</div>
-										</div>	
-										<div style="flex: 0.1" class="cart_item_price cart_info_col">
-											<div class="cart_item_title">Precio</div>
-											<div class="cart_item_text">19.99&euro;</div>
-										</div>
-										<div style="flex: 0.15" class="cart_item_total cart_info_col">
-											<div class="cart_item_title">Subtotal</div>
-											<div class="cart_item_text">19.99&euro;</div>
-										</div>
-										<div class="product_trash">
-											<i class="fas fa-trash">
-										</i>
-										</div>
-									</div>
-								</li>
 							</ul>
 						</div>
 						

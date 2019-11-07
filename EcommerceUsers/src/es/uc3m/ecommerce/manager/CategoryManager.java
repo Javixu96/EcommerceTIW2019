@@ -44,7 +44,7 @@ public class CategoryManager {
 	public Category findById(int id) {
 		Category resultado;
 
-			resultado  = em.find(Category.class, id);
+		resultado  = em.find(Category.class, id);
 
 		return resultado;
 	}
