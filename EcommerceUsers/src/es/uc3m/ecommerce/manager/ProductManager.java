@@ -63,8 +63,13 @@ public class ProductManager {
 		return "";
 	}
 	
+<<<<<<< HEAD
 	// Esta anotación es para quitar el warning avisandonos que es está
 	// haciendo una conversión de List a List<Product> y puede no ser válida
+=======
+	// Esta anotaci¨®n es para quitar el warning avisandonos que es est¨¢
+	// haciendo una conversi¨®n de List a List<Product> y puede no ser v¨¢lida
+>>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
 	@SuppressWarnings("unchecked")
 	public List<Product> findAll() {
 		List<Product> resultado;
@@ -83,7 +88,11 @@ public class ProductManager {
 		List<Product> resultado;
 		try {
 			Query query = em.createNamedQuery("Product.findBySimilarTitle",Product.class);
+<<<<<<< HEAD
 			// Atención: Se neceista agregar el % porque se usa una consutla con like (buscar en google)
+=======
+			// Atenci¨®n: Se neceista agregar el % porque se usa una consutla con like (buscar en google)
+>>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
 			query.setParameter("titulo","%"+titulo+"%");
 			resultado = query.getResultList();
 		} finally {
@@ -95,11 +104,39 @@ public class ProductManager {
 	
 	public Product findById(int id) {
 		Product resultado;
+<<<<<<< HEAD
 		try {
 			resultado  = em.find(Product.class, id);
 		} finally {
 			em.close();
 		}
 		return resultado;
+=======
+	
+		resultado  = em.find(Product.class, id);
+		
+		return resultado;
+	}
+	
+	public void removeById(Product product) throws Exception {
+		try {
+			ut.begin();
+			em.remove(product);
+			ut.commit();
+		} catch (Exception ex) {
+			try {
+				if (em.getTransaction().isActive()) {
+					em.getTransaction().rollback();
+				}
+			} catch (Exception e) {
+				ex.printStackTrace();
+				throw e;
+			}
+			throw ex;
+		} finally {
+			em.close();
+		}
+		return;
+>>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
 	}
 }

@@ -363,15 +363,15 @@ $(document).ready(function()
 		{
 			$('#categ1').on('click',function()
 			{
-				document.getElementById("selected_categ").innerHTML=document.getElementById("categ1").innerHTML;	
+				document.getElementById("selected_categ").value=document.getElementById("categ1").value;	
 			})
 			$('#categ2').on('click',function()
 			{
-				document.getElementById("selected_categ").innerHTML=document.getElementById("categ2").innerHTML;	
+				document.getElementById("selected_categ").value=document.getElementById("categ2").value;	
 			})	
 			$('#categ3').on('click',function()
 			{
-				document.getElementById("selected_categ").innerHTML=document.getElementById("categ3").innerHTML;	
+				document.getElementById("selected_categ").value=document.getElementById("categ3").value;	
 			})	
 		}
 	}
@@ -382,23 +382,11 @@ $(document).ready(function()
 		{
 			$('#subcateg1').on('click',function()
 			{
-				document.getElementById("selected_subcateg").innerHTML=document.getElementById("subcateg1").innerHTML;	
+				document.getElementById("selected_subcateg").value=document.getElementById("subcateg1").value;	
 			})
 			$('#subcateg2').on('click',function()
 			{
-				document.getElementById("selected_subcateg").innerHTML=document.getElementById("subcateg2").innerHTML;	
-			})	
-			$('#subcateg3').on('click',function()
-			{
-				document.getElementById("selected_subcateg").innerHTML=document.getElementById("subcateg3").innerHTML;	
-			})	
-			$('#subcateg4').on('click',function()
-			{
-				document.getElementById("selected_subcateg").innerHTML=document.getElementById("subcateg4").innerHTML;	
-			})	
-			$('#subcateg5').on('click',function()
-			{
-				document.getElementById("selected_size").innerHTML=document.getElementById("subcateg5").innerHTML;	
+				document.getElementById("selected_subcateg").value=document.getElementById("subcateg2").value;	
 			})	
 		}
 	}

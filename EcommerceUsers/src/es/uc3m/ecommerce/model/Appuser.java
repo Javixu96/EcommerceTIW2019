@@ -16,6 +16,7 @@ public class Appuser implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+<<<<<<< HEAD
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int userid;
 
@@ -30,6 +31,13 @@ public class Appuser implements Serializable {
 	private int isSeller;
 
 	private String name;
+=======
+	private int userId;
+
+	private String email;
+
+	private int isDeleted;
+>>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
 
 	private String postalAddress;
 
@@ -40,6 +48,7 @@ public class Appuser implements Serializable {
 	@Lob
 	private byte[] userPicture;
 
+<<<<<<< HEAD
 	private String userSurnames;
 
 	//bi-directional many-to-onide association to Product
@@ -63,6 +72,29 @@ public class Appuser implements Serializable {
 
 	public void setAddress(String address) {
 		this.address = address;
+=======
+	private int userRole;
+
+	private String userSurnames;
+
+	//bi-directional many-to-one association to Product
+	@OneToMany(mappedBy="appuser")
+	private List<Product> products;
+
+	//bi-directional many-to-one association to Purchas
+	@OneToMany(mappedBy="appuser")
+	private List<Purchas> purchases;
+
+	public Appuser() {
+	}
+
+	public int getUserId() {
+		return this.userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+>>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
 	}
 
 	public String getEmail() {
@@ -73,6 +105,7 @@ public class Appuser implements Serializable {
 		this.email = email;
 	}
 
+<<<<<<< HEAD
 	public String getImageurl() {
 		return this.imageurl;
 	}
@@ -103,6 +136,14 @@ public class Appuser implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+=======
+	public int getIsDeleted() {
+		return this.isDeleted;
+	}
+
+	public void setIsDeleted(int isDeleted) {
+		this.isDeleted = isDeleted;
+>>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
 	}
 
 	public String getPostalAddress() {
@@ -137,6 +178,17 @@ public class Appuser implements Serializable {
 		this.userPicture = userPicture;
 	}
 
+<<<<<<< HEAD
+=======
+	public int getUserRole() {
+		return this.userRole;
+	}
+
+	public void setUserRole(int userRole) {
+		this.userRole = userRole;
+	}
+
+>>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
 	public String getUserSurnames() {
 		return this.userSurnames;
 	}
@@ -145,11 +197,19 @@ public class Appuser implements Serializable {
 		this.userSurnames = userSurnames;
 	}
 
+<<<<<<< HEAD
 	/*public List<Product> getProducts() {
 		return this.products;
 	}*/
 
 	/*public void setProducts(List<Product> products) {
+=======
+	public List<Product> getProducts() {
+		return this.products;
+	}
+
+	public void setProducts(List<Product> products) {
+>>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
 		this.products = products;
 	}
 
@@ -165,6 +225,32 @@ public class Appuser implements Serializable {
 		product.setAppuser(null);
 
 		return product;
+<<<<<<< HEAD
 	}*/
+=======
+	}
+
+	public List<Purchas> getPurchases() {
+		return this.purchases;
+	}
+
+	public void setPurchases(List<Purchas> purchases) {
+		this.purchases = purchases;
+	}
+
+	public Purchas addPurchas(Purchas purchas) {
+		getPurchases().add(purchas);
+		purchas.setAppuser(this);
+
+		return purchas;
+	}
+
+	public Purchas removePurchas(Purchas purchas) {
+		getPurchases().remove(purchas);
+		purchas.setAppuser(null);
+
+		return purchas;
+	}
+>>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
 
 }

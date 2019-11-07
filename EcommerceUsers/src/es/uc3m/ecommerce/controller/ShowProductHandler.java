@@ -28,4 +28,8 @@ public class ShowProductHandler implements IHandler {
 		return "index.jsp";
 	}
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef

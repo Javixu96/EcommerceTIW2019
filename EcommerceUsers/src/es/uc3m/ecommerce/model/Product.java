@@ -2,6 +2,10 @@ package es.uc3m.ecommerce.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+<<<<<<< HEAD
+=======
+import java.util.List;
+>>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
 
 
 /**
@@ -15,10 +19,14 @@ public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+<<<<<<< HEAD
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int productid;
 
 	private String category;
+=======
+	private int productId;
+>>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
 
 	private String longDesc;
 
@@ -29,12 +37,16 @@ public class Product implements Serializable {
 	@Lob
 	private byte[] productPicture;
 
+<<<<<<< HEAD
 	private int sellerId;
 
+=======
+>>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
 	private String shortDesc;
 
 	private int stock;
 
+<<<<<<< HEAD
 	private int subcategory;
 
 	//bi-directional many-to-one association to Appuser
@@ -65,6 +77,31 @@ public class Product implements Serializable {
 
 	public void setCategory(String category) {
 		this.category = category;
+=======
+	//bi-directional many-to-one association to Appuser
+	@ManyToOne
+	@JoinColumn(name="sellerId")
+	private Appuser appuser;
+
+	//bi-directional many-to-one association to Category
+	@ManyToOne
+	@JoinColumn(name="category")
+	private Category categoryBean;
+
+	//bi-directional many-to-one association to Purchas
+	@OneToMany(mappedBy="product")
+	private List<Purchas> purchases;
+
+	public Product() {
+	}
+
+	public int getProductId() {
+		return this.productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
+>>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
 	}
 
 	public String getLongDesc() {
@@ -99,6 +136,7 @@ public class Product implements Serializable {
 		this.productPicture = productPicture;
 	}
 
+<<<<<<< HEAD
 	public int getSellerId() {
 		return this.sellerId;
 	}
@@ -107,6 +145,8 @@ public class Product implements Serializable {
 		this.sellerId = sellerId;
 	}
 
+=======
+>>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
 	public String getShortDesc() {
 		return this.shortDesc;
 	}
@@ -123,6 +163,7 @@ public class Product implements Serializable {
 		this.stock = stock;
 	}
 
+<<<<<<< HEAD
 	public int getSubcategory() {
 		return this.subcategory;
 	}
@@ -131,14 +172,21 @@ public class Product implements Serializable {
 		this.subcategory = subcategory;
 	}
 /*
+=======
+>>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
 	public Appuser getAppuser() {
 		return this.appuser;
 	}
 
 	public void setAppuser(Appuser appuser) {
 		this.appuser = appuser;
+<<<<<<< HEAD
 	}*/
 /*
+=======
+	}
+
+>>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
 	public Category getCategoryBean() {
 		return this.categoryBean;
 	}
@@ -146,5 +194,31 @@ public class Product implements Serializable {
 	public void setCategoryBean(Category categoryBean) {
 		this.categoryBean = categoryBean;
 	}
+<<<<<<< HEAD
 */
+=======
+
+	public List<Purchas> getPurchases() {
+		return this.purchases;
+	}
+
+	public void setPurchases(List<Purchas> purchases) {
+		this.purchases = purchases;
+	}
+
+	public Purchas addPurchas(Purchas purchas) {
+		getPurchases().add(purchas);
+		purchas.setProduct(this);
+
+		return purchas;
+	}
+
+	public Purchas removePurchas(Purchas purchas) {
+		getPurchases().remove(purchas);
+		purchas.setProduct(null);
+
+		return purchas;
+	}
+
+>>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
 }

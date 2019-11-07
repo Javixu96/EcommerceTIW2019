@@ -37,7 +37,7 @@
 						<div class="cart_items">
 							<h4>Parece que no tiene ningún producto en venta.</h4>
 							<div class="contact_form_button">
-								<button type="submit" class="button contact_submit_button">Mi producto a la venta!</button>
+								<button class="button contact_submit_button">Añadir producto</button>
 							</div>	
 						</div>
 						
@@ -48,11 +48,23 @@
 									<div class="cart_item_image" style="flex: 0.15"><img src="images/shopping_cart.jpg" alt=""></div>
 									<div style="flex: 0.85" class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
 										<div style="flex: 0.25" class="cart_item_name cart_info_col">
+											<div class="cart_item_title">ID Producto</div>
+											<div class="cart_item_text">Pantalon basico</div>
+										</div>
+										
+										<div style="flex: 0.25" class="cart_item_name cart_info_col">
 											<div class="cart_item_title">Producto</div>
 											<div class="cart_item_text">Pantalon basico</div>
 										</div>
+										
+										<div style="flex: 0.25" class="cart_item_name cart_info_col">
+											<div class="cart_item_title">Categoría</div>
+											<div class="cart_item_text">Pantalon basico</div>
+										</div>
+										
+										<!-- 
 										<div style="flex: 0.20" class="cart_item_color cart_info_col">
-											<div class="cart_item_title">Colores</div>
+											<div class="cart_item_title"></div>
 											<div class="cart_item_text"><span style="background-color:#999999;"></span></div>
 											<div class="cart_item_text"><span style="background-color:black;"></span></div>
 											<div class="cart_item_text"><span style="background-color:brown;"></span></div>
@@ -62,6 +74,8 @@
 											<div class="cart_item_text">M</div>
 											<div class="cart_item_text">L</div>
 										</div>
+										-->
+										
 										<div style="flex: 0.1" class="cart_item_quantity cart_info_col">
 											<div class="cart_item_title">Stock</div>
 											
@@ -71,50 +85,19 @@
 											<div class="cart_item_title">Precio</div>
 											<div class="cart_item_text">19.99&euro;</div>
 										</div>
-										<div class="product_setting">
-											<i class="fas fa-cog">
-										</i>
-										</div>
+										<form action="./modif_product.jsp">
+											<div class="product_setting">
+											 <button type="submit" class="setting_button">
+												<i class="fas fa-cog">
+												</i>
+											</button>
+											</div>
+										</form>
 										<div class="product_trash">
 											<i class="fas fa-trash">
 										</i>
 										</div>
 										
-									</div>
-								</li>
-								
-								<li class="cart_item clearfix" style="display:flex">
-									<div class="cart_item_image" style="flex: 0.15"><img src="images/shopping_cart.jpg" alt=""></div>
-									<div style="flex: 0.85" class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
-										<div style="flex: 0.25" class="cart_item_name cart_info_col">
-											<div class="cart_item_title">Producto</div>
-											<div class="cart_item_text">Otro producto</div>
-										</div>
-										<div style="flex: 0.20" class="cart_item_color cart_info_col">
-											<div class="cart_item_title">Colores</div>
-											<div class="cart_item_text"><span style="background-color:#000;"></span></div>
-										</div>
-										<div style="flex: 0.1" class="cart_item_color cart_info_col">
-											<div class="cart_item_title">Tallas</div>
-											<div class="cart_item_text">L</div>
-										</div>
-										<div style="flex: 0.1" class="cart_item_quantity cart_info_col">
-											<div class="cart_item_title">Stock</div>
-											
-											<div class="cart_item_text">23</div>
-										</div>	
-										<div style="flex: 0.1" class="cart_item_price cart_info_col">
-											<div class="cart_item_title">Precio</div>
-											<div class="cart_item_text">19.99&euro;</div>
-										</div>
-										<div class="product_trash">
-											<i class="fas fa-cog">
-										</i>
-										</div>
-										<div class="product_trash">
-											<i class="fas fa-trash">
-										</i>
-										</div>
 									</div>
 								</li>
 							</ul>
@@ -123,18 +106,15 @@
 						<!-- Order Total -->
 						<div class="order_total">
 							<div class="order_total_content text-md-right">
-								<div class="order_total_title">Nº de productos:</div>
-								<div class="order_total_amount"><b>2</b></div>
-								<div class="order_total_amount">       </div>
 								<div class="order_total_title">Valor total:</div>
 								<div class="order_total_amount">850&euro;</div>
-								
 							</div>
 						</div>
-
+						<form action="./profile.jsp">
 						<div class="cart_buttons">
-							<button type="button" class="button cart_button_checkout">Guardar cambios</button>
+							<button type="submit" class="button cart_button_checkout">Guardar cambios</button>
 						</div>
+						</form>
 					</div>
 				</div>
 			</div>

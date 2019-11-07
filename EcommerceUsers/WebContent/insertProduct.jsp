@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="java.util.List,java.util.ArrayList,es.uc3m.ecommerce.model.*,org.apache.commons.codec.binary.StringUtils,org.apache.commons.codec.binary.Base64;" %>
+<%@ page import="java.util.List,java.util.ArrayList,es.uc3m.ecommerce.model.*" %>
+<%@ page import="org.apache.commons.codec.binary.StringUtils" %>
+<%@ page import="org.apache.commons.codec.binary.Base64;" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>

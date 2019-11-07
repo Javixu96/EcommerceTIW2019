@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="es.uc3m.ecommerce.model.* %>   
+  <%--
+<%@page import="servlet.BDServlet"%>
+<%@page contentType="text/html"%>
+<%@page pageEncoding="UTF-8"%>
+--%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +24,6 @@
 <body>
 
 <div class="super_container">
-	
 	<!-- Header -->
 	<%@ include file="header.jsp" %>
 
@@ -35,7 +40,7 @@
 					<!-- Perfil -->
 						<div class="contact_form_title profile_line">Datos personales</div>
 
-						<form action="./index.jsp" id="contact_form">
+						<form method="POST" action="modifyUser.html" id="contact_form">
 							<div class="contact_form_inputs">
 								<div class="div_profile_photo">
 									<img class="profile_photo" src="images/photo_profile.png" alt="">
@@ -51,58 +56,57 @@
 										<h4 class="profile_name">Email</h4>
 									</div>
 									<div class="profile_div_name">
-										<h4 class="profile_name">Telefóno</h4>
+										<h4 class="profile_name">DirecciÃ³n de envÃ­o</h4>
 									</div>
 									<div class="profile_div_name">
-										<h4 class="profile_name">Dirección de envío</h4>
+										<h4 class="profile_name">NÂº de productos comprados</h4>
 									</div>
 									<div class="profile_div_name">
-										<h4 class="profile_name">Nº de productos comprados</h4>
-									</div>
-									<div class="profile_div_name">
-										<h4 class="profile_name">Nº de productos vendidos</h4>
+										<h4 class="profile_name">NÂº de productos vendidos</h4>
 									</div>
 								</div>	
 								<div class="div_profile_right">
-									<input type="text" id="contact_form_name" class="profile_form input_field" placeholder="Nombre" required="required" data-error="Campo obligatorio."value="Alberto">
-									<input type="text" id="contact_form_surname" class="profile_form input_field" placeholder="Apellidos" required="required" data-error="Campo obligatorio."value="García">
-									<input type="text" id="contact_form_email" class="profile_form input_field" placeholder="Nº de teléfono" value="AlbertoG@gmail.com">
-									<input type="text" id="contact_form_phone" class="profile_form input_field" placeholder="Correo electrónico" data-error="Campo obligatorio." value="623785928">
-									<input type="text" id="contact_form_direction" class="profile_form input_field" placeholder="Dirección de envío" required="required" data-error="Campo obligatorio."value="Calle real 54 1ºB, Colmenarejo,Madrid 28270">
+								<jsp:useBean id="user" scope="request" type="es.uc3m.ecommerce.model.Appuser">
+								</jsp:useBean>
+									<input type="text" name ="name" id="contact_form_name" class="profile_form input_field" placeholder="Nombre" required="required" data-error="Campo obligatorio." value=<% out.println(user.getUserName()); %>>
+									<input type="text" name ="surnames" id="contact_form_surname" class="profile_form input_field" placeholder="Apellidos" required="required" data-error="Campo obligatorio."value=<% out.println(user.getUserSurnames()); %>>
+									<input type="text" name ="email" id="contact_form_email" class="profile_form input_field" placeholder="NÂº de telÃ©fono" value=<% out.println(user.getEmail()); %>>
+									<input type="text" name ="phone" id="contact_form_phone" class="profile_form input_field" placeholder="Correo electrÃ³nico" data-error="Campo obligatorio." >
+									<input type="text" name ="direction" id="contact_form_direction" class="profile_form input_field" placeholder="DirecciÃ³n de envÃ­o" required="required" data-error="Campo obligatorio."value=<% out.println(user.getPostalAddress()); %>>
 									<div class="profile_form">
 										<h5 class="product_number"><b>35</b></h5>
 									</div>
 									<div class="profile_form">
 										<h5 class="product_number"><b>17&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										 <a href="">Acceder a mi tienda</a></b></h5>
+										 <a href="./product_list_seller.jsp">Acceder a mi tienda</a></b></h5>
 									</div>
 								</div>	
 							</div>						
 						
 							<div class="contact_form_button">
-								<button type="submit" class="button contact_submit_button">Guardar cambios</button>
+								<button type="submit" value="sent" class="button contact_submit_button">Guardar cambios</button>
 							</div>
 						</form>
 						
 					<!-- Contrasena -->
-					<div class="contact_form_title profile_line">Contraseña</div>
+					<div class="contact_form_title profile_line">ContraseÃ±a</div>
 						<form action="#">
 							<div class="contact_form_inputs">
 								<div class="div_profile_left">
 									<div class="profile_div_name">
-										<h4 class="profile_name">Contraseña anterior</h4>
+										<h4 class="profile_name">ContraseÃ±a anterior</h4>
 									</div>
 									<div class="profile_div_name">
-										<h4 class="profile_name">Contraseña nueva</h4>
+										<h4 class="profile_name">ContraseÃ±a nueva</h4>
 									</div>	
 									<div class="profile_div_name">
-										<h4 class="profile_name">Confirmar la contraseña</h4>
+										<h4 class="profile_name">Confirmar la contraseÃ±a</h4>
 									</div>
 								</div>	
 								<div class="div_profile_right">
-								<input type="text" id="contact_form_oldpassword" class="profile_form input_field" placeholder="Contraseña anterior" required="required" data-error="Name is required.">
-								<input type="text" id="contact_form_newpassword" class="profile_form input_field" placeholder="Contraseña nueva" required="required" data-error="surname is required.">
-								<input type="text" id="contact_form_repeatpassword" class="profile_form input_field" placeholder="Repetir la contraseña nueva" required="required" data-error="email is required.">
+								<input type="text" id="contact_form_oldpassword" class="profile_form input_field" placeholder="ContraseÃ±a anterior" required="required" data-error="Name is required.">
+								<input type="text" id="contact_form_newpassword" class="profile_form input_field" placeholder="ContraseÃ±a nueva" required="required" data-error="surname is required.">
+								<input type="text" id="contact_form_repeatpassword" class="profile_form input_field" placeholder="Repetir la contraseÃ±a nueva" required="required" data-error="email is required.">
 								</div>	
 							</div>						
 							
