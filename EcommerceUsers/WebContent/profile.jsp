@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="es.uc3m.ecommerce.model.* %>   
+<%@ page import="es.uc3m.ecommerce.model.*"%>   
   <%--
 <%@page import="servlet.BDServlet"%>
 <%@page contentType="text/html"%>

@@ -16,10 +16,6 @@ public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-<<<<<<< HEAD
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-=======
->>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
 	private int categoryId;
 
 	private String categoryName;
@@ -32,19 +28,11 @@ public class Category implements Serializable {
 	//bi-directional many-to-one association to Category
 	@OneToMany(mappedBy="category")
 	private List<Category> categories;
-<<<<<<< HEAD
-/*
-	//bi-directional many-to-one association to Product
-	@OneToMany(mappedBy="categoryBean")
-	private List<Product> products;
-*/
-=======
 
 	//bi-directional many-to-one association to Product
 	@OneToMany(mappedBy="categoryBean")
 	private List<Product> products;
 
->>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
 	public Category() {
 	}
 
@@ -93,35 +81,4 @@ public class Category implements Serializable {
 
 		return category;
 	}
-<<<<<<< HEAD
-/*
-=======
-
->>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
-	public List<Product> getProducts() {
-		return this.products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-
-	public Product addProduct(Product product) {
-		getProducts().add(product);
-		product.setCategoryBean(this);
-
-		return product;
-	}
-
-	public Product removeProduct(Product product) {
-		getProducts().remove(product);
-		product.setCategoryBean(null);
-
-		return product;
-	}
-<<<<<<< HEAD
-*/
-=======
-
->>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
 }

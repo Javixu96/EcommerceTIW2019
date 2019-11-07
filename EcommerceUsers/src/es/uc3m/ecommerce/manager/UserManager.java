@@ -12,10 +12,8 @@ import javax.persistence.Query;
 import javax.transaction.UserTransaction;
 
 import es.uc3m.ecommerce.model.Product;
-<<<<<<< HEAD
-=======
 import es.uc3m.ecommerce.model.Appuser;
->>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
+
 
 public class UserManager {
 	
@@ -86,8 +84,6 @@ public class UserManager {
 			return p;
 		
 	}
-<<<<<<< HEAD
-=======
 	
 	public Appuser getUserById(int id) {
 		
@@ -133,5 +129,5 @@ public class UserManager {
 
 	
 }	
->>>>>>> 1f108551fb5e345f49ebe512fced0271a33fb1ef
+
 }
