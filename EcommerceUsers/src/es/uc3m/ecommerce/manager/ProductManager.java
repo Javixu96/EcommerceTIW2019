@@ -68,12 +68,9 @@ public class ProductManager {
 	@SuppressWarnings("unchecked")
 	public List<Product> findAll() {
 		List<Product> resultado;
-		try {
-			Query query = em.createNamedQuery("Product.findAll",Product.class);
-			resultado = query.getResultList();
-		} finally {
-			em.close();
-		}
+		Query query = em.createNamedQuery("Product.findAll",Product.class);
+		resultado = query.getResultList();
+		
 		return resultado;
 
 	}

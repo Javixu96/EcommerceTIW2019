@@ -17,16 +17,10 @@ public class ShowAllProductsHandler implements IHandler {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		/*
+		System.out.println("ShowAllProductsHandler");
+		// TODO Auto-generated method stub	
 		ProductManager productManager = new ProductManager();
 		List<Product> products = productManager.findAll();
-		request.setAttribute("allProducts", products);
-		*/
-		
-		
-		UserManager userManager = new UserManager();
-		List<Product> products = userManager.getAllProducts();
 		// System.out.println("hola"+products.getProductName());
 		request.setAttribute("allProducts", products);
 		for (Product product : products) {
@@ -34,6 +28,5 @@ public class ShowAllProductsHandler implements IHandler {
 		}
 		
 		return "shop.jsp";
-		// return "insertProduct.jsp";
 	}
 }

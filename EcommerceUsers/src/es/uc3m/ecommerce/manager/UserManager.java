@@ -45,46 +45,6 @@ public class UserManager {
 		}
 	}
 	
-	public List<Product> getAllProducts() {
-		
-			
-			System.out.println("Dentro de try <br>");
-			
-
-			String jpql = "SELECT p FROM Product p";
-			Query products = em.createQuery(jpql);
-			List<Product> results = products.getResultList();
-			
-			/*
-			for (Product product : results){
-				System.out.println("<FONT color=\"#ff0000\">"+product.getProductName()+"</FONT><BR>");
-			}
-			*/
-		
-		return results;
-	}
-	
-	public Product getElementById(int id) {
-		
-			System.out.println("Dentro de try <br>");
-			
-
-			/*String jpql = "SELECT p"
-					+ " FROM Product p "
-					+ " WHERE p.productid = ?1";
-			Query products = em.createQuery(jpql);
-			products.setParameter(1, id);
-			products.setMaxResults(1);
-					
-			List<String> results = products.getResultList();
-			*/
-	
-			Product p =em.find(Product.class, id);
-			
-			return p;
-		
-	}
-	
 	public Appuser getUserById(int id) {
 		
 		System.out.println("Dentro de try <br>");
