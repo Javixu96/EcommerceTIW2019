@@ -1,4 +1,4 @@
-<%@ page language="java" %>
+<%@ page language="java" import="java.util.List"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +21,16 @@
 <body>
 
 <div class="super_container">
-	
+	<jsp:useBean id="productName" scope="request" type="es.uc3m.ecommerce.model.Product">
+	</jsp:useBean>
+	<%
+	out.println("<FONT color=\"#ff0000\">"+ "PRUEBA INDEX" +"</FONT><BR>");
+	//Object auxObject = request.getAttribute("product");
+	//List<String> products = (List<String>) auxObject;
+	//for (String productName : products){
+		out.println("<FONT color=\"#ff0000\">"+productName.getProductName()+"</FONT><BR>");
+	//}
+	%>
 	<!-- Header --> 
 	<%@ include file="header.jsp" %>
 	
