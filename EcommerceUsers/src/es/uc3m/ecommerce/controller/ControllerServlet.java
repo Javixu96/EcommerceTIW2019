@@ -18,7 +18,7 @@ import java.util.HashMap;
 /**
  * Servlet implementation class ControllerServlet
  */
-@WebServlet({ "/BDServlet", "*.html"})
+@WebServlet({"*.html"})
 @MultipartConfig
 public class ControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
