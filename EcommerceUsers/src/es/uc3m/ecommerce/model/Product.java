@@ -4,7 +4,6 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the products database table.
  * 
@@ -55,7 +54,23 @@ public class Product implements Serializable {
 	public void setProductId(int productId) {
 		this.productId = productId;
 	}
+	
+	public Appuser getAppuser() {
+		return this.appuser;
+	}
 
+	public void setAppuser(Appuser appuser) {
+		this.appuser = appuser;
+	}
+
+	public Category getCategoryBean() {
+		return this.categoryBean;
+	}
+
+	public void setCategoryBean(Category categoryBean) {
+		this.categoryBean = categoryBean;
+	}
+	
 	public String getLongDesc() {
 		return this.longDesc;
 	}
@@ -104,22 +119,6 @@ public class Product implements Serializable {
 		this.stock = stock;
 	}
 
-	public Appuser getAppuser() {
-		return this.appuser;
-	}
-
-	public void setAppuser(Appuser appuser) {
-		this.appuser = appuser;
-	}
-
-	public Category getCategoryBean() {
-		return this.categoryBean;
-	}
-
-	public void setCategoryBean(Category categoryBean) {
-		this.categoryBean = categoryBean;
-	}
-
 	public List<Purchas> getPurchases() {
 		return this.purchases;
 	}
@@ -141,5 +140,4 @@ public class Product implements Serializable {
 
 		return purchas;
 	}
-
 }

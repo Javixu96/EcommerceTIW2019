@@ -18,7 +18,7 @@ import java.util.HashMap;
 /**
  * Servlet implementation class ControllerServlet
  */
-@WebServlet({ "/BDServlet", "*.html"})
+@WebServlet({"*.html"})
 @MultipartConfig
 public class ControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -37,6 +37,7 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/index.html", new es.uc3m.ecommerce.controller.ShowProductHandler());
 	    handlerHash.put("/modifyUser.html", new es.uc3m.ecommerce.controller.ModifyProfileHandler());
 	    handlerHash.put("/insert_product.html", new es.uc3m.ecommerce.controller.InsertProductHandler());
+	    handlerHash.put("/shop.html", new es.uc3m.ecommerce.controller.ShowAllProductsHandler());
 	  }
 
 	  
