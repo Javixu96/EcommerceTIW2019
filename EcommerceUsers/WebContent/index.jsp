@@ -1,4 +1,4 @@
-<%@ page language="java" %>
+<%@ page language="java" import="java.util.List"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,8 +20,8 @@
 
 <body>
 
-<div class="super_container">
-	
+<div class="super_container">	
+
 	<!-- Header --> 
 	<%@ include file="header.jsp" %>
 	

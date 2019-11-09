@@ -1212,6 +1212,14 @@ select option
 /*********************************
 4. Cart
 *********************************/
+.setting_button
+{
+	border: none;
+	outline:none;
+	cursor:pointer;
+    background: #FFFFFF;
+    height:7px;
+}
 .contact_form_button{
 	position:relative;
 	left:40%;
