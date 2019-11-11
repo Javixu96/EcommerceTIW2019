@@ -31,6 +31,7 @@ public class Appuser implements Serializable {
 	@Lob
 	private byte[] userPicture;
 
+
 	private int userRole;
 
 	private String userSurnames;
@@ -116,28 +117,6 @@ public class Appuser implements Serializable {
 
 	public void setUserSurnames(String userSurnames) {
 		this.userSurnames = userSurnames;
-	}
-
-	public List<Product> getProducts() {
-		return this.products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-
-	public Product addProduct(Product product) {
-		getProducts().add(product);
-		product.setAppuser(this);
-
-		return product;
-	}
-
-	public Product removeProduct(Product product) {
-		getProducts().remove(product);
-		product.setAppuser(null);
-
-		return product;
 	}
 
 	public List<Purchas> getPurchases() {

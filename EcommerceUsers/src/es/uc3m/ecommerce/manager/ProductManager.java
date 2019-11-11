@@ -64,12 +64,12 @@ public class ProductManager {
 		return "";
 	}
 	
-	// Esta anotaci¨®n es para quitar el warning avisandonos que es est¨¢
-	// haciendo una conversi¨®n de List a List<Product> y puede no ser v¨¢lida
+	// Esta anotación es para quitar el warning avisandonos que es est
+	// haciendo una conversión de List a List<Product> y puede no ser válida
 	@SuppressWarnings("unchecked")
 	public List<Product> findAll() {
 		List<Product> resultado;
-		
+
 		Query query = em.createNamedQuery("Product.findAll",Product.class);
 		resultado = query.getResultList();
 		
@@ -81,18 +81,21 @@ public class ProductManager {
 	public List<Product> findBySimilarTitle(String titulo) {
 		List<Product> resultado;
 
-		Query query = em.createNamedQuery("Product.findBySimilarTitle",Product.class);
-		// Atenci¨®n: Se neceista agregar el % porque se usa una consutla con like (buscar en google)
-		query.setParameter("titulo","%"+titulo+"%");
-		resultado = query.getResultList();
+		try {
+			Query query = em.createNamedQuery("Product.findBySimilarTitle",Product.class);
+			// Atención: Se neceista agregar el % porque se usa una consutla con like (buscar en google)
+			query.setParameter("titulo","%"+titulo+"%");
+			resultado = query.getResultList();
+		} finally {
+			em.close();
+		}
 
 		return resultado;
 
 	}
 	
 	public Product findById(int id) {
-		Product resultado;
-	
+		Product resultado;	
 		resultado  = em.find(Product.class, id);
 		
 		return resultado;

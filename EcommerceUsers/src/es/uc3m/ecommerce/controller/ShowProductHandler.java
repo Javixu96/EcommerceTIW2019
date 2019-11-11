@@ -3,7 +3,7 @@ package es.uc3m.ecommerce.controller;
 import java.io.IOException;
 import java.util.List;
 
-import es.uc3m.ecommerce.manager.UserManager;
+import es.uc3m.ecommerce.manager.*;
 import es.uc3m.ecommerce.model.*;
 
 import javax.servlet.ServletException;
@@ -19,13 +19,18 @@ public class ShowProductHandler implements IHandler {
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		UserManager userManager = new UserManager();
+		ProductManager productManager = new ProductManager();
 		//HttpSession sesion = request.getSession();
+<<<<<<< HEAD
 		Product products = userManager.getElementById(3);
 	
+=======
+		Product products = productManager.findById(3);
+		System.out.println("hola"+products.getProductName());
+>>>>>>> dev
 		request.setAttribute("productName", products);
 		
 		return "index.jsp";
 	}
-
 }
+
