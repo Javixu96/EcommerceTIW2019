@@ -6,5 +6,6 @@
     <welcome-file>profile.html</welcome-file>
     <welcome-file>modifyUser.html</welcome-file>
     <welcome-file>insert_product.html</welcome-file>
+    <welcome-file>modif_product.html</welcome-file>
   </welcome-file-list>
 </web-app>

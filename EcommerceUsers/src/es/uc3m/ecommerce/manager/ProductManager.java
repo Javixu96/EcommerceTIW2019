@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.transaction.UserTransaction;
 
+import es.uc3m.ecommerce.model.Appuser;
 import es.uc3m.ecommerce.model.Product;
 
 public class ProductManager {
@@ -68,12 +69,10 @@ public class ProductManager {
 	@SuppressWarnings("unchecked")
 	public List<Product> findAll() {
 		List<Product> resultado;
-		try {
-			Query query = em.createNamedQuery("Product.findAll",Product.class);
-			resultado = query.getResultList();
-		} finally {
-			em.close();
-		}
+		
+		Query query = em.createNamedQuery("Product.findAll",Product.class);
+		resultado = query.getResultList();
+		
 		return resultado;
 
 	}
@@ -81,14 +80,12 @@ public class ProductManager {
 	@SuppressWarnings("unchecked")
 	public List<Product> findBySimilarTitle(String titulo) {
 		List<Product> resultado;
-		try {
-			Query query = em.createNamedQuery("Product.findBySimilarTitle",Product.class);
-			// Atenci¨®n: Se neceista agregar el % porque se usa una consutla con like (buscar en google)
-			query.setParameter("titulo","%"+titulo+"%");
-			resultado = query.getResultList();
-		} finally {
-			em.close();
-		}
+
+		Query query = em.createNamedQuery("Product.findBySimilarTitle",Product.class);
+		// Atenci¨®n: Se neceista agregar el % porque se usa una consutla con like (buscar en google)
+		query.setParameter("titulo","%"+titulo+"%");
+		resultado = query.getResultList();
+
 		return resultado;
 
 	}
@@ -121,4 +118,14 @@ public class ProductManager {
 		}
 		return;
 	}
+	
+	public void modifyProduct(Product product) throws Exception {
+		
+			ut.begin();
+			em.merge(product);
+			ut.commit();
+
+		return;
+
+	}	
 }

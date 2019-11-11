@@ -28,7 +28,6 @@ public class InsertProductHandler implements IHandler {
 		String productName = request.getParameter("product_name");
 		String shortDescription = request.getParameter("pShortDesc");
 		String longDescription = request.getParameter("pLongDesc");
-		String subCategory = request.getParameter("subcategory");
 		int price = Integer.parseInt(request.getParameter("product_price"));
 		int stock = Integer.parseInt(request.getParameter("product_stock"));
 

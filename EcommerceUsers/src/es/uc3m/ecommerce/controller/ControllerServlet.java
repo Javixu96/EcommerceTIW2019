@@ -37,6 +37,8 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/index.html", new es.uc3m.ecommerce.controller.ShowProductHandler());
 	    handlerHash.put("/modifyUser.html", new es.uc3m.ecommerce.controller.ModifyProfileHandler());
 	    handlerHash.put("/insert_product.html", new es.uc3m.ecommerce.controller.InsertProductHandler());
+	    handlerHash.put("/modify_product.html", new es.uc3m.ecommerce.controller.ModifyProductHandler());
+	    handlerHash.put("/modif_product.html", new es.uc3m.ecommerce.controller.ShowProductForModifyHandler());
 	  }
 
 	  

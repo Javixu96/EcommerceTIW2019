@@ -39,6 +39,7 @@ $(document).ready(function()
 	initBrandsSlider();
 	initQuantity();
 	initSize();
+	initSubcateg();
 	initColor();
 	initFavs();
 	initImage();
@@ -361,39 +362,35 @@ $(document).ready(function()
 	{
 		if($('.product_size').length)
 		{
-			$('#talla1').on('click',function()
+			$('#categ1').on('click',function()
 			{
-				document.getElementById("selected_size").innerHTML=document.getElementById("talla1").innerHTML;	
+				document.getElementById("selected_categ").value=document.getElementById("categ1").value;	
 			})
-			$('#talla2').on('click',function()
+			$('#categ2').on('click',function()
 			{
-				document.getElementById("selected_size").innerHTML=document.getElementById("talla2").innerHTML;	
+				document.getElementById("selected_categ").value=document.getElementById("categ2").value;	
 			})	
-			$('#talla3').on('click',function()
+			$('#categ3').on('click',function()
 			{
-				document.getElementById("selected_size").innerHTML=document.getElementById("talla3").innerHTML;	
+				document.getElementById("selected_categ").value=document.getElementById("categ3").value;	
 			})	
 		}
 	}
 	
-	function initColor()
+	function initSubcateg()
 	{
-		if($('.product_color').length)
+		if($('.product_size').length)
 		{
-			var selectedCol = $('#selected_color');
-			var colorItems = $('.color_list li .color_mark');
-			colorItems.each(function()
+			$('#subcateg1').on('click',function()
 			{
-				var colorItem = $(this);
-				colorItem.on('click', function()
-				{
-					var color = colorItem.css('backgroundColor');
-					selectedCol.css('backgroundColor', color);
-				});
-			});
+				document.getElementById("selected_subcateg").value=document.getElementById("subcateg1").value;	
+			})
+			$('#subcateg2').on('click',function()
+			{
+				document.getElementById("selected_subcateg").value=document.getElementById("subcateg2").value;	
+			})	
 		}
 	}
-
 	/* 
 
 	9. Init Favorites

@@ -22,7 +22,7 @@ public class ShowProductHandler implements IHandler {
 		UserManager userManager = new UserManager();
 		//HttpSession sesion = request.getSession();
 		Product products = userManager.getElementById(3);
-		System.out.println("hola"+products.getProductName());
+	
 		request.setAttribute("productName", products);
 		
 		return "index.jsp";

@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import javax.transaction.UserTransaction;
 
 import es.uc3m.ecommerce.model.Category;
+import es.uc3m.ecommerce.model.Product;
 
 public class CategoryManager {
 
@@ -47,5 +48,24 @@ public class CategoryManager {
 		resultado  = em.find(Category.class, id);
 
 		return resultado;
+	}
+	
+	
+	public List<Category> findByName(String name) {
+		List<Category>  resultado;
+
+		String jpql = "SELECT c"
+				+ " FROM Category c "
+				+ " WHERE c.categoryName = ?1";
+		Query category = em.createQuery(jpql);
+		category.setParameter(1, name);
+		category.setMaxResults(1);
+		
+		resultado=category.getResultList();
+		
+		for (Category category1 : resultado){
+			System.out.println("<FONT color=\"#ff0000\">"+category1.getCategoryName()+"</FONT><BR>");
+		}
+		return resultado;	
 	}
 }
