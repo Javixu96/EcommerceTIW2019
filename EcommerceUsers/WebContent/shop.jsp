@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     import="es.uc3m.ecommerce.model.*, java.util.*"
     pageEncoding="ISO-8859-1"%>
-    <%@ page import="java.util.List,java.util.ArrayList,org.apache.commons.codec.binary.StringUtils,org.apache.commons.codec.binary.Base64;" %>
+    <%@ page import="java.util.List,java.util.ArrayList,org.apache.commons.codec.binary.StringUtils,org.apache.commons.codec.binary.Base64" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,7 +45,12 @@
 				<div class="col-lg-3">
 
 					<!-- Shop Sidebar -->
-					<jsp:useBean id="categoryTree" scope="request" type="List<List<Category>>"></jsp:useBean>
+					
+					<%
+					    ServletContext sc = request.getServletContext();
+						List<List<Category>> categoryTree = (List<List<Category>>) sc.getAttribute("categoryTree");
+					
+					%>
 					<div class="shop_sidebar">
 						 <div class="sidebar_section">
 							<div class="sidebar_title">Categorias</div>

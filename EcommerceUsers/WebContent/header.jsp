@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    import="es.uc3m.ecommerce.model.*, java.util.*"
     pageEncoding="ISO-8859-1"%>
+    <%@ page import="java.util.List,java.util.ArrayList,org.apache.commons.codec.binary.StringUtils,org.apache.commons.codec.binary.Base64;" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,7 +85,12 @@
 							<div class="logo"><a href="#">Ecommerce</a></div>
 						</div>
 					</div>
-
+					<%
+					    ServletContext servletContext = request.getServletContext();
+						List<List<Category>> categories = (List<List<Category>>) servletContext.getAttribute("categoryTree");
+					
+					%>
+	
 					<!-- Search -->
 					<div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
 						<div class="header_search">
@@ -96,10 +103,15 @@
 												<span class="custom_dropdown_placeholder clc">Todas las categor&iacuteas</span>
 												<i class="fas fa-chevron-down"></i>
 												<ul class="custom_list clc">
-													<li><a class="clc" href="#">Todas las categor&iacuteas</a></li>
+													<li><a class="clc" href="#">Todas las categor&iacuteas</a></li>	
+												<% for (List<Category> cList : categories){ %>
+													<li><a class="clc" href="#"> <%= cList.get(0).getCategory().getCategoryName()%></a></li>
+												<% } %>	
+												
+													<!-- <li><a class="clc" href="#">Todas las categor&iacuteas</a></li>
 													<li><a class="clc" href="#">Mujer</a></li>
 													<li><a class="clc" href="#">Hombre</a></li>
-													<li><a class="clc" href="#">Ni&ntilde;o</a></li>
+													<li><a class="clc" href="#">Ni&ntilde;o</a></li> -->
 												</ul>
 											</div>
 										</div>
@@ -156,38 +168,20 @@
 									<div class="cat_burger"><span></span><span></span><span></span></div>
 									<div class="cat_menu_text">Categor&iacuteas</div>
 								</div>
-
+								
 								<ul class="cat_menu">
+									<% for (List<Category> cList : categories){ %>
 									<li class="hassubs">
-										<a href="#">Mujer<i class="fas fa-chevron-right"></i></a>
+										<a href="#"><%= cList.get(0).getCategory().getCategoryName()%><i class="fas fa-chevron-right"></i></a>
 										<ul>
-											<li><a href="#">Abrigos<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="#">Camisas<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="#">Camisetas<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="#">Pantalones<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="#">Sudaderas<i class="fas fa-chevron-right"></i></a></li>
+											<% for (Category categoryChild : cList) { %>
+											<li><a href="#" > <%= categoryChild.getCategoryName() %> <i class="fas fa-chevron-right"></i></a></li>
+											
+											<% } %>
 										</ul>
 									</li>
-									<li class="hassubs">
-										<a href="#">Hombre<i class="fas fa-chevron-right"></i></a>
-										<ul>
-											<li><a href="#">Abrigos<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="#">Camisas<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="#">Camisetas<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="#">Pantalones<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="#">Sudaderas<i class="fas fa-chevron-right"></i></a></li>
-										</ul>
-									</li>
-									<li class="hassubs">
-										<a href="#">Ni&ntilde;o<i class="fas fa-chevron-right"></i></a>
-										<ul>
-											<li><a href="#">Abrigos<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="#">Camisas<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="#">Camisetas<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="#">Pantalones<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="#">Sudaderas<i class="fas fa-chevron-right"></i></a></li>
-										</ul>
-									</li>
+									<% } %>	
+									
 								</ul>
 							</div>
 
@@ -218,91 +212,7 @@
 			</div>
 		</nav>
 		
-		<!-- Menu -->
-
-		<div class="page_menu">
-			<div class="container">
-				<div class="row">
-					<div class="col">
-						
-						<div class="page_menu_content">
-							
-							<div class="page_menu_search">
-								<form action="#">
-									<input type="search" required="required" class="page_menu_search_input" placeholder="Search for products...">
-								</form>
-							</div>
-							<ul class="page_menu_nav">
-								<li class="page_menu_item has-children">
-									<a href="#">Language<i class="fa fa-angle-down"></i></a>
-									<ul class="page_menu_selection">
-										<li><a href="#">English<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Italian<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Spanish<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Japanese<i class="fa fa-angle-down"></i></a></li>
-									</ul>
-								</li>
-								<li class="page_menu_item has-children">
-									<a href="#">Currency<i class="fa fa-angle-down"></i></a>
-									<ul class="page_menu_selection">
-										<li><a href="#">US Dollar<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">EUR Euro<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">GBP British Pound<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">JPY Japanese Yen<i class="fa fa-angle-down"></i></a></li>
-									</ul>
-								</li>
-								<li class="page_menu_item">
-									<a href="#">Home<i class="fa fa-angle-down"></i></a>
-								</li>
-								<li class="page_menu_item has-children">
-									<a href="#">Super Deals<i class="fa fa-angle-down"></i></a>
-									<ul class="page_menu_selection">
-										<li><a href="#">Super Deals<i class="fa fa-angle-down"></i></a></li>
-										<li class="page_menu_item has-children">
-											<a href="#">Menu Item<i class="fa fa-angle-down"></i></a>
-											<ul class="page_menu_selection">
-												<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-												<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-												<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-												<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-											</ul>
-										</li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-									</ul>
-								</li>
-								<li class="page_menu_item has-children">
-									<a href="#">Featured Brands<i class="fa fa-angle-down"></i></a>
-									<ul class="page_menu_selection">
-										<li><a href="#">Featured Brands<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-									</ul>
-								</li>
-								<li class="page_menu_item has-children">
-									<a href="#">Trending Styles<i class="fa fa-angle-down"></i></a>
-									<ul class="page_menu_selection">
-										<li><a href="#">Trending Styles<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-									</ul>
-								</li>
-								<li class="page_menu_item"><a href="blog.html">blog<i class="fa fa-angle-down"></i></a></li>
-								<li class="page_menu_item"><a href="contact.html">contact<i class="fa fa-angle-down"></i></a></li>
-							</ul>
-							
-							<div class="menu_contact">
-								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="images/phone_white.png" alt=""></div>+38 068 005 3570</div>
-								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="images/mail_white.png" alt=""></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		
 
 	</header>
 

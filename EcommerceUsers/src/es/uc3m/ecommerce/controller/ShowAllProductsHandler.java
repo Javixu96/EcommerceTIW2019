@@ -17,16 +17,11 @@ public class ShowAllProductsHandler implements IHandler {
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("ShowAllProductsHandler");
-		// TODO Auto-generated method stub	
+	
 		ProductManager productManager = new ProductManager();
 		List<Product> products = productManager.findAll();
-		// System.out.println("hola"+products.getProductName());
-		
-		CategoryManager categoryManager = new CategoryManager();
-		List<List<Category>> categoryTree = categoryManager.findCategoryTree();
-		
+	
 		request.setAttribute("allProducts", products);
-		request.setAttribute("categoryTree", categoryTree);
 		for (Product product : products) {
 			System.out.println("Hola" + product.getProductName());
 		}
