@@ -1,6 +1,7 @@
 package es.uc3m.ecommerce.manager;
 
-import java.util.List;
+
+import java.util.*;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -40,6 +41,31 @@ public class CategoryManager {
 			e.printStackTrace();
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<List<Category>> findCategoryTree(){
+		List<List<Category>> categoryTree = new LinkedList<List<Category>>();
+
+		Query q1 = em.createNativeQuery("SELECT c.categoryId FROM Categories c WHERE c.categoryId in (SELECT DISTINCT c.parentId FROM Categories c) AND c.parentId IS NOT NULL;");
+		List<Integer> categoryParents = q1.getResultList();
+
+		int index = 0;
+		List<Category> children = new LinkedList<>();
+		for (Integer c : categoryParents) {
+			Query q2 = em.createNativeQuery("Select c.categoryId FROM Categories c WHERE c.parentId = " + c);
+			q2.setParameter("parentId", c);
+			List<Integer> categoryChildren = q2.getResultList();
+			
+			for (Integer c2 : categoryChildren) {
+				children.add(findById(c2));
+			}
+			categoryTree.add(index, children);
+			index++;
+		}
+		
+		return categoryTree;
+	}
+	
 	
 	public Category findById(int id) {
 		Category resultado;

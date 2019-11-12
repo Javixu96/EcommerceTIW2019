@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    import="es.uc3m.ecommerce.model.Product, java.util.*"
+    import="es.uc3m.ecommerce.model.*, java.util.*"
     pageEncoding="ISO-8859-1"%>
     <%@ page import="java.util.List,java.util.ArrayList,org.apache.commons.codec.binary.StringUtils,org.apache.commons.codec.binary.Base64;" %>
 <!DOCTYPE html>
@@ -45,35 +45,22 @@
 				<div class="col-lg-3">
 
 					<!-- Shop Sidebar -->
+					<jsp:useBean id="categoryTree" scope="request" type="List<List<Category>>"></jsp:useBean>
 					<div class="shop_sidebar">
-						<div class="sidebar_section">
+						 <div class="sidebar_section">
 							<div class="sidebar_title">Categorias</div>
 							<ul class="sidebar_categories">
-								<li><a href="#">Hombre</a></li>
+							<% for (List<Category> cList : categoryTree){ %>
+								<li><a href="#"> <%= cList.get(0).getCategory().getCategoryName()%></a></li>
 									<ul class="sidebar_subcategories">
-										<li><a href="#" style="margin-left: 20px">Abrigos</a></li>
-										<li><a href="#" style="margin-left: 20px">Camisas</a></li>
-										<li><a href="#" style="margin-left: 20px">Camisetas</a></li>
-										<li><a href="#" style="margin-left: 20px">Pantalones</a></li>
-										<li><a href="#" style="margin-left: 20px">Sudaderas</a></li>
+									<% for (Category categoryChild : cList) { %>
+										<li><a href="#" style="margin-left: 20px"> <%= categoryChild.getCategoryName() %></a></li>
+										
+									<% } %>	
 									</ul>
-								<li><a href="#">Mujer</a></li>
-									<ul class="sidebar_subcategories">
-										<li><a href="#" style="margin-left: 20px">Abrigos</a></li>
-										<li><a href="#" style="margin-left: 20px">Blusas</a></li>
-										<li><a href="#" style="margin-left: 20px">Camisetas</a></li>
-										<li><a href="#" style="margin-left: 20px">Pantalones</a></li>
-										<li><a href="#" style="margin-left: 20px">Vestidos</a></li>
-									</ul>
-								<li><a href="#">Niños</a></li>
-									<ul class="sidebar_subcategories">
-										<li><a href="#" style="margin-left: 20px">Accesorios</a></li>
-										<li><a href="#" style="margin-left: 20px">Camisetas</a></li>
-										<li><a href="#" style="margin-left: 20px">Pantalones</a></li>
-										<li><a href="#" style="margin-left: 20px">Zapatos</a></li>
-									</ul>
+							<% } %>		
 							</ul>
-						</div>
+						</div> 
 						<div class="sidebar_section filter_by_section">
 							<div class="sidebar_title">Filtrar por</div>
 							<div class="sidebar_subtitle">Precio</div>
@@ -119,14 +106,15 @@
 
 					<div class="shop_content">
 						<div class="shop_bar clearfix">
-							<div class="shop_product_count"><span>186</span> Productos encontrados</div>
+						 <jsp:useBean id="allProducts" scope="request" type="java.util.List<es.uc3m.ecommerce.model.Product>"></jsp:useBean>
+							<div class="shop_product_count"><span><%= allProducts.size() %></span> Productos encontrados</div>
 							<div class="shop_sorting">
 								<span>Ordenar por:</span>
 								<ul>
 									<li>
-										<span class="sorting_text">Mejor valoración<i class="fas fa-chevron-down"></span></i>
+										<span class="sorting_text">Destacados<i class="fas fa-chevron-down"></i></span>
 										<ul>
-											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "original-order" }'>Mejor valoración</li>
+											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "original-order" }'>Destacados</li>
 											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "name" }'>Nombre</li>
 											<li class="shop_sorting_button"data-isotope-option='{ "sortBy": "price" }'>Precio</li>
 										</ul>
@@ -139,10 +127,10 @@
 						<div class="product_grid">
 						
 						
-						<% List<Product> productList = (List<Product>)request.getAttribute("allProducts"); %>
+						<%-- <% List<Product> productList = (List<Product>)request.getAttribute("allProducts"); %> --%>
 							<div class="product_grid_border"></div>
 							
-							<% for (Product product: productList){ %>
+							<% for (Product product: allProducts){ %>
 							<div class="product_item is_new">
 							<div class="product_border"></div>
 								<div class="product_image d-flex flex-column align-items-center justify-content-center">
@@ -156,11 +144,12 @@
 									<div class="product_price"><% out.println(product.getPrice()); %>&euro;</div>
 									<div class="product_name"><div><a href="#" tabindex="0"><% out.println(product.getProductName()); %></a></div></div>
 								</div>
-							<div class="product_fav"><i class="fas fa-heart"></i></div>
-								<ul class="product_marks">
+							<div class="product_fav"><i class="fas fa-heart"></i></div><!-- Añadir aquí cómo cargar en la wishlist -->
+								<!-- <ul class="product_marks">
 									<li class="product_mark product_discount">-25%</li>
 									<li class="product_mark product_new">new</li>
-								</ul>
+								</ul> -->
+								
 							</div>		
 							<% } %>
 						</div>

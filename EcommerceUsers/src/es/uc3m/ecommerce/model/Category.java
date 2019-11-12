@@ -11,7 +11,17 @@ import java.util.List;
  */
 @Entity
 @Table(name="categories")
-@NamedQuery(name="Category.findAll", query="SELECT c FROM Category c")
+@NamedQueries({
+	@NamedQuery(name="Category.findAll", query="SELECT c FROM Category c"),
+	@NamedQuery(name="Category.findById", query="SELECT c FROM Category c WHERE c.categoryId = :categoryId"),
+	
+//	@NamedQuery(name="Category.findRootCategories",
+//		query="SELECT c FROM Category c WHERE c.categoryId in (SELECT DISTINCT c.category FROM Category c) AND c.category IS NOT NULL"),
+//	@NamedQuery(name="Category.findChildCategories", 
+//			query="SELECT c FROM Category c WHERE c.categoryId = :parentId")
+})
+
+
 public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -66,8 +76,8 @@ public class Category implements Serializable {
 
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
-	}
-
+	}	
+	
 	public Category addCategory(Category category) {
 		getCategories().add(category);
 		category.setCategory(this);

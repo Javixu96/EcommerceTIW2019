@@ -195,9 +195,9 @@
 
 							<div class="main_nav_menu ml-auto">
 								<ul class="standard_dropdown main_nav_dropdown">
-									<li><a href="./index.jsp">Home<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="./shop.jsp">Tienda<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="./shop.jsp">Perfil<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="./index.html">Home<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="./shop.html">Tienda<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="./profile.html">Perfil<i class="fas fa-chevron-down"></i></a></li>
 								</ul>
 							</div>
 
