@@ -53,11 +53,6 @@
 								</ul>
 							</div>
 							<div class="top_bar_user">
-<<<<<<< HEAD
-								<div class="user_icon"><img src="images/user.svg" alt=""></div>
-								<div><a href="./register.jsp">Registro</a></div>
-								<div><a href="./login.jsp">Inicio de sesi&oacuten</a></div>
-=======
 								<% if(session.getAttribute("user") != null) {
 								%>
 								<div class="user_icon"><img src="https://cdn1.iconfinder.com/data/icons/navigation-elements/512/user-login-man-human-body-mobile-person-512.png" alt=""></div>
@@ -68,8 +63,7 @@
 								<div><a href="./register.jsp">Register</a></div>
 								<div><a href="./login.jsp">Sign in</a></div>
 								<%} %>
-								
->>>>>>> lucia
+
 							</div>
 						</div>
 					</div>

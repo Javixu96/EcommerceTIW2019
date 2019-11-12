@@ -33,11 +33,11 @@ public class ControllerServlet extends HttpServlet {
 	  public void init() throws ServletException {
 
 	    // This will read mapping definitions and populate handlerHash
-	    handlerHash.put("/profile.html", new es.uc3m.ecommerce.controller.ShowProfileHandler());
-	    handlerHash.put("/index.html", new es.uc3m.ecommerce.controller.ShowProductHandler());
-	    handlerHash.put("/modifyUser.html", new es.uc3m.ecommerce.controller.ModifyProfileHandler());
-	    handlerHash.put("/insert_product.html", new es.uc3m.ecommerce.controller.InsertProductHandler());
-	    handlerHash.put("/shop.html", new es.uc3m.ecommerce.controller.ShowAllProductsHandler());
+	    handlerHash.put("/profile.html", new ShowProfileHandler());
+	    handlerHash.put("/index.html", new ShowProductHandler());
+	    handlerHash.put("/modifyUser.html", new ModifyProfileHandler());
+	    handlerHash.put("/insert_product.html", new InsertProductHandler());
+	    handlerHash.put("/shop.html", new ShowAllProductsHandler());
 	  }
 
 	  
@@ -57,7 +57,7 @@ public class ControllerServlet extends HttpServlet {
 					String viewURL = rh.handleRequest(request, response);
 					
 			  // Complete. Dispatch the request to the url obtained
-
+					System.out.println("En el Handler: mandando a la vista " + viewURL);
 					if (viewURL == null) {
 						// nothing
 					} else {
