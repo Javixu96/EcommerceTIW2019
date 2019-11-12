@@ -54,14 +54,14 @@
 								<li><a href="#"> <%= cList.get(0).getCategory().getCategoryName()%></a></li>
 									<ul class="sidebar_subcategories">
 									<% for (Category categoryChild : cList) { %>
-										<li><a href="#" style="margin-left: 20px"> <%= categoryChild.getCategoryName() %></a></li>
+										<li><a href="#" > <%= categoryChild.getCategoryName() %></a></li>
 										
 									<% } %>	
 									</ul>
 							<% } %>		
 							</ul>
 						</div> 
-						<div class="sidebar_section filter_by_section">
+						<!-- <div class="sidebar_section filter_by_section">
 							<div class="sidebar_title">Filtrar por</div>
 							<div class="sidebar_subtitle">Precio</div>
 							<div class="filter_price">
@@ -80,7 +80,7 @@
 								<li class="color"><a href="#" style="background: #df3b3b;"></a></li>
 								<li class="color"><a href="#" style="background: #ffffff; border: solid 1px #e1e1e1;"></a></li>
 							</ul>
-						</div>
+						</div> -->
 						<!--
 						<div class="sidebar_section">
 							<div class="sidebar_subtitle brands_subtitle">Brands</div>

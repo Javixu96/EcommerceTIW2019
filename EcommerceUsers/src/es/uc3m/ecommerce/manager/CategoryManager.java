@@ -50,8 +50,9 @@ public class CategoryManager {
 		List<Integer> categoryParents = q1.getResultList();
 
 		int index = 0;
-		List<Category> children = new LinkedList<>();
+		
 		for (Integer c : categoryParents) {
+			List<Category> children = new LinkedList<>();
 			Query q2 = em.createNativeQuery("Select c.categoryId FROM Categories c WHERE c.parentId = " + c);
 			q2.setParameter("parentId", c);
 			List<Integer> categoryChildren = q2.getResultList();

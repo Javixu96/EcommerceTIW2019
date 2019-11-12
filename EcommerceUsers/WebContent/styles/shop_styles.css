@@ -1674,7 +1674,7 @@ select option
 }
 .sidebar_categories
 {
-	margin-top: 37px;
+	margin-top: 5px;
 }
 .sidebar_categories li
 {
@@ -1695,12 +1695,12 @@ select option
 }
 .sidebar_subcategories
 {
-	margin-top: 37px;
+	margin-top: 0px;
+	margin-bottom: 15px;
 }
 .sidebar_subcategories li
 {
-	margin-bottom: 7px;
-	margin-left: 100px;
+	margin-left: 20px;
 }
 .sidebar_subcategories li a
 {
