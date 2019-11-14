@@ -22,24 +22,19 @@ public class ShowProductForModifyHandler implements IHandler {
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ProductManager productManager = new ProductManager();
+		ProductManager im = new ProductManager();
 		//HttpSession sesion = request.getSession();
 		
-		Product products = productManager.findById(8);
+		//System.out.println(request.getParameter("productId"));
 		
-		request.setAttribute("product", products);
+		int counter=Integer.parseInt(request.getParameter("contadorModi"));
 		
-	    Category subCategory = products.getCategoryBean();
-	    
-	    Category category = subCategory.getCategory();
-	    
-		request.setAttribute("productCategory", category);
+		HttpSession mySession = request.getSession(true);
 		
-		request.setAttribute("productSubcategory", subCategory);
+		Product product = (Product)mySession.getAttribute("productToModify"+counter);
 		
-		
-		
+		request.setAttribute("product", product);
+	
 		return "modif_product.jsp";
 	}
-
 }

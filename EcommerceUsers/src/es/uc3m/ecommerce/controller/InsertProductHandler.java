@@ -30,26 +30,25 @@ public class InsertProductHandler implements IHandler {
 		String longDescription = request.getParameter("pLongDesc");
 		int price = Integer.parseInt(request.getParameter("product_price"));
 		int stock = Integer.parseInt(request.getParameter("product_stock"));
+		
+		product.setProductName(productName);
+		product.setShortDesc(shortDescription);
+		product.setLongDesc(longDescription);
+		product.setPrice(price);
+		product.setStock(stock);
 
 	    byte[] data = new byte[(int) filePart.getSize()];
 	    filePart.getInputStream().read(data, 0, data.length);
 	    // i2.setTitulo(request.getParameter("titulo"));
-	   
+		product.setProductPicture(data);
 	    
-	    Category pSubcategory = new Category();
-	    pSubcategory = ca.findById(5);
+	    String productCategory= request.getParameter("subcategory");
+	    product.setCategoryBean(ca.findByName(productCategory));
 	    
 	    Appuser appuser = new Appuser();
 	    appuser=us.getUserById(3);
-	    
-		product.setProductName(productName);
-		product.setShortDesc(shortDescription);
-		product.setLongDesc(longDescription);
-		product.setCategoryBean(pSubcategory);
-		product.setProductPicture(data);
 		product.setAppuser(appuser);
-		product.setPrice(price);
-		product.setStock(stock);
+		
 		
 		try {
 			im.create(product);
@@ -59,7 +58,7 @@ public class InsertProductHandler implements IHandler {
 		}
 
 		// response.sendRedirect("controlador");
-		return "add_product.jsp";
+		return "product_list_seller.html";
 	}
 
 }

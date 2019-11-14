@@ -6,10 +6,12 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.transaction.UserTransaction;
 
 import es.uc3m.ecommerce.model.Appuser;
+import es.uc3m.ecommerce.model.Category;
 import es.uc3m.ecommerce.model.Product;
 
 public class ProductManager {
@@ -101,24 +103,16 @@ public class ProductManager {
 		return resultado;
 	}
 	
-	public void removeById(Product product) throws Exception {
-		try {
-			ut.begin();
-			em.remove(product);
-			ut.commit();
-		} catch (Exception ex) {
-			try {
-				if (em.getTransaction().isActive()) {
-					em.getTransaction().rollback();
-				}
-			} catch (Exception e) {
-				ex.printStackTrace();
-				throw e;
-			}
-			throw ex;
-		} finally {
-			em.close();
+	public void removeProduct(Product product) throws Exception {		
+		ut.begin();
+		
+		if (!em.contains(product)) {
+		    product = em.merge(product);
 		}
+		
+		em.remove(product);
+		ut.commit();
+			
 		return;
 	}
 	
@@ -130,5 +124,22 @@ public class ProductManager {
 
 		return;
 
-	}	
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Product> findAllByAppuser(Appuser user) throws Exception {
+		List<Product> resultado;
+		
+		Query q= em.createNamedQuery("Product.findByAppuser");
+		
+		q.setParameter("user", user);		
+		
+		try {
+			resultado =  q.getResultList();;		
+		} catch (NoResultException n){
+			resultado = null;
+		}
+		
+		return resultado;
+	}
 }

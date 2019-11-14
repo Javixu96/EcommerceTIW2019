@@ -6,15 +6,28 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import es.uc3m.ecommerce.manager.*;
 import es.uc3m.ecommerce.model.*;
 
 public class ModifyProductHandler implements IHandler {
-
+	
+	//true->modify false->delete
+	private boolean modifyOrDelete;
+	
+	public ModifyProductHandler (boolean modifyOrDelete) {
+		this.modifyOrDelete = modifyOrDelete;
+	}
+	
 	@Override
-	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
+	public String handleRequest(HttpServletRequest request, HttpServletResponse res) throws ServletException, IOException {
+		return modifyOrDelete ? processModify(request) : processDelete(request);
+	}
+
+	
+	public String processModify(HttpServletRequest request) 
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ProductManager im = new ProductManager();
@@ -27,26 +40,21 @@ public class ModifyProductHandler implements IHandler {
 		int productPrice = Integer.parseInt(request.getParameter("price"));
 		int productStock = Integer.parseInt(request.getParameter("stock"));
 		
-		
-		Product product =im.findById(8);
+		HttpSession mySession = request.getSession(true);
+		Product product=(Product)mySession.getAttribute("productInModify");
 		
 		product.setProductName(productName);
 		product.setShortDesc(productShortDesc);
 		product.setLongDesc(productLongDesc);
 		product.setPrice(productPrice);
 		product.setStock(productStock);
-	
-		System.out.println("asdasdas"+productCategory);
 		
-		List<Category> categoryList=ca.findByName(request.getParameter(productCategory));
-		for (Category category : categoryList){
-			product.setCategoryBean(category);
-			System.out.println("asdasdas"+category.getCategoryName());
-		}
+		product.setCategoryBean(ca.findByName(productCategory));
+
 		
-		
-		if(request.getPart("file")!=null) {
-			 Part filePart = request.getPart("file");
+		String control = request.getParameter("fileToUpLoad");
+		if(control==null) {
+			 Part filePart = request.getPart("fileToUpLoad");
 			 byte[] data = new byte[(int) filePart.getSize()];
 			 filePart.getInputStream().read(data, 0, data.length);
 			 
@@ -61,21 +69,37 @@ public class ModifyProductHandler implements IHandler {
 		}
 
 		// response.sendRedirect("controlador");
+			
+		request.setAttribute("product", product);
 		
-		Product products = im.findById(8);
+		return "product_list_seller.html";
+	}
+	
+	public String processDelete(HttpServletRequest request) 
+			throws ServletException, IOException {
 		
-		request.setAttribute("product", products);
+		ProductManager im = new ProductManager();
 		
-	    Category subCategory = products.getCategoryBean();
-	    
-	    Category category = subCategory.getCategory();
-	    
-		request.setAttribute("productCategory", category);
+		int counter=Integer.parseInt(request.getParameter("contadorBorr"));
 		
-		request.setAttribute("productSubcategory", subCategory);	
+		HttpSession mySession = request.getSession(true);
 		
+		Product product = (Product)mySession.getAttribute("productToDelete"+counter);
 		
-		return "modif_product.jsp";
+		System.out.println(product.getProductName());
+		System.out.println("asddddddd");
+		
+		product.setIsDeleted(1);	
+		
+		try {
+			im.modifyProduct(product);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		return "product_list_seller.html";
+	
 	}
 
 }

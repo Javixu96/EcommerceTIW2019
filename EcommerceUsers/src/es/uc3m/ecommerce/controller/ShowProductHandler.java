@@ -21,13 +21,9 @@ public class ShowProductHandler implements IHandler {
 		// TODO Auto-generated method stub
 		ProductManager productManager = new ProductManager();
 		//HttpSession sesion = request.getSession();
-<<<<<<< HEAD
-		Product products = userManager.getElementById(3);
-	
-=======
+
 		Product products = productManager.findById(3);
-		System.out.println("hola"+products.getProductName());
->>>>>>> dev
+
 		request.setAttribute("productName", products);
 		
 		return "index.jsp";

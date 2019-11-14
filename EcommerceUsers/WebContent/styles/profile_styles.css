@@ -793,6 +793,29 @@ select option
 	color: #a3a3a3;
 	font-size: 14px;
 }
+
+.inputImgUpLoad
+{
+	justify-content: flex-start;
+	align-items: start;
+	-webkit-transform: translateX(-15px);
+	-moz-transform: translateX(-15px);
+	-ms-transform: translateX(-15px);
+	-o-transform: translateX(-15px);
+	transform: translateX(-15px);
+	border: solid 1px #e8e8e8;
+	width: calc()100+15px%;
+	 font-size: 14px;
+	 font-weight: 300;
+	 display: inline-block;
+	 transition: all .5s;
+	 cursor: pointer;
+	 padding-top:12px;
+	 text-transform: uppercase;
+	 width: fit-content;
+	 text-align: left;
+	
+}
 .cart_count
 {
 	position: absolute;

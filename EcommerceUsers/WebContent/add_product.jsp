@@ -78,35 +78,50 @@
 										<li>
 											<div class="size_mark_container">
 											
-												<input type="text" name="category" id="selected_categ"  value = "Categoría">
+												<input style="margin-left:20px;width:250px;padding-left:50px" type="text" name="category" id="selected_categ"  value = "Categoría">
 												
 											</div>
 											<div class="size_dropdown_button"><i class="fas fa-chevron-down"></i></div>
 
 											<ul class="color_size">
-												<li><input type="button"  class="size_mark" id="categ1" value="Hombre" ></li>
-												<li><input type="button"  class="size_mark" id="categ2" value="Mujer" ></li>
-												<li><input type="button"  class="size_mark" id="categ3" value="Niño"></li>
+												<li><input type="button"  class="size_mark" id="categ1" value="Partes de arriba" ></li>
+												<li><input type="button"  class="size_mark" id="categ2" value="Partes de abajo" ></li>
+												<li><input type="button"  class="size_mark" id="categ3" value="Prendas de abrigo"></li>
+												<li><input type="button"  class="size_mark" id="categ4" value="Calzado"></li>
+												<li><input type="button"  class="size_mark" id="categ5" value="Accesorios"></li>
 											</ul>
 										</li>
 									</ul>
 								</div>
 								<div class="row_item">
 									<h4>Subcategoría</h4>
-									<ul class="product_subcateg">
-										<li>
+									<ul class="product_subcateg selectSubcategory">
+										<li class="selectSubcategory">
 											
-											<div class="size_mark_container">
+											<div class="size_mark_container selectSubcategory">
 											
-												<input type="text" name="subcategory" id="selected_subcateg"  value = "Subcategoría">
+												<input style="margin-left:20px;width:250px;padding-left:50px" type="text" name="subcategory" id="selected_subcateg"  value = "Subcategoría">
 											
 											</div>
 											
 											<div class="size_dropdown_button"><i class="fas fa-chevron-down"></i></div>
 											
 											<ul class="color_size">
-												<li><input type="button"  class="size_mark" id="subcateg1" value="Abrigos" ></li>
-												<li><input type="button"  class="size_mark" id="subcateg2" value=Camisas></li>
+												<li><input type="button"  class="size_mark sub arriba" id="subcateg1" value="Camisetas de manga corta" ></li>
+												<li><input type="button"  class="size_mark sub arriba" id="subcateg2" value="Camisetas de manga larga"></li>
+												<li><input type="button"  class="size_mark sub arriba" id="subcateg3" value="Camisas y blusas"></li>
+												<li><input type="button"  class="size_mark sub abajo" id="subcateg4" value="Pantalones cortos"></li>
+												<li><input type="button"  class="size_mark sub abajo" id="subcateg5" value="Pantalones largos"></li>
+												<li><input type="button"  class="size_mark sub abajo" id="subcateg6" value="Faldas y vestidos"></li>
+												<li><input type="button"  class="size_mark sub abrigo" id="subcateg7" value="Chaquetas"></li>
+												<li><input type="button"  class="size_mark sub abrigo" id="subcateg8" value="Jerseys y Sueters"></li>
+												<li><input type="button"  class="size_mark sub abrigo" id="subcateg9" value="Abrigos y chaquetones"></li>
+												<li><input type="button"  class="size_mark sub calzado" id="subcateg10" value="Sandalias y chanclas"></li>
+												<li><input type="button"  class="size_mark sub calzado" id="subcateg11" value="Zapatos de vestir y de tacón"></li>
+												<li><input type="button"  class="size_mark sub calzado" id="subcateg12" value="Botas y botines"></li>
+												<li><input type="button"  class="size_mark sub acc" id="subcateg13" value="Bufandas y fulares"></li>
+												<li><input type="button"  class="size_mark sub acc" id="subcateg14" value="Gorros y sombreros"></li>
+												<li><input type="button"  class="size_mark sub acc" id="subcateg15" value="Cinturones y bolsos"></li>
 											</ul>
 										</li>
 									</ul>

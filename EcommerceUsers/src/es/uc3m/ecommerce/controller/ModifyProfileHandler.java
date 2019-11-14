@@ -11,10 +11,24 @@ import es.uc3m.ecommerce.manager.*;
 import es.uc3m.ecommerce.model.*;
 
 public class ModifyProfileHandler implements IHandler {
-
+	
+	
+	//true->modify false->delete
+	private boolean modifyOrDelete;
+	
+	public ModifyProfileHandler (boolean modifyOrDelete) {
+		this.modifyOrDelete = modifyOrDelete;
+	}
+	
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		return modifyOrDelete ? processModify(request) : processDelete(request);
+	}
+	
+	
+	public String processModify(HttpServletRequest request)
+			throws ServletException, IOException { 
 		// TODO Auto-generated method stub
 		UserManager im = new UserManager();
 		
@@ -29,7 +43,51 @@ public class ModifyProfileHandler implements IHandler {
 		user.setUserSurnames(userSurnames);
 		user.setEmail(userEmail);
 		user.setPostalAddress(userDirection);
-
+		
+		Part filePart = request.getPart("fileToUpLoad");
+		if((int) filePart.getSize()!=0) {
+			 byte[] data = new byte[(int) filePart.getSize()];
+			 filePart.getInputStream().read(data, 0, data.length);
+			 
+			 user.setUserPicture(data);
+		}
+		
+		String oldPassword = request.getParameter("oldPassword");
+		String newPassword = request.getParameter("newPassword");
+		String newPwRepeat = request.getParameter("newPwRepeat");
+		
+		if(!oldPassword.isEmpty()) {
+			if(!oldPassword.equals(user.getPw())) {
+				request.setAttribute("invalidCredentialsError", 1);
+			}else {
+				if(!newPassword.equals(newPwRepeat)) {
+					request.setAttribute("invalidRepeatError", 1);
+				}else {
+					user.setPw(newPassword);
+				}
+			}
+		}else {
+			request.setAttribute("invalidCredentialsError", null);
+			request.setAttribute("invalidRepeatError", null);
+		}
+		
+		try {
+			im.modifyUser(user);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+		return "profile.html";
+	}
+	
+	
+	public String processDelete(HttpServletRequest request) { 
+		
+		UserManager im = new UserManager();
+		Appuser user =im.getUserById(3);
+		
+		user.setIsDeleted(1);
 		
 		try {
 			im.modifyUser(user);
@@ -37,17 +95,8 @@ public class ModifyProfileHandler implements IHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		// response.sendRedirect("controlador");
 		
-		UserManager userManager = new UserManager();
-		//HttpSession sesion = request.getSession();
-		
-		Appuser appuser = userManager.getUserById(3);
-				
-		request.setAttribute("user", appuser);		
-		
-		return "profile.jsp";
+		return "index.html";
 	}
 
 }

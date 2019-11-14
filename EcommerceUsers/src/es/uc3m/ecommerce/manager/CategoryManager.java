@@ -6,6 +6,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.transaction.UserTransaction;
 
@@ -51,21 +52,20 @@ public class CategoryManager {
 	}
 	
 	
-	public List<Category> findByName(String name) {
-		List<Category>  resultado;
-
-		String jpql = "SELECT c"
-				+ " FROM Category c "
-				+ " WHERE c.categoryName = ?1";
-		Query category = em.createQuery(jpql);
-		category.setParameter(1, name);
-		category.setMaxResults(1);
+	public Category findByName(String name) {
+		Query q= em.createNamedQuery("Category.findByName");
 		
-		resultado=category.getResultList();
+		q.setParameter("categoryName", name);
 		
-		for (Category category1 : resultado){
-			System.out.println("<FONT color=\"#ff0000\">"+category1.getCategoryName()+"</FONT><BR>");
+		Category c;
+		
+		try {
+			c =  (Category) q.getSingleResult();		
+		} catch (NoResultException n){
+			c = null;
 		}
-		return resultado;	
+		
+		return c;
+
 	}
 }

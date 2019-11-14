@@ -7,5 +7,8 @@
     <welcome-file>modifyUser.html</welcome-file>
     <welcome-file>insert_product.html</welcome-file>
     <welcome-file>modif_product.html</welcome-file>
+    <welcome-file>modify_product.html</welcome-file>
+    <welcome-file>product_list_seller.html</welcome-file>
+    <welcome-file>deleteProduct.html</welcome-file>
   </welcome-file-list>
 </web-app>

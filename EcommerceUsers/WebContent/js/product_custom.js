@@ -38,7 +38,6 @@ $(document).ready(function()
 	initViewedSlider();
 	initBrandsSlider();
 	initQuantity();
-	initSize();
 	initSubcateg();
 	initColor();
 	initFavs();
@@ -357,26 +356,6 @@ $(document).ready(function()
 	8. Init Color
 
 	*/
-
-	function initSize()
-	{
-		if($('.product_size').length)
-		{
-			$('#categ1').on('click',function()
-			{
-				document.getElementById("selected_categ").value=document.getElementById("categ1").value;	
-			})
-			$('#categ2').on('click',function()
-			{
-				document.getElementById("selected_categ").value=document.getElementById("categ2").value;	
-			})	
-			$('#categ3').on('click',function()
-			{
-				document.getElementById("selected_categ").value=document.getElementById("categ3").value;	
-			})	
-		}
-	}
-	
 	function initSubcateg()
 	{
 		if($('.product_size').length)
@@ -389,6 +368,18 @@ $(document).ready(function()
 			{
 				document.getElementById("selected_subcateg").value=document.getElementById("subcateg2").value;	
 			})	
+			$('#subcateg3').on('click',function()
+			{
+				document.getElementById("selected_subcateg").value=document.getElementById("subcateg3").value;	
+			})
+			$('#subcateg4').on('click',function()
+			{
+				document.getElementById("selected_subcateg").value=document.getElementById("subcateg4").value;	
+			})
+			$('#subcateg5').on('click',function()
+			{
+				document.getElementById("selected_subcateg").value=document.getElementById("subcateg5").value;	
+			})
 		}
 	}
 	/* 

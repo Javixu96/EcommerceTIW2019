@@ -1301,7 +1301,7 @@ select option
 }
 .product_size li ul
 {
-	margin-left:130px;
+	margin-left:70px;
 	position: absolute;
 	top: calc(100% + 15px);
 	padding-top: 15px;
@@ -1397,7 +1397,7 @@ select option
 }
 .product_subcateg li ul
 {
-	margin-left:130px;
+	margin-left:70px;
 	position: absolute;
 	top: calc(100% + 15px);
 	padding-top: 15px;
@@ -1473,7 +1473,7 @@ select option
 	align-items: center;
 	width: 100px;
 	height: 48px;
-	left:60px;
+	left:0px;
 	top:-2px;
 	color: rgba(0,0,0,0.5);
 	text-align: left;

@@ -1380,7 +1380,7 @@ select option
 }
 .product_subcateg li ul
 {
-	margin-left:130px;
+	margin-left:0px;
 	position: absolute;
 	top: calc(100% + 15px);
 	padding-top: 15px;
@@ -1555,6 +1555,16 @@ select option
 	transform: translateX(-15px);
 	border: solid 1px #e8e8e8;
 	width: calc()100+15px%;
+	 font-size: 14px;
+	 font-weight: 300;
+	 display: inline-block;
+	 transition: all .5s;
+	 cursor: pointer;
+	 padding: 12px 50px !important;
+	 text-transform: uppercase;
+	 width: fit-content;
+	 text-align: center;
+	
 }
 .image_selected
 {
@@ -1784,6 +1794,7 @@ select option
 	font-weight: 400;
 	color: black;
 }
+
 .profile_form
 {
 	margin-top:15px;

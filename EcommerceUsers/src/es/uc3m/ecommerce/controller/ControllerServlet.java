@@ -35,10 +35,16 @@ public class ControllerServlet extends HttpServlet {
 	    // This will read mapping definitions and populate handlerHash
 	    handlerHash.put("/profile.html", new es.uc3m.ecommerce.controller.ShowProfileHandler());
 	    handlerHash.put("/index.html", new es.uc3m.ecommerce.controller.ShowProductHandler());
-	    handlerHash.put("/modifyUser.html", new es.uc3m.ecommerce.controller.ModifyProfileHandler());
+	    handlerHash.put("/modifyUser.html", new es.uc3m.ecommerce.controller.ModifyProfileHandler(true));
+	    handlerHash.put("/deleteUser.html", new es.uc3m.ecommerce.controller.ModifyProfileHandler(false));
+	    
+	    
+	    handlerHash.put("/product_list_seller.html", new es.uc3m.ecommerce.controller.ShowMyProductListHandler());
 	    handlerHash.put("/insert_product.html", new es.uc3m.ecommerce.controller.InsertProductHandler());
-	    handlerHash.put("/modify_product.html", new es.uc3m.ecommerce.controller.ModifyProductHandler());
+	    handlerHash.put("/modify_product.html", new es.uc3m.ecommerce.controller.ModifyProductHandler(true));
+	    handlerHash.put("/deleteProduct.html", new es.uc3m.ecommerce.controller.ModifyProductHandler(false));
 	    handlerHash.put("/modif_product.html", new es.uc3m.ecommerce.controller.ShowProductForModifyHandler());
+	    
 	    handlerHash.put("/shop.html", new es.uc3m.ecommerce.controller.ShowAllProductsHandler());
 	  }
 

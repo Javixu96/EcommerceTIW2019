@@ -68,26 +68,26 @@ public class UserManager {
 	
 	
 	public void modifyUser(Appuser user) throws Exception {
-		try {
+		
 			ut.begin();
 			em.merge(user);
 			ut.commit();
-		} catch (Exception ex) {
-			try {
-				if (em.getTransaction().isActive()) {
-					em.getTransaction().rollback();
-				}
-			} catch (Exception e) {
-				ex.printStackTrace();
-				throw e;
-			}
-			throw ex;
-		} finally {
-			em.close();
-		}
-		return;
-
 	
-}	
+		return;
+	}	
+	
+	public void removeUser(Appuser user) throws Exception {
+		ut.begin();
+		
+		if (!em.contains(user)) {
+		    user = em.merge(user);
+		}
+		
+		em.remove(user);
+		ut.commit();
+			
+		return;
+		
+	}
 
 }

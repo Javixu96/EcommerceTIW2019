@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="es.uc3m.ecommerce.model.*"%>
 <%@ page import="org.apache.commons.codec.binary.StringUtils" %>
 <%@ page import="org.apache.commons.codec.binary.Base64;" %>    
 <!DOCTYPE html>
@@ -31,11 +31,8 @@
 	<form action="modify_product.html" enctype="multipart/form-data" method="post">
 	<div class="single_product">
 		<div class="container">
-		<jsp:useBean id="product" scope="request" type="es.uc3m.ecommerce.model.Product"></jsp:useBean>
-		<jsp:useBean id="productCategory" scope="request" type="es.uc3m.ecommerce.model.Category"></jsp:useBean>
-		<jsp:useBean id="productSubcategory" scope="request" type="es.uc3m.ecommerce.model.Category"></jsp:useBean>
-			<div class="row">
-
+			<div class="row">				
+				<%Product product=(Product)request.getAttribute("product"); %>
 				<!-- Image -->
 				<div class="col-lg-6 order-lg-2 order-1">
 					<div class="image_selected"><img src="<% StringBuilder sb = new StringBuilder();
@@ -44,7 +41,7 @@
 									out.print(sb.toString()); %>">
 					</div>
 					<h4 style="margin-top:20px;" class="input_title">Imagen</h4>
-					<input type="file" id="file" name ="file"  class="contact_form_name input_field inputImgUpLoad">
+					<input type="file" id="fileToUpLoad" name ="fileToUpLoad"  class="contact_form_name input_field inputImgUpLoad">
 				</div>
 
 				<!-- Description -->
@@ -57,37 +54,42 @@
 									<h4>Categoría</h4>
 									<ul class="product_size">
 										<li>
-											<div class="size_mark_container">
-											
-												<input type="text" name="category" id="selected_categ" value=<% out.println(productCategory.getCategoryName()); %>>
-												
-											</div>
-											<div class="size_dropdown_button"><i class="fas fa-chevron-down"></i></div>
-
-											<ul class="color_size">
-												<li><input type="button"  class="size_mark" id="categ1" value="Hombre" ></li>
-												<li><input type="button"  class="size_mark" id="categ2" value="Mujer" ></li>
-												<li><input type="button"  class="size_mark" id="categ3" value="Niño"></li>
-											</ul>
+											<div class="size_mark_container" style="width:400px;left:-100px;text-align:left;">
+												<% out.println(product.getCategoryBean().getCategory().getCategoryName()); %>											</div>	
 										</li>
 									</ul>
 								</div>
-								<div class="row_item">
+								<div class="row_item" style="clear:left;">
 									<h4>Subcategoría</h4>
 									<ul class="product_subcateg">
 										<li>
 											
-											<div class="size_mark_container">
+											<div class="size_mark_container"style="width:400px;left: 0px;">
 											
-												<input type="text" name="subcategory" id="selected_subcateg"  value = <% out.println(productSubcategory.getCategoryName()); %>>
+												<input required="required" style="text-align:left;padding-left:30px;" type="text" name="subcategory" id="selected_subcateg"  value = "<% out.println(product.getCategoryBean().getCategoryName()); %>">
 											
 											</div>
 											
 											<div class="size_dropdown_button"><i class="fas fa-chevron-down"></i></div>
 											
 											<ul class="color_size">
-												<li><input type="button"  class="size_mark" id="subcateg1" value="Abrigos" ></li>
-												<li><input type="button"  class="size_mark" id="subcateg2" value=Camisas></li>
+											<%int cont=0; %>
+												 <%
+												 
+                                                	Boolean checked;
+                                            		for(Category c: product.getCategoryBean().getCategory().getCategories()){
+                                            			cont++;
+                                            			//checked = (c.getCategoryName().equals(productToModify.getCategoryBean().getCategoryName())) ? "checked" : "";
+                                            			if (c.getCategoryName().equals(product.getCategoryBean().getCategoryName())){
+                                            				checked = true;
+                                            			} else {
+                                            				checked = false;
+                                            			}
+												%>
+												<li><input type="button"  class="size_mark" id=<%="subcateg"+cont%> value="<%=c.getCategoryName()%>" <%= (checked)?"checked":"" %> ></li>										
+												<%
+                                            		}
+												%>
 											</ul>
 										</li>
 									</ul>
@@ -117,14 +119,14 @@
 						
 							<div class="product_price">
 								<h5>Precio (&euro;)</h5>
-								<input name="price" type="text" style="margin-top: 5px;" class="profile_form input_field" placeholder="Precio" required="required" data-error="Campo obligatorio."value=<% out.println(product.getPrice()); %>>
+								<input name="price" type="text" style="margin-top: 5px;" class="profile_form input_field" placeholder="Precio" required="required"value=<% out.println(product.getPrice()); %>>
 							</div>
 							
 							<div class="product_stock">
 								<h5 style="margin-top: 40px;">Stock</h5>
 								<div class="product_quantity">
 									<span>Cantidad: </span>
-									<input name = "stock" id="quantity_input" type="text" pattern="[0-999]*" value=<% out.println(product.getStock()); %>>
+									<input required="required" name = "stock" id="quantity_input" type="text" pattern="[0-999]*" value=<% out.println(product.getStock()); %>>
 									<div class="quantity_buttons">
 										<div id="quantity_inc_button" class="quantity_inc quantity_control">
 											<i class="fas fa-chevron-up"></i>
@@ -136,7 +138,8 @@
 								</div>
 							</div>
 						
-						
+							<% HttpSession mySession = request.getSession(true); %>
+							<% mySession.setAttribute("productInModify",product); %>
 							<div style="clear:left; margin-top:100px;" class="button_container">
 								<button type="submit" class="button cart_button">Guardar cambios</button>
 							</div>	

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="es.uc3m.ecommerce.model.*"%>   
+<%@ page import="org.apache.commons.codec.binary.StringUtils" %>
+<%@ page import="org.apache.commons.codec.binary.Base64;" %>    
   <%--
 <%@page import="servlet.BDServlet"%>
 <%@page contentType="text/html"%>
@@ -39,11 +41,18 @@
 					
 					<!-- Perfil -->
 						<div class="contact_form_title profile_line">Datos personales</div>
+						
+						<%Appuser user=(Appuser)request.getAttribute("user"); %>
 
-						<form method="POST" action="modifyUser.html" id="contact_form">
-							<div class="contact_form_inputs">
+						<form method="POST" action="modifyUser.html" id="contact_form" enctype="multipart/form-data" autocomplete="off">
+							<div class="contact_form_inputs" style="margin-bottom:5px;">
 								<div class="div_profile_photo">
-									<img class="profile_photo" src="images/photo_profile.png" alt="">
+									<img class="profile_photo" src="<% StringBuilder sb = new StringBuilder();
+									sb.append("data:image/png;base64,");
+									sb.append(StringUtils.newStringUtf8(Base64.encodeBase64(user.getUserPicture(), false)));
+									out.print(sb.toString()); %>">
+									<h4 style="margin-top:20px;" class="input_title">Imagen</h4>
+									<input type="file" id="fileToUpLoad" name ="fileToUpLoad"  class="contact_form_name input_field inputImgUpLoad">
 								</div>
 								<div class="div_profile_left">
 									<div class="profile_div_name">
@@ -58,27 +67,16 @@
 									<div class="profile_div_name">
 										<h4 class="profile_name">Dirección de envío</h4>
 									</div>
-									<div class="profile_div_name">
-										<h4 class="profile_name">Nº de productos comprados</h4>
-									</div>
-									<div class="profile_div_name">
-										<h4 class="profile_name">Nº de productos vendidos</h4>
-									</div>
 								</div>	
 								<div class="div_profile_right">
-								<jsp:useBean id="user" scope="request" type="es.uc3m.ecommerce.model.Appuser">
-								</jsp:useBean>
+
+
 									<input type="text" name ="name" id="contact_form_name" class="profile_form input_field" placeholder="Nombre" required="required" data-error="Campo obligatorio." value=<% out.println(user.getUserName()); %>>
 									<input type="text" name ="surnames" id="contact_form_surname" class="profile_form input_field" placeholder="Apellidos" required="required" data-error="Campo obligatorio."value=<% out.println(user.getUserSurnames()); %>>
-									<input type="text" name ="email" id="contact_form_email" class="profile_form input_field" placeholder="Nº de teléfono" value=<% out.println(user.getEmail()); %>>
-									<input type="text" name ="phone" id="contact_form_phone" class="profile_form input_field" placeholder="Correo electrónico" data-error="Campo obligatorio." >
+									<input type="text" name ="email" id="contact_form_email" class="profile_form input_field" placeholder="Nº de teléfono"required="required"  value=<% out.println(user.getEmail()); %>>
 									<input type="text" name ="direction" id="contact_form_direction" class="profile_form input_field" placeholder="Dirección de envío" required="required" data-error="Campo obligatorio."value=<% out.println(user.getPostalAddress()); %>>
 									<div class="profile_form">
-										<h5 class="product_number"><b>35</b></h5>
-									</div>
-									<div class="profile_form">
-										<h5 class="product_number"><b>17&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										 <a href="./product_list_seller.jsp">Acceder a mi tienda</a></b></h5>
+										 <h5><b><a href="./product_list_seller.jsp">Acceder a mi tienda</a></b></h5>
 									</div>
 								</div>	
 							</div>						
@@ -86,11 +84,11 @@
 							<div class="contact_form_button">
 								<button type="submit" value="sent" class="button contact_submit_button">Guardar cambios</button>
 							</div>
-						</form>
+						
 						
 					<!-- Contrasena -->
 					<div class="contact_form_title profile_line">Contraseña</div>
-						<form action="#">
+					
 							<div class="contact_form_inputs">
 								<div class="div_profile_left">
 									<div class="profile_div_name">
@@ -104,9 +102,15 @@
 									</div>
 								</div>	
 								<div class="div_profile_right">
-								<input type="text" id="contact_form_oldpassword" class="profile_form input_field" placeholder="Contraseña anterior" required="required" data-error="Name is required.">
-								<input type="text" id="contact_form_newpassword" class="profile_form input_field" placeholder="Contraseña nueva" required="required" data-error="surname is required.">
-								<input type="text" id="contact_form_repeatpassword" class="profile_form input_field" placeholder="Repetir la contraseña nueva" required="required" data-error="email is required.">
+								<% if(request.getAttribute("invalidCredentialsError") !=null) {%>
+									<span style="color: red;"> Contraseña incorrecta </span>
+								<%} %>
+								<input type="text" name="oldPassword" id="contact_form_oldpassword" class="profile_form input_field" placeholder="Contraseña anterior">
+								<input type="text" name="newPassword" id="contact_form_newpassword" class="profile_form input_field" placeholder="Contraseña nueva" >
+								<% if(request.getAttribute("invalidRepeatError") !=null) {%>
+									<span style="color: red;"> No coincide las contraseñas </span>
+								<%} %>
+								<input type="text" name="newPwRepeat" id="contact_form_repeatpassword" class="profile_form input_field" placeholder="Repetir la contraseña nueva">
 								</div>	
 							</div>						
 							
@@ -117,16 +121,19 @@
 					</div>
 					<!-- delete account -->
 					<div class="contact_form_title profile_line red">Eliminar cuenta</div>	
-						<div class="profile_delete">
-							<p>Una vez eliminada la cuenta, no se puede retroceder, por favor con mucho cuidado.</p>
-						</div>
-						<div class="profile_check">
-							<input type="checkbox" id="profile_checkbox"  required="required" data-error="Checkbox is required.">
-							<h4 class="profile_delete_text">Quiero eliminar mi cuenta</h4>
-						</div>
-						<div class="contact_form_button">
-							<button type="submit" class="profile_delete_button">Elimina tu cuenta</button>
-						</div>
+						<form action="deleteUser.html">
+							<div class="profile_delete">
+								<p>Una vez eliminada la cuenta, no se puede retroceder.</p>
+							</div>
+							<div class="profile_check">
+								<input type="checkbox" id="profile_checkbox"  required="required" data-error="Checkbox is required.">
+								<h4 class="profile_delete_text">Quiero eliminar mi cuenta</h4>
+							</div>
+						
+							<div class="contact_form_button">
+								<button type="submit" class="profile_delete_button">Elimina tu cuenta</button>
+							</div>
+						</form>
 					</div>
 					
 				</div>
