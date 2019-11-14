@@ -3,6 +3,7 @@ package es.uc3m.ecommerce.controller;
 
 import java.io.IOException;
 
+import javax.jms.JMSException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.ServletContext;
@@ -36,16 +37,26 @@ public class ControllerServlet extends HttpServlet {
        
 	// Hash table of RequestHandler instances, keyed by request URL
 	private Map<String,IHandler> handlerHash = new HashMap<String,IHandler>();
+	private StartMessageListener msgListener;
 	
 	  // Initialize mappings: not implemented here
 	public void init() throws ServletException {
-	
+		msgListener = new StartMessageListener();
+		try {
+			msgListener.start();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	    // This will read mapping definitions and populate handlerHash
 		handlerHash.put("/profile.html", new ShowProfileHandler());
 		handlerHash.put("/index.html", new ShowProductHandler());
 		handlerHash.put("/modifyUser.html", new ModifyProfileHandler());
 		handlerHash.put("/insert_product.html", new InsertProductHandler());
 		handlerHash.put("/shop.html", new ShowAllProductsHandler());
+		handlerHash.put("/sendOrderMessage.html", new SendOrderMessageHandler());
+	//	handlerHash.put("/readOrderMessage.html", new ReadOrderMessageHandler());
 
 		servletContext = getServletConfig().getServletContext();
 	    setServletContextUtils();
@@ -88,7 +99,10 @@ public class ControllerServlet extends HttpServlet {
 	  public void doPost(HttpServletRequest request, HttpServletResponse response)
               throws ServletException, IOException {
 		  doGet(request,response);
-		  
-
+	  }
+	  
+	  public void destroy(HttpServletRequest request, HttpServletResponse response)
+              throws ServletException, IOException, JMSException {
+		  msgListener.stop();
 	  }
 }
