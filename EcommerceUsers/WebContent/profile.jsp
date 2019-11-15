@@ -34,33 +34,28 @@
 					
 					<!-- Perfil -->
 						<div class="contact_form_title profile_line">Perfil</div>
-
-						<form action="#" id="contact_form">
+						<% if(request.getAttribute("modifyUserSuccess") != null) { %>
+						<span style="color: green;"> Su perfil ha sido modificado con éxito </span>
+						<% } %>
+						<form action="modifyUser.html" method="post" id="contact_form">
 							<div class="contact_form_inputs">
 								<div class="div_profile_left">
 									<div class="profile_div_name">
-										<h4 class="profile_name">Nombre </h4>
+										<h4 class="input_title" >Nombre</h4>
+										<input type="text" id="profile_name" name="profile_name" class="profile_form input_field" placeholder="Your name" required="required" data-error="Name is required." value=<%= request.getAttribute("userName") %>>										
 									</div>
 									<div class="profile_div_name">
-										<h4 class="profile_name">Apellidos</h4>
+										<h4 class="input_title">Apellidos</h4>
+										<input type="text" id="profile_surnames" name="profile_surnames" class="profile_form input_field" placeholder="Your surname" required="required" data-error="surname is required."value=<%= request.getAttribute("userSurnames") %>>
 									</div>	
 									<div class="profile_div_name">
-										<h4 class="profile_name">Email</h4>
+										<h4 class="input_title">Email</h4>
+										<input type="text" id="profile_email" name="profile_email" class="profile_form input_field" placeholder="Your email" required="required" data-error="email is required." value=<%= request.getAttribute("userEmail") %>>									
 									</div>
 									<div class="profile_div_name">
-										<h4 class="profile_name">Telefóno</h4>
+										<h4 class="input_title">Dirección de envío</h4>
+										<input type="text" id="profile_address"  name="profile_address" class="profile_form input_field" placeholder="Your email" required="required" data-error="email is required."value=<%= request.getAttribute("userAddress") %>>
 									</div>
-									<div class="profile_div_name">
-										<h4 class="profile_name">Dirección de envío</h4>
-									</div>
-								</div>	
-								<div class="div_profile_right">
-								<input type="text" id="contact_form_name" class="profile_form input_field" placeholder="Your name" required="required" data-error="Name is required."value="Alberto">
-								<input type="text" id="contact_form_surname" class="profile_form input_field" placeholder="Your surname" required="required" data-error="surname is required."value="García">
-								<input type="text" id="contact_form_email" class="profile_form input_field" placeholder="Your phone number" value="623785928">
-								<input type="text" id="contact_form_phone" class="profile_form input_field" placeholder="Your email" required="required" data-error="email is required." value="AlbertoG@gmail.com">
-								<input type="text" id="contact_form_direction" class="profile_form input_field" placeholder="Your email" required="required" data-error="email is required."value="Calle real 54 1ºB, Colmenarejo,Madrid 28270">
-								
 								</div>	
 							</div>						
 						
@@ -71,23 +66,23 @@
 						
 					<!-- Contrasena -->
 					<div class="contact_form_title profile_line">Contraseña</div>
-						<form action="#">
+						<form action="./modifyUser.html" id="password_form">
 							<div class="contact_form_inputs">
 								<div class="div_profile_left">
 									<div class="profile_div_name">
-										<h4 class="profile_name">Contraseña anterior</h4>
+										<h4 class="profile_oldpw" name="profile_oldpw" id="profile_oldpw">Contraseña anterior</h4>
 									</div>
 									<div class="profile_div_name">
-										<h4 class="profile_name">Contraseña nueva</h4>
+										<h4 class="profile_newpw" name="profile_newpw" id="profile_newpw">Contraseña nueva</h4>
 									</div>	
 									<div class="profile_div_name">
-										<h4 class="profile_name">Confirmar la contraseña</h4>
+										<h4 class="profile_newpw2" name="profile_newpw2" id="profile_newpw2">Confirmar la contraseña</h4>
 									</div>
 								</div>	
 								<div class="div_profile_right">
-								<input type="text" id="contact_form_oldpassword" class="profile_form input_field" placeholder="Contraseña anterior" required="required" data-error="Name is required.">
-								<input type="text" id="contact_form_newpassword" class="profile_form input_field" placeholder="Contraseña nueva" required="required" data-error="surname is required.">
-								<input type="text" id="contact_form_repeatpassword" class="profile_form input_field" placeholder="Repetir la contraseña nueva" required="required" data-error="email is required.">
+								<input type="text" id="contact_form_oldpassword" class="profile_form input_field" placeholder="Contraseña anterior" required="required" data-error="Old password required.">
+								<input type="text" id="contact_form_newpassword" class="profile_form input_field" placeholder="Contraseña nueva" required="required" data-error="New password required.">
+								<input type="text" id="contact_form_repeatpassword" class="profile_form input_field" placeholder="Repetir la contraseña nueva" required="required" data-error="Repeated password required">
 								</div>	
 							</div>						
 						
@@ -115,7 +110,6 @@
 		</div>
 		<div class="panel"></div>
 	</div>
-
 	<!-- Footer --> 
 	<%@ include file="footer.jsp" %>
 	

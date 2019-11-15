@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     import="es.uc3m.ecommerce.model.*, java.util.*"
     pageEncoding="ISO-8859-1"%>    
@@ -18,7 +19,6 @@
 <script type="text/javascript">
 		function logout(){   
 			System.out.println("Script");
-
 		}
 </script>
 </head>
@@ -39,7 +39,7 @@
 							<div class="top_bar_menu">
 								<ul class="standard_dropdown top_bar_dropdown">
 									<li>
-										<a href="#">Español<i class="fas fa-chevron-down"></i></a>
+										<a href="#">Espa&ntilde;ol<i class="fas fa-chevron-down"></i></a>
 										<ul>
 											<li><a href="#">Espa&ntilde;ol</a></li>
 											<li><a href="#">Ingl&eacutes</a></li>
@@ -59,8 +59,10 @@
 								<% if(session.getAttribute("user") != null) {
 								%>
 								<div class="user_icon"><img src="https://cdn1.iconfinder.com/data/icons/navigation-elements/512/user-login-man-human-body-mobile-person-512.png" alt=""></div>
-								<div><a href="./loggingout.html">Logout</a></div>
-								<% } else { %>
+								<div><a href="javascript:logout();login.jsp;">Logout</a></div>
+								<%} %>
+								<% if(session.getAttribute("user") == null) {
+								%>
 								<div><a href="./register.jsp">Register</a></div>
 								<div><a href="./login.jsp">Sign in</a></div>
 								<%} %>
@@ -89,7 +91,7 @@
 						List<List<Category>> categories = (List<List<Category>>) servletContext.getAttribute("categoryTree");
 					
 					%>
-
+	
 					<!-- Search -->
 					<div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
 						<div class="header_search">
@@ -127,7 +129,7 @@
 							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
 								<div class="wishlist_icon"><img src="images/heart.png" alt=""></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="./wishlist.html">Wishlist</a></div>
+									<div class="wishlist_text"><a href="./wishlist.jsp">Wishlist</a></div>
 									<div class="wishlist_count">5</div>
 								</div>
 							</div>
@@ -140,14 +142,8 @@
 										<div class="cart_count"><span>1</span></div>
 									</div>
 									<div class="cart_content">
-										<div class="cart_text"><a href="./cart.html">Carrito</a></div>
-										<% if(session.getAttribute("user") == null) { %>
-											<div class="cart_price"></div>
-										<% } else if(session.getAttribute("cartTotal") != null){ %>
-											<div class="cart_price"><%=session.getAttribute("cartTotal")%>&euro;</div>
-										<% } else { %>
-											<div class="cart_price">0.0&euro;</div>
-										<% } %>
+										<div class="cart_text"><a href="./cart.jsp">Carrito</a></div>
+										<div class="cart_price">19.95&euro;</div>
 									</div>
 								</div>
 							</div>
@@ -194,7 +190,7 @@
 
 							<div class="main_nav_menu ml-auto">
 								<ul class="standard_dropdown main_nav_dropdown">
-									<li><a href="./index.jsp">Home<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="./index.html">Home<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="./shop.html">Tienda<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="./profile.html">Perfil<i class="fas fa-chevron-down"></i></a></li>
 								</ul>
@@ -217,11 +213,11 @@
 			</div>
 		</nav>
 		
-		<!-- Menu -->
-
 		
 
 	</header>
 
 </body>
 </html>
+
+

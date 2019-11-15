@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Single Product</title>
+<title>Producto</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="OneTech shop project">
@@ -48,68 +48,45 @@
 				<!-- Description -->
 				<div class="col-lg-5 order-3">
 					<div class="product_description">
-						<div class="product_category">Laptops</div>
-						<div class="product_name">MacBook Air 13</div>
-						<div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div>
-						<div class="product_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum. laoreet turpis, nec sollicitudin dolor cursus at. Maecenas aliquet, dolor a faucibus efficitur, nisi tellus cursus urna, eget dictum lacus turpis.</p></div>
+						<jsp:useBean id="product" type="es.uc3m.ecommerce.model.Product" scope="request" />
+						<div class="product_category"><p>${product.getCategoryBean().getCategoryName()}</p></div>
+						<div class="product_name"><p>${product.getProductName()}</p></div>
+						<div class="product_text"><p>${product.getShortDesc()}</p></div>
 						<div class="order_info d-flex flex-row">
-						<form action="#">
-								<div class="clearfix" style="z-index: 1000;">
-
-									<!-- Product Quantity -->
-									<div class="product_quantity clearfix">
-										<span>Cantidad: </span>
-										<input id="quantity_input" type="text" pattern="[0-9]*" value="1">
-										<div class="quantity_buttons">
-											<div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fas fa-chevron-up"></i></div>
-											<div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fas fa-chevron-down"></i></div>
-										</div>
-									</div>
-
-									<!-- Product Color -->
-									<ul class="product_size">
-										<li>
-											<span>Talla: </span>
-											<div class="size_mark_container"><div id="selected_size" class="size_mark"></div></div>
-											<div class="size_dropdown_button"><i class="fas fa-chevron-down"></i></div>
-
-											<ul class="color_size">
-												<li><div class="size_mark" id="talla1" >S</div></li>
-												<li><div class="size_mark" id="talla2" >M</div></li>
-												<li><div class="size_mark" id="talla3" >L</div></li>
-											</ul>
-										</li>
-									</ul>
-									
-									<ul class="product_color">
-										<li>
-											<span>Color: </span>
-											<div class="color_mark_container"><div id="selected_color" class="color_mark"></div></div>
-											<div class="color_dropdown_button"><i class="fas fa-chevron-down"></i></div>
-
-											<ul class="color_list">
-												<li><div class="color_mark" style="background: #999999;"></div></li>
-												<li><div class="color_mark" style="background: #b19c83;"></div></li>
-												<li><div class="color_mark" style="background: #000000;"></div></li>
-											</ul>
-										</li>
-									</ul>
+						<form action="add_to_cart.html" method="post">
+							<div class="clearfix" style="z-index: 1000;">
+								<!-- Product Quantity -->
+								<span>Cantidad: </span>
+								<input id="quantity_input" name="quantity_input" type="number" pattern="[0-9]*" value="1">
+							</div>
+							<div class="product_price">										
+								<div id="unit_price"><span>Precio unitario: </span>${product.getPrice()}&euro;</div>
+								<div id="total_price"><span>Total: </span>${product.getPrice()}&euro;</div>
+								<script>
+								document.getElementById("quantity_input").onchange = function() {myFunction(${product.getPrice()})};
+																
+								function myFunction(price) {
+								var quantity = document.getElementById("quantity_input");
+								var total = quantity.value * price;
+								document.getElementById("total_price").innerHTML = "Total: " + total + "&euro;";
+								}
+								</script>	
+							</div>
+							<%if(request.getAttribute("newProductAdded") != null) { %>
+								<span>Este producto ha sido añadido a tu carrito</span>
+							<% } %>
+							<div class="button_container">
+								<input type="hidden" name="productId" id="productId" value="<%=product.getProductId()%>">
+								<button type="submit">Añadir al carrito</button>
+								<div class="product_fav">
+									<i class="fas fa-heart">
+									</i>
 								</div>
-
-								<div class="product_price">$2000</div>
-								<div class="button_container">
-									<button type="button" class="button cart_button">Add to Cart</button>
-									<div class="product_fav">
-										<i class="fas fa-heart">
-										</i>
-									</div>
-								</div>
-								
-							</form>
+							</div>
+						</form>
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
@@ -121,7 +98,7 @@
 			<div class="row">
 				<div class="col">
 					<div class="viewed_title_container">
-						<h3 class="viewed_title">Recently Viewed</h3>
+						<h3 class="viewed_title">Vistos recientemente</h3>
 						<div class="viewed_nav_container">
 							<div class="viewed_nav viewed_prev"><i class="fas fa-chevron-left"></i></div>
 							<div class="viewed_nav viewed_next"><i class="fas fa-chevron-right"></i></div>
@@ -231,39 +208,6 @@
 		</div>
 	</div>
 
-	<!-- Brands -->
-
-	<div class="brands">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="brands_slider_container">
-						
-						<!-- Brands Slider -->
-
-						<div class="owl-carousel owl-theme brands_slider">
-							
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_1.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_2.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_3.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_4.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_5.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_6.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_7.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_8.jpg" alt=""></div></div>
-
-						</div>
-						
-						<!-- Brands Slider Navigation -->
-						<div class="brands_nav brands_prev"><i class="fas fa-chevron-left"></i></div>
-						<div class="brands_nav brands_next"><i class="fas fa-chevron-right"></i></div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<!-- Newsletter -->
 
 	<div class="newsletter">
@@ -293,7 +237,14 @@
 	<%@ include file="footer.jsp" %>
 	
 </div>
-
+<script>
+function calculateTotal(){
+	System.out.println("Calculating total amount");
+	var uds = docuement.getElementByID("quantity_input").value;
+	var total = uds * ${product.getPrice()};
+	document.getElementByID("total_price").value = "precio totoal";
+}
+</script>
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="styles/bootstrap4/popper.js"></script>
 <script src="styles/bootstrap4/bootstrap.min.js"></script>
