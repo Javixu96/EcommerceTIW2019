@@ -42,6 +42,7 @@ $(document).ready(function()
 	initSubcateg();
 	initFavs();
 	initImage();
+	hoverSubcateg();
 
 	$(window).on('resize', function()
 	{
@@ -373,6 +374,15 @@ $(document).ready(function()
 			{
 				document.getElementById("selected_categ").value=document.getElementById("categ3").value;	
 			})	
+			$('#categ4').on('click',function()
+			{
+				document.getElementById("selected_categ").value=document.getElementById("categ4").value;	
+			})	
+			$('#categ5').on('click',function()
+			{
+				document.getElementById("selected_categ").value=document.getElementById("categ5").value;	
+			})	
+					
 		}
 	}
 	
@@ -387,7 +397,105 @@ $(document).ready(function()
 			$('#subcateg2').on('click',function()
 			{
 				document.getElementById("selected_subcateg").value=document.getElementById("subcateg2").value;	
-			})	
+			})
+			$('#subcateg3').on('click',function()
+			{
+				document.getElementById("selected_subcateg").value=document.getElementById("subcateg3").value;	
+			})
+			$('#subcateg4').on('click',function()
+			{
+				document.getElementById("selected_subcateg").value=document.getElementById("subcateg4").value;	
+			})
+			$('#subcateg5').on('click',function()
+			{
+				document.getElementById("selected_subcateg").value=document.getElementById("subcateg5").value;	
+			})
+			$('#subcateg6').on('click',function()
+			{
+				document.getElementById("selected_subcateg").value=document.getElementById("subcateg6").value;	
+			})
+			$('#subcateg7').on('click',function()
+			{
+				document.getElementById("selected_subcateg").value=document.getElementById("subcateg7").value;	
+			})
+			$('#subcateg8').on('click',function()
+			{
+				document.getElementById("selected_subcateg").value=document.getElementById("subcateg8").value;	
+			})
+			$('#subcateg9').on('click',function()
+			{
+				document.getElementById("selected_subcateg").value=document.getElementById("subcateg9").value;	
+			})
+			$('#subcateg10').on('click',function()
+			{
+				document.getElementById("selected_subcateg").value=document.getElementById("subcateg10").value;	
+			})
+			$('#subcateg11').on('click',function()
+			{
+				document.getElementById("selected_subcateg").value=document.getElementById("subcateg11").value;	
+			})
+			$('#subcateg12').on('click',function()
+			{
+				document.getElementById("selected_subcateg").value=document.getElementById("subcateg12").value;	
+			})
+			$('#subcateg13').on('click',function()
+			{
+				document.getElementById("selected_subcateg").value=document.getElementById("subcateg13").value;	
+			})
+			$('#subcateg14').on('click',function()
+			{
+				document.getElementById("selected_subcateg").value=document.getElementById("subcateg14").value;	
+			})
+			$('#subcateg15').on('click',function()
+			{
+				document.getElementById("selected_subcateg").value=document.getElementById("subcateg15").value;	
+			})				
+		}
+	}
+	
+	function hoverSubcateg()
+	{
+		if($('.product_size').length){
+			 $(".selectSubcategory").hover(function(){
+				 if(document.getElementById("selected_categ").value=="Categoría"){
+					 $(".sub").hide();
+					}
+				 if(document.getElementById("selected_categ").value=="Partes de arriba"){
+					 $(".arriba").show();
+					 $(".abajo").hide();
+					 $(".abrigo").hide();
+					 $(".calzado").hide();
+					 $(".acc").hide();
+					}
+				 if(document.getElementById("selected_categ").value=="Calzado"){
+					 $(".calzado").show();
+					 $(".abajo").hide();
+					 $(".abrigo").hide();
+					 $(".arriba").hide();
+					 $(".acc").hide();
+					}
+				 if(document.getElementById("selected_categ").value=="Partes de abajo"){
+					 $(".abajo").show();
+					 $(".calzado").hide();
+					 $(".abrigo").hide();
+					 $(".arriba").hide();
+					 $(".acc").hide();
+					}
+				 if(document.getElementById("selected_categ").value=="Prendas de abrigo"){
+					 $(".abrigo").show();
+					 $(".calzado").hide();
+					 $(".abajo").hide();
+					 $(".arriba").hide();
+					 $(".acc").hide();
+					}
+				 if(document.getElementById("selected_categ").value=="Accesorios"){
+					 $(".acc").show();
+					 $(".calzado").hide();
+					 $(".abrigo").hide();
+					 $(".arriba").hide();
+					 $(".abajo").hide();
+					}
+			});	
 		}
 	}
 

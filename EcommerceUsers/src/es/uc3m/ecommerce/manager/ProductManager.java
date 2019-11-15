@@ -6,9 +6,12 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.transaction.UserTransaction;
 
+import es.uc3m.ecommerce.model.Appuser;
+import es.uc3m.ecommerce.model.Category;
 import es.uc3m.ecommerce.model.Product;
 
 public class ProductManager {
@@ -63,11 +66,12 @@ public class ProductManager {
 		return "";
 	}
 	
-	// Esta anotación es para quitar el warning avisandonos que es está
+	// Esta anotación es para quitar el warning avisandonos que es est
 	// haciendo una conversión de List a List<Product> y puede no ser válida
 	@SuppressWarnings("unchecked")
 	public List<Product> findAll() {
 		List<Product> resultado;
+
 		Query query = em.createNamedQuery("Product.findAll",Product.class);
 		resultado = query.getResultList();
 		
@@ -78,6 +82,7 @@ public class ProductManager {
 	@SuppressWarnings("unchecked")
 	public List<Product> findBySimilarTitle(String titulo) {
 		List<Product> resultado;
+
 		try {
 			Query query = em.createNamedQuery("Product.findBySimilarTitle",Product.class);
 			// Atención: Se neceista agregar el % porque se usa una consutla con like (buscar en google)
@@ -86,6 +91,7 @@ public class ProductManager {
 		} finally {
 			em.close();
 		}
+
 		return resultado;
 
 	}
@@ -97,24 +103,43 @@ public class ProductManager {
 		return resultado;
 	}
 	
-	public void removeById(Product product) throws Exception {
-		try {
-			ut.begin();
-			em.remove(product);
-			ut.commit();
-		} catch (Exception ex) {
-			try {
-				if (em.getTransaction().isActive()) {
-					em.getTransaction().rollback();
-				}
-			} catch (Exception e) {
-				ex.printStackTrace();
-				throw e;
-			}
-			throw ex;
-		} finally {
-			em.close();
+	public void removeProduct(Product product) throws Exception {		
+		ut.begin();
+		
+		if (!em.contains(product)) {
+		    product = em.merge(product);
 		}
+		
+		em.remove(product);
+		ut.commit();
+			
 		return;
+	}
+	
+	public void modifyProduct(Product product) throws Exception {
+		
+			ut.begin();
+			em.merge(product);
+			ut.commit();
+
+		return;
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Product> findAllByAppuser(Appuser user) throws Exception {
+		List<Product> resultado;
+		
+		Query q= em.createNamedQuery("Product.findByAppuser");
+		
+		q.setParameter("user", user);		
+		
+		try {
+			resultado =  q.getResultList();;		
+		} catch (NoResultException n){
+			resultado = null;
+		}
+		
+		return resultado;
 	}
 }
