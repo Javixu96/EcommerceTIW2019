@@ -34,7 +34,7 @@
 		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg"></div>
 		<div class="home_overlay"></div>
 		<div class="home_content d-flex flex-column align-items-center justify-content-center">
-			<h2 class="home_title">¡Compra online las 24 horas del día!</h2>
+			<h2 class="home_title">ï¿½Compra online las 24 horas del dï¿½a!</h2>
 		</div>
 	</div>
 
@@ -153,7 +153,7 @@
 											<button type="submit">See product</button>
 										</form>						
 									</div>
-								<div class="product_fav"><i class="fas fa-heart"></i></div><!-- Añadir aquí cómo cargar en la wishlist -->
+								<div class="product_fav"><i class="fas fa-heart"></i></div><!-- Aï¿½adir aquï¿½ cï¿½mo cargar en la wishlist -->
 									<!-- <ul class="product_marks">
 										<li class="product_mark product_discount">-25%</li>
 										<li class="product_mark product_new">new</li>
@@ -343,8 +343,8 @@
 					<div class="newsletter_container d-flex flex-lg-row flex-column align-items-lg-center align-items-center justify-content-lg-start justify-content-center">
 						<div class="newsletter_title_container">
 							<div class="newsletter_icon"><img src="images/send.png" alt=""></div>
-							<div class="newsletter_title">Suscríbete a nuestra newsletter</div>
-							<div class="newsletter_text"><p>...y obtén un cupón descuento del 20% para la 1ª compra.</p></div>
+							<div class="newsletter_title">Suscrï¿½bete a nuestra newsletter</div>
+							<div class="newsletter_text"><p>...y obtï¿½n un cupï¿½n descuento del 20% para la 1ï¿½ compra.</p></div>
 						</div>
 						<div class="newsletter_content clearfix">
 							<form action="#" class="newsletter_form">

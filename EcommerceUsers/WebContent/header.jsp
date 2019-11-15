@@ -39,7 +39,7 @@
 							<div class="top_bar_menu">
 								<ul class="standard_dropdown top_bar_dropdown">
 									<li>
-										<a href="#">Español<i class="fas fa-chevron-down"></i></a>
+										<a href="#">Espa&ntilde;ol<i class="fas fa-chevron-down"></i></a>
 										<ul>
 											<li><a href="#">Espa&ntilde;ol</a></li>
 											<li><a href="#">Ingl&eacutes</a></li>
@@ -89,7 +89,7 @@
 						List<List<Category>> categories = (List<List<Category>>) servletContext.getAttribute("categoryTree");
 					
 					%>
-
+	
 					<!-- Search -->
 					<div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
 						<div class="header_search">
@@ -194,7 +194,7 @@
 
 							<div class="main_nav_menu ml-auto">
 								<ul class="standard_dropdown main_nav_dropdown">
-									<li><a href="./index.jsp">Home<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="./index.html">Home<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="./shop.html">Tienda<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="./profile.html">Perfil<i class="fas fa-chevron-down"></i></a></li>
 								</ul>
@@ -216,11 +216,6 @@
 				</div>
 			</div>
 		</nav>
-		
-		<!-- Menu -->
-
-		
-
 	</header>
 
 </body>

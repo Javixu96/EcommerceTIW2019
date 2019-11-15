@@ -73,11 +73,11 @@
 								</script>	
 							</div>
 							<%if(request.getAttribute("newProductAdded") != null) { %>
-								<span>Este producto ha sido añadido a tu carrito</span>
+								<span>Este producto ha sido aï¿½adido a tu carrito</span>
 							<% } %>
 							<div class="button_container">
 								<input type="hidden" name="productId" id="productId" value="<%=product.getProductId()%>">
-								<button type="submit">Añadir al carrito</button>
+								<button type="submit">Aï¿½adir al carrito</button>
 								<div class="product_fav">
 									<i class="fas fa-heart">
 									</i>

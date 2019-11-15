@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="es.uc3m.ecommerce.model.*"%>   
+  <%--
+<%@page import="servlet.BDServlet"%>
+<%@page contentType="text/html"%>
+<%@page pageEncoding="UTF-8"%>
+--%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +24,6 @@
 <body>
 
 <div class="super_container">
-	
 	<!-- Header -->
 	<%@ include file="header.jsp" %>
 
@@ -35,10 +40,13 @@
 					<!-- Perfil -->
 						<div class="contact_form_title profile_line">Perfil</div>
 						<% if(request.getAttribute("modifyUserSuccess") != null) { %>
-						<span style="color: green;"> Su perfil ha sido modificado con éxito </span>
+						<span style="color: green;"> Su perfil ha sido modificado con ï¿½xito </span>
 						<% } %>
 						<form action="modifyUser.html" method="post" id="contact_form">
 							<div class="contact_form_inputs">
+								<div class="div_profile_photo">
+									<img class="profile_photo" src="images/photo_profile.png" alt="">
+								</div>
 								<div class="div_profile_left">
 									<div class="profile_div_name">
 										<h4 class="input_title" >Nombre</h4>
@@ -53,39 +61,39 @@
 										<input type="text" id="profile_email" name="profile_email" class="profile_form input_field" placeholder="Your email" required="required" data-error="email is required." value=<%= request.getAttribute("userEmail") %>>									
 									</div>
 									<div class="profile_div_name">
-										<h4 class="input_title">Dirección de envío</h4>
+										<h4 class="input_title">Direcciï¿½n de envï¿½o</h4>
 										<input type="text" id="profile_address"  name="profile_address" class="profile_form input_field" placeholder="Your email" required="required" data-error="email is required."value=<%= request.getAttribute("userAddress") %>>
 									</div>
 								</div>	
 							</div>						
 						
 							<div class="contact_form_button">
-								<button type="submit" class="button contact_submit_button">Guardar cambios</button>
+								<button type="submit" value="sent" class="button contact_submit_button">Guardar cambios</button>
 							</div>
 						</form>
 						
 					<!-- Contrasena -->
-					<div class="contact_form_title profile_line">Contraseña</div>
+					<div class="contact_form_title profile_line">Contraseï¿½a</div>
 						<form action="./modifyUser.html" id="password_form">
 							<div class="contact_form_inputs">
 								<div class="div_profile_left">
 									<div class="profile_div_name">
-										<h4 class="profile_oldpw" name="profile_oldpw" id="profile_oldpw">Contraseña anterior</h4>
+										<h4 class="profile_oldpw" name="profile_oldpw" id="profile_oldpw">Contraseï¿½a anterior</h4>
 									</div>
 									<div class="profile_div_name">
-										<h4 class="profile_newpw" name="profile_newpw" id="profile_newpw">Contraseña nueva</h4>
+										<h4 class="profile_newpw" name="profile_newpw" id="profile_newpw">Contraseï¿½a nueva</h4>
 									</div>	
 									<div class="profile_div_name">
-										<h4 class="profile_newpw2" name="profile_newpw2" id="profile_newpw2">Confirmar la contraseña</h4>
+										<h4 class="profile_newpw2" name="profile_newpw2" id="profile_newpw2">Confirmar la contraseï¿½a</h4>
 									</div>
 								</div>	
 								<div class="div_profile_right">
-								<input type="text" id="contact_form_oldpassword" class="profile_form input_field" placeholder="Contraseña anterior" required="required" data-error="Old password required.">
-								<input type="text" id="contact_form_newpassword" class="profile_form input_field" placeholder="Contraseña nueva" required="required" data-error="New password required.">
-								<input type="text" id="contact_form_repeatpassword" class="profile_form input_field" placeholder="Repetir la contraseña nueva" required="required" data-error="Repeated password required">
+								<input type="text" id="contact_form_oldpassword" class="profile_form input_field" placeholder="Contraseï¿½a anterior" required="required" data-error="Old password required.">
+								<input type="text" id="contact_form_newpassword" class="profile_form input_field" placeholder="Contraseï¿½a nueva" required="required" data-error="New password required.">
+								<input type="text" id="contact_form_repeatpassword" class="profile_form input_field" placeholder="Repetir la contraseï¿½a nueva" required="required" data-error="Repeated password required">
 								</div>	
 							</div>						
-						
+							
 							<div class="contact_form_button">
 								<button type="submit" class="button contact_submit_button">Guardar cambios</button>
 							</div>

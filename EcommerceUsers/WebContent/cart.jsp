@@ -48,7 +48,7 @@
 												<div class="cart_item_text"><%=cartList.get(i).getProductName() %></div>
 											</div>
 											<div style="flex: 0.1" class="cart_item_color cart_info_col">
-												<div class="cart_item_title">Descripción</div>
+												<div class="cart_item_title">Descripciï¿½n</div>
 												<div class="cart_item_text"><%=cartList.get(i).getShortDesc()%></div>
 											</div>
 											<div style="flex: 0.1" class="cart_item_quantity cart_info_col">

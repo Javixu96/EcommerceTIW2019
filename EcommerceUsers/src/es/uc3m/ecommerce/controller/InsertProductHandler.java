@@ -64,5 +64,4 @@ public class InsertProductHandler implements IHandler {
 		return "add_product.jsp";
 	}
 
-
 }
