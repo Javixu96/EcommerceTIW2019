@@ -18,7 +18,6 @@ import es.uc3m.ecommerce.model.Category;
 public class MessageManager {
 
 	public ConnectionFactory connectionfactory;
-		 
 	public Queue queue;
 	
 	public MessageManager() {
@@ -32,4 +31,4 @@ public class MessageManager {
 			e.printStackTrace();
 		}
 	}
-}
+} 

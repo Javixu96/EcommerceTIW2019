@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="es.uc3m.ecommerce.model.*"%>
+<%@ page import="org.apache.commons.codec.binary.StringUtils" %>
+<%@ page import="org.apache.commons.codec.binary.Base64" %>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,148 +28,128 @@
 	<%@ include file="header.jsp" %>
 
 	<!-- Single Product -->
-
+	<form action="modify_product.html" enctype="multipart/form-data" method="post">
 	<div class="single_product">
 		<div class="container">
-			<div class="row">
-
-				<!-- Images -->
-				<div class="col-lg-2 order-lg-1 order-2">
-					<ul class="image_list">
-						<li data-image="images/single_4.jpg"><img src="images/single_4.jpg" alt=""></li>
-						<li data-image="images/single_2.jpg"><img src="images/single_2.jpg" alt=""></li>
-						<li data-image="images/single_3.jpg"><img src="images/single_3.jpg" alt=""></li>
-					</ul>
-				</div>
-
-				<!-- Selected Image -->
-				<div class="col-lg-5 order-lg-2 order-1">
-					<div class="image_selected"><img src="images/single_4.jpg" alt=""></div>
+			<div class="row">				
+				<%Product product=(Product)request.getAttribute("product"); %>
+				<!-- Image -->
+				<div class="col-lg-6 order-lg-2 order-1">
+					<div class="image_selected"><img src="<% StringBuilder sb = new StringBuilder();
+									sb.append("data:image/png;base64,");
+									sb.append(StringUtils.newStringUtf8(Base64.encodeBase64(product.getProductPicture(), false)));
+									out.print(sb.toString()); %>">
+					</div>
+					<h4 style="margin-top:20px;" class="input_title">Imagen</h4>
+					<input type="file" id="fileToUpLoad" name ="fileToUpLoad"  class="contact_form_name input_field inputImgUpLoad">
 				</div>
 
 				<!-- Description -->
-				<div class="col-lg-5 order-3">
+				<div class="col-lg-6 order-3">
 					<div>
-						<form action="#">
-								<div class="clearfix catego" style="z-index: 1000;">
-								<div >
-									<h4>Categoria</h4>
-									<ul class="product_categ">
-										<li>
-											<div class="size_mark_container"><div id="selected_categ" class="size_mark">
-												Hombre</div></div>
-											<div class="size_dropdown_button"><i class="fas fa-chevron-down"></i></div>
-
-											<ul class="color_size">
-												<li><div class="size_mark" id="categ1" >Hombre</div></li>
-												<li><div class="size_mark" id="categ2" >Mujer</div></li>
-												<li><div class="size_mark" id="categ3" >Ni&ntilde;o</div></li>
-											</ul>
-										</li>
-									</ul>
-								</div>
-								<div style="margin-left:40px;">
-									<h4>Subcategoria</h4>
-									<ul class="product_categ">
-										<li>
-											
-											<div class="size_mark_container"><div id="selected_subcateg" class="size_mark">
-												Abrigos</div></div>
-											
-											<div class="size_dropdown_button"><i class="fas fa-chevron-down"></i></div>
-											
-											<ul class="color_size">
-												<li><div class="size_mark" id="subcateg1" >Abrigos</div></li>
-												<li><div class="size_mark" id="subcateg2" >Camisas</div></li>
-												<li><div class="size_mark" id="subcateg3" >Camisetas</div></li>
-												<li><div class="size_mark" id="subcateg4" >Pantalones</div></li>
-												<li><div class="size_mark" id="subcateg5" >Sudaderas</div></li>
-											</ul>
-										</li>
-									</ul>
-								</div>
-							</div>
-							</form>	
-													
-							</div>
+							<div class="clearfix row_container catego" style="z-index: 1000;">
+								
 							
-						<div class="product_name">
-						<h4>Nombre de producto</h4>
-						<input type="text" class="profile_form input_field" placeholder="Nombre de producto" required="required" value = "MacBook Air 13">
-						</div>
-						
-						<div class="product_price">
-						<h4>Descripci&oacute;n</h4>
-						</div>
-						<div class="product_text">
-						<input type="text" class="profile_form input_field_d" placeholder="Descripci&oacute;n" required="required">
-						</div>
-						<div class="product_price">
-						<h5>Precio (&euro;)</h5>
-						<input type="text" class="profile_form input_field" placeholder="Precio" required="required" data-error="Campo obligatorio."value="2000">
-						</div>
-						<form action="./product_list_seller.jsp">	
-							<div class="button_container">
-								<button type="submit" class="button cart_button">Guardar cambios</button>
-							</div>	
-						</form>
-						<div class="order_info d-flex flex-row">
-						<form action="./product_list_seller.jsp">
-								<div class="clearfix" style="z-index: 1000;">
-		
-									<!-- Product Quantity -->
-									<div class="product_quantity clearfix">
-										<span>Cantidad: </span>
-										<input id="quantity_input" type="text" pattern="[0-999]*" value="55">
-										<div class="quantity_buttons">
-											<div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fas fa-chevron-up"></i></div>
-											<div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fas fa-chevron-down"></i></div>
-										</div>
-									</div>
-
-									<!-- Product Color -->
+								<div class="row_item">
+									<h4>Categoría</h4>
 									<ul class="product_size">
 										<li>
-											<span>Talla: </span>
-											<div class="size_mark_container"><div id="selected_size" class="size_mark"></div></div>
-											<div class="size_dropdown_button"><i class="fas fa-chevron-down"></i></div>
-
-											<ul class="color_size">
-												<li><div class="size_mark" id="talla1" >S</div></li>
-												<li><div class="size_mark" id="talla2" >M</div></li>
-												<li><div class="size_mark" id="talla3" >L</div></li>
-											</ul>
-										</li>
-									</ul>
-									
-									<ul class="product_color">
-										<li>
-											<span>Color: </span>
-											<div class="color_mark_container"><div id="selected_color" class="color_mark"></div></div>
-											<div class="color_dropdown_button"><i class="fas fa-chevron-down"></i></div>
-
-											<ul class="color_list">
-												<li><div class="color_mark" style="background: #999999;"></div></li>
-												<li><div class="color_mark" style="background: #b19c83;"></div></li>
-												<li><div class="color_mark" style="background: #000000;"></div></li>
-											</ul>
+											<div class="size_mark_container" style="width:400px;left:-100px;text-align:left;">
+												<% out.println(product.getCategoryBean().getCategory().getCategoryName()); %>											</div>	
 										</li>
 									</ul>
 								</div>
-
+								<div class="row_item" style="clear:left;">
+									<h4>Subcategoría</h4>
+									<ul class="product_subcateg">
+										<li>
+											
+											<div class="size_mark_container"style="width:400px;left: 0px;">
+											
+												<input required="required" style="text-align:left;padding-left:30px;" type="text" name="subcategory" id="selected_subcateg"  value = "<% out.println(product.getCategoryBean().getCategoryName()); %>">
+											
+											</div>
+											
+											<div class="size_dropdown_button"><i class="fas fa-chevron-down"></i></div>
+											
+											<ul class="color_size">
+											<%int cont=0; %>
+												 <%
+												 
+                                                	Boolean checked;
+                                            		for(Category c: product.getCategoryBean().getCategory().getCategories()){
+                                            			cont++;
+                                            			//checked = (c.getCategoryName().equals(productToModify.getCategoryBean().getCategoryName())) ? "checked" : "";
+                                            			if (c.getCategoryName().equals(product.getCategoryBean().getCategoryName())){
+                                            				checked = true;
+                                            			} else {
+                                            				checked = false;
+                                            			}
+												%>
+												<li><input type="button"  class="size_mark" id=<%="subcateg"+cont%> value="<%=c.getCategoryName()%>" <%= (checked)?"checked":"" %> ></li>										
+												<%
+                                            		}
+												%>
+											</ul>
+										</li>
+									</ul>
+								</div>		
+													
+							</div>
+			
 							
-									<div class="button_container">
-										<button type="submit" class="button cart_button">Modificar Stock</button>
+							<div class="product_name">
+							<h4>Nombre de producto</h4>
+							<input name="name" type="text" class="profile_form input_field" placeholder="Nombre de producto" required="required" value =<% out.println(product.getProductName()); %>>
+							</div>
+						
+							<div class="product_price">
+							<h4>Descripci&oacute;n</h4>
+							</div>
+							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+								<textarea name="shortDesc" style="padding-bottom: 10px;padding-top:10px" class="input_field" rows="2" placeholder="Introduce la descripción del producto"><% out.println(product.getShortDesc()); %></textarea>
+							</div>
+						
+							<div class="product_price">
+							<h4>Descripci&oacute;n detallada</h4>
+							</div>
+							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+								<textarea name="longDesc" style="padding-bottom: 10px;padding-top:10px" class="input_field" rows="2" placeholder="Introduce la descripción detallada del producto"><% out.println(product.getLongDesc()); %></textarea>
+							</div>
+						
+							<div class="product_price">
+								<h5>Precio (&euro;)</h5>
+								<input name="price" type="text" style="margin-top: 5px;" class="profile_form input_field" placeholder="Precio" required="required"value=<% out.println(product.getPrice()); %>>
+							</div>
+							
+							<div class="product_stock">
+								<h5 style="margin-top: 40px;">Stock</h5>
+								<div class="product_quantity">
+									<span>Cantidad: </span>
+									<input required="required" name = "stock" id="quantity_input" type="text" pattern="[0-999]*" value=<% out.println(product.getStock()); %>>
+									<div class="quantity_buttons">
+										<div id="quantity_inc_button" class="quantity_inc quantity_control">
+											<i class="fas fa-chevron-up"></i>
+										</div>
+										<div id="quantity_dec_button" class="quantity_dec quantity_control">
+											<i class="fas fa-chevron-down"></i>
+										</div>
 									</div>
-							
-							</form>
-						</div>
+								</div>
+							</div>
+						
+							<% HttpSession mySession = request.getSession(true); %>
+							<% mySession.setAttribute("productInModify",product); %>
+							<div style="clear:left; margin-top:100px;" class="button_container">
+								<button type="submit" class="button cart_button">Guardar cambios</button>
+							</div>	
 					</div>
 				</div>
 
 			</div>
 		</div>
 	</div>
+	</form>
 
 	<!-- Recently Viewed -->
 

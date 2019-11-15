@@ -6,6 +6,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import es.uc3m.ecommerce.manager.*;
@@ -18,8 +19,9 @@ public class InsertProductHandler implements IHandler {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ProductManager im = new ProductManager();
-		UserManager us = new UserManager();
 		CategoryManager ca = new CategoryManager();
+		HttpSession session = request.getSession();
+		Appuser appuser = (Appuser) session.getAttribute("user");
 		
 		
 		Product product = new Product();
@@ -29,29 +31,25 @@ public class InsertProductHandler implements IHandler {
 		String productName = request.getParameter("product_name");
 		String shortDescription = request.getParameter("pShortDesc");
 		String longDescription = request.getParameter("pLongDesc");
-		String subCategory = request.getParameter("subcategory");
 		int price = Integer.parseInt(request.getParameter("product_price"));
 		int stock = Integer.parseInt(request.getParameter("product_stock"));
+		
+		product.setProductName(productName);
+		product.setShortDesc(shortDescription);
+		product.setLongDesc(longDescription);
+		product.setPrice(price);
+		product.setStock(stock);
 
 	    byte[] data = new byte[(int) filePart.getSize()];
 	    filePart.getInputStream().read(data, 0, data.length);
 	    // i2.setTitulo(request.getParameter("titulo"));
-	   
-	    
-	    Category pSubcategory = new Category();
-	    pSubcategory = ca.findById(5);
-	    
-	    Appuser appuser = new Appuser();
-	    appuser=us.getUserById(3);
-	    
-		product.setProductName(productName);
-		product.setShortDesc(shortDescription);
-		product.setLongDesc(longDescription);
-		product.setCategoryBean(pSubcategory);
 		product.setProductPicture(data);
+	    
+	    String productCategory= request.getParameter("subcategory");
+	    product.setCategoryBean(ca.findByName(productCategory));
+	    
 		product.setAppuser(appuser);
-		product.setPrice(price);
-		product.setStock(stock);
+		
 		
 		try {
 			im.create(product);
@@ -61,7 +59,7 @@ public class InsertProductHandler implements IHandler {
 		}
 
 		// response.sendRedirect("controlador");
-		return "add_product.jsp";
+		return "product_list_seller.html";
 	}
 
 }

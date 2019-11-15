@@ -138,34 +138,10 @@ public class UserManager {
 	}
 	
 	public void modifyUser(Appuser user) throws Exception {
-		
-		System.out.println("USER MANAGER - MODIFY USER");
-
-		
-		System.out.println("Going to modify a user record, the new values are: ");
-		System.out.println(user.getEmail());
-		System.out.println(user.getPw());
-		System.out.println(user.getIsDeleted());
-		System.out.println(user.getUserId());
-		System.out.println(user.getUserName());
-		System.out.println(user.getUserSurnames());
-		System.out.println(user.getPostalAddress());
-		System.out.println(user.getUserRole());
-		
-		try {
 			ut.begin();
 			em.merge(user);
 			ut.commit();
-		} catch (Exception e) {
-			if(ut!= null)
-				try {
-					System.out.println("Exception but ut is not null. Going to rollback");
-					ut.rollback();
-				} catch (Exception e1) {
-					System.out.println("Rollback exception");
-					e1.printStackTrace();
-				} 
-		}	
-
-	}
+	
+		return;
+	}	
 }

@@ -32,19 +32,18 @@
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1">
 					<div class="cart_container">
-						<div class="cart_title">Mi tienda</div>
+						<div class="cart_title">Mi notificaciones</div>
 						
-						
-						<!-- lista vacia -->
+						<!--
 						<div class="cart_items" style="margin-top:20px;">				
 							<div class="contact_form_button ">
 								<a href="add_product.jsp"><button class="button contact_submit_button">Añadir producto</button></a>
 							</div>	
 						</div>
+						-->
 						
 						<!-- lista -->
-						<div class="ca
-						rt_items">
+						<div class="cart_items">
 							<ul class="cart_list">
 							<% int counter=0; %>
 							<% List<Product> productList = (List<Product>)request.getAttribute("allProducts"); %>
@@ -59,7 +58,7 @@
 									
 									<div style="flex: 0.85" class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
 										<div style="flex: 0.1" class="cart_item_name cart_info_col">
-											<div class="cart_item_title">ID</div>
+											<div class="cart_item_title">User ID</div>
 											<div class="cart_item_text"><% out.println(product.getProductId()); %></div>
 										</div>
 										
