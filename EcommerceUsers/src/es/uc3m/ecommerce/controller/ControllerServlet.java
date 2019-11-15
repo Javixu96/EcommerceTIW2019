@@ -48,20 +48,30 @@ public class ControllerServlet extends HttpServlet {
     	//appContext = config.getServletContext();
 		
 	    // This will read mapping definitions and populate handlerHash
-	    handlerHash.put("/profile.html", new ShowProfileHandler());
-	    //handlerHash.put("/index.html", new ShowProductHandler());
-	    handlerHash.put("/modifyUser.html", new ModifyProfileHandler());
-	    handlerHash.put("/insert_product.html", new InsertProductHandler());
-	    handlerHash.put("/shop.html", new ShowAllProductsHandler());
 	    handlerHash.put("/loggingin.html", new LoginRequestHandler());
 	    handlerHash.put("/registering.html", new RegisterRequestHandler());	 
 	    handlerHash.put("/loggingout.html", new LoginRequestHandler());	 
+
+	    handlerHash.put("/profile.html", new ShowProfileHandler());
+	    handlerHash.put("/modifyUser.html", new es.uc3m.ecommerce.controller.ModifyProfileHandler(true));
+	    handlerHash.put("/deleteUser.html", new es.uc3m.ecommerce.controller.ModifyProfileHandler(false));
+	    
+	    handlerHash.put("/product_list_seller.html", new es.uc3m.ecommerce.controller.ShowMyProductListHandler());
+	    handlerHash.put("/insert_product.html", new es.uc3m.ecommerce.controller.InsertProductHandler());
+	    handlerHash.put("/modify_product.html", new es.uc3m.ecommerce.controller.ModifyProductHandler(true));
+	    handlerHash.put("/deleteProduct.html", new es.uc3m.ecommerce.controller.ModifyProductHandler(false));
+	    handlerHash.put("/modif_product.html", new es.uc3m.ecommerce.controller.ShowProductForModifyHandler());    
+	    
+	    handlerHash.put("/shop.html", new ShowAllProductsHandler());
+	    handlerHash.put("/product.html", new ShowProductHandler());
+
 	    handlerHash.put("/wishlist.html", new WishlistRequestHandler());	
 	    handlerHash.put("/cart.html", new CartRequestHandler());
-	    handlerHash.put("/product.html", new ShowProductHandler());
 	    handlerHash.put("/add_to_cart.html", new AddCartRequestHandler());
-
-
+	    
+	    handlerHash.put("/sendMessages.html", new es.uc3m.ecommerce.controller.SendMessageQueueHandler());
+	    handlerHash.put("/readMessagesQueue.html", new es.uc3m.ecommerce.controller.ReadMessageQueueHandler());
+	    handlerHash.put("/readMessagesBrowser.html", new es.uc3m.ecommerce.controller.ReadMessageQueueHandler());
 	    
 	    servletContext = getServletConfig().getServletContext();
 	    setServletContextUtils();

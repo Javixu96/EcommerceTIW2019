@@ -7,10 +7,12 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.transaction.UserTransaction;
 
 import es.uc3m.ecommerce.model.Category;
+import es.uc3m.ecommerce.model.Product;
 
 public class CategoryManager {
 
@@ -74,5 +76,23 @@ public class CategoryManager {
 		resultado  = em.find(Category.class, id);
 
 		return resultado;
+	}
+	
+	
+	public Category findByName(String name) {
+		Query q= em.createNamedQuery("Category.findByName");
+		
+		q.setParameter("categoryName", name);
+		
+		Category c;
+		
+		try {
+			c =  (Category) q.getSingleResult();		
+		} catch (NoResultException n){
+			c = null;
+		}
+		
+		return c;
+
 	}
 }

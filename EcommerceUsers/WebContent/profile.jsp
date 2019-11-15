@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="es.uc3m.ecommerce.model.*"%>   
+<%@ page import="org.apache.commons.codec.binary.StringUtils" %>
+<%@ page import="org.apache.commons.codec.binary.Base64" %>    
   <%--
 <%@page import="servlet.BDServlet"%>
 <%@page contentType="text/html"%>
@@ -38,59 +40,79 @@
 					<div class="contact_form_container">
 					
 					<!-- Perfil -->
-						<div class="contact_form_title profile_line">Perfil</div>
+						<div class="contact_form_title profile_line">Datos personales</div>
+						<%Appuser user=(Appuser)session.getAttribute("user"); %>
 						<% if(request.getAttribute("modifyUserSuccess") != null) { %>
-						<span style="color: green;"> Su perfil ha sido modificado con �xito </span>
+							<span style="color: green;"> Su perfil ha sido modificado con exito </span>
 						<% } %>
-						<form action="modifyUser.html" method="post" id="contact_form">
-							<div class="contact_form_inputs">
+
+						<form method="POST" action="modifyUser.html" id="contact_form" enctype="multipart/form-data" autocomplete="off">
+							<div class="contact_form_inputs" style="margin-bottom:5px;">
 								<div class="div_profile_photo">
-									<img class="profile_photo" src="images/photo_profile.png" alt="">
+									<img class="profile_photo" src="<% StringBuilder sb = new StringBuilder();
+									sb.append("data:image/png;base64,");
+									sb.append(StringUtils.newStringUtf8(Base64.encodeBase64(user.getUserPicture(), false)));
+									out.print(sb.toString()); %>">
+									<h4 style="margin-top:20px;" class="input_title">Foto</h4>
+									<input type="file" id="fileToUpLoad" name ="fileToUpLoad"  class="contact_form_name input_field inputImgUpLoad">
 								</div>
 								<div class="div_profile_left">
 									<div class="profile_div_name">
-										<h4 class="input_title" >Nombre</h4>
-										<input type="text" id="profile_name" name="profile_name" class="profile_form input_field" placeholder="Your name" required="required" data-error="Name is required." value=<%= request.getAttribute("userName") %>>										
+										<h4 class="profile_name">Nombre </h4>
 									</div>
 									<div class="profile_div_name">
-										<h4 class="input_title">Apellidos</h4>
-										<input type="text" id="profile_surnames" name="profile_surnames" class="profile_form input_field" placeholder="Your surname" required="required" data-error="surname is required."value=<%= request.getAttribute("userSurnames") %>>
+										<h4 class="profile_name">Apellidos</h4>
 									</div>	
 									<div class="profile_div_name">
-										<h4 class="input_title">Email</h4>
-										<input type="text" id="profile_email" name="profile_email" class="profile_form input_field" placeholder="Your email" required="required" data-error="email is required." value=<%= request.getAttribute("userEmail") %>>									
+										<h4 class="profile_name">Email</h4>
 									</div>
 									<div class="profile_div_name">
-										<h4 class="input_title">Direcci�n de env�o</h4>
-										<input type="text" id="profile_address"  name="profile_address" class="profile_form input_field" placeholder="Your email" required="required" data-error="email is required."value=<%= request.getAttribute("userAddress") %>>
+										<h4 class="profile_name">Direccion de envio</h4>
 									</div>
+									<div class="profile_dive_name" style="margin-left:30px;margin-top:20px;">
+										 <h5><b><a href="./product_list_seller.html">Acceder a mi tienda</a></b></h5>
+									</div>
+								</div>	
+								<div class="div_profile_right">
+
+
+									<input type="text" name ="profile_name" id="contact_form_name" class="profile_form input_field" placeholder="Nombre" required="required" data-error="Campo obligatorio." value=<% out.println(user.getUserName()); %>>
+									<input type="text" name ="profile_surnames" id="contact_form_surname" class="profile_form input_field" placeholder="Apellidos" required="required" data-error="Campo obligatorio."value=<% out.println(user.getUserSurnames()); %>>
+									<input type="text" name ="profile_email" id="contact_form_email" class="profile_form input_field" placeholder="Nº de teléfono"required="required"  value=<% out.println(user.getEmail()); %>>
+									<input type="text" name ="profile_address" id="contact_form_direction" class="profile_form input_field" placeholder="Dirección de envío" required="required" data-error="Campo obligatorio."value=<% out.println(user.getPostalAddress()); %>>
 								</div>	
 							</div>						
 						
 							<div class="contact_form_button">
 								<button type="submit" value="sent" class="button contact_submit_button">Guardar cambios</button>
 							</div>
-						</form>
+						
 						
 					<!-- Contrasena -->
-					<div class="contact_form_title profile_line">Contrase�a</div>
-						<form action="./modifyUser.html" id="password_form">
+					<div class="contact_form_title profile_line">Contrase&ntilde;a</div>
+					
 							<div class="contact_form_inputs">
 								<div class="div_profile_left">
 									<div class="profile_div_name">
-										<h4 class="profile_oldpw" name="profile_oldpw" id="profile_oldpw">Contrase�a anterior</h4>
+										<h4 class="profile_name">Contrase&ntilde;a anterior</h4>
 									</div>
 									<div class="profile_div_name">
-										<h4 class="profile_newpw" name="profile_newpw" id="profile_newpw">Contrase�a nueva</h4>
+										<h4 class="profile_name">Contrase&ntilde;a nueva</h4>
 									</div>	
 									<div class="profile_div_name">
-										<h4 class="profile_newpw2" name="profile_newpw2" id="profile_newpw2">Confirmar la contrase�a</h4>
+										<h4 class="profile_name">Confirmar la contrase&ntilde;a</h4>
 									</div>
 								</div>	
 								<div class="div_profile_right">
-								<input type="text" id="contact_form_oldpassword" class="profile_form input_field" placeholder="Contrase�a anterior" required="required" data-error="Old password required.">
-								<input type="text" id="contact_form_newpassword" class="profile_form input_field" placeholder="Contrase�a nueva" required="required" data-error="New password required.">
-								<input type="text" id="contact_form_repeatpassword" class="profile_form input_field" placeholder="Repetir la contrase�a nueva" required="required" data-error="Repeated password required">
+								<% if(request.getAttribute("invalidCredentialsError") !=null) {%>
+									<span style="color: red;"> Contrase&ntilde;a incorrecta </span>
+								<%} %>
+								<input type="text" name="oldPassword" id="contact_form_oldpassword" class="profile_form input_field" placeholder="Contrase&ntilde;a anterior">
+								<input type="text" name="newPassword" id="contact_form_newpassword" class="profile_form input_field" placeholder="Contrase&ntilde;a nueva" >
+								<% if(request.getAttribute("invalidRepeatError") !=null) {%>
+									<span style="color: red;"> No coincide las contrase&ntilde;as </span>
+								<%} %>
+								<input type="text" name="newPwRepeat" id="contact_form_repeatpassword" class="profile_form input_field" placeholder="Repetir la contrase&ntilde;a nueva">
 								</div>	
 							</div>						
 							
@@ -101,16 +123,19 @@
 					</div>
 					<!-- delete account -->
 					<div class="contact_form_title profile_line red">Eliminar cuenta</div>	
-						<div class="profile_delete">
-							<p>Una vez eliminada la cuenta, no se puede retroceder, por favor con mucho cuidado.</p>
-						</div>
-						<div class="profile_check">
-							<input type="checkbox" id="profile_checkbox"  required="required" data-error="Checkbox is required.">
-							<h4 class="profile_delete_text">Quiero eliminar mi cuenta</h4>
-						</div>
-						<div class="contact_form_button">
-							<button type="submit" class="profile_delete_button">Elimina tu cuenta</button>
-						</div>
+						<form action="deleteUser.html">
+							<div class="profile_delete">
+								<p>Una vez eliminada la cuenta, no se puede retroceder.</p>
+							</div>
+							<div class="profile_check">
+								<input type="checkbox" id="profile_checkbox"  required="required" data-error="Checkbox is required.">
+								<h4 class="profile_delete_text">Quiero eliminar mi cuenta</h4>
+							</div>
+						
+							<div class="contact_form_button">
+								<button type="submit" class="profile_delete_button">Elimina tu cuenta</button>
+							</div>
+						</form>
 					</div>
 					
 				</div>
@@ -118,10 +143,10 @@
 		</div>
 		<div class="panel"></div>
 	</div>
+
 	<!-- Footer --> 
 	<%@ include file="footer.jsp" %>
 	
-</div>
 
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="styles/bootstrap4/popper.js"></script>
