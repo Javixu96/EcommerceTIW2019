@@ -67,6 +67,9 @@
 									<div class="profile_div_name">
 										<h4 class="profile_name">Dirección de envío</h4>
 									</div>
+									<div class="profile_dive_name" style="margin-left:30px;margin-top:20px;">
+										 <h5><b><a href="./product_list_seller.jsp">Acceder a mi tienda</a></b></h5>
+									</div>
 								</div>	
 								<div class="div_profile_right">
 
@@ -75,9 +78,6 @@
 									<input type="text" name ="surnames" id="contact_form_surname" class="profile_form input_field" placeholder="Apellidos" required="required" data-error="Campo obligatorio."value=<% out.println(user.getUserSurnames()); %>>
 									<input type="text" name ="email" id="contact_form_email" class="profile_form input_field" placeholder="Nº de teléfono"required="required"  value=<% out.println(user.getEmail()); %>>
 									<input type="text" name ="direction" id="contact_form_direction" class="profile_form input_field" placeholder="Dirección de envío" required="required" data-error="Campo obligatorio."value=<% out.println(user.getPostalAddress()); %>>
-									<div class="profile_form">
-										 <h5><b><a href="./product_list_seller.jsp">Acceder a mi tienda</a></b></h5>
-									</div>
 								</div>	
 							</div>						
 						

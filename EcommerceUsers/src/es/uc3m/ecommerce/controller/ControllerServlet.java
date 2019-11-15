@@ -34,7 +34,6 @@ public class ControllerServlet extends HttpServlet {
 
 	    // This will read mapping definitions and populate handlerHash
 	    handlerHash.put("/profile.html", new es.uc3m.ecommerce.controller.ShowProfileHandler());
-	    handlerHash.put("/index.html", new es.uc3m.ecommerce.controller.ShowProductHandler());
 	    handlerHash.put("/modifyUser.html", new es.uc3m.ecommerce.controller.ModifyProfileHandler(true));
 	    handlerHash.put("/deleteUser.html", new es.uc3m.ecommerce.controller.ModifyProfileHandler(false));
 	    
@@ -46,6 +45,10 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/modif_product.html", new es.uc3m.ecommerce.controller.ShowProductForModifyHandler());
 	    
 	    handlerHash.put("/shop.html", new es.uc3m.ecommerce.controller.ShowAllProductsHandler());
+	    
+	    handlerHash.put("/sendMessages.html", new es.uc3m.ecommerce.controller.SendMessageQueueHandler());
+	    handlerHash.put("/readMessagesQueue.html", new es.uc3m.ecommerce.controller.ReadMessageQueueHandler());
+	    handlerHash.put("/readMessagesBrowser.html", new es.uc3m.ecommerce.controller.ReadMessageQueueHandler());
 	  }
 
 	  
