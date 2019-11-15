@@ -1,3 +1,4 @@
+/*
 package es.uc3m.ecommerce.controller;
 
 import java.util.List;
@@ -33,3 +34,4 @@ public class SearchHandler implements IHandler {
 	}
 
 }
+*/

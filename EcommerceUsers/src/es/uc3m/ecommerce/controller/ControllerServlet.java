@@ -49,7 +49,7 @@ public class ControllerServlet extends HttpServlet {
 		
 	    // This will read mapping definitions and populate handlerHash
 	    handlerHash.put("/profile.html", new ShowProfileHandler());
-	    handlerHash.put("/index.html", new ShowProductHandler());
+	    //handlerHash.put("/index.html", new ShowProductHandler());
 	    handlerHash.put("/modifyUser.html", new ModifyProfileHandler());
 	    handlerHash.put("/insert_product.html", new InsertProductHandler());
 	    handlerHash.put("/shop.html", new ShowAllProductsHandler());

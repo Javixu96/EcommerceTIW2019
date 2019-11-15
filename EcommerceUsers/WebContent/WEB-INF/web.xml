@@ -7,7 +7,7 @@
    <load-on-startup>0</load-on-startup>  
   </servlet>  
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
     <welcome-file>profile.html</welcome-file>
     <welcome-file>modifyUser.html</welcome-file>
     <welcome-file>insert_product.html</welcome-file>
