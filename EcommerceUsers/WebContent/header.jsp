@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     import="es.uc3m.ecommerce.model.*, java.util.*"
-    pageEncoding="ISO-8859-1"%>
-    <%@ page import="java.util.List,java.util.ArrayList,org.apache.commons.codec.binary.StringUtils,org.apache.commons.codec.binary.Base64;" %>
+    pageEncoding="ISO-8859-1"%>    
+<%@ page import="java.util.List,java.util.ArrayList,org.apache.commons.codec.binary.StringUtils,org.apache.commons.codec.binary.Base64;" %> 
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,10 +59,8 @@
 								<% if(session.getAttribute("user") != null) {
 								%>
 								<div class="user_icon"><img src="https://cdn1.iconfinder.com/data/icons/navigation-elements/512/user-login-man-human-body-mobile-person-512.png" alt=""></div>
-								<div><a href="javascript:logout();login.jsp;">Logout</a></div>
-								<%} %>
-								<% if(session.getAttribute("user") == null) {
-								%>
+								<div><a href="./loggingout.html">Logout</a></div>
+								<% } else { %>
 								<div><a href="./register.jsp">Register</a></div>
 								<div><a href="./login.jsp">Sign in</a></div>
 								<%} %>
@@ -128,7 +127,7 @@
 							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
 								<div class="wishlist_icon"><img src="images/heart.png" alt=""></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="./wishlist.jsp">Wishlist</a></div>
+									<div class="wishlist_text"><a href="./wishlist.html">Wishlist</a></div>
 									<div class="wishlist_count">5</div>
 								</div>
 							</div>
@@ -141,8 +140,14 @@
 										<div class="cart_count"><span>1</span></div>
 									</div>
 									<div class="cart_content">
-										<div class="cart_text"><a href="./cart.jsp">Carrito</a></div>
-										<div class="cart_price">19.95&euro;</div>
+										<div class="cart_text"><a href="./cart.html">Carrito</a></div>
+										<% if(session.getAttribute("user") == null) { %>
+											<div class="cart_price"></div>
+										<% } else if(session.getAttribute("cartTotal") != null){ %>
+											<div class="cart_price"><%=session.getAttribute("cartTotal")%>&euro;</div>
+										<% } else { %>
+											<div class="cart_price">0.0&euro;</div>
+										<% } %>
 									</div>
 								</div>
 							</div>
@@ -211,9 +216,6 @@
 				</div>
 			</div>
 		</nav>
-		
-		
-
 	</header>
 
 </body>

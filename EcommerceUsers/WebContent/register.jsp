@@ -30,39 +30,42 @@
 				<div class="col-lg-10 offset-lg-1">
 					<div class="contact_form_container">
 						<div class="contact_form_title">Registro</div>
-
-						<form action="#" id="contact_form">
-							
+						
+						<form action="registering.html" method="post" id="contact_form">
+							<% if(request.getAttribute("alreadyRegisteredError") != null) {%>
+							<span style="color: red;"> E-mail ya registrado </span>
+							<%} %>
 							<div class="row_container">
 								<div class="row_item">
 									<h4 class="input_title"> Nombre </h4>
-									<input type="text" id="register_name" class="contact_form_name input_field" placeholder="Introduce tu nombre" required="required" data-error="El nombre es un dato obligatorio.">
+									<input type="text" id="register_name" name="register_name" class="contact_form_name input_field" placeholder="Introduce tu nombre" required="required" data-error="El nombre es un dato obligatorio.">
 								</div>
 								<div class="row_item">
-									<h4 class="input_title"> Apellido </h4>
-									<input type="text" id="register_surname" class="contact_form_name input_field" placeholder="Introduce tus apellidos" required="required" data-error="Los apellidos es un dato obligatorio.">
+									<h4 class="input_title"> Apellidos </h4>
+									<input type="text" id="register_surname" name="register_surname" class="contact_form_name input_field" placeholder="Introduce tus apellidos" required="required" data-error="Los apellidos es un dato obligatorio.">
 								</div>							
 							</div>
 							
 							<div class="row_container">
 								<div class="row_item">
-									<h4 style="padding-bottom: 10px"> Teléfono </h4>
-									<input type="text" id="register_phone" class="contact_form_name input_field" placeholder="Introduce tu teléfono" required="required" data-error="El teléfono es un dato obligatorio.">
-								</div>
+									<h4 style="padding-bottom: 10px"> Dirección </h4>
+									<input type="text" id="register_address" name="register_address" class="contact_form_name input_field" placeholder="Introduce tu dirección de envio" required="required" data-error="La dirección de envío es un dato obligatorio.">	
+								</div>	
 								<div class="row_item">
-									<h4 style="padding-bottom: 10px"> Dirección de envío </h4>
-									<input type="text" id="register_address" class="contact_form_name input_field" placeholder="Introduce tu dirección de envio" required="required" data-error="La dirección de envío es un dato obligatorio.">	
-								</div>							
+									<h4 class="input_title"> ¿Quieres comprar o vender? </h4>
+									<input type="radio" id="register_role" name="register_role" value="1"  required="required" data-error="Debes elegir una opción"> Vender<br>
+									<input type="radio" id="register_role" name="register_role" value="2"  required="required" data-error="Debes elegir una opción"> Comprar<br>
+									<!--  <input type="text" id="register_phone" name="register_phone" class="contact_form_name input_field" placeholder="Introduce tu teléfono" required="required" data-error="El teléfono es un dato obligatorio.">-->
+								</div>						
 							</div>
-							
-						
+		
 							<h4 style="padding-bottom: 10px"> Correo electrónico </h4>
 							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
-								<input type="email" id="register_email" class="contact_form_name input_field" placeholder="Introduce tu email" required="required" data-error="El email es un dato obligatorio.">
+								<input type="email" id="register_email" name="register_email" class="contact_form_name input_field" placeholder="Introduce tu email" required="required" data-error="El email es un dato obligatorio.">
 							</div>
 							<h4 style="padding-bottom: 10px"> Contraseña </h4>
 							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
-								<input type="password" id="register_password" class="contact_form_name input_field" placeholder="Introduce tu contraseña" required="required" data-error="La contraseña es un dato obligatorio.">
+								<input type="password" id="register_password" name="register_password" class="contact_form_name input_field" placeholder="Introduce tu contraseña" required="required" data-error="La contraseña es un dato obligatorio.">
 							</div>
 							
 							<div class="contact_form_button center_horizontal">

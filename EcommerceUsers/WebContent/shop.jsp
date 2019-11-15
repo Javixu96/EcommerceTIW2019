@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     import="es.uc3m.ecommerce.model.*, java.util.*"
-    pageEncoding="ISO-8859-1"%>
-    <%@ page import="java.util.List,java.util.ArrayList,org.apache.commons.codec.binary.StringUtils,org.apache.commons.codec.binary.Base64" %>
+    pageEncoding="ISO-8859-1"%>    
+<%@ page import="java.util.List,java.util.ArrayList,org.apache.commons.codec.binary.StringUtils,org.apache.commons.codec.binary.Base64" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +34,7 @@
 		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg"></div>
 		<div class="home_overlay"></div>
 		<div class="home_content d-flex flex-column align-items-center justify-content-center">
-			<h2 class="home_title">¡Compra online las 24 horas del día!</h2>
+			<h2 class="home_title">ï¿½Compra online las 24 horas del dï¿½a!</h2>
 		</div>
 	</div>
 
@@ -135,27 +136,30 @@
 						<%-- <% List<Product> productList = (List<Product>)request.getAttribute("allProducts"); %> --%>
 							<div class="product_grid_border"></div>
 							
-							<% for (Product product: allProducts){ %>
-							<div class="product_item is_new">
-							<div class="product_border"></div>
-								<div class="product_image d-flex flex-column align-items-center justify-content-center">
+							<% for(Product product: allProducts) { %>
+								<div class="product_item is_new">
+								<div class="product_border"></div>
+									<div class="product_image d-flex flex-column align-items-center justify-content-center">
+										<img style="height: 50px;" src="<% StringBuilder sb = new StringBuilder();
+										sb.append("data:image/png;base64,");
+										sb.append(StringUtils.newStringUtf8(Base64.encodeBase64(product.getProductPicture(), false))); 
+										out.print(sb.toString()); %>">
+									</div>
+									<div class="product_content">
+									    <div class="product_price"><%=product.getPrice() %>&euro;</div>
+										<div class="product_name"><%=product.getProductName() %></div>
+										<form action="product.html" method="get">
+											<input type="hidden" name="productId" id="productId" value="<%=product.getProductId()%>">
+											<button type="submit">See product</button>
+										</form>						
+									</div>
+								<div class="product_fav"><i class="fas fa-heart"></i></div><!-- Aï¿½adir aquï¿½ cï¿½mo cargar en la wishlist -->
+									<!-- <ul class="product_marks">
+										<li class="product_mark product_discount">-25%</li>
+										<li class="product_mark product_new">new</li>
+									</ul> -->
 									
-									<img style="height: 50px;" src="<% StringBuilder sb = new StringBuilder();
-									sb.append("data:image/png;base64,");
-									sb.append(StringUtils.newStringUtf8(Base64.encodeBase64(product.getProductPicture(), false)));
-									out.print(sb.toString()); %>">
-								</div>
-								<div class="product_content">
-									<div class="product_price"><% out.println(product.getPrice()); %>&euro;</div>
-									<div class="product_name"><div><a href="#" tabindex="0"><% out.println(product.getProductName()); %></a></div></div>
-								</div>
-							<div class="product_fav"><i class="fas fa-heart"></i></div><!-- Añadir aquí cómo cargar en la wishlist -->
-								<!-- <ul class="product_marks">
-									<li class="product_mark product_discount">-25%</li>
-									<li class="product_mark product_new">new</li>
-								</ul> -->
-								
-							</div>		
+								</div>		
 							<% } %>
 						</div>
 
@@ -308,7 +312,6 @@
 					<div class="brands_slider_container">
 						
 						Brands Slider
-
 						<div class="owl-carousel owl-theme brands_slider">
 							
 							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_1.jpg" alt=""></div></div>
@@ -319,13 +322,11 @@
 							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_6.jpg" alt=""></div></div>
 							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_7.jpg" alt=""></div></div>
 							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_8.jpg" alt=""></div></div>
-
 						</div>
 						
 						Brands Slider Navigation
 						<div class="brands_nav brands_prev"><i class="fas fa-chevron-left"></i></div>
 						<div class="brands_nav brands_next"><i class="fas fa-chevron-right"></i></div>
-
 					</div>
 				</div>
 			</div>
@@ -342,8 +343,8 @@
 					<div class="newsletter_container d-flex flex-lg-row flex-column align-items-lg-center align-items-center justify-content-lg-start justify-content-center">
 						<div class="newsletter_title_container">
 							<div class="newsletter_icon"><img src="images/send.png" alt=""></div>
-							<div class="newsletter_title">Suscríbete a nuestra newsletter</div>
-							<div class="newsletter_text"><p>...y obtén un cupón descuento del 20% para la 1ª compra.</p></div>
+							<div class="newsletter_title">Suscrï¿½bete a nuestra newsletter</div>
+							<div class="newsletter_text"><p>...y obtï¿½n un cupï¿½n descuento del 20% para la 1ï¿½ compra.</p></div>
 						</div>
 						<div class="newsletter_content clearfix">
 							<form action="#" class="newsletter_form">
@@ -361,7 +362,13 @@
 	<%@ include file="footer.jsp" %>
 	
 </div>
-
+<script type="text/javascript">
+function seeProduct(p){  
+	System.out.println("Selecting a product to diplay full screen");
+	request.setAttribute("showProduct", p);
+	location.href = "./product.html";
+}
+</script>
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="styles/bootstrap4/popper.js"></script>
 <script src="styles/bootstrap4/bootstrap.min.js"></script>

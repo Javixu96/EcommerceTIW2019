@@ -45,6 +45,77 @@ public class UserManager {
 		}
 	}
 	
+	public List<Appuser> findAll() {
+		
+		List<Appuser> userList;
+		
+		Query query = em.createNamedQuery("Appuser.findAll");
+		userList = query.getResultList();
+
+		return userList;
+
+	}
+	
+	public List<Appuser> findByEmail(String email) {
+		
+		//EntityManager em = emf.createEntityManager();
+		List<Appuser> userList;
+		System.out.println("The email that is going to be check in DB against: "+ email);
+		
+		// With JNDI surround with try/catch is not neccesary
+		Query q= em.createNamedQuery("Appuser.findByEmail");
+		q.setParameter("email", email);
+		userList = q.getResultList();
+		
+		return userList;
+			
+	}
+	
+	public void insert(String introducedName, String introducedSurname, 
+		String introducedAddress, String introducedEmail, String introducedPassword, int introducedRole) {
+		
+		System.out.println("USER MANAGER - INSERT");
+
+		
+		Appuser u = new Appuser();
+		u.setEmail(introducedEmail);
+		u.setIsDeleted(0);
+		u.setPostalAddress(introducedAddress);
+		u.setPw(introducedPassword);
+		u.setUserName(introducedName);
+		u.setUserSurnames(introducedSurname);
+		u.setUserRole(introducedRole);
+	
+		//EntityManager em = emf.createEntityManager();
+
+		try {
+			ut.begin();
+			
+			System.out.println("Will add a record to DB: ");
+			System.out.println(u.getEmail());
+			System.out.println(u.getPw());
+			System.out.println(u.getIsDeleted());
+			System.out.println(u.getUserId());
+			System.out.println(u.getUserName());
+			System.out.println(u.getUserSurnames());
+			System.out.println(u.getPostalAddress());
+			System.out.println(u.getUserRole());
+			
+			em.persist(u);
+			
+			ut.commit();
+		} catch (Exception e) {
+			if(ut!= null)
+				try {
+					System.out.println("Exception but ut is not null. Going to rollback");
+					ut.rollback();
+				} catch (Exception e1) {
+					System.out.println("Rollback exception");
+					e1.printStackTrace();
+				} 
+		}
+	}
+	
 	public Appuser getUserById(int id) {
 		
 		System.out.println("Dentro de try <br>");
@@ -63,31 +134,38 @@ public class UserManager {
 		Appuser p =em.find(Appuser.class, id);
 		
 		return p;
-	
-}
-	
+
+	}
 	
 	public void modifyUser(Appuser user) throws Exception {
+		
+		System.out.println("USER MANAGER - MODIFY USER");
+
+		
+		System.out.println("Going to modify a user record, the new values are: ");
+		System.out.println(user.getEmail());
+		System.out.println(user.getPw());
+		System.out.println(user.getIsDeleted());
+		System.out.println(user.getUserId());
+		System.out.println(user.getUserName());
+		System.out.println(user.getUserSurnames());
+		System.out.println(user.getPostalAddress());
+		System.out.println(user.getUserRole());
+		
 		try {
 			ut.begin();
 			em.merge(user);
 			ut.commit();
-		} catch (Exception ex) {
-			try {
-				if (em.getTransaction().isActive()) {
-					em.getTransaction().rollback();
-				}
-			} catch (Exception e) {
-				ex.printStackTrace();
-				throw e;
-			}
-			throw ex;
-		} finally {
-			em.close();
-		}
-		return;
+		} catch (Exception e) {
+			if(ut!= null)
+				try {
+					System.out.println("Exception but ut is not null. Going to rollback");
+					ut.rollback();
+				} catch (Exception e1) {
+					System.out.println("Rollback exception");
+					e1.printStackTrace();
+				} 
+		}	
 
-	
-}	
-
+	}
 }
