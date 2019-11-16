@@ -50,6 +50,7 @@
 					<%
 					    ServletContext sc = request.getServletContext();
 						List<List<Category>> categoryTree = (List<List<Category>>) sc.getAttribute("categoryTree");
+						String searchQuery = request.getAttribute("searchQuery") != null ? (String) request.getAttribute("searchQuery") : "all";
 					
 					%>
 					<div class="shop_sidebar">
@@ -57,10 +58,16 @@
 							<div class="sidebar_title">Categorias</div>
 							<ul class="sidebar_categories">
 							<% for (List<Category> cList : categoryTree){ %>
-								<li><a href="#"> <%= cList.get(0).getCategory().getCategoryName()%></a></li>
+								<li><a href="<c:url value="search.html">
+				            			<c:param name="searchQuery" value="<%=searchQuery%>"/>
+						           	 	<c:param name="searchCategory" value="<%= Integer.toString(cList.get(0).getCategory().getCategoryId())%>"/>
+				            	 	</c:url>"> <%= cList.get(0).getCategory().getCategoryName()%></a></li>
 									<ul class="sidebar_subcategories">
 									<% for (Category categoryChild : cList) { %>
-										<li><a href="#" > <%= categoryChild.getCategoryName() %></a></li>
+										<li><a href="<c:url value="search.html">
+				            			<c:param name="searchQuery" value="<%=searchQuery%>"/>
+						           	 	<c:param name="searchCategory" value="<%= Integer.toString(categoryChild.getCategoryId())%>"/>
+				            	 	</c:url>" > <%= categoryChild.getCategoryName() %></a></li>
 										
 									<% } %>	
 									</ul>
