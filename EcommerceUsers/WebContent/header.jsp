@@ -165,9 +165,9 @@
 									<div class="cat_menu_text">Categor&iacuteas</div>
 								</div>
 								<%
-								    ServletContext servletContext = request.getServletContext();
-									List<List<Category>> categories = (List<List<Category>>) servletContext.getAttribute("categoryTree");
-								
+									List<List<Category>> categories = (request.getAttribute("categoryTree") != null) 
+											? (List<List<Category>>) request.getAttribute("categoryTree") 
+											: (List<List<Category>>) request.getServletContext().getAttribute("categoryTree");
 								%>
 								
 								<ul class="cat_menu">

@@ -46,9 +46,11 @@
 				<div class="col-lg-3">
 					<!-- Shop Sidebar -->
 					<%
-					    ServletContext sc = request.getServletContext();
-						List<List<Category>> categoryTree = (List<List<Category>>) sc.getAttribute("categoryTree");
+						List<List<Category>> categoryTree = (request.getAttribute("categoryTree") != null) 
+						? (List<List<Category>>) request.getAttribute("categoryTree") 
+						: (List<List<Category>>) request.getServletContext().getAttribute("categoryTree");
 						String searchQuery = request.getAttribute("searchQuery") != null ? (String) request.getAttribute("searchQuery") : "all";
+					
 					%>
 					<div class="shop_sidebar">
 						 <div class="sidebar_section">
