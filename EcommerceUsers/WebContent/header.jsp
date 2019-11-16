@@ -85,14 +85,16 @@
 						</div>
 					</div>
 					
-	
+					<%
+						String searchQueryInput = request.getAttribute("searchQuery") != null ? (String) request.getAttribute("searchQuery") : "";
+					%>
 					<!-- Search -->
 					<div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
 						<div class="header_search">
 							<div class="header_search_content">
 								<div class="header_search_form_container">
 									<form action="search.html" class="header_search_form clearfix">
-										<input type="search" name="searchQuery" required="required" class="header_search_input" placeholder="Busca un producto...">
+										<input type="search" name="searchQuery" value="<%= searchQueryInput %>" required="required" class="header_search_input" placeholder="Busca un producto...">
 										<div class="custom_dropdown" style="visibility: hidden">
 										<!-- Si lo borramos, se rompe el css de la plantilla, así que lo escondemos solo -->
 											<div class="custom_dropdown_list">
