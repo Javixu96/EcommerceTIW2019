@@ -37,32 +37,33 @@ public class AddCartRequestHandler implements IHandler{
 			List<Product> cartList = null;
 			List<Integer> cartQuantities = null;
 
-			
+			// Si el usuario todavía no ha usado el carro, creamos su atributo de sesión con los productos y cantidades del carro vacíos
 			if(session.getAttribute("cartList") == null) {
 				cartList = new ArrayList<Product>();
 				cartQuantities = new ArrayList<Integer>();
 
 				session.setAttribute("cartTotal", 0);
 
+			// Si el usuario ya ha usado el carro, los atributos de sesión ya existen
 			} else {
 				cartList = (List<Product>) session.getAttribute("cartList");
 				cartQuantities = (List<Integer>) session.getAttribute("cartQuantities");
-
 			}
 			
-			// Add the new product to cartHash -> key = productId, value=quantity
+			// Tomamos el nuevo producto y la cantidad añadida
 			int productId = Integer.parseInt(request.getParameter("productId"));
 			int q = Integer.parseInt(request.getParameter("quantity_input"));
 			ProductManager pManager = new ProductManager();
 			Product p = pManager.findById(productId);
 
+			// Añadimos el nuevo producto a la lista cartList y su cantidad correspondiente en la misma posición en cartQuantities
 			cartList.add(p);
 			cartQuantities.add(q);
-	
+			
 			session.setAttribute("cartList", cartList);
 			session.setAttribute("cartQuantities", cartQuantities);
 			
-			int total = (int) session.getAttribute("cartTotal") + p.getPrice();
+			int total = (int) session.getAttribute("cartTotal") + (p.getPrice() * q);
 			session.setAttribute("cartTotal", total);
 			for(Product item: cartList) {
 				System.out.println("La lista carrito tiene este item: " + item.getProductName());
