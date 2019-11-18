@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import es.uc3m.ecommerce.manager.MessageManager;
 import es.uc3m.ecommerce.model.Purchas;
 
-public class SendOrderMessageHandler implements IHandler {
+public class SendMessageHandler implements IHandler {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -35,11 +35,37 @@ public class SendOrderMessageHandler implements IHandler {
 			
 			// Now use the session to create a map message
 			MapMessage message = ses.createMapMessage();
-			message.setString("card", request.getParameter("card"));
-			message.setString("quantity", "100");
+			message.setString("msg", "Nuevo mensaje");
+			message.setString("sender", "Sender Email or Name");
+			/*
+			 * WAITING FOR THE PARAMETER 'message' FROM THE JSP FORM
+			 * 
+			 * */
+			
+			// message.setText("message", request.getParameter("message"));
+			
+			
 			
 			// Setting a message property in order to filter in the listener
-			message.setStringProperty("type", "orderConfirmationCode");
+			
+			/*
+			 * WAITING FOR THE PARAMETER 'receiverId' FROM THE JSP FORM
+			 * 
+			 * */
+			
+			// message.setStringProperty("sendTo", request.getParameter("receiverId"));
+			message.setStringProperty("sendTo", "4");
+			
+			/*
+			 * 
+			 * IF THE SENDER IS A SELLER AND WANTS TO SEND A MSG TO ALL USERS, WE NEED TO SET A
+			 * NEW ATTRIBUTE
+			 * 
+			 * */
+			
+			// message.setStringProperty("type", "broadcast");
+			
+			System.out.println("*** SEND MESSAGE HANDLER" + message.getString("name"));
 			
 			// Use the message producer to send the message	messageProducer.send(textMessage);
 			producer.send(message);

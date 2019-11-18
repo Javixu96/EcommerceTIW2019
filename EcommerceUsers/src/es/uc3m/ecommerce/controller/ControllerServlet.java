@@ -76,8 +76,10 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/cart.html", new CartRequestHandler());
 	    handlerHash.put("/add_to_cart.html", new AddCartRequestHandler());
 	    handlerHash.put("/sendOrderMessage.html", new SendOrderMessageHandler());
-	    handlerHash.put("/sendMessages.html", new es.uc3m.ecommerce.controller.SendMessageQueueHandler());
-	  
+	    // handlerHash.put("/sendMessages.html", new es.uc3m.ecommerce.controller.SendMessageQueueHandler());
+	    handlerHash.put("/sendMessageToSeller.html", new SendMessageHandler());
+	    handlerHash.put("/readMessage.html", new ReadMessageHandler());
+	    
 	    servletContext = getServletConfig().getServletContext();
 	    setServletContextUtils();
 	    

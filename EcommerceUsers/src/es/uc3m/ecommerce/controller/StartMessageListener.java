@@ -35,8 +35,10 @@ public class StartMessageListener implements MessageListener {
 			ses = con.createSession(false, Session.AUTO_ACKNOWLEDGE);
 			
 			con.start();
-		 			   
-			consumer = ses.createConsumer(queue);
+			
+			// Message selector
+			String selector = "type='" + "orderConfirmationCode" + "'";
+			consumer = ses.createConsumer(queue, selector);
 			
 			//Start the connection
 			con.start();

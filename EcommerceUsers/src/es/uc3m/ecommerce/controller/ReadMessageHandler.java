@@ -6,11 +6,12 @@ import javax.jms.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import es.uc3m.ecommerce.manager.MessageManager;
 import es.uc3m.ecommerce.model.Purchas;
 
-public class SendOrderMessageHandler implements IHandler {
+public class ReadMessageHandler implements IHandler {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -30,28 +31,51 @@ public class SendOrderMessageHandler implements IHandler {
 			
 			con.start();
 			
-			// Now use the session to create a message producer associated to the queue
-			MessageProducer producer = ses.createProducer(queue);
+			con.start();
 			
-			// Now use the session to create a map message
-			MapMessage message = ses.createMapMessage();
-			message.setString("card", request.getParameter("card"));
-			message.setString("quantity", "100");
+			/*
+			 * 
+			 * NEED THE ACTUAL USER ID
+			 * 
+			 * */
 			
-			// Setting a message property in order to filter in the listener
-			message.setStringProperty("type", "orderConfirmationCode");
+			// String selector
+			// String selector = "sendTo = '" + request.getParameter("userId") + "'";
+			String selector = "sendTo='" + "4" + "'";
 			
-			// Use the message producer to send the message	messageProducer.send(textMessage);
-			producer.send(message);
+			//Create a consumer
+			MessageConsumer mc= ses.createConsumer(queue, selector);
+			
+			Message message = null;
+			while (true) {
+				message = mc.receive(1000);
+				System.out.println("*** MENSAJE RECIBIDO: " + message);
+				
+				if (message != null) {
+					/*
+					 * MapMessage map = (MapMessage) message;
+					 * System.out.println("*** READ MESSAGE HANDLER: \n\n Message: "+ map.getString("message"));
+					 */
+					if (message instanceof MapMessage) {
+						MapMessage m = (MapMessage) message;
+						System.out.println("*** READ MESSAGE HANDLER: \n\n " + m.getString("name"));
+					} else {
+						// JHC ************ Not the right type
+						break;
+					}
+				} else // there are no messages
+					{
+					System.out.println("No more messages");
+					break;
+				}
 
-			// Close the producer
-			producer.close();
-			
-			// Close the session 
-			ses.close(); 
-			
-			// Close the connection 
-			con.close();	
+			}
+
+			//Close the session
+			ses.close();
+
+			//Close the connection
+			con.close();
 		} catch (javax.jms.JMSException e) {
 				System.out.println(
 					"JHC *************************************** Error in doPost: "
