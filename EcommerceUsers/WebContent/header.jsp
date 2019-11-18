@@ -2,6 +2,7 @@
     import="es.uc3m.ecommerce.model.*, java.util.*"
     pageEncoding="ISO-8859-1"%>    
 <%@ page import="java.util.List,java.util.ArrayList,org.apache.commons.codec.binary.StringUtils,org.apache.commons.codec.binary.Base64;" %> 
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
     
 <!DOCTYPE html>
 <html>
@@ -127,8 +128,18 @@
 							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
 								<div class="wishlist_icon"><img src="images/heart.png" alt=""></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="./wishlist.html">Wishlist</a></div>
-									<div class="wishlist_count">5</div>
+									<div class="wishlist_text"><a href="<c:url value="wishlist.html">
+									    <c:param name="action" value="0"/>
+			     						<c:param name="productId" value="0"/>
+			    	 					</c:url>">Wishlist</a>
+			    	 				</div>
+									<% if(session.getAttribute("user") == null) { %>
+											<div class="wishlist_count"></div>
+										<% } else if(session.getAttribute("wishlistTotal") != null){ %>
+											<div class="wishlist_count"><%=session.getAttribute("wishlistTotal")%></div>
+										<% } else { %>
+											<div class="wishlist_count">0</div>
+										<% } %>
 								</div>
 							</div>
 

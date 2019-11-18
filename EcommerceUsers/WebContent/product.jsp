@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,7 +54,7 @@
 						<div class="product_name"><p>${product.getProductName()}</p></div>
 						<div class="product_text"><p>${product.getShortDesc()}</p></div>
 						<div class="order_info d-flex flex-row">
-						<form action="add_to_cart.html" method="post">
+						<form action="add_to_cart.html" method="get">
 							<div class="clearfix" style="z-index: 1000;">
 								<!-- Product Quantity -->
 								<span>Cantidad: </span>
@@ -62,6 +63,7 @@
 							<div class="product_price">										
 								<div id="unit_price"><span>Precio unitario: </span>${product.getPrice()}&euro;</div>
 								<div id="total_price"><span>Total: </span>${product.getPrice()}&euro;</div>
+								<!--  
 								<script>
 								document.getElementById("quantity_input").onchange = function() {myFunction(${product.getPrice()})};
 																
@@ -71,19 +73,24 @@
 								document.getElementById("total_price").innerHTML = "Total: " + total + "&euro;";
 								}
 								</script>	
+								-->
 							</div>
 							<%if(request.getAttribute("newProductAdded") != null) { %>
 								<span>Este producto ha sido añadido a tu carrito</span>
 							<% } %>
 							<div class="button_container">
 								<input type="hidden" name="productId" id="productId" value="<%=product.getProductId()%>">
-								<button type="submit">Añadir al carrito</button>
+								<button type="submit" class="btn btn-rounded btn-info">Añadir al carrito</button>
 								<div class="product_fav">
 									<i class="fas fa-heart">
 									</i>
 								</div>
 							</div>
 						</form>
+						<a href="<c:url value="wishlist.html">
+						    <c:param name="action" value="2"/>
+     						<c:param name="productId" value="${product.getProductId()}"/>
+    	 					</c:url>" class="btn btn-rounded btn-info"> Añadir a mi Wishlist</a>
 						</div>
 					</div>
 				</div>

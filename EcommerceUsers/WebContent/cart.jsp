@@ -29,7 +29,6 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1">
-				<form id="cart_form" action="checkout.html" method="GET">
 					<div class="cart_container">
 						<div class="cart_title">Carrito</div>
 						<% if(session.getAttribute("cartList") == null || ((List) session.getAttribute("cartList")).size() == 0) { %>
@@ -39,7 +38,6 @@
 							<ul class="cart_list" id="cart_list">
 								<jsp:useBean id="cartList" type="java.util.List<es.uc3m.ecommerce.model.Product>" scope="session" />
 								<jsp:useBean id="cartQuantities" type="java.util.List<Integer>" scope="session" />
-								
 								<% int i = 0; %>
 								<% for(i = 0; i < cartList.size(); i ++) { %>
 									<% session.setAttribute("item", i); %>
@@ -96,7 +94,6 @@
 							<button type="submit" class="button cart_button_checkout"> Finalizar compra</button>	
 						</div>						
 					<% } %>		
-					</form> 						
 					</div>
 				</div>
 			</div>
