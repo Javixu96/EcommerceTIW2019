@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	import="es.uc3m.ecommerce.model.Product, java.util.*"
+	import="es.uc3m.ecommerce.model.Appuser, java.util.*"
     pageEncoding="ISO-8859-1"%>
     <%@ page import="java.util.List,java.util.ArrayList,org.apache.commons.codec.binary.StringUtils,org.apache.commons.codec.binary.Base64" %>
 <!DOCTYPE html>
@@ -27,7 +27,7 @@
 
 	<!-- Cart -->
 
-	<div class="cart_section" style="padding-bottom:0px;padding-top:50px;">
+	<div class="cart_section" style="padding-bottom:70px;padding-top:50px;">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1">
@@ -38,44 +38,56 @@
 							<ul class="cart_list" style="height:100px;">
 								<li class="cart_item clearfix" style="display:flex;height:100px;">
 									<div class="cart_item_image" style="flex: 0.15;height:50%;">
-									Boton para volver a la lista
-									</div>
-									
+									<form action="./readBrowserMessage.html" method="post">																
+											<div class="product_setting" style="margin-top:20px;">
+												<button type="submit" class="setting_button">
+													<i class="fa fa-arrow-left" aria-hidden="true">
+													</i>
+												</button>
+											</div>
+											</form>		
+									</div>									
 									
 									<div style="flex: 0.85" class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
-										
+										<%  if(session.getAttribute("sender")!=null){
+											Appuser sender= (Appuser)session.getAttribute("sender");
+										%>
 										<div style="flex: 0.3" class="cart_item_name cart_info_col">
-											<div class="cart_item_title">Nombre y foto de otro</div>
+											<div class="cart_item_title" style="font-size:25px;"><% out.println(sender.getUserName()+" "+sender.getUserSurnames()); %></div>
 											<div class="cart_item_text"></div>
 										</div>																														
 									</div>
-						
+										<%} %>
 								</li>
 							</ul>
 						</div>
 						
 						<ul class="cart_list" style="height:400px;">
 						
+						<% if(request.getAttribute("listaMensaje")!=null){
+						   List<String> msgList = (List<String>)request.getAttribute("listaMensaje"); 
+						   if(!msgList.isEmpty()){
+							  System.out.println("Aaaaaaaaaaaaaaaaaaaa");
+						   for (String msg: msgList){   %>
+						
 								<li class="clearfix" style="display:flex;border:1px solid grey;border-radius:5px;margin-top:20px;height:8%;width:70%;margin-left:40px;padding-left:15px;">							
-								hola
+								<% out.println(msg); %>
 								</li>
-								<li class="clearfix" style="display:flex;border:1px solid grey;border-radius:5px;margin-top:20px;height:8%;width:70%;margin-left:40px;padding-left:15px;">							
-								hola
-								</li>
-								<li class="clearfix" style="display:flex;border:1px solid grey;border-radius:5px;margin-top:20px;height:8%;width:70%;margin-left:40px;padding-left:15px;">							
-								hola
-								</li>
+					
+							<%} 
+						   }
+						} %>
+						
 						</ul>
 						
-						
 						<!-- Order Total -->
-						<form action="./sendMessages.html">
+						<form action="./sendMessageToSeller.html">
 						
-						<input name="message" class="order_total" style="padding-left:20px;" required=required>
+							<input name="message" class="order_total" style="padding-left:20px;" required=required>
 
-						<div class="cart_buttons">
-							<button type="submit" class="button cart_button_checkout">Enviar mensaje</button>
-						</div>
+							<div class="cart_buttons">
+								<button type="submit" class="button cart_button_checkout">Enviar mensaje</button>
+							</div>
 						</form>
 					</div>
 				</div>

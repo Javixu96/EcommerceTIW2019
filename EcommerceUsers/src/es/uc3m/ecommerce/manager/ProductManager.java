@@ -70,30 +70,41 @@ public class ProductManager {
 	// haciendo una conversión de List a List<Product> y puede no ser válida
 	@SuppressWarnings("unchecked")
 	public List<Product> findAll() {
-		List<Product> resultado;
-
 		Query query = em.createNamedQuery("Product.findAll",Product.class);
-		resultado = query.getResultList();
-		
-		return resultado;
-
+		return query.getResultList();
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Product> findBySimilarTitle(String titulo) {
-		List<Product> resultado;
+	public List<Product> findBySimilarTitle(String title) {
+		Query query = em.createNamedQuery("Product.findBySimilarTitle",Product.class);
+		// Atención: Se neceista agregar el % porque se usa una consutla con like (buscar en google)
+		query.setParameter("title","%"+title+"%");
+		return query.getResultList();
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<Product> findByCategory(String searchCategory) {
+		boolean isParentCategory = getCategoryType(searchCategory);
+		String namedQuery = isParentCategory ? "Product.findByCategoryParent" : "Product.findByCategory";
+		Query query = em.createNamedQuery(namedQuery,Product.class);
+		// Atención: Se neceista agregar el % porque se usa una consutla con like (buscar en google)
+		query.setParameter("category",Integer.parseInt(searchCategory));
+		return query.getResultList();
+	}
 
-		try {
-			Query query = em.createNamedQuery("Product.findBySimilarTitle",Product.class);
-			// Atención: Se neceista agregar el % porque se usa una consutla con like (buscar en google)
-			query.setParameter("titulo","%"+titulo+"%");
-			resultado = query.getResultList();
-		} finally {
-			em.close();
-		}
 
-		return resultado;
+	@SuppressWarnings("unchecked")
+	public List<Product> findByNameAndCategory(String searchQuery, String searchCategory) {
+		boolean isParentCategory = getCategoryType(searchCategory);
+		String namedQuery = isParentCategory ? "Product.findBySimilarTitleWithCategoryParent" : "Product.findBySimilarTitleWithCategory";
 
+		Query query = em.createNamedQuery(namedQuery,Product.class);
+		// Atención: Se neceista agregar el % porque se usa una consutla con like (buscar en google)
+		query.setParameter("title","%"+searchQuery+"%");
+		query.setParameter("category",Integer.parseInt(searchCategory));
+		
+		return query.getResultList();
 	}
 	
 	public Product findById(int id) {
@@ -117,21 +128,16 @@ public class ProductManager {
 	}
 	
 	public void modifyProduct(Product product) throws Exception {
-		
-			ut.begin();
-			em.merge(product);
-			ut.commit();
-
+		ut.begin();
+		em.merge(product);
+		ut.commit();
 		return;
-
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Product> findAllByAppuser(Appuser user) throws Exception {
 		List<Product> resultado;
-		
 		Query q= em.createNamedQuery("Product.findByAppuser");
-		
 		q.setParameter("user", user);		
 		
 		try {
@@ -142,4 +148,11 @@ public class ProductManager {
 		
 		return resultado;
 	}
+
+	private boolean getCategoryType(String searchCategory) {
+		boolean isParentId = true;
+		CategoryManager cm = new CategoryManager();	
+		return cm.findById(Integer.parseInt(searchCategory)).getCategory().getCategoryId() == 1 ? isParentId : !isParentId;
+	}
+	
 }

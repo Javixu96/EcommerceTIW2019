@@ -85,6 +85,13 @@
 							</div>
 						</form>
 						</div>
+						<form action="messages_1to1.jsp" method="post">
+						<% HttpSession ses = request.getSession();
+						   ses.setAttribute("sender",product.getAppuser()); %>
+						<div class="cart_buttons">
+							<button type="submit" class="button cart_button_checkout">Mensaje al vendedor</button>
+						</div>
+						</form>
 					</div>
 				</div>
 			</div>

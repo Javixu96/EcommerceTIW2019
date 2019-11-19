@@ -9,8 +9,11 @@ import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import es.uc3m.ecommerce.manager.MessageManager;
+import es.uc3m.ecommerce.manager.UserManager;
+import es.uc3m.ecommerce.model.Appuser;
 import es.uc3m.ecommerce.model.Purchas;
 
 public class ReadBrowserMessageHandler implements IHandler {
@@ -23,7 +26,7 @@ public class ReadBrowserMessageHandler implements IHandler {
 		MessageManager messageManager = new MessageManager();
 		ConnectionFactory tiwconnectionfactory = messageManager.connectionfactory;
 		Queue queue = messageManager.queue;
-		
+		UserManager userManager = new UserManager();
 		try {
 			//Create the connection
 			Connection connection = tiwconnectionfactory.createConnection();
@@ -34,65 +37,66 @@ public class ReadBrowserMessageHandler implements IHandler {
 
 			//Create the session
 			Session session = connection.createSession(bTransacted, iAcknowledgeMode);
-		 			   
+			
+			HttpSession ses = request.getSession();
+			Appuser user = (Appuser) ses.getAttribute("user");
+		 		
 			QueueBrowser browser;
 			
 			String selector = "(type='" + "broadcast" + "') "
 					+ "OR "
-					+ "(sendTo='" + request.getParameter("userId") + "')";
+					+ "(sendTo=" + user.getUserId() + ")";
 			
+			System.out.println(selector);
 			browser = session.createBrowser(queue,selector);
-
+			
 			//Start the connection
 			connection.start();
 
 			Enumeration enum1 = browser.getEnumeration();
-
-			Vector vctMessage = new Vector();
-
+			
+			List<String> listaMensaje=new ArrayList<String>();
+			List<Integer> listaIdSender=new ArrayList<Integer>();
+			List<Appuser> listaSender=new ArrayList<Appuser>();
 			while (enum1.hasMoreElements()) {
-				Message message = (Message) enum1.nextElement();
-				Message message2 = message;
-				if (message2 != null) {
-					if (message2 instanceof MapMessage) {
+				Object message = enum1.nextElement();
+				if (message != null) {
+					if (message instanceof MapMessage) {
 						MapMessage Tmensaje =
-							(MapMessage) message2;
-						System.out.println("  Message: " +Tmensaje.getString("msg")+"</br>");
+							(MapMessage) message;
+						
+						if(listaIdSender.contains(Tmensaje.getInt("senderId"))){
+							continue;
+						}else {
+							listaSender.add(userManager.getUserById(Tmensaje.getInt("senderId")));
+							listaIdSender.add(Tmensaje.getInt("senderId"));
+							listaMensaje.add(Tmensaje.getString("msg"));
+						}
+
 					}
 				}
+				
 			}
+			request.setAttribute("listaMensaje", listaMensaje);
+			request.setAttribute("listaSender", listaSender);
 			// Stop connection
 			connection.stop();
-			
+
 			// Close browser
 			browser.close();
-			
+
 			// Close session
 			session.close();
-			
+
 			// Close connection
 			connection.close();
 			
 		} catch (JMSException e) {
 				System.out.println(
 					"JHC *************************************** Error in doPost: "
-						+ e);
-				System.out.println(
-					"JHC *************************************** Error MQ: "
-						+ e.getLinkedException().getMessage());
-				System.out.println(
-					"JHC *************************************** Error MQ: "
-						+ e.getLinkedException().toString());		
-				System.out.println(" Error when sending the message</BR>");
-		
-				
-			}catch (Exception e) {
-				System.out.println(
-					"JHC *************************************** Error in doPost: "
-						+ e.toString());
-				System.out.println(" Error when sending the message</BR>");
-		}
-		return "index.jsp";
+						+ e);					
+			}
+		return "messages_notification.jsp";
 	}
 
 }

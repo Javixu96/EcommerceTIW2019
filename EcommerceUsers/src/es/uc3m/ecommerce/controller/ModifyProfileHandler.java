@@ -108,7 +108,7 @@ public class ModifyProfileHandler implements IHandler {
 			e.printStackTrace();
 		}
 		
-		return "index.jsp";
+		return "loggingin.html";
 	}
 
 }
