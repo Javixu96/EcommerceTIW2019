@@ -44,14 +44,27 @@
 									<li id="cart_item_<%=i%>" class="cart_item clearfix" style="display:flex">
 										<div class="cart_item_image" style="flex: 0.15"><img src="images/shopping_cart.jpg" alt=""></div>
 										<div style="flex: 0.85" class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
-											<div style="flex: 0.25" class="cart_item_name cart_info_col">
-												<div class="cart_item_title">Producto</div>
-												<div class="cart_item_text"><%=cartList.get(i).getProductName() %></div>
-											</div>
-											<div style="flex: 0.1" class="cart_item_quantity cart_info_col">
-												<div class="cart_item_title">Cantidad</div>										
-												<input type="number" class="cart_item_text" id="quantity_input_<%=i%>" name="quantity_input_<%=i%>" value="<%=cartQuantities.get(i)%>"></input>
-											</div>
+												<div style="flex: 0.25" class="cart_item_name cart_info_col">
+													<div class="cart_item_title">Producto</div>
+													<div class="cart_item_text"><%=cartList.get(i).getProductName() %></div>
+												</div>
+												<div style="flex: 0.1" class="cart_item_quantity cart_info_col">
+													<div class="cart_item_title">Cantidad</div>	
+													<div class="cart_item_text">
+														<input readonly type="text" class="cart_item_text" id="quantity_input_<%=i%>" name="quantity_input_<%=i%>" value="<%=cartQuantities.get(i)%>"></input>									
+														<a href="<c:url value="edit_cart.html">
+															<c:param name="productId" value="<%=String.valueOf(cartList.get(i).getProductId())%>" />
+						           	 						<c:param name="action" value="3"/>
+						           	 						<c:param name="operation" value="1"/>
+					            	 						</c:url>" class="btn btn-rounded btn-info">+</a>
+				            	 						<a href="<c:url value="edit_cart.html">
+															<c:param name="productId" value="<%=String.valueOf(cartList.get(i).getProductId())%>" />
+						           	 						<c:param name="action" value="3"/>
+						           	 						<c:param name="operation" value="0"/>
+					            	 						</c:url>" class="btn btn-rounded btn-info">-</a>
+					            	 				</div>
+												</div>
+											
 											<!--  
 											<script>
 											document.getElementById("quantity_input_" + ${cartList}.indexOf(${cartList}.get(i))).onchange = function() {myFunction()};
@@ -71,9 +84,13 @@
 											</div>
 											<div style="flex: 0.1" class="cart_item_total cart_info_col">	
 												<div class="cart_item_text">
-													<div class="cart_item_title">Delete</div>										
-													<input type="checkbox" id="deleted_<%=i%>" name="deleted_<%=i%>" value="0" onclick="this.value = 1;">
-														<!-- <i class="material-icons" style="text-align: center">delete</i> -->
+													<div class="cart_item_title"></div>	
+													<div class="cart_item_text">									
+														<a href="<c:url value="remove_from_cart.html">
+															<c:param name="productId" value="<%=String.valueOf(cartList.get(i).getProductId())%>" />
+						           	 						<c:param name="action" value="1"/>
+					            	 						</c:url>" class="btn btn-rounded btn-info">Eliminar</a>
+					            	 				</div>
 												</div>
 											</div>
 										</div>
@@ -83,15 +100,15 @@
 						</div>
 					</div>
 						<!-- Order Total -->
-						<!-- 
+						
 						<div class="order_total">
 							<div class="order_total_content text-md-right">
 								<div id="div_cart_total" class="order_total_title">Total: </div>
-								<div id="order_total_amount" class="order_total_amount"></div>
+								<div id="order_total_amount" class="order_total_amount"><%=session.getAttribute("cartTotal") %>&euro;</div>
 							</div>
-						</div> -->
+						</div> 
 						<div class="cart_buttons">
-							<button type="submit" class="button cart_button_checkout"> Finalizar compra</button>	
+							<button type="button" class="button cart_button_checkout" onclick="submitForms()"> Finalizar compra</button>	
 						</div>						
 					<% } %>		
 					</div>
@@ -128,7 +145,14 @@
 	<%@ include file="footer.jsp" %>
 	
 </div>
-
+<script type="text/javascript">
+submitForms = function(){
+	var f;
+	for(f = 0; f < cartList.size(); f ++){
+		document.getElementById("checkout_form_" + f).submit();
+	}  
+}
+</script>
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="styles/bootstrap4/popper.js"></script>
 <script src="styles/bootstrap4/bootstrap.min.js"></script>

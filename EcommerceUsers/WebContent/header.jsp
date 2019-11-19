@@ -151,7 +151,10 @@
 										<div class="cart_count"><span>1</span></div>
 									</div>
 									<div class="cart_content">
-										<div class="cart_text"><a href="./cart.html">Carrito</a></div>
+										<div class="cart_text"><a href="<c:url value="cart.html">
+										    <c:param name="action" value="0"/>
+				     						<c:param name="productId" value="0"/>
+				    	 					</c:url>">Carrito</a></div>
 										<% if(session.getAttribute("user") == null) { %>
 											<div class="cart_price"></div>
 										<% } else if(session.getAttribute("cartTotal") != null){ %>

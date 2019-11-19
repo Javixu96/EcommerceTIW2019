@@ -20,12 +20,14 @@ public class CheckoutRequestHandler implements IHandler{
 		List<Product> cartList = (List) session.getAttribute("cartList");
 		List<Integer> cartQuantities = (List) session.getAttribute("cartQuantities");
 		
+		
 		for(int i = 0; i < cartList.size(); i ++) {
+			System.out.println("Item in checkout: " + cartList.get(i).getProductName());
 			// Take the new quantities edited from cart.jsp and update session attributes for checkout
-			cartQuantities.set(i, Integer.parseInt(request.getParameter("quantity_input_" + i)));
+			//cartQuantities.set(i, Integer.parseInt(request.getParameter("quantity_input_" + i)));
 		}
 		
-		return null;
+		return "index.jsp";
 	}
 
 }

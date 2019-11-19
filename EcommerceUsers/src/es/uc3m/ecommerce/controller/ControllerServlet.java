@@ -56,9 +56,13 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/loggingin.html", new LoginRequestHandler());
 	    handlerHash.put("/registering.html", new RegisterRequestHandler());	 
 	    handlerHash.put("/loggingout.html", new LoginRequestHandler());	 
-	    handlerHash.put("/cart.html", new CartRequestHandler());
 	    handlerHash.put("/product.html", new ShowProductHandler());
+	    // Cart requests
+	    handlerHash.put("/cart.html", new AddCartRequestHandler());
+	    handlerHash.put("/remove_from_cart.html", new AddCartRequestHandler());
 	    handlerHash.put("/add_to_cart.html", new AddCartRequestHandler());
+	    handlerHash.put("/edit_cart.html", new AddCartRequestHandler());
+
 	    // Wishlist requests
 	    handlerHash.put("/wishlist.html", new WishlistRequestHandler());	
 	    handlerHash.put("/add_to_wishlist.html", new WishlistRequestHandler());
