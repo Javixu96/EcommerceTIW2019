@@ -71,11 +71,13 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/deleteProduct.html", new es.uc3m.ecommerce.controller.ModifyProductHandler(false));
 	    handlerHash.put("/modif_product.html", new es.uc3m.ecommerce.controller.ShowProductForModifyHandler());    
 	    handlerHash.put("/shop.html", new ShowAllProductsHandler());
+	    handlerHash.put("/search.html", new SearchHandler());
 	    handlerHash.put("/product.html", new ShowProductHandler());
 	    handlerHash.put("/wishlist.html", new WishlistRequestHandler());	
 	    handlerHash.put("/cart.html", new CartRequestHandler());
 	    handlerHash.put("/add_to_cart.html", new AddCartRequestHandler());
 	    handlerHash.put("/sendOrderMessage.html", new SendOrderMessageHandler());
+
 	    // handlerHash.put("/sendMessages.html", new es.uc3m.ecommerce.controller.SendMessageQueueHandler());
 	    handlerHash.put("/sendMessageToSeller.html", new SendMessageHandler());
 	    handlerHash.put("/readMessage.html", new ReadMessageHandler());
@@ -83,18 +85,14 @@ public class ControllerServlet extends HttpServlet {
 	    
 	    handlerHash.put("/showMsg1to1.html", new ShowMsg1to1Handler());
 	    
+
 	    servletContext = getServletConfig().getServletContext();
-	    setServletContextUtils();
-	    
+	    servletContext.setAttribute("categoryTree", getCategoryTree());
 	  }
 	
-	private void setServletContextUtils() {
-		
-		System.out.println("DENTRO DE SET SERVLET CONTEXT UTILS");
+	private List<List<Category>> getCategoryTree() {
 		CategoryManager categoryManager = new CategoryManager();
-		List<List<Category>> categoryTree = categoryManager.findCategoryTree();
-		servletContext.setAttribute("categoryTree", categoryTree);
-		System.out.println("CATEGORY TREEEEEEEEEE SIZE: " + categoryTree.size());
+		return categoryManager.findCategoryTree();
 	}
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -116,6 +114,8 @@ public class ControllerServlet extends HttpServlet {
 			    // nothing
 		    } else {
 			    System.out.println("Redirecting to URL: " + viewURL);
+			    request.setAttribute("categoryTree", getCategoryTree());
+			    System.out.println("Arbol de categorias en request, con # elementos: " + getCategoryTree().size());
 			    request.getRequestDispatcher(viewURL).forward(request, response);
 		    }
 	    }

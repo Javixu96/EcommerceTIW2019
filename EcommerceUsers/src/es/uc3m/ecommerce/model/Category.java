@@ -30,6 +30,7 @@ public class Category implements Serializable {
 
 	private String categoryName;
 
+	private int isDeleted;
 	//bi-directional many-to-one association to Category
 	@ManyToOne
 	@JoinColumn(name="parentId")
@@ -90,5 +91,13 @@ public class Category implements Serializable {
 		category.setCategory(null);
 
 		return category;
+	}
+
+	public int getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(int isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 }
