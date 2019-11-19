@@ -91,7 +91,15 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/readMessage.html", new ReadMessageHandler());
 	    handlerHash.put("/readBrowserMessage.html", new ReadBrowserMessageHandler());
 	    
+<<<<<<< HEAD
+	    handlerHash.put("/purchase_list.html", new ShowAllPurchasesHandler());
+	    handlerHash.put("/purchase.html", new ShowPurchaseHandler());
+	    
+	    servletContext = getServletConfig().getServletContext();
+	    setServletContextUtils();
+=======
 	    handlerHash.put("/showMsg1to1.html", new ShowMsg1to1Handler());
+>>>>>>> marta
 	    
 
 	    servletContext = getServletConfig().getServletContext();
