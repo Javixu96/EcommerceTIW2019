@@ -87,7 +87,8 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/sendOrderMessage.html", new SendOrderMessageHandler());
 
 	    // handlerHash.put("/sendMessages.html", new es.uc3m.ecommerce.controller.SendMessageQueueHandler());
-	    handlerHash.put("/sendMessageToSeller.html", new SendMessageHandler());
+	    handlerHash.put("/sendMessageToSeller.html", new SendMessageHandler(true));
+	    handlerHash.put("/sendMessageBroadcast.html", new SendMessageHandler(false));
 	    handlerHash.put("/readMessage.html", new ReadMessageHandler());
 	    handlerHash.put("/readBrowserMessage.html", new ReadBrowserMessageHandler());
 	    
