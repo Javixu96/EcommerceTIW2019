@@ -44,7 +44,7 @@ public class UserManager {
 			e.printStackTrace();
 		}
 	}
-	
+	@SuppressWarnings("unchecked")
 	public List<Appuser> findAll() {
 		
 		List<Appuser> userList;
@@ -55,12 +55,11 @@ public class UserManager {
 		return userList;
 
 	}
-	
+	@SuppressWarnings("unchecked")
 	public List<Appuser> findByEmail(String email) {
 		
 		//EntityManager em = emf.createEntityManager();
 		List<Appuser> userList;
-		System.out.println("The email that is going to be check in DB against: "+ email);
 		
 		// With JNDI surround with try/catch is not neccesary
 		Query q= em.createNamedQuery("Appuser.findByEmail");
@@ -73,10 +72,7 @@ public class UserManager {
 	
 	public void insert(String introducedName, String introducedSurname, 
 		String introducedAddress, String introducedEmail, String introducedPassword, int introducedRole) {
-		
-		System.out.println("USER MANAGER - INSERT");
-
-		
+				
 		Appuser u = new Appuser();
 		u.setEmail(introducedEmail);
 		u.setIsDeleted(0);
@@ -135,5 +131,14 @@ public class UserManager {
 		}
 		
 		return false;	
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Appuser> getBuyers()throws Exception{
+		Query q = em.createNamedQuery("Appuser.findBuyers");
+		
+		List <Appuser> lista = q.getResultList();	
+
+		return lista;	
 	}
 }
