@@ -24,16 +24,13 @@ public class ShowProfileHandler implements IHandler {
 	@Override 
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
 		
-		System.out.println("SHOW PROFILE HANDLER");
-
 		// Retrieve current user data by accession session attribute	
 		HttpSession session = request.getSession();
 		Appuser appuser = (Appuser) session.getAttribute("user");
 		String viewURL = null; 
+		UserManager us = new UserManager();
 		
 		if(session.getAttribute("user") == null) {
-			
-			System.out.println("No user logged in - SHOW PROFILE REQUEST HANDLER");
 			
 			viewURL = new ForbiddenPageHandler().handleRequest(request, response);
 			
@@ -41,6 +38,16 @@ public class ShowProfileHandler implements IHandler {
 			session.setAttribute("user", appuser);
 			viewURL = "profile.jsp";
 			
+		}
+		try {
+			if(us.isSeller(appuser)) {
+				request.setAttribute("isSeller", 1);
+			}else {
+				request.setAttribute("isSeller", null);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		return viewURL;

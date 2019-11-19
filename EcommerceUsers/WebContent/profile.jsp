@@ -69,11 +69,18 @@
 									<div class="profile_div_name">
 										<h4 class="profile_name">Direccion de envio</h4>
 									</div>
+									<% if(request.getAttribute("isSeller")!=null){ %>
 									<div class="profile_dive_name" style="margin-left:30px;margin-top:20px;">
 										 <h5><b><a href="./product_list_seller.html">Acceder a mi tienda</a></b></h5>
 									</div>
 									<div class="profile_dive_name" style="margin-left:30px;margin-top:20px;">
-										 <h5><b><a href="./readBrowserMessage.html">ver mis notificaiones</a></b></h5>
+										 <h5><b><a href="./product_list_seller.html">Enviar una oferta a todos</a></b></h5>
+									</div>
+									<% 
+									}
+									%>
+									<div class="profile_dive_name" style="margin-left:30px;margin-top:20px;">
+										 <h5><b><a href="./readBrowserMessage.html">Ver mis notificaiones</a></b></h5>
 									</div>
 								</div>	
 								<div class="div_profile_right">
