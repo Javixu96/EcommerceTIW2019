@@ -72,6 +72,9 @@
 									<div class="profile_dive_name" style="margin-left:30px;margin-top:20px;">
 										 <h5><b><a href="./product_list_seller.html">Acceder a mi tienda</a></b></h5>
 									</div>
+									<div class="profile_dive_name" style="margin-left:30px;margin-top:20px;">
+										 <h5><b><a href="./readBrowserMessage.html">ver mis notificaiones</a></b></h5>
+									</div>
 								</div>	
 								<div class="div_profile_right">
 

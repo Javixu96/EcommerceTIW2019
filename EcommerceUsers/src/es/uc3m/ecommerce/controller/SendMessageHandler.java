@@ -6,8 +6,11 @@ import javax.jms.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import es.uc3m.ecommerce.manager.MessageManager;
+import es.uc3m.ecommerce.manager.UserManager;
+import es.uc3m.ecommerce.model.Appuser;
 import es.uc3m.ecommerce.model.Purchas;
 
 public class SendMessageHandler implements IHandler {
@@ -33,28 +36,32 @@ public class SendMessageHandler implements IHandler {
 			// Now use the session to create a message producer associated to the queue
 			MessageProducer producer = ses.createProducer(queue);
 			
+			
 			// Now use the session to create a map message
 			MapMessage message = ses.createMapMessage();
-			message.setString("msg", "Nuevo mensaje");
-			message.setString("sender", "Sender Email or Name");
+			
+			HttpSession session = request.getSession();
+			Appuser user = (Appuser) session.getAttribute("user");
 			/*
 			 * WAITING FOR THE PARAMETER 'message' FROM THE JSP FORM
 			 * 
-			 * */
-			
-			// message.setText("message", request.getParameter("message"));
-			
-			
-			
+			 * */	
+			message.setString("msg", request.getParameter("message"));
+			message.setInt("senderId", user.getUserId());
+
 			// Setting a message property in order to filter in the listener
 			
 			/*
 			 * WAITING FOR THE PARAMETER 'receiverId' FROM THE JSP FORM
 			 * 
 			 * */
-			
-			// message.setStringProperty("sendTo", request.getParameter("receiverId"));
-			message.setStringProperty("sendTo", "4");
+			Appuser seller=(Appuser)session.getAttribute("sender");
+			request.setAttribute("sender", seller);
+
+			message.setIntProperty("sendTo", seller.getUserId());
+
+			message.setIntProperty("sendFrom", user.getUserId());
+
 			
 			/*
 			 * 
@@ -65,7 +72,6 @@ public class SendMessageHandler implements IHandler {
 			
 			// message.setStringProperty("type", "broadcast");
 			
-			System.out.println("*** SEND MESSAGE HANDLER" + message.getString("name"));
 			
 			// Use the message producer to send the message	messageProducer.send(textMessage);
 			producer.send(message);
@@ -97,7 +103,8 @@ public class SendMessageHandler implements IHandler {
 						+ e.toString());
 				System.out.println(" Error when sending the message</BR>");
 		}
-		return "index.jsp";
+		
+		return "messages_1to1.jsp";
 	}
 
 }

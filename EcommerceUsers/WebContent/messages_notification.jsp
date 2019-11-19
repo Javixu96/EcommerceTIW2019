@@ -33,95 +33,51 @@
 				<div class="col-lg-10 offset-lg-1">
 					<div class="cart_container">
 						<div class="cart_title">Mi notificaciones</div>
-						
-						<!--
-						<div class="cart_items" style="margin-top:20px;">				
-							<div class="contact_form_button ">
-								<a href="add_product.jsp"><button class="button contact_submit_button">Añadir producto</button></a>
-							</div>	
-						</div>
-						-->
-						
-						<!-- lista -->
-						<div class="cart_items">
-							<ul class="cart_list">
-							<% int counter=0; %>
-							<% List<Product> productList = (List<Product>)request.getAttribute("allProducts"); %>
-							<% for (Product product: productList){ %>
-								<li class="cart_item clearfix" style="display:flex">
-									<div class="cart_item_image" style="flex: 0.15"><img  src="<% StringBuilder sb = new StringBuilder();
-									sb.append("data:image/png;base64,");
-									sb.append(StringUtils.newStringUtf8(Base64.encodeBase64(product.getProductPicture(), false)));
-									out.print(sb.toString()); %>">
-									</div>
-									
-									
-									<div style="flex: 0.85" class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
-										<div style="flex: 0.1" class="cart_item_name cart_info_col">
-											<div class="cart_item_title">User ID</div>
-											<div class="cart_item_text"><% out.println(product.getProductId()); %></div>
-										</div>
-										
-										<div style="flex: 0.3" class="cart_item_name cart_info_col">
-											<div class="cart_item_title">Producto</div>
-											<div class="cart_item_text"><% out.println(product.getProductName()); %></div>
-										</div>
-										
-										<div style="flex: 0.3" class="cart_item_name cart_info_col">
-											<div class="cart_item_title">Categoría</div>
-											<div class="cart_item_text"><%out.println(product.getCategoryBean().getCategoryName());%></div>
-										</div>
-										
-										<div style="flex: 0.15" class="cart_item_quantity cart_info_col">
-											<div class="cart_item_title">Stock</div>
-											
-											<div class="cart_item_text"><% out.println(product.getStock()); %></div>
-										</div>	
-										<div style="flex: 0.15" class="cart_item_price cart_info_col">
-											<div class="cart_item_title">Precio</div>
-											<div class="cart_item_text"><% out.println(product.getPrice()); %>&euro;</div>
-										</div>
-										
-										<form action="./modif_product.html" method="post">
-										<% HttpSession mySession = request.getSession(true); %>
-										<% mySession.setAttribute("productToModify"+counter,product); %>	
-										<input type="text" name="contadorModi"  style="width:0.1px;height:0.1px;visibility:hidden"value="<%=counter%>">							
-											<div class="product_setting">
-											 <button type="submit" class="setting_button">
-												<i class="fas fa-cog">
-												</i>
-											</button>
+						<% if (request.getAttribute("listaSender")!=null && request.getAttribute("listaMensaje")!=null){ %>
+						<% List<Appuser> senderList = (List<Appuser>)request.getAttribute("listaSender"); %>
+						<% List<String> msgList = (List<String>)request.getAttribute("listaMensaje"); %>
+						<%  int x=0;
+							for (Appuser user: senderList){ 
+						 %>
+							<div class="cart_items">
+								<ul class="cart_list" style="height:100px;">
+								
+									<li class="cart_item clearfix" style="display:flex;height:100px;padding-left:5px;">
+
+										<div class="order_total_title" style ="padding-left:30px;"><b><% out.println(user.getUserName()); %></b></div>		
+										<div style="flex: 1" class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
+											<div style="flex: 0.9" class="cart_item_name cart_info_col">
+												<div class="cart_item_title"><%out.println(msgList.get(x)); %></div>							
+											</div>	
+											<form action="./showMsg1to1.html" method="post">
+											<% HttpSession ses = request.getSession();
+											   ses.setAttribute("sender"+x,user);%>
+											<input type="text" name="contadorMsg"  style="width:0.1px;height:0.1px;visibility:hidden"value="<%= x %>">																	
+											<div class="product_setting" style="margin-top:0px;">
+												<button type="submit" class="setting_button">
+													<i class="fa fa-comment" aria-hidden="true">
+													</i>
+												</button>
 											</div>
-										</form>
-										
-										<form action="./deleteProduct.html" method="post">
-										<% mySession.setAttribute("productToDelete"+counter,product); %>
-										<input type="text" name="contadorBorr"  style="width:0.1px;height:0.1px;visibility:hidden"value="<%=counter%>">																	
-										<div class="product_trash">
-										 	<button type="submit" class="setting_button">
-												<i class="fas fa-trash">
-												</i>
-											</button>
-										</div>
-										</form>
-										<% counter++; %>	
-										
-									</div>
-									<% } %>
-								</li>
-							</ul>
-						</div>
+											</form>																													
+										</div>	
+									</li>
+								</ul>
+							</div>
+						<%	x++;
+							}
+						}%>
+						
 						
 						<!-- Order Total -->
 						<div class="order_total">
-							<div class="order_total_content text-md-right">
-								<div class="order_total_title">Valor total:</div>
-								<div class="order_total_amount">850&euro;</div>
+							<div class="order_total_content text-md-right" style="text-align: left !important;padding-left:30px;">
+								<div class="order_total_title"><b>No hay mas mensajes</b></div>
 							</div>
 						</div>
 						<form action="./profile.jsp">
 						<div class="cart_buttons">
-							<button type="submit" class="button cart_button_checkout">Guardar cambios</button>
+							<button type="submit" class="button cart_button_checkout">Volver</button>
 						</div>
 						</form>
 					</div>

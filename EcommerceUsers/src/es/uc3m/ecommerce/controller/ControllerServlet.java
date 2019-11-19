@@ -79,6 +79,9 @@ public class ControllerServlet extends HttpServlet {
 	    // handlerHash.put("/sendMessages.html", new es.uc3m.ecommerce.controller.SendMessageQueueHandler());
 	    handlerHash.put("/sendMessageToSeller.html", new SendMessageHandler());
 	    handlerHash.put("/readMessage.html", new ReadMessageHandler());
+	    handlerHash.put("/readBrowserMessage.html", new ReadBrowserMessageHandler());
+	    
+	    handlerHash.put("/showMsg1to1.html", new ShowMsg1to1Handler());
 	    
 	    servletContext = getServletConfig().getServletContext();
 	    setServletContextUtils();
