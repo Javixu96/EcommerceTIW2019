@@ -3,6 +3,7 @@ package es.uc3m.ecommerce.controller;
 
 import java.io.IOException;
 
+import javax.jms.JMSException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.ServletContext;
@@ -36,6 +37,7 @@ public class ControllerServlet extends HttpServlet {
        
 	// Hash table of RequestHandler instances, keyed by request URL
 	private Map<String,IHandler> handlerHash = new HashMap<String,IHandler>();
+	private StartMessageListener msgListener;
 	
 	public ControllerServlet() {
         super();
@@ -44,15 +46,18 @@ public class ControllerServlet extends HttpServlet {
 
 	// Initialize mappings: not implemented here
 	public void init() throws ServletException {
+		msgListener = new StartMessageListener();
+		try {
+			msgListener.start();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		
     	//appContext = config.getServletContext();
 		
 	    // This will read mapping definitions and populate handlerHash
-	    handlerHash.put("/profile.html", new ShowProfileHandler());
-	    //handlerHash.put("/index.html", new ShowProductHandler());
-	    handlerHash.put("/modifyUser.html", new ModifyProfileHandler());
-	    handlerHash.put("/insert_product.html", new InsertProductHandler());
-	    handlerHash.put("/shop.html", new ShowAllProductsHandler());
 	    handlerHash.put("/loggingin.html", new LoginRequestHandler());
 	    handlerHash.put("/registering.html", new RegisterRequestHandler());	 
 	    handlerHash.put("/loggingout.html", new LoginRequestHandler());	 
@@ -69,20 +74,33 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/checkout.html", new CheckoutRequestHandler());
 
 
+	    handlerHash.put("/profile.html", new ShowProfileHandler());
+	    handlerHash.put("/modifyUser.html", new es.uc3m.ecommerce.controller.ModifyProfileHandler(true));
+	    handlerHash.put("/deleteUser.html", new es.uc3m.ecommerce.controller.ModifyProfileHandler(false));
+	    handlerHash.put("/product_list_seller.html", new es.uc3m.ecommerce.controller.ShowMyProductListHandler());
+	    handlerHash.put("/insert_product.html", new es.uc3m.ecommerce.controller.InsertProductHandler());
+	    handlerHash.put("/modify_product.html", new es.uc3m.ecommerce.controller.ModifyProductHandler(true));
+	    handlerHash.put("/deleteProduct.html", new es.uc3m.ecommerce.controller.ModifyProductHandler(false));
+	    handlerHash.put("/modif_product.html", new es.uc3m.ecommerce.controller.ShowProductForModifyHandler());    
+	    handlerHash.put("/shop.html", new ShowAllProductsHandler());
+	    handlerHash.put("/search.html", new SearchHandler());
+	    handlerHash.put("/sendOrderMessage.html", new SendOrderMessageHandler());
 
+	    // handlerHash.put("/sendMessages.html", new es.uc3m.ecommerce.controller.SendMessageQueueHandler());
+	    handlerHash.put("/sendMessageToSeller.html", new SendMessageHandler());
+	    handlerHash.put("/readMessage.html", new ReadMessageHandler());
+	    handlerHash.put("/readBrowserMessage.html", new ReadBrowserMessageHandler());
 	    
+	    handlerHash.put("/showMsg1to1.html", new ShowMsg1to1Handler());
+	    
+
 	    servletContext = getServletConfig().getServletContext();
-	    setServletContextUtils();
-	    
+	    servletContext.setAttribute("categoryTree", getCategoryTree());
 	  }
 	
-	private void setServletContextUtils() {
-		
-		System.out.println("DENTRO DE SET SERVLET CONTEXT UTILS");
+	private List<List<Category>> getCategoryTree() {
 		CategoryManager categoryManager = new CategoryManager();
-		List<List<Category>> categoryTree = categoryManager.findCategoryTree();
-		servletContext.setAttribute("categoryTree", categoryTree);
-		System.out.println("CATEGORY TREEEEEEEEEE SIZE: " + categoryTree.size());
+		return categoryManager.findCategoryTree();
 	}
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -104,16 +122,21 @@ public class ControllerServlet extends HttpServlet {
 			    // nothing
 		    } else {
 			    System.out.println("Redirecting to URL: " + viewURL);
+			    request.setAttribute("categoryTree", getCategoryTree());
+			    System.out.println("Arbol de categorias en request, con # elementos: " + getCategoryTree().size());
 			    request.getRequestDispatcher(viewURL).forward(request, response);
 		    }
 	    }
 
     }
 	  
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		  
-		doGet(request,response);
-		  
-	}
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		  	doGet(request,response);
+	 }
 	  
+	 public void destroy(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, JMSException {
+		 msgListener.stop();
+	 }
 }

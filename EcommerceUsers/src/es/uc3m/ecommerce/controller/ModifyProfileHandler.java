@@ -13,14 +13,25 @@ import es.uc3m.ecommerce.manager.*;
 import es.uc3m.ecommerce.model.*;
 
 public class ModifyProfileHandler implements IHandler {
-
+	
+	
+	//true->modify false->delete
+	private boolean modifyOrDelete;
+	
+	public ModifyProfileHandler (boolean modifyOrDelete) {
+		this.modifyOrDelete = modifyOrDelete;
+	}
+	
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		System.out.println("MODIFY PROFILE HANDLER");
 
-		
+		return modifyOrDelete ? processModify(request) : processDelete(request);
+	}
+	
+	
+	public String processModify(HttpServletRequest request)
+			throws ServletException, IOException { 
 		// TODO Auto-generated method stub
 		UserManager im = new UserManager();
 		
@@ -29,34 +40,41 @@ public class ModifyProfileHandler implements IHandler {
 		String userEmail = request.getParameter("profile_email");
 		String userAddress = request.getParameter("profile_address");
 		
-		System.out.println("The values of the form are ");
-		System.out.println(userName);
-		System.out.println(userSurnames);
-		System.out.println(userEmail);
-		System.out.println(userAddress);
-		
 		
 		HttpSession session = request.getSession();
 		Appuser user = (Appuser) session.getAttribute("user");
-		
-		System.out.println("The old values of the user are: ");
-		System.out.println(user.getEmail());
-		System.out.println(user.getPw());
-		System.out.println(user.getUserName());
-		System.out.println(user.getUserSurnames());
-		System.out.println(user.getPostalAddress());
 
 		user.setUserName(userName);
 		user.setUserSurnames(userSurnames);
 		user.setEmail(userEmail);
 		user.setPostalAddress(userAddress);
 		
-		System.out.println("The new values of the user are: ");
-		System.out.println(user.getEmail());
-		System.out.println(user.getPw());
-		System.out.println(user.getUserName());
-		System.out.println(user.getUserSurnames());
-		System.out.println(user.getPostalAddress());
+		Part filePart = request.getPart("fileToUpLoad");
+		if((int) filePart.getSize()!=0) {
+			 byte[] data = new byte[(int) filePart.getSize()];
+			 filePart.getInputStream().read(data, 0, data.length);
+			 
+			 user.setUserPicture(data);
+		}
+		
+		String oldPassword = request.getParameter("oldPassword");
+		String newPassword = request.getParameter("newPassword");
+		String newPwRepeat = request.getParameter("newPwRepeat");
+		
+		if(!oldPassword.isEmpty()) {
+			if(!oldPassword.equals(user.getPw())) {
+				request.setAttribute("invalidCredentialsError", 1);
+			}else {
+				if(!newPassword.equals(newPwRepeat)) {
+					request.setAttribute("invalidRepeatError", 1);
+				}else {
+					user.setPw(newPassword);
+				}
+			}
+		}else {
+			request.setAttribute("invalidCredentialsError", null);
+			request.setAttribute("invalidRepeatError", null);
+		}
 		
 
 		// Update DB and Session attribute -> both or none
@@ -66,23 +84,31 @@ public class ModifyProfileHandler implements IHandler {
 			session.setAttribute("user", user);
 			// Display success message to user 
 			request.setAttribute("modifyUserSuccess", 1);
-			// Send again on a request attribute the user's new data
-			// Can be accessed through the form parameters or through the new Appuser object
-			// I decided to do it through the Appuser object for security reasons
-			
-			request.setAttribute("userName", user.getUserName());	
-			request.setAttribute("userSurnames", user.getUserSurnames());
-			request.setAttribute("userAddress", user.getPostalAddress());
-			request.setAttribute("userEmail", user.getEmail());	
-			request.setAttribute("userPw", user.getPw());
-			
-			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+		return "profile.html";
+	}
+	
+	
+	public String processDelete(HttpServletRequest request) { 
+		
+		UserManager im = new UserManager();
+		HttpSession session = request.getSession();
+		Appuser user = (Appuser) session.getAttribute("user");
+		
+		user.setIsDeleted(1);
+		
+		try {
+			im.modifyUser(user);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return "profile.jsp";
+		return "loggingin.html";
 	}
 
 }

@@ -11,16 +11,16 @@ import java.util.List;
  */
 @Entity
 @Table(name="categories")
+
 @NamedQueries({
 	@NamedQuery(name="Category.findAll", query="SELECT c FROM Category c"),
 	@NamedQuery(name="Category.findById", query="SELECT c FROM Category c WHERE c.categoryId = :categoryId"),
-	
+	@NamedQuery(name="Category.findByName", query="SELECT c FROM Category c WHERE c.categoryName = :categoryName")	
 //	@NamedQuery(name="Category.findRootCategories",
 //		query="SELECT c FROM Category c WHERE c.categoryId in (SELECT DISTINCT c.category FROM Category c) AND c.category IS NOT NULL"),
 //	@NamedQuery(name="Category.findChildCategories", 
 //			query="SELECT c FROM Category c WHERE c.categoryId = :parentId")
 })
-
 
 public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -30,6 +30,7 @@ public class Category implements Serializable {
 
 	private String categoryName;
 
+	private int isDeleted;
 	//bi-directional many-to-one association to Category
 	@ManyToOne
 	@JoinColumn(name="parentId")
@@ -90,5 +91,13 @@ public class Category implements Serializable {
 		category.setCategory(null);
 
 		return category;
+	}
+
+	public int getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(int isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 }

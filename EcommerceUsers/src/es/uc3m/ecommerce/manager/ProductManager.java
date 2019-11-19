@@ -6,9 +6,12 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.transaction.UserTransaction;
 
+import es.uc3m.ecommerce.model.Appuser;
+import es.uc3m.ecommerce.model.Category;
 import es.uc3m.ecommerce.model.Product;
 
 public class ProductManager {
@@ -63,31 +66,45 @@ public class ProductManager {
 		return "";
 	}
 	
-	// Esta anotación es para quitar el warning avisandonos que es está
+	// Esta anotación es para quitar el warning avisandonos que es est
 	// haciendo una conversión de List a List<Product> y puede no ser válida
 	@SuppressWarnings("unchecked")
 	public List<Product> findAll() {
-		List<Product> resultado;
 		Query query = em.createNamedQuery("Product.findAll",Product.class);
-		resultado = query.getResultList();
-		
-		return resultado;
-
+		return query.getResultList();
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Product> findBySimilarTitle(String titulo) {
-		List<Product> resultado;
-		try {
-			Query query = em.createNamedQuery("Product.findBySimilarTitle",Product.class);
-			// Atención: Se neceista agregar el % porque se usa una consutla con like (buscar en google)
-			query.setParameter("titulo","%"+titulo+"%");
-			resultado = query.getResultList();
-		} finally {
-			em.close();
-		}
-		return resultado;
+	public List<Product> findBySimilarTitle(String title) {
+		Query query = em.createNamedQuery("Product.findBySimilarTitle",Product.class);
+		// Atención: Se neceista agregar el % porque se usa una consutla con like (buscar en google)
+		query.setParameter("title","%"+title+"%");
+		return query.getResultList();
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<Product> findByCategory(String searchCategory) {
+		boolean isParentCategory = getCategoryType(searchCategory);
+		String namedQuery = isParentCategory ? "Product.findByCategoryParent" : "Product.findByCategory";
+		Query query = em.createNamedQuery(namedQuery,Product.class);
+		// Atención: Se neceista agregar el % porque se usa una consutla con like (buscar en google)
+		query.setParameter("category",Integer.parseInt(searchCategory));
+		return query.getResultList();
+	}
 
+
+	@SuppressWarnings("unchecked")
+	public List<Product> findByNameAndCategory(String searchQuery, String searchCategory) {
+		boolean isParentCategory = getCategoryType(searchCategory);
+		String namedQuery = isParentCategory ? "Product.findBySimilarTitleWithCategoryParent" : "Product.findBySimilarTitleWithCategory";
+
+		Query query = em.createNamedQuery(namedQuery,Product.class);
+		// Atención: Se neceista agregar el % porque se usa una consutla con like (buscar en google)
+		query.setParameter("title","%"+searchQuery+"%");
+		query.setParameter("category",Integer.parseInt(searchCategory));
+		
+		return query.getResultList();
 	}
 	
 	public Product findById(int id) {
@@ -97,24 +114,45 @@ public class ProductManager {
 		return resultado;
 	}
 	
-	public void removeById(Product product) throws Exception {
-		try {
-			ut.begin();
-			em.remove(product);
-			ut.commit();
-		} catch (Exception ex) {
-			try {
-				if (em.getTransaction().isActive()) {
-					em.getTransaction().rollback();
-				}
-			} catch (Exception e) {
-				ex.printStackTrace();
-				throw e;
-			}
-			throw ex;
-		} finally {
-			em.close();
+	public void removeProduct(Product product) throws Exception {		
+		ut.begin();
+		
+		if (!em.contains(product)) {
+		    product = em.merge(product);
 		}
+		
+		em.remove(product);
+		ut.commit();
+			
 		return;
 	}
+	
+	public void modifyProduct(Product product) throws Exception {
+		ut.begin();
+		em.merge(product);
+		ut.commit();
+		return;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Product> findAllByAppuser(Appuser user) throws Exception {
+		List<Product> resultado;
+		Query q= em.createNamedQuery("Product.findByAppuser");
+		q.setParameter("user", user);		
+		
+		try {
+			resultado =  q.getResultList();;		
+		} catch (NoResultException n){
+			resultado = null;
+		}
+		
+		return resultado;
+	}
+
+	private boolean getCategoryType(String searchCategory) {
+		boolean isParentId = true;
+		CategoryManager cm = new CategoryManager();	
+		return cm.findById(Integer.parseInt(searchCategory)).getCategory().getCategoryId() == 1 ? isParentId : !isParentId;
+	}
+	
 }

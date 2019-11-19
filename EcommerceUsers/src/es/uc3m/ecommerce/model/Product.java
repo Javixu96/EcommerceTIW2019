@@ -10,12 +10,28 @@ import java.util.List;
  */
 @Entity
 @Table(name="products")
-@NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
+@NamedQueries({
+	@NamedQuery(name="Product.findAll", query="SELECT p FROM Product p"),
+	@NamedQuery(name="Product.findByAppuser", query="SELECT p FROM Product p WHERE p.appuser = :user and p.isDeleted= 0"),
+	@NamedQuery(name="Product.findBySimilarTitle", 
+		query="SELECT p FROM Product p WHERE UPPER(p.productName) LIKE UPPER(:title) AND p.isDeleted = 0"),
+	@NamedQuery(name="Product.findBySimilarTitleWithCategory", 
+		query="SELECT p FROM Product p WHERE UPPER(p.productName) LIKE UPPER(:title) AND p.categoryBean.categoryId = :category AND p.isDeleted = 0"),
+	@NamedQuery(name="Product.findBySimilarTitleWithCategoryParent", 
+		query="SELECT p FROM Product p WHERE UPPER(p.productName) LIKE UPPER(:title) AND p.categoryBean.category.categoryId = :category AND p.isDeleted = 0"),
+	@NamedQuery(name="Product.findByCategory", 
+		query="SELECT p FROM Product p WHERE p.categoryBean.categoryId = :category AND p.isDeleted = 0"),
+	@NamedQuery(name="Product.findByCategoryParent", 
+		query="SELECT p FROM Product p WHERE p.categoryBean.category.categoryId = :category AND p.isDeleted = 0")
+})
+
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private int productId;
+	
+	private int isDeleted;
 
 	private String longDesc;
 
@@ -53,6 +69,14 @@ public class Product implements Serializable {
 
 	public void setProductId(int productId) {
 		this.productId = productId;
+	}
+
+	public int getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(int isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 	
 	public Appuser getAppuser() {

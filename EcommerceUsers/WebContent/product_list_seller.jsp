@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	import="es.uc3m.ecommerce.model.Product, java.util.*"
     pageEncoding="ISO-8859-1"%>
+    <%@ page import="java.util.List,java.util.ArrayList,org.apache.commons.codec.binary.StringUtils,org.apache.commons.codec.binary.Base64" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,58 +36,57 @@
 						
 						
 						<!-- lista vacia -->
-						<div class="cart_items">
-							<h4>Parece que no tiene ningún producto en venta.</h4>
-							<div class="contact_form_button">
-								<button class="button contact_submit_button">Añadir producto</button>
+						<div class="cart_items" style="margin-top:20px;">				
+							<div class="contact_form_button ">
+								<a href="add_product.jsp"><button class="button contact_submit_button">Añadir producto</button></a>
 							</div>	
 						</div>
 						
 						<!-- lista -->
-						<div class="cart_items">
+						<div class="ca
+						rt_items">
 							<ul class="cart_list">
+							<% int counter=0; %>
+							<% List<Product> productList = (List<Product>)request.getAttribute("allProducts"); %>
+							<% for (Product product: productList){ %>
 								<li class="cart_item clearfix" style="display:flex">
-									<div class="cart_item_image" style="flex: 0.15"><img src="images/shopping_cart.jpg" alt=""></div>
+									<div class="cart_item_image" style="flex: 0.15"><img  src="<% StringBuilder sb = new StringBuilder();
+									sb.append("data:image/png;base64,");
+									sb.append(StringUtils.newStringUtf8(Base64.encodeBase64(product.getProductPicture(), false)));
+									out.print(sb.toString()); %>">
+									</div>
+									
+									
 									<div style="flex: 0.85" class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
-										<div style="flex: 0.25" class="cart_item_name cart_info_col">
-											<div class="cart_item_title">ID Producto</div>
-											<div class="cart_item_text">Pantalon basico</div>
+										<div style="flex: 0.1" class="cart_item_name cart_info_col">
+											<div class="cart_item_title">ID</div>
+											<div class="cart_item_text"><% out.println(product.getProductId()); %></div>
 										</div>
 										
-										<div style="flex: 0.25" class="cart_item_name cart_info_col">
+										<div style="flex: 0.3" class="cart_item_name cart_info_col">
 											<div class="cart_item_title">Producto</div>
-											<div class="cart_item_text">Pantalon basico</div>
+											<div class="cart_item_text"><% out.println(product.getProductName()); %></div>
 										</div>
 										
-										<div style="flex: 0.25" class="cart_item_name cart_info_col">
+										<div style="flex: 0.3" class="cart_item_name cart_info_col">
 											<div class="cart_item_title">Categoría</div>
-											<div class="cart_item_text">Pantalon basico</div>
+											<div class="cart_item_text"><%out.println(product.getCategoryBean().getCategoryName());%></div>
 										</div>
 										
-										<!-- 
-										<div style="flex: 0.20" class="cart_item_color cart_info_col">
-											<div class="cart_item_title"></div>
-											<div class="cart_item_text"><span style="background-color:#999999;"></span></div>
-											<div class="cart_item_text"><span style="background-color:black;"></span></div>
-											<div class="cart_item_text"><span style="background-color:brown;"></span></div>
-										</div>
-										<div style="flex: 0.1" class="cart_item_color cart_info_col">
-											<div class="cart_item_title">Tallas</div>
-											<div class="cart_item_text">M</div>
-											<div class="cart_item_text">L</div>
-										</div>
-										-->
-										
-										<div style="flex: 0.1" class="cart_item_quantity cart_info_col">
+										<div style="flex: 0.15" class="cart_item_quantity cart_info_col">
 											<div class="cart_item_title">Stock</div>
 											
-											<div class="cart_item_text">48</div>
+											<div class="cart_item_text"><% out.println(product.getStock()); %></div>
 										</div>	
-										<div style="flex: 0.1" class="cart_item_price cart_info_col">
+										<div style="flex: 0.15" class="cart_item_price cart_info_col">
 											<div class="cart_item_title">Precio</div>
-											<div class="cart_item_text">19.99&euro;</div>
+											<div class="cart_item_text"><% out.println(product.getPrice()); %>&euro;</div>
 										</div>
-										<form action="./modif_product.jsp">
+										
+										<form action="./modif_product.html" method="post">
+										<% HttpSession mySession = request.getSession(true); %>
+										<% mySession.setAttribute("productToModify"+counter,product); %>	
+										<input type="text" name="contadorModi"  style="width:0.1px;height:0.1px;visibility:hidden"value="<%=counter%>">							
 											<div class="product_setting">
 											 <button type="submit" class="setting_button">
 												<i class="fas fa-cog">
@@ -93,12 +94,21 @@
 											</button>
 											</div>
 										</form>
+										
+										<form action="./deleteProduct.html" method="post">
+										<% mySession.setAttribute("productToDelete"+counter,product); %>
+										<input type="text" name="contadorBorr"  style="width:0.1px;height:0.1px;visibility:hidden"value="<%=counter%>">																	
 										<div class="product_trash">
-											<i class="fas fa-trash">
-										</i>
+										 	<button type="submit" class="setting_button">
+												<i class="fas fa-trash">
+												</i>
+											</button>
 										</div>
+										</form>
+										<% counter++; %>	
 										
 									</div>
+									<% } %>
 								</li>
 							</ul>
 						</div>
