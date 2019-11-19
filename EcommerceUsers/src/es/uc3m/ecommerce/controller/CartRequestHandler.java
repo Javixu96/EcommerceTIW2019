@@ -25,7 +25,6 @@ public class CartRequestHandler implements IHandler{
 		
 		String viewURL = null; 
 		HttpSession session = request.getSession();
-		Appuser u = (Appuser) session.getAttribute("user");
 		
 		if(session.getAttribute("user") == null) {
 			
@@ -33,15 +32,12 @@ public class CartRequestHandler implements IHandler{
 			viewURL = new ForbiddenPageHandler().handleRequest(request, response);
 			
 		} else {
-			
-			System.out.println("Session user: " + u.getEmail());
-			System.out.println("Acces to cart granted - CART REQUEST HANDLER");
-			
+		
 			// return the good content
 			viewURL = "cart.jsp";
 		
 		}
-					
+		
 		return viewURL;
 	}
 
