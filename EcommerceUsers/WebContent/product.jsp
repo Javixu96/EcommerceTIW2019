@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,42 +50,45 @@
 				<div class="col-lg-5 order-3">
 					<div class="product_description">
 						<jsp:useBean id="product" type="es.uc3m.ecommerce.model.Product" scope="request" />
-						<div class="product_category"><p>${product.getCategoryBean().getCategoryName()}</p></div>
-						<div class="product_name"><p>${product.getProductName()}</p></div>
-						<div class="product_text"><p>${product.getShortDesc()}</p></div>
+						<div class="product_category"><p><%=product.getCategoryBean().getCategoryName() %></p></div>
+						<div class="product_name"><p><%=product.getProductName()%></p></div>
+						<div class="product_text"><p><%=product.getShortDesc()%></p></div>
 						<div class="order_info d-flex flex-row">
-						<form action="add_to_cart.html" method="post">
+						<form action="add_to_cart.html" method="get">
 							<div class="clearfix" style="z-index: 1000;">
 								<!-- Product Quantity -->
 								<span>Cantidad: </span>
 								<input id="quantity_input" name="quantity_input" type="number" pattern="[0-9]*" value="1">
 							</div>
 							<div class="product_price">										
-								<div id="unit_price"><span>Precio unitario: </span>${product.getPrice()}&euro;</div>
-								<div id="total_price"><span>Total: </span>${product.getPrice()}&euro;</div>
+								<div id="unit_price"><span>Precio unitario: </span><%=product.getPrice() %>&euro;</div>
+								<div id="total_price"><span>Total: </span><%=product.getPrice() %>&euro;</div>
+								 
 								<script>
 								document.getElementById("quantity_input").onchange = function() {myFunction(${product.getPrice()})};
 																
 								function myFunction(price) {
-								var quantity = document.getElementById("quantity_input");
-								var total = quantity.value * price;
-								document.getElementById("total_price").innerHTML = "Total: " + total + "&euro;";
+									var quantity = document.getElementById("quantity_input");
+									var total = quantity.value * price;
+									document.getElementById("total_price").innerHTML = "Total: " + total + "&euro;";
 								}
 								</script>	
+								
 							</div>
 							<%if(request.getAttribute("newProductAdded") != null) { %>
 								<span>Este producto ha sido a�adido a tu carrito</span>
 							<% } %>
 							<div class="button_container">
-								<input type="hidden" name="productId" id="productId" value="<%=product.getProductId()%>">
-								<button type="submit">A�adir al carrito</button>
-								<div class="product_fav">
-									<i class="fas fa-heart">
-									</i>
-								</div>
-							</div>
-						</form>
-						</div>
+								<input type="hidden" name="productId" id="productId" value="${product.getProductId()}">
+								<input type="hidden" name="action" id="action" value="2">
+								<input type="submit" value="A�adir al carrito">	
+							</div>	
+						<!-- <a href="<c:url value="add_to_cart.html">
+						    <c:param name="action" value="2"/>
+     						<c:param name="productId" value="${product.getProductId()}"/>
+     						<c:param name="productQuantity" value="${document.getElementById('quantity_input').value}"/>  
+    	 					</c:url>" class="btn btn-rounded btn-info"> A�adir al carrito</a> -->
+						</form> 
 						<form action="messages_1to1.jsp" method="post">
 						<% HttpSession ses = request.getSession();
 						   ses.setAttribute("sender",product.getAppuser()); %>
@@ -92,6 +96,11 @@
 							<button type="submit" class="button cart_button_checkout">Mensaje al vendedor</button>
 						</div>
 						</form>
+						<a href="<c:url value="wishlist.html">
+						    <c:param name="action" value="2"/>
+     						<c:param name="productId" value="${product.getProductId()}"/>
+    	 					</c:url>" class="btn btn-rounded btn-info"> A�adir a mi Wishlist</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -244,14 +253,7 @@
 	<%@ include file="footer.jsp" %>
 	
 </div>
-<script>
-function calculateTotal(){
-	System.out.println("Calculating total amount");
-	var uds = docuement.getElementByID("quantity_input").value;
-	var total = uds * ${product.getPrice()};
-	document.getElementByID("total_price").value = "precio totoal";
-}
-</script>
+
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="styles/bootstrap4/popper.js"></script>
 <script src="styles/bootstrap4/bootstrap.min.js"></script>
@@ -264,5 +266,4 @@ function calculateTotal(){
 <script src="plugins/easing/easing.js"></script>
 <script src="js/product_custom.js"></script>
 </body>
-
 </html>

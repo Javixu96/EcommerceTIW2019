@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="es.uc3m.ecommerce.model.*"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Wishlist</title>
+<title>Cart</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,39 +30,34 @@
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1">
 					<div class="cart_container">
-						<jsp:useBean id="wishlistList" type="java.util.List<Product>" scope="session" />
-						<div class="cart_title">Wishlist</div>
-						<% if(session.getAttribute("wishlistList") == null || ((List) session.getAttribute("wishlistList")).size() == 0) { %>
-							<span style="color: black;"> No tienes productos en tu wishlist </span>
-						<% } else { %>
+						<div class="cart_title">Mis pedidos</div>
+						
+						<jsp:useBean id="allPurchases" scope="request" type="java.util.List<Integer>"/>
+						
 						<div class="cart_items">
 							<ul class="cart_list">
-								<% int i = 0; %>
-								<% for(i = 0; i < wishlistList.size(); i++) { %>
-								<li class="cart_item clearfix" style="display:flex">
-									<div class="cart_item_image" style="flex: 0.15"><img src="images/shopping_cart.jpg" alt=""></div>
-									<div style="flex: 0.85" class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
-										<div style="flex: 0.25" class="cart_item_name cart_info_col">
-											<div class="cart_item_title">Producto</div>
-											<div class="cart_item_text"><%=wishlistList.get(i).getProductName() %></div>											
+								<% int i; %>
+								<% for(i = 0; i<allPurchases.size(); i++) { %>
+									<li class="cart_item clearfix" style="display:flex">
+										
+										<div style="flex: 1" class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
+											<div style="flex: 1" class="cart_item_name cart_info_col">
+												<div class="cart_item_title">Pedido nº <%= i+1 %></div>
+												<div class="cart_item_text"><%=allPurchases.get(i) %></div>
+											</div>
+											<form action="./purchase.html" method="post">
+												<div class="product_setting">
+													<input type="text" name="confirmationCode" style="width:0.1px; height:0.1px; visibility: hidden" value=<%= allPurchases.get(i)%>>	
+													<button type="submit" class="setting_button">
+														<i class="fa fa-list" aria-hidden="true" style="text-align: center"></i>
+													</button>
+												</div>
+											</form>
 										</div>
-										<div style="flex: 0.1" class="cart_item_price cart_info_col">
-											<div class="cart_item_title">Precio</div>
-											<div class="cart_item_text"><%=wishlistList.get(i).getPrice()%>&euro;</div>
-										</div>
-										<div style="flex: 0.1" class="cart_item_total cart_info_col">	
-											<div class="cart_item_text"></div>
-											<a href="<c:url value="wishlist.html">
-												<c:param name="productId" value="<%=String.valueOf(wishlistList.get(i).getProductId())%>" />
-			           	 						<c:param name="action" value="1"/>
-		            	 						</c:url>" class="btn btn-rounded btn-info">Eliminar</a>
-										</div>
-									</div>
-								</li>
+									</li>
 								<% } %>
 							</ul>
 						</div>
-						<% } %>
 					</div>
 				</div>
 			</div>
@@ -79,8 +73,8 @@
 					<div class="newsletter_container d-flex flex-lg-row flex-column align-items-lg-center align-items-center justify-content-lg-start justify-content-center">
 						<div class="newsletter_title_container">
 							<div class="newsletter_icon"><img src="images/send.png" alt=""></div>
-							<div class="newsletter_title">Suscríbete a nuestra newsletter</div>
-							<div class="newsletter_text"><p>...y obtén un cupón descuento del 20% para la 1ª compra.</p></div>
+							<div class="newsletter_title">SuscrÃ­bete a nuestra newsletter</div>
+							<div class="newsletter_text"><p>...y obtÃ©n un cupÃ³n descuento del 20% para la 1Âª compra.</p></div>
 						</div>
 						<div class="newsletter_content clearfix">
 							<form action="#" class="newsletter_form">

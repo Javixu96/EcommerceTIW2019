@@ -78,12 +78,25 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/add_to_cart.html", new AddCartRequestHandler());
 	    handlerHash.put("/sendOrderMessage.html", new SendOrderMessageHandler());
 
+	    handlerHash.put("/product.html", new ShowProductHandler());
+	    // Cart requests
+	    handlerHash.put("/cart.html", new AddCartRequestHandler());
+	    handlerHash.put("/remove_from_cart.html", new AddCartRequestHandler());
+	    handlerHash.put("/add_to_cart.html", new AddCartRequestHandler());
+	    handlerHash.put("/edit_cart.html", new AddCartRequestHandler());
+
+	    // Wishlist requests
+	    handlerHash.put("/wishlist.html", new WishlistRequestHandler());	
+	    handlerHash.put("/add_to_wishlist.html", new WishlistRequestHandler());
+	    handlerHash.put("/checkout.html", new CheckoutRequestHandler());
+
 	    // handlerHash.put("/sendMessages.html", new es.uc3m.ecommerce.controller.SendMessageQueueHandler());
 	    handlerHash.put("/sendMessageToSeller.html", new SendMessageHandler(true));
 	    handlerHash.put("/sendMessageBroadcast.html", new SendMessageHandler(false));
 	    handlerHash.put("/readMessage.html", new ReadMessageHandler());
 	    handlerHash.put("/readBrowserMessage.html", new ReadBrowserMessageHandler());
-	    
+	    handlerHash.put("/purchase_list.html", new ShowAllPurchasesHandler());
+	    handlerHash.put("/purchase.html", new ShowPurchaseHandler());
 	    handlerHash.put("/showMsg1to1.html", new ShowMsg1to1Handler());
 	    
 

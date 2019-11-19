@@ -3,6 +3,7 @@
     pageEncoding="ISO-8859-1"%>    
 <%@ page import="java.util.List,java.util.ArrayList,org.apache.commons.codec.binary.StringUtils,org.apache.commons.codec.binary.Base64;" %> 
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +19,6 @@
 <script type="text/javascript">
 		function logout(){   
 			System.out.println("Script");
-
 		}
 </script>
 </head>
@@ -84,24 +84,33 @@
 							<div class="logo"><a href="#">Ecommerce</a></div>
 						</div>
 					</div>
-					
 					<%
-						String searchQueryInput = request.getAttribute("searchQuery") != null ? (String) request.getAttribute("searchQuery") : "";
+					    ServletContext servletContext = request.getServletContext();
+						List<List<Category>> categories = (List<List<Category>>) servletContext.getAttribute("categoryTree");
+					
 					%>
+	
 					<!-- Search -->
 					<div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
 						<div class="header_search">
 							<div class="header_search_content">
 								<div class="header_search_form_container">
-									<form action="search.html" class="header_search_form clearfix">
-										<input type="search" name="searchQuery" value="<%= searchQueryInput %>" required="required" class="header_search_input" placeholder="Busca un producto...">
-										<div class="custom_dropdown" style="visibility: hidden">
-										<!-- Si lo borramos, se rompe el css de la plantilla, así que lo escondemos solo -->
+									<form action="#" class="header_search_form clearfix">
+										<input type="search" required="required" class="header_search_input" placeholder="Busca un producto...">
+										<div class="custom_dropdown">
 											<div class="custom_dropdown_list">
 												<span class="custom_dropdown_placeholder clc">Todas las categor&iacuteas</span>
 												<i class="fas fa-chevron-down"></i>
 												<ul class="custom_list clc">
 													<li><a class="clc" href="#">Todas las categor&iacuteas</a></li>	
+												<% for (List<Category> cList : categories){ %>
+													<li><a class="clc" href="#"> <%= cList.get(0).getCategory().getCategoryName()%></a></li>
+												<% } %>	
+												
+													<!-- <li><a class="clc" href="#">Todas las categor&iacuteas</a></li>
+													<li><a class="clc" href="#">Mujer</a></li>
+													<li><a class="clc" href="#">Hombre</a></li>
+													<li><a class="clc" href="#">Ni&ntilde;o</a></li> -->
 												</ul>
 											</div>
 										</div>
@@ -118,8 +127,18 @@
 							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
 								<div class="wishlist_icon"><img src="images/heart.png" alt=""></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="./wishlist.html">Wishlist</a></div>
-									<div class="wishlist_count">5</div>
+									<div class="wishlist_text"><a href="<c:url value="wishlist.html">
+									    <c:param name="action" value="0"/>
+			     						<c:param name="productId" value="0"/>
+			    	 					</c:url>">Wishlist</a>
+			    	 				</div>
+									<% if(session.getAttribute("user") == null) { %>
+											<div class="wishlist_count"></div>
+										<% } else if(session.getAttribute("wishlistTotal") != null){ %>
+											<div class="wishlist_count"><%=session.getAttribute("wishlistTotal")%></div>
+										<% } else { %>
+											<div class="wishlist_count">0</div>
+										<% } %>
 								</div>
 							</div>
 
@@ -131,7 +150,10 @@
 										<div class="cart_count"><span>1</span></div>
 									</div>
 									<div class="cart_content">
-										<div class="cart_text"><a href="./cart.html">Carrito</a></div>
+										<div class="cart_text"><a href="<c:url value="cart.html">
+										    <c:param name="action" value="0"/>
+				     						<c:param name="productId" value="0"/>
+				    	 					</c:url>">Carrito</a></div>
 										<% if(session.getAttribute("user") == null) { %>
 											<div class="cart_price"></div>
 										<% } else if(session.getAttribute("cartTotal") != null){ %>
@@ -164,26 +186,14 @@
 									<div class="cat_burger"><span></span><span></span><span></span></div>
 									<div class="cat_menu_text">Categor&iacuteas</div>
 								</div>
-								<%
-									List<List<Category>> categories = (request.getAttribute("categoryTree") != null) 
-											? (List<List<Category>>) request.getAttribute("categoryTree") 
-											: (List<List<Category>>) request.getServletContext().getAttribute("categoryTree");
-								%>
 								
 								<ul class="cat_menu">
 									<% for (List<Category> cList : categories){ %>
 									<li class="hassubs">
-										<a href="<c:url value="search.html">
-					            			<c:param name="searchQuery" value="all"/>
-							           	 	<c:param name="searchCategory" value="<%= Integer.toString(cList.get(0).getCategory().getCategoryId())%>"/>
-					            	 	</c:url>"><%= cList.get(0).getCategory().getCategoryName()%><i class="fas fa-chevron-right"></i></a>
+										<a href="#"><%= cList.get(0).getCategory().getCategoryName()%><i class="fas fa-chevron-right"></i></a>
 										<ul>
 											<% for (Category categoryChild : cList) { %>
-											<li>
-												<a href="<c:url value="search.html">
-							            			<c:param name="searchQuery" value="all"/>
-									           	 	<c:param name="searchCategory" value="<%= Integer.toString(categoryChild.getCategoryId())%>"/>
-							            	 	</c:url>"> <%= categoryChild.getCategoryName() %> <i class="fas fa-chevron-right"></i></a></li>
+											<li><a href="#" > <%= categoryChild.getCategoryName() %> <i class="fas fa-chevron-right"></i></a></li>
 											
 											<% } %>
 										</ul>
@@ -197,7 +207,7 @@
 
 							<div class="main_nav_menu ml-auto">
 								<ul class="standard_dropdown main_nav_dropdown">
-									<!-- <li><a href="./index.html">Home<i class="fas fa-chevron-down"></i></a></li> -->
+									<li><a href="./index.jsp">Home<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="./shop.html">Tienda<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="./profile.html">Perfil<i class="fas fa-chevron-down"></i></a></li>
 								</ul>
