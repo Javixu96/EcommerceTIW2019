@@ -80,6 +80,9 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/sendMessageToSeller.html", new SendMessageHandler());
 	    handlerHash.put("/readMessage.html", new ReadMessageHandler());
 	    
+	    handlerHash.put("/purchase_list.html", new ShowAllPurchasesHandler());
+	    handlerHash.put("/purchase.html", new ShowPurchaseHandler());
+	    
 	    servletContext = getServletConfig().getServletContext();
 	    setServletContextUtils();
 	    
