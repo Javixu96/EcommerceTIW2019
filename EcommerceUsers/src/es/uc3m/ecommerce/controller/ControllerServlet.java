@@ -61,18 +61,6 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/loggingin.html", new LoginRequestHandler());
 	    handlerHash.put("/registering.html", new RegisterRequestHandler());	 
 	    handlerHash.put("/loggingout.html", new LoginRequestHandler());	 
-	    handlerHash.put("/product.html", new ShowProductHandler());
-	    // Cart requests
-	    handlerHash.put("/cart.html", new AddCartRequestHandler());
-	    handlerHash.put("/remove_from_cart.html", new AddCartRequestHandler());
-	    handlerHash.put("/add_to_cart.html", new AddCartRequestHandler());
-	    handlerHash.put("/edit_cart.html", new AddCartRequestHandler());
-
-	    // Wishlist requests
-	    handlerHash.put("/wishlist.html", new WishlistRequestHandler());	
-	    handlerHash.put("/add_to_wishlist.html", new WishlistRequestHandler());
-	    handlerHash.put("/checkout.html", new CheckoutRequestHandler());
-
 
 	    handlerHash.put("/profile.html", new ShowProfileHandler());
 	    handlerHash.put("/modifyUser.html", new es.uc3m.ecommerce.controller.ModifyProfileHandler(true));
@@ -84,10 +72,15 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/modif_product.html", new es.uc3m.ecommerce.controller.ShowProductForModifyHandler());    
 	    handlerHash.put("/shop.html", new ShowAllProductsHandler());
 	    handlerHash.put("/search.html", new SearchHandler());
+	    handlerHash.put("/product.html", new ShowProductHandler());
+	    handlerHash.put("/wishlist.html", new WishlistRequestHandler());	
+	    handlerHash.put("/cart.html", new CartRequestHandler());
+	    handlerHash.put("/add_to_cart.html", new AddCartRequestHandler());
 	    handlerHash.put("/sendOrderMessage.html", new SendOrderMessageHandler());
 
 	    // handlerHash.put("/sendMessages.html", new es.uc3m.ecommerce.controller.SendMessageQueueHandler());
-	    handlerHash.put("/sendMessageToSeller.html", new SendMessageHandler());
+	    handlerHash.put("/sendMessageToSeller.html", new SendMessageHandler(true));
+	    handlerHash.put("/sendMessageBroadcast.html", new SendMessageHandler(false));
 	    handlerHash.put("/readMessage.html", new ReadMessageHandler());
 	    handlerHash.put("/readBrowserMessage.html", new ReadBrowserMessageHandler());
 	    

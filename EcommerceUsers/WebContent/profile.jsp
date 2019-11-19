@@ -74,7 +74,7 @@
 										 <h5><b><a href="./product_list_seller.html">Acceder a mi tienda</a></b></h5>
 									</div>
 									<div class="profile_dive_name" style="margin-left:30px;margin-top:20px;">
-										 <h5><b><a href="./product_list_seller.html">Enviar una oferta a todos</a></b></h5>
+										 <h5><b><a href="messages_broadcast.jsp">Enviar una oferta a todos</a></b></h5>
 									</div>
 									<% 
 									}
