@@ -89,17 +89,7 @@ public class UserManager {
 		//EntityManager em = emf.createEntityManager();
 
 		try {
-			ut.begin();
-			
-			System.out.println("Will add a record to DB: ");
-			System.out.println(u.getEmail());
-			System.out.println(u.getPw());
-			System.out.println(u.getIsDeleted());
-			System.out.println(u.getUserId());
-			System.out.println(u.getUserName());
-			System.out.println(u.getUserSurnames());
-			System.out.println(u.getPostalAddress());
-			System.out.println(u.getUserRole());
+			ut.begin();		
 			
 			em.persist(u);
 			
@@ -118,19 +108,6 @@ public class UserManager {
 	
 	public Appuser getUserById(int id) {
 		
-		System.out.println("Dentro de try <br>");
-		
-
-		/*String jpql = "SELECT p"
-				+ " FROM Product p "
-				+ " WHERE p.productid = ?1";
-		Query products = em.createQuery(jpql);
-		products.setParameter(1, id);
-		products.setMaxResults(1);
-				
-		List<String> results = products.getResultList();
-		*/
-
 		Appuser p =em.find(Appuser.class, id);
 		
 		return p;
@@ -144,4 +121,19 @@ public class UserManager {
 	
 		return;
 	}	
+	
+	@SuppressWarnings("unchecked")
+	public boolean isSeller(Appuser user)throws Exception{
+		Query q = em.createNamedQuery("Appuser.findSellers");
+		
+		List <Appuser> lista = q.getResultList();	
+		
+		for(Appuser sellers:lista) {
+			if((sellers.getUserId()) == user.getUserId()) {
+				return true;
+			}
+		}
+		
+		return false;	
+	}
 }

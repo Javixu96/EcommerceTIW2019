@@ -41,7 +41,6 @@ public class LoginRequestHandler implements IHandler {
 
 			// LOG OUT -> If there's a user already logged in, then log out and redirect to log in
 			if(session.getAttribute("user") != null) {
-				System.out.println("user logged in - logging out");
 				session.invalidate();
 				viewURL = "login.jsp";
 				
@@ -49,8 +48,6 @@ public class LoginRequestHandler implements IHandler {
 				
 				String introducedEmail  = request.getParameter("register_email");
 				String introducedPassword = request.getParameter("register_password");
-				System.out.println("The email you tried to access: " + introducedEmail);
-				System.out.println("The password you used: " + introducedPassword);
 
 
 				UserManager manager = new UserManager();
@@ -69,21 +66,18 @@ public class LoginRequestHandler implements IHandler {
 						session.setAttribute("user", u);
 						// Redirect to index.jsp and add personalized elements if user logged in -> JS
 						viewURL = "index.jsp";
-						System.out.println("User in DB -> redirecting to index.jsp with Dynamic JS");
 						
 					} else {
 						// Redirect to "login.jsp" with alert saying wrong credentials -> JS
 						// loginError = 1, email is registered but password is incorrect
 						request.setAttribute("passwordError", 1);
 						viewURL = "login.jsp";
-						System.out.println("Password error");
 	
 					}
 				} else {
 					// Email not registered -> redirect to register.jsp with a note
 					request.setAttribute("notRegisteredError", 1);
 					viewURL = "login.jsp";
-					System.out.println("Email not registered");
 				}
 			}
 		// Return name of page to redirect to
