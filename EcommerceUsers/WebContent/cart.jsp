@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="es.uc3m.ecommerce.model.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,70 +31,86 @@
 				<div class="col-lg-10 offset-lg-1">
 					<div class="cart_container">
 						<div class="cart_title">Carrito</div>
+						<% if(session.getAttribute("cartList") == null || ((List) session.getAttribute("cartList")).size() == 0) { %>
+							<span style="color: black;"> No tienes productos en el carro </span>
+						<% } else { %>
 						<div class="cart_items">
-							<ul class="cart_list">
-								<li class="cart_item clearfix" style="display:flex">
-									<div class="cart_item_image" style="flex: 0.15"><img src="images/shopping_cart.jpg" alt=""></div>
-									<div style="flex: 0.85" class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
-										<div style="flex: 0.25" class="cart_item_name cart_info_col">
-											<div class="cart_item_title">Producto</div>
-											<div class="cart_item_text">Pantalon basico</div>
-										</div>
-										<!--  
-										<div style="flex: 0.20" class="cart_item_color cart_info_col">
-											<div class="cart_item_title">Color</div>
-											<div class="cart_item_text"><span style="background-color:#999999;"></span>Plateado</div>
-										</div>
-										<div style="flex: 0.1" class="cart_item_color cart_info_col">
-											<div class="cart_item_title">Talla</div>
-											<div class="cart_item_text">M</div>
-										</div>
-										-->
-										<div style="flex: 0.1" class="cart_item_quantity cart_info_col">
-											<div class="cart_item_title">Cantidad</div>
+							<ul class="cart_list" id="cart_list">
+								<jsp:useBean id="cartList" type="java.util.List<es.uc3m.ecommerce.model.Product>" scope="session" />
+								<jsp:useBean id="cartQuantities" type="java.util.List<Integer>" scope="session" />
+								<% int i = 0; %>
+								<% for(i = 0; i < cartList.size(); i ++) { %>
+									<% session.setAttribute("item", i); %>
+									<li id="cart_item_<%=i%>" class="cart_item clearfix" style="display:flex">
+										<div class="cart_item_image" style="flex: 0.15"><img src="images/shopping_cart.jpg" alt=""></div>
+										<div style="flex: 0.85" class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
+												<div style="flex: 0.25" class="cart_item_name cart_info_col">
+													<div class="cart_item_title">Producto</div>
+													<div class="cart_item_text"><%=cartList.get(i).getProductName() %></div>
+												</div>
+												<div style="flex: 0.1" class="cart_item_quantity cart_info_col">
+													<div class="cart_item_title">Cantidad</div>	
+													<div class="cart_item_text">
+														<input readonly type="text" class="cart_item_text" id="quantity_input_<%=i%>" name="quantity_input_<%=i%>" value="<%=cartQuantities.get(i)%>"></input>									
+														<a href="<c:url value="edit_cart.html">
+															<c:param name="productId" value="<%=String.valueOf(cartList.get(i).getProductId())%>" />
+						           	 						<c:param name="action" value="3"/>
+						           	 						<c:param name="operation" value="1"/>
+					            	 						</c:url>" class="btn btn-rounded btn-info">+</a>
+				            	 						<a href="<c:url value="edit_cart.html">
+															<c:param name="productId" value="<%=String.valueOf(cartList.get(i).getProductId())%>" />
+						           	 						<c:param name="action" value="3"/>
+						           	 						<c:param name="operation" value="0"/>
+					            	 						</c:url>" class="btn btn-rounded btn-info">-</a>
+					            	 				</div>
+												</div>
 											
-											<div class="cart_item_text">
-											<div class="cart_item_text">
-												<div class="product_quantity">
-											
-												<input id="quantity_input" type="text" pattern="[0-9]*" value="1">
-													<div class="quantity_buttons">
-													<div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fas fa-chevron-up"></i></div>
-													<div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fas fa-chevron-down"></i></div>
-													</div>
+											<!--  
+											<script>
+											document.getElementById("quantity_input_" + ${cartList}.indexOf(${cartList}.get(i))).onchange = function() {myFunction()};
+																			
+											function myFunction() {
+												
+											var quantity = document.getElementById("quantity_input_" + ${cartList}.indexOf(${cartList}.get(i)));
+											var total = quantity.value;
+											${cartQuantities}.set(${cartList}.indexOf(${cartList}.get(i)), total);
+											session.setAttribute("cartQuantities", cartQuantities);
+											}
+											</script>
+											-->	
+											<div style="flex: 0.1" class="cart_item_price cart_info_col">
+												<div class="cart_item_title">Precio</div>
+												<div class="cart_item_text"><%=cartList.get(i).getPrice()%>&euro;</div>
+											</div>
+											<div style="flex: 0.1" class="cart_item_total cart_info_col">	
+												<div class="cart_item_text">
+													<div class="cart_item_title"></div>	
+													<div class="cart_item_text">									
+														<a href="<c:url value="remove_from_cart.html">
+															<c:param name="productId" value="<%=String.valueOf(cartList.get(i).getProductId())%>" />
+						           	 						<c:param name="action" value="1"/>
+					            	 						</c:url>" class="btn btn-rounded btn-info">Eliminar</a>
+					            	 				</div>
 												</div>
 											</div>
-											</div>
-										</div>	
-										<div style="flex: 0.1" class="cart_item_price cart_info_col">
-											<div class="cart_item_title">Precio</div>
-											<div class="cart_item_text">19.99&euro;</div>
 										</div>
-										<div style="flex: 0.15" class="cart_item_total cart_info_col">
-											<div class="cart_item_title">Subtotal</div>
-											<div class="cart_item_text">19.99&euro;</div>
-										</div>
-										<div class="product_trash">
-											<i class="fas fa-trash">
-										</i>
-										</div>
-									</div>
-								</li>
-								
+									</li>
+								<% } %>			
 							</ul>
 						</div>
-						
+					</div>
 						<!-- Order Total -->
+						
 						<div class="order_total">
 							<div class="order_total_content text-md-right">
-								<div class="order_total_title">Total:</div>
-								<div class="order_total_amount">20.99&euro;</div>
+								<div id="div_cart_total" class="order_total_title">Total: </div>
+								<div id="order_total_amount" class="order_total_amount"><%=session.getAttribute("cartTotal") %>&euro;</div>
 							</div>
-						</div>
-
+						</div> 
 						<div class="cart_buttons">
-							<button type="button" class="button cart_button_checkout">Finalizar compra</button>
-						</div>
+							<button type="button" class="button cart_button_checkout" onclick="submitForms()"> Finalizar compra</button>	
+						</div>						
+					<% } %>		
 					</div>
 				</div>
 			</div>
@@ -129,7 +145,14 @@
 	<%@ include file="footer.jsp" %>
 	
 </div>
-
+<script type="text/javascript">
+submitForms = function(){
+	var f;
+	for(f = 0; f < cartList.size(); f ++){
+		document.getElementById("checkout_form_" + f).submit();
+	}  
+}
+</script>
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="styles/bootstrap4/popper.js"></script>
 <script src="styles/bootstrap4/bootstrap.min.js"></script>

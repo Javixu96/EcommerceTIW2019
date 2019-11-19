@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="es.uc3m.ecommerce.model.*"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,80 +31,39 @@
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1">
 					<div class="cart_container">
+						<jsp:useBean id="wishlistList" type="java.util.List<Product>" scope="session" />
 						<div class="cart_title">Wishlist</div>
+						<% if(session.getAttribute("wishlistList") == null || ((List) session.getAttribute("wishlistList")).size() == 0) { %>
+							<span style="color: black;"> No tienes productos en tu wishlist </span>
+						<% } else { %>
 						<div class="cart_items">
 							<ul class="cart_list">
+								<% int i = 0; %>
+								<% for(i = 0; i < wishlistList.size(); i++) { %>
 								<li class="cart_item clearfix" style="display:flex">
 									<div class="cart_item_image" style="flex: 0.15"><img src="images/shopping_cart.jpg" alt=""></div>
 									<div style="flex: 0.85" class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
 										<div style="flex: 0.25" class="cart_item_name cart_info_col">
 											<div class="cart_item_title">Producto</div>
-											<div class="cart_item_text">Pantalon basico</div>
+											<div class="cart_item_text"><%=wishlistList.get(i).getProductName() %></div>											
 										</div>
-										<div style="flex: 0.20" class="cart_item_color cart_info_col">
-											<div class="cart_item_title">Color</div>
-											<div class="cart_item_text"><span style="background-color:#999999;"></span>Plateado</div>
-										</div>
-										<div style="flex: 0.1" class="cart_item_color cart_info_col">
-											<div class="cart_item_title">Talla</div>
-											<div class="cart_item_text">M</div>
-										</div>
-										<div style="flex: 0.1" class="cart_item_quantity cart_info_col">
-											<div class="cart_item_title">Cantidad</div>
-											
-											<div class="cart_item_text"><input style="text-align:center; width: 90%; height: 70%; padding: 5px" value=1></div>
-										</div>	
 										<div style="flex: 0.1" class="cart_item_price cart_info_col">
 											<div class="cart_item_title">Precio</div>
-											<div class="cart_item_text">19.99&euro;</div>
-										</div>
-										<div style="flex: 0.15" class="cart_item_total cart_info_col">
-											<div class="cart_item_title">Subtotal</div>
-											<div class="cart_item_text">19.99&euro;</div>
+											<div class="cart_item_text"><%=wishlistList.get(i).getPrice()%>&euro;</div>
 										</div>
 										<div style="flex: 0.1" class="cart_item_total cart_info_col">	
-											<div class="cart_item_text"><i class="material-icons" style="text-align: center">delete</i></div>
+											<div class="cart_item_text"></div>
+											<a href="<c:url value="wishlist.html">
+												<c:param name="productId" value="<%=String.valueOf(wishlistList.get(i).getProductId())%>" />
+			           	 						<c:param name="action" value="1"/>
+		            	 						</c:url>" class="btn btn-rounded btn-info">Eliminar</a>
 										</div>
-										
 									</div>
 								</li>
-								
-								<li class="cart_item clearfix" style="display:flex">
-									<div class="cart_item_image" style="flex: 0.15"><img src="images/shopping_cart.jpg" alt=""></div>
-									<div style="flex: 0.85" class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
-										<div style="flex: 0.25" class="cart_item_name cart_info_col">
-											<div class="cart_item_title">Producto</div>
-											<div class="cart_item_text">Otro producto</div>
-										</div>
-										<div style="flex: 0.20" class="cart_item_color cart_info_col">
-											<div class="cart_item_title">Color</div>
-											<div class="cart_item_text"><span style="background-color:#000;"></span>Negro</div>
-										</div>
-										<div style="flex: 0.1" class="cart_item_color cart_info_col">
-											<div class="cart_item_title">Talla</div>
-											<div class="cart_item_text">L</div>
-										</div>
-										<div style="flex: 0.1" class="cart_item_quantity cart_info_col">
-											<div class="cart_item_title">Cantidad</div>
-											
-											<div class="cart_item_text"><input style="text-align:center; width: 90%; height: 70%; padding: 5px" value=1></div>
-										</div>	
-										<div style="flex: 0.1" class="cart_item_price cart_info_col">
-											<div class="cart_item_title">Precio</div>
-											<div class="cart_item_text">19.99&euro;</div>
-										</div>
-										<div style="flex: 0.15" class="cart_item_total cart_info_col">
-											<div class="cart_item_title">Subtotal</div>
-											<div class="cart_item_text">19.99&euro;</div>
-										</div>
-										<div style="flex: 0.1" class="cart_item_total cart_info_col">	
-											<div class="cart_item_text"><i class="material-icons" style="text-align: center">delete</i></div>
-										</div>
-										
-									</div>
-								</li>
+								<% } %>
 							</ul>
 						</div>
+						<% } %>
 					</div>
 				</div>
 			</div>

@@ -23,7 +23,8 @@ public interface IHandler {
    * (probably a JSP), or null to indicate that the response has been
    * generated already and processing is complete.
    */
-  String handleRequest(HttpServletRequest request,
-                       HttpServletResponse response)
-         throws ServletException, IOException;
+
+  String handleRequest(HttpServletRequest request, 
+		  HttpServletResponse response)
+		throws ServletException, IOException;
 }

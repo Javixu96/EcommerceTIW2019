@@ -30,8 +30,14 @@
 				<div class="col-lg-10 offset-lg-1">
 					<div class="contact_form_container">
 						<div class="contact_form_title">Iniciar sesión</div>
-
+						
 						<form action="loggingin.html" id="contact_form" method="post">
+							<% if(request.getAttribute("registrationComplete") != null) {%>
+							<span style="color: green;"> Registration complete! You can log in now </span>
+							<%} %>
+							<% if(request.getAttribute("needsLoginError") != null) {%>
+							<span style="color: red;"> You need to log in first </span>
+							<%} %>
 							<div class="row_container">
 								<div class="row_item">
 									<h4 class="input_title"> E-mail </h4>

@@ -1,8 +1,8 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     import="es.uc3m.ecommerce.model.*, java.util.*"
     pageEncoding="ISO-8859-1"%>    
 <%@ page import="java.util.List,java.util.ArrayList,org.apache.commons.codec.binary.StringUtils,org.apache.commons.codec.binary.Base64;" %> 
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
     
 <!DOCTYPE html>
 <html>
@@ -19,7 +19,6 @@
 <script type="text/javascript">
 		function logout(){   
 			System.out.println("Script");
-
 		}
 </script>
 </head>
@@ -60,8 +59,10 @@
 								<% if(session.getAttribute("user") != null) {
 								%>
 								<div class="user_icon"><img src="https://cdn1.iconfinder.com/data/icons/navigation-elements/512/user-login-man-human-body-mobile-person-512.png" alt=""></div>
-								<div><a href="./loggingout.html">Logout</a></div>
-								<% } else { %>
+								<div><a href="javascript:logout();login.jsp;">Logout</a></div>
+								<%} %>
+								<% if(session.getAttribute("user") == null) {
+								%>
 								<div><a href="./register.jsp">Register</a></div>
 								<div><a href="./login.jsp">Sign in</a></div>
 								<%} %>
@@ -128,18 +129,8 @@
 							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
 								<div class="wishlist_icon"><img src="images/heart.png" alt=""></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="<c:url value="wishlist.html">
-									    <c:param name="action" value="0"/>
-			     						<c:param name="productId" value="0"/>
-			    	 					</c:url>">Wishlist</a>
-			    	 				</div>
-									<% if(session.getAttribute("user") == null) { %>
-											<div class="wishlist_count"></div>
-										<% } else if(session.getAttribute("wishlistTotal") != null){ %>
-											<div class="wishlist_count"><%=session.getAttribute("wishlistTotal")%></div>
-										<% } else { %>
-											<div class="wishlist_count">0</div>
-										<% } %>
+									<div class="wishlist_text"><a href="./wishlist.jsp">Wishlist</a></div>
+									<div class="wishlist_count">5</div>
 								</div>
 							</div>
 
@@ -151,17 +142,8 @@
 										<div class="cart_count"><span>1</span></div>
 									</div>
 									<div class="cart_content">
-										<div class="cart_text"><a href="<c:url value="cart.html">
-										    <c:param name="action" value="0"/>
-				     						<c:param name="productId" value="0"/>
-				    	 					</c:url>">Carrito</a></div>
-										<% if(session.getAttribute("user") == null) { %>
-											<div class="cart_price"></div>
-										<% } else if(session.getAttribute("cartTotal") != null){ %>
-											<div class="cart_price"><%=session.getAttribute("cartTotal")%>&euro;</div>
-										<% } else { %>
-											<div class="cart_price">0.0&euro;</div>
-										<% } %>
+										<div class="cart_text"><a href="./cart.jsp">Carrito</a></div>
+										<div class="cart_price">19.95&euro;</div>
 									</div>
 								</div>
 							</div>
@@ -208,7 +190,7 @@
 
 							<div class="main_nav_menu ml-auto">
 								<ul class="standard_dropdown main_nav_dropdown">
-									<li><a href="./index.jsp">Home<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="./index.html">Home<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="./shop.html">Tienda<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="./profile.html">Perfil<i class="fas fa-chevron-down"></i></a></li>
 								</ul>
@@ -230,7 +212,12 @@
 				</div>
 			</div>
 		</nav>
+		
+		
+
 	</header>
 
 </body>
 </html>
+
+

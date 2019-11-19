@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Añadir producto</title>
+<title>Aï¿½adir producto</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="OneTech shop project">
@@ -31,7 +31,7 @@
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1">
 					<div class="contact_form_container">
-						<div class="contact_form_title">Añadir producto</div>
+						<div class="contact_form_title">Aï¿½adir producto</div>
 
 						<form action="insert_product.html" id="contact_form" method="post" enctype="multipart/form-data">
 							
@@ -50,14 +50,14 @@
 								</div>							
 							</div>
 							
-							<h4 style="padding-bottom: 10px;padding-top:10px">Descripción</h4>
+							<h4 style="padding-bottom: 10px;padding-top:10px">Descripciï¿½n</h4>
 							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
-								<textarea class="input_field" name="pShortDesc" rows="2" placeholder="Introduce la descripción del producto"></textarea>
+								<textarea class="input_field" name="pShortDesc" rows="2" placeholder="Introduce la descripciï¿½n del producto"></textarea>
 							</div>
 							
-							<h4 style="padding-bottom: 10px">Descripción detallada</h4>
+							<h4 style="padding-bottom: 10px">Descripciï¿½n detallada</h4>
 							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
-								<textarea class="input_field" name="pLongDesc" rows="4" placeholder="Introduce la descripción detallada del producto"></textarea>
+								<textarea class="input_field" name="pLongDesc" rows="4" placeholder="Introduce la descripciï¿½n detallada del producto"></textarea>
 							</div>
 							
 							<div class="row_container clearfix" style="z-index: 1000;margin-bottom: 25px;width:500px;">
@@ -73,12 +73,12 @@
 							<div class="row_container clearfix" style="z-index: 1000;">
 							
 								<div class="row_item">
-									<h4>Categoría</h4>
+									<h4>Categorï¿½a</h4>
 									<ul class="product_size">
 										<li>
 											<div class="size_mark_container">
 											
-												<input type="text" name="category" id="selected_categ"  value = "Categoría">
+												<input type="text" name="category" id="selected_categ"  value = "Categorï¿½a">
 												
 											</div>
 											<div class="size_dropdown_button"><i class="fas fa-chevron-down"></i></div>
@@ -86,19 +86,19 @@
 											<ul class="color_size">
 												<li><input type="button"  class="size_mark" id="categ1" value="Hombre" ></li>
 												<li><input type="button"  class="size_mark" id="categ2" value="Mujer" ></li>
-												<li><input type="button"  class="size_mark" id="categ3" value="Niño"></li>
+												<li><input type="button"  class="size_mark" id="categ3" value="Niï¿½o"></li>
 											</ul>
 										</li>
 									</ul>
 								</div>
 								<div class="row_item">
-									<h4>Subcategoría</h4>
+									<h4>Subcategorï¿½a</h4>
 									<ul class="product_subcateg">
 										<li>
 											
 											<div class="size_mark_container">
 											
-												<input type="text" name="subcategory" id="selected_subcateg"  value = "Subcategoría">
+												<input type="text" name="subcategory" id="selected_subcateg"  value = "Subcategorï¿½a">
 											
 											</div>
 											
@@ -135,12 +135,12 @@
 					<div class="newsletter_container d-flex flex-lg-row flex-column align-items-lg-center align-items-center justify-content-lg-start justify-content-center">
 						<div class="newsletter_title_container">
 							<div class="newsletter_icon"><img src="images/send.png" alt=""></div>
-							<div class="newsletter_title">Suscríbete a nuestra newsletter</div>
-							<div class="newsletter_text"><p>...y obtén un cupón descuento del 20% para la 1ª compra.</p></div>
+							<div class="newsletter_title">Suscrï¿½bete a nuestra newsletter</div>
+							<div class="newsletter_text"><p>...y obtï¿½n un cupï¿½n descuento del 20% para la 1ï¿½ compra.</p></div>
 						</div>
 						<div class="newsletter_content clearfix">
 							<form action="#" class="newsletter_form">
-								<input type="email" class="newsletter_input" required="required" placeholder="Introduce tu correo electrónico">
+								<input type="email" class="newsletter_input" required="required" placeholder="Introduce tu correo electrï¿½nico">
 								<button class="newsletter_button">Suscribirse</button>
 							</form>
 						</div>
@@ -169,3 +169,4 @@
 </body>
 
 </html>
+
