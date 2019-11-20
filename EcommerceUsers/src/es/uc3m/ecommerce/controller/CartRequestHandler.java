@@ -25,9 +25,7 @@ public class CartRequestHandler implements IHandler{
 		Appuser u = (Appuser) session.getAttribute("user");
 		
 		if(session.getAttribute("user") == null) {
-			
 			viewURL = new ForbiddenPageHandler().handleRequest(request, response);
-			
 		} else {
 			
 			// Segun el codigo de accion recibido, haremos una cosa u otra
@@ -55,7 +53,6 @@ public class CartRequestHandler implements IHandler{
 			// ACTION = 1 - ELIMINAR PRODUCTO DEL CARRO
 			if(action == 1) {
 				
-				System.out.println("ACTION = REMOVE");
 				// Tomamos el ID del producto a eliminar de los parametros enviados con la request
 				int id = Integer.parseInt(productId);
 				// Buscamos el producto a eliminar por productId
@@ -78,7 +75,6 @@ public class CartRequestHandler implements IHandler{
 			// ACTION = 2 - A�ADIR PRODUCTO AL CARRO	
 			} else if(action == 2) {
 				
-				System.out.println("ACTION = ADD");
 				// Tomamos el ID del producto a a�adir de los parametros enviados con la request
 				int id = Integer.parseInt(productId);
 				ProductManager pManager = new ProductManager();
@@ -114,7 +110,6 @@ public class CartRequestHandler implements IHandler{
 			// ACTION = 3 - MODIFICAR CANTIDAD
 			} else if(action == 3) {
 				
-				
 				int operation = Integer.parseInt(request.getParameter("operation"));
 				int p = Integer.parseInt(productId);
 				int q = 0;  
@@ -140,7 +135,7 @@ public class CartRequestHandler implements IHandler{
 					cartTotal = cartTotal + product.getPrice();
 				// Error en par�metro operation
 				} else {
-					System.out.println("Error de par�metro operation en action 3  -  edit_cart.html");
+					System.out.println("Error de parametro operation en action 3  -  edit_cart.html");
 				}
 				
 				cartQuantities.set(index, q);

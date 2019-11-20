@@ -12,11 +12,9 @@ public class ForbiddenPageHandler implements IHandler{
 
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("No user logged in. Access forbidden - FORBIDDEN PAGE HANDLER");
-
-		// When no access to view granted, redirect to login.jsp
+		// Cuando se intenta visitar una pagina restringida por login, se redirige a este
 		String viewURL = "login.jsp"; 
-		// Set request attribute to trigger JS warning in view login.jsp
+		// Atributo de request para lanzar el warning JS en la vista login.jsp
 		request.setAttribute("needsLoginError", 1);
 		
 		return viewURL;

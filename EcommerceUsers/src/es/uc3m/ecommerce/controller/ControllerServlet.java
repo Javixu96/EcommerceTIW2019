@@ -23,6 +23,11 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 
+/*
+ * Servlet que se encarga de escuchar todas las URL que acaban en .html y llamar al handler correspondiente, 
+ * que redirigir· a la vista a cargar, despuÈs de haber realizado las operaciones necesarias
+ * 
+*/
 
 @WebServlet(urlPatterns = {"*.html"})
 @MultipartConfig
@@ -30,13 +35,14 @@ public class ControllerServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private ServletContext servletContext;
+	private ServletContext servletContext; //usamos el servletcontext para cargar la vista de categorias al principio, cuando se carga el index.html
 	
 	@PersistenceContext(unitName = "EcommerceUsersPU",name = "jpa/pc")
 	private EntityManager em;
        
-	// Hash table of RequestHandler instances, keyed by request URL
+	// Mapa con los handlers que getionan las acciones a realizar por cada html 
 	private Map<String,IHandler> handlerHash = new HashMap<String,IHandler>();
+	//JMS: escucha cualquier mensaje, y cuando recibe uno de tipo confirmaciÛn, realiza las acciones necesarias	
 	private StartMessageListener msgListener;
 	
 	public ControllerServlet() {
@@ -50,18 +56,19 @@ public class ControllerServlet extends HttpServlet {
 		try {
 			msgListener.start();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		
-    	//appContext = config.getServletContext();
+	    // Esto popula handlerHash y es utilizado para instanciar el handler correspondiente al path de la request captada
 		
-	    // Esto popular√° handlerHash y ser√° utilizado para instanciar el handler correspondiente al path de la request captada
+		
+		//handlers para registro, login, logout
 	    handlerHash.put("/loggingin.html", new LoginRequestHandler());
 	    handlerHash.put("/registering.html", new RegisterRequestHandler());	 
 	    handlerHash.put("/loggingout.html", new LoginRequestHandler());	 
 
+	    //acciones del usuario registrado
 	    handlerHash.put("/profile.html", new ShowProfileHandler());
 	    handlerHash.put("/modifyUser.html", new ModifyProfileHandler(true));
 	    handlerHash.put("/deleteUser.html", new ModifyProfileHandler(false));
@@ -69,20 +76,24 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/insert_product.html", new InsertProductHandler());
 	    handlerHash.put("/modify_product.html", new ModifyProductHandler(true));
 	    handlerHash.put("/deleteProduct.html", new ModifyProductHandler(false));
-	    handlerHash.put("/modif_product.html", new ShowProductForModifyHandler());    
+	    handlerHash.put("/modif_product.html", new ShowProductForModifyHandler());   
+	    
+	    //acciones relativas a la compra
 	    handlerHash.put("/shop.html", new ShowAllProductsHandler());
 	    handlerHash.put("/search.html", new SearchHandler());
 	    handlerHash.put("/advanced_search.html", new AdvancedSearchHandler());
 	    handlerHash.put("/product.html", new ShowProductHandler());
+	    
+	    //getsiona la confirmaciÛn de compra
 	    handlerHash.put("/sendOrderMessage.html", new SendOrderMessageHandler());
 
-	    // Cart requests
+	    // Carrito
 	    handlerHash.put("/cart.html", new CartRequestHandler());
 	    handlerHash.put("/remove_from_cart.html", new CartRequestHandler());
 	    handlerHash.put("/add_to_cart.html", new CartRequestHandler());
 	    handlerHash.put("/edit_cart.html", new CartRequestHandler());
 
-	    // Wishlist requests
+	    // Wishlist 
 	    handlerHash.put("/wishlist.html", new WishlistRequestHandler());	
 	    handlerHash.put("/add_to_wishlist.html", new WishlistRequestHandler());
 	    handlerHash.put("/checkout.html", new CheckoutRequestHandler());
@@ -97,6 +108,7 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/showMsg1to1.html", new ShowMsg1to1Handler(false));    
 	    handlerHash.put("/sendeMessageToSeller.html", new ShowMsg1to1Handler(true));
 
+	    //popula la vista de categorias del header cuando se inicia la app (antes de llamar a cualquier p·gina)
 	    servletContext = getServletConfig().getServletContext();
 	    servletContext.setAttribute("categoryTree", getCategoryTree());
 	  }
@@ -107,39 +119,32 @@ public class ControllerServlet extends HttpServlet {
 	}
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	  
-		System.out.println("DO GET FRONT CONTROLLER");
-
 	    // Coger del HashMap la instancia de la clase que implementa la l√≥gica para la URL recibida
 	    IHandler rh = (IHandler) handlerHash.get(request.getServletPath());
 	    // Si no hay instancia asociada a la URL, error
 	    if (rh == null) {
 		    response.sendError(HttpServletResponse.SC_NOT_FOUND);
-	    } else {
-	    	
-		    // Llamada al m√©todo handleRequsest de la instancia para obtener la URL a la que hay que redireccionar
+	    } else {	    	
+		    // Llamada al metodo handleRequsest de la instancia para obtener la URL a la que hay que redireccionar
 		    String viewURL = rh.handleRequest(request, response);
-		    // Dispatch de la URL
-		    System.out.println("En el Handler: mandando a la vista " + viewURL);
 		    if (viewURL == null) {
 			    // No hacer nada
 		    } else {
-			    System.out.println("Redirecting to URL: " + viewURL);
+		    	//Arbol de categorias en request por si hay algun cambio desde admin, que coja la version mas actualizada
 			    request.setAttribute("categoryTree", getCategoryTree());
-			    System.out.println("Arbol de categorias en request, con # elementos: " + getCategoryTree().size());
+			    //Redirige a la vista correspondiente, devuelta por el handler
 			    request.getRequestDispatcher(viewURL).forward(request, response);
 		    }
 	    }
-
     }
 	  
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		  	doGet(request,response);
+		  	doGet(request,response); //redirige al post
 	 }
 	  
 	 public void destroy(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, JMSException {
-		 msgListener.stop();
+		 msgListener.stop(); //al terminar con el listener, se para
 	 }
 }

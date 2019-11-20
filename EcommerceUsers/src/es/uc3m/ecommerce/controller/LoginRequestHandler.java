@@ -26,7 +26,9 @@ import javax.transaction.UserTransaction;
 import es.uc3m.ecommerce.manager.UserManager;
 import es.uc3m.ecommerce.model.*;
 
-
+/*
+* Handler que se encarga del login del usuario
+*/
 public class LoginRequestHandler implements IHandler {
 	
 		

@@ -12,10 +12,13 @@ import javax.servlet.http.Part;
 import es.uc3m.ecommerce.manager.*;
 import es.uc3m.ecommerce.model.*;
 
+/*
+ * handler que gestiona la modificacion o borrado de productos (vendedor)
+*/
 public class ModifyProductHandler implements IHandler {
 	
-	//true->modify false->delete
-	private boolean modifyOrDelete;
+	
+	private boolean modifyOrDelete; //true->modify false->delete
 	
 	public ModifyProductHandler (boolean modifyOrDelete) {
 		this.modifyOrDelete = modifyOrDelete;
@@ -29,10 +32,10 @@ public class ModifyProductHandler implements IHandler {
 	
 	public String processModify(HttpServletRequest request) 
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		ProductManager im = new ProductManager();
 		CategoryManager ca = new CategoryManager();
 		
+		//recoger parametros del form
 		String productName = request.getParameter("name");
 		String productShortDesc = request.getParameter("shortDesc");
 		String productLongDesc = request.getParameter("longDesc");
@@ -43,6 +46,7 @@ public class ModifyProductHandler implements IHandler {
 		HttpSession mySession = request.getSession(true);
 		Product product=(Product)mySession.getAttribute("productInModify");
 		
+		//popular producto con nuevos valores
 		product.setProductName(productName);
 		product.setShortDesc(productShortDesc);
 		product.setLongDesc(productLongDesc);
@@ -51,7 +55,7 @@ public class ModifyProductHandler implements IHandler {
 		
 		product.setCategoryBean(ca.findByName(productCategory));
 
-		
+		//foto no obligatoria: comprobamos que existe para realizar el update en bd
 		String control = request.getParameter("fileToUpLoad");
 		if(control==null) {
 			 Part filePart = request.getPart("fileToUpLoad");
@@ -62,13 +66,11 @@ public class ModifyProductHandler implements IHandler {
 		}
 		
 		try {
+			//una vez con los parametros actualizados, llamamos al manager para realizar la operacion en bd
 			im.modifyProduct(product);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		// response.sendRedirect("controlador");
 			
 		request.setAttribute("product", product);
 		
@@ -79,22 +81,17 @@ public class ModifyProductHandler implements IHandler {
 			throws ServletException, IOException {
 		
 		ProductManager im = new ProductManager();
-		
+		//recoger parametros. contador sirve para saber que producto de la lista es
 		int counter=Integer.parseInt(request.getParameter("contadorBorr"));
-		
 		HttpSession mySession = request.getSession(true);
-		
 		Product product = (Product)mySession.getAttribute("productToDelete"+counter);
-		
-		System.out.println(product.getProductName());
-		System.out.println("asddddddd");
-		
+	
+		//no borramos de base de datos, sino que cambiamos el flag
 		product.setIsDeleted(1);	
 		
 		try {
 			im.modifyProduct(product);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	
