@@ -93,10 +93,10 @@
 										<div class="custom_dropdown" style="visibility: hidden">
 										<!-- Si lo borramos, se rompe el css de la plantilla, así que lo escondemos solo -->
 											<div class="custom_dropdown_list">
-												<span class="custom_dropdown_placeholder clc">Todas las categor&iacuteas</span>
+												<span class="custom_dropdown_placeholder clc">Todas las categor&iacute;as</span>
 												<i class="fas fa-chevron-down"></i>
 												<ul class="custom_list clc">
-													<li><a class="clc" href="#">Todas las categor&iacuteas</a></li>	
+													<li><a class="clc" href="#">Todas las categor&iacute;as</a></li>	
 												</ul>
 											</div>
 										</div>
