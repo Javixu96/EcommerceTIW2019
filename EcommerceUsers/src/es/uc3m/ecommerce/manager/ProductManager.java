@@ -1,5 +1,6 @@
 package es.uc3m.ecommerce.manager;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.naming.Context;
@@ -66,7 +67,7 @@ public class ProductManager {
 		return "";
 	}
 	
-	// Esta anotación es para quitar el warning avisandonos que es est
+	// Esta anotación es para quitar el warning avisandonos que es esta
 	// haciendo una conversión de List a List<Product> y puede no ser válida
 	@SuppressWarnings("unchecked")
 	public List<Product> findAll() {
@@ -77,7 +78,6 @@ public class ProductManager {
 	@SuppressWarnings("unchecked")
 	public List<Product> findBySimilarTitle(String title) {
 		Query query = em.createNamedQuery("Product.findBySimilarTitle",Product.class);
-		// Atención: Se neceista agregar el % porque se usa una consutla con like (buscar en google)
 		query.setParameter("title","%"+title+"%");
 		return query.getResultList();
 	}
@@ -88,7 +88,6 @@ public class ProductManager {
 		boolean isParentCategory = getCategoryType(searchCategory);
 		String namedQuery = isParentCategory ? "Product.findByCategoryParent" : "Product.findByCategory";
 		Query query = em.createNamedQuery(namedQuery,Product.class);
-		// Atención: Se neceista agregar el % porque se usa una consutla con like (buscar en google)
 		query.setParameter("category",Integer.parseInt(searchCategory));
 		return query.getResultList();
 	}
@@ -100,7 +99,6 @@ public class ProductManager {
 		String namedQuery = isParentCategory ? "Product.findBySimilarTitleWithCategoryParent" : "Product.findBySimilarTitleWithCategory";
 
 		Query query = em.createNamedQuery(namedQuery,Product.class);
-		// Atención: Se neceista agregar el % porque se usa una consutla con like (buscar en google)
 		query.setParameter("title","%"+searchQuery+"%");
 		query.setParameter("category",Integer.parseInt(searchCategory));
 		
@@ -153,6 +151,81 @@ public class ProductManager {
 		boolean isParentId = true;
 		CategoryManager cm = new CategoryManager();	
 		return cm.findById(Integer.parseInt(searchCategory)).getCategory().getCategoryId() == 1 ? isParentId : !isParentId;
+	}
+
+
+	@SuppressWarnings("unchecked")
+	public List<Product> findAllByNameFilterPrice(String advancedQuery, String minPrice, String maxPrice) {
+		
+		int priceMin = minPrice.equals("") ? 0 : Integer.parseInt(minPrice);
+		int priceMax = maxPrice.equals("") ? Integer.MAX_VALUE : Integer.parseInt(maxPrice);	
+		
+		List<Product> resultado;
+		Query query = em.createNamedQuery("Product.findBySimilarNamePriceFilter",Product.class);
+		query.setParameter("query","%"+advancedQuery+"%");	
+		query.setParameter("priceMin", priceMin);
+		query.setParameter("priceMax", priceMax);
+		
+		try {
+			resultado =  query.getResultList();;		
+		} catch (NoResultException n){
+			resultado = null;
+		}
+		
+		return resultado;
+	}
+
+
+	@SuppressWarnings("unchecked")
+	public List<Product> findAllByDescriptionFilterPrice(String advancedQuery, String minPrice, String maxPrice) {
+		int priceMin = minPrice.equals("") ? 0 : Integer.parseInt(minPrice);
+		int priceMax = maxPrice.equals("") ? Integer.MAX_VALUE : Integer.parseInt(maxPrice);	
+		
+		List<Product> resultado;
+		Query query = em.createNamedQuery("Product.findBySimilarDescriptionPriceFilter",Product.class);
+		query.setParameter("query","%"+advancedQuery+"%");	
+		query.setParameter("priceMin", priceMin);
+		query.setParameter("priceMax", priceMax);
+		
+		try {
+			resultado =  query.getResultList();;		
+		} catch (NoResultException n){
+			resultado = null;
+		}
+		
+		return resultado;
+	}
+
+
+	@SuppressWarnings("unchecked")
+	public List<Product> findAllByCategoryFilterPrice(String advancedQuery, String minPrice, String maxPrice) {
+		int priceMin = minPrice.equals("") ? 0 : Integer.parseInt(minPrice);
+		int priceMax = maxPrice.equals("") ? Integer.MAX_VALUE : Integer.parseInt(maxPrice);	
+		
+		List<Product> resultado;
+		Query query = em.createNamedQuery("Product.findBySimilarCategoryPriceFilter",Product.class);
+		query.setParameter("query","%"+advancedQuery+"%");	
+		query.setParameter("priceMin", priceMin);
+		query.setParameter("priceMax", priceMax);
+		
+		try {
+			resultado =  query.getResultList();;		
+		} catch (NoResultException n){
+			resultado = null;
+		}
+		
+		return resultado;
+	}
+
+
+	public List<Product> findAllMergeFilterPrice(String advancedQuery, String minPrice, String maxPrice) {
+		List<Product> resultado = new LinkedList<>();
+		
+		resultado.addAll(findAllByCategoryFilterPrice(advancedQuery, minPrice, maxPrice));
+		resultado.addAll(findAllByDescriptionFilterPrice(advancedQuery, minPrice, maxPrice));
+		resultado.addAll(findAllByNameFilterPrice(advancedQuery, minPrice, maxPrice));
+		
+		return resultado;
 	}
 	
 }

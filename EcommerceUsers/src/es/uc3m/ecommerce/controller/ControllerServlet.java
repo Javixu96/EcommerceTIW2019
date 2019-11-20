@@ -63,19 +63,19 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/loggingout.html", new LoginRequestHandler());	 
 
 	    handlerHash.put("/profile.html", new ShowProfileHandler());
-	    handlerHash.put("/modifyUser.html", new es.uc3m.ecommerce.controller.ModifyProfileHandler(true));
-	    handlerHash.put("/deleteUser.html", new es.uc3m.ecommerce.controller.ModifyProfileHandler(false));
-	    handlerHash.put("/product_list_seller.html", new es.uc3m.ecommerce.controller.ShowMyProductListHandler());
-	    handlerHash.put("/insert_product.html", new es.uc3m.ecommerce.controller.InsertProductHandler());
-	    handlerHash.put("/modify_product.html", new es.uc3m.ecommerce.controller.ModifyProductHandler(true));
-	    handlerHash.put("/deleteProduct.html", new es.uc3m.ecommerce.controller.ModifyProductHandler(false));
-	    handlerHash.put("/modif_product.html", new es.uc3m.ecommerce.controller.ShowProductForModifyHandler());    
+	    handlerHash.put("/modifyUser.html", new ModifyProfileHandler(true));
+	    handlerHash.put("/deleteUser.html", new ModifyProfileHandler(false));
+	    handlerHash.put("/product_list_seller.html", new ShowMyProductListHandler());
+	    handlerHash.put("/insert_product.html", new InsertProductHandler());
+	    handlerHash.put("/modify_product.html", new ModifyProductHandler(true));
+	    handlerHash.put("/deleteProduct.html", new ModifyProductHandler(false));
+	    handlerHash.put("/modif_product.html", new ShowProductForModifyHandler());    
 	    handlerHash.put("/shop.html", new ShowAllProductsHandler());
 	    handlerHash.put("/search.html", new SearchHandler());
+	    handlerHash.put("/advanced_search.html", new AdvancedSearchHandler());
 	    handlerHash.put("/product.html", new ShowProductHandler());
 	    handlerHash.put("/sendOrderMessage.html", new SendOrderMessageHandler());
 
-	    handlerHash.put("/product.html", new ShowProductHandler());
 	    // Cart requests
 	    handlerHash.put("/cart.html", new CartRequestHandler());
 	    handlerHash.put("/remove_from_cart.html", new CartRequestHandler());
@@ -87,7 +87,7 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/add_to_wishlist.html", new WishlistRequestHandler());
 	    handlerHash.put("/checkout.html", new CheckoutRequestHandler());
 
-	    // handlerHash.put("/sendMessages.html", new es.uc3m.ecommerce.controller.SendMessageQueueHandler());
+	    // Handlers para los mensajes
 	    handlerHash.put("/sendMessageToSeller.html", new SendMessageHandler(true));
 	    handlerHash.put("/sendMessageBroadcast.html", new SendMessageHandler(false));
 	    handlerHash.put("/readMessage.html", new ReadMessageHandler());
