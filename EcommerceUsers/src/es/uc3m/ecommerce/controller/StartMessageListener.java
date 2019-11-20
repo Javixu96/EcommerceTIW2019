@@ -1,25 +1,40 @@
 package es.uc3m.ecommerce.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.jms.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import es.uc3m.ecommerce.manager.MessageManager;
+import es.uc3m.ecommerce.manager.ProductManager;
+import es.uc3m.ecommerce.manager.PurchaseManager;
+import es.uc3m.ecommerce.manager.UserManager;
+import es.uc3m.ecommerce.model.Appuser;
+import es.uc3m.ecommerce.model.Product;
 import es.uc3m.ecommerce.model.Purchas;
 
 public class StartMessageListener implements MessageListener {
 
 	MessageManager messageManager;
+	PurchaseManager purchaseManager;
+	UserManager userManager;
+	ProductManager productManager;
 	ConnectionFactory tiwconnectionfactory;
 	Queue queue;
 	Connection con;
 	Session ses;
 	MessageConsumer consumer;
 	
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		return "";
+	}
 	public void start() throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
@@ -48,20 +63,6 @@ public class StartMessageListener implements MessageListener {
 				System.out.println(
 					"JHC *************************************** Error in doPost: "
 						+ e);
-				System.out.println(
-					"JHC *************************************** Error MQ: "
-						+ e.getLinkedException().getMessage());
-				System.out.println(
-					"JHC *************************************** Error MQ: "
-						+ e.getLinkedException().toString());		
-				System.out.println(" Error when sending the message</BR>");
-		
-				
-			}catch (Exception e) {
-				System.out.println(
-					"JHC *************************************** Error in doPost: "
-						+ e.toString());
-				System.out.println(" Error when sending the message</BR>");
 		}
 		// return "orderConfirmed.jsp";
 	}
@@ -69,27 +70,75 @@ public class StartMessageListener implements MessageListener {
 	@Override
 	public void onMessage(Message message) {
 		// TODO Auto-generated method stub
+		if (message != null ) {
+			
+			if (message instanceof MapMessage) {
+			
+				MapMessage m = (MapMessage) message;
+				int randomNumber = 10000 + new Random().nextInt(90000);
+				
+				try {
+				
+				int buyerId = m.getInt("buyer");
+				int size = m.getInt("size");
+				
+				for(int i = 0; i < size; i ++) {
+					System.out.println("aaaaaaaaaaaaaaaa"+size);
+					
+					Purchas order = new Purchas();
+					
+					int productId=m.getInt("cartList"+i);
+					System.out.println(productId);
+					
+					Product product=productManager.findById(productId);
+					System.out.println(product.getProductName());
+					order.setProduct(product);
+					System.out.println("cccccccccccccccc");
+					
+					int cantidad=m.getInt("cartQuantity"+i);
+					System.out.println(cantidad);
+					order.setProductQuantity(cantidad);					
+					System.out.println("ddddddddddddd");
+					
+					
+					order.setAppuser(userManager.getUserById(buyerId));
+					System.out.println("eeeeeeeeeeee");
+					
+					
+					order.setConfirmationCode(randomNumber);
+					
+					try {
+						System.out.println(order.getProductQuantity());
+						purchaseManager.create(order);
+					} catch (Exception e) {
+								// TODO Auto-generated catch block
+						e.printStackTrace();
+						
+					}
+				}
+				} catch (JMSException e1) {
+					// TODO Auto-generated catch block
+					System.out.println(
+							"JHC *************************************** Error in doPost: "
+								+ e1);
+						System.out.println(
+							"JHC *************************************** Error MQ: "
+								+ e1.getLinkedException().getMessage());
+						System.out.println(
+							"JHC *************************************** Error MQ: "
+								+ e1.getLinkedException().toString());		
+						System.out.println(" Error when sending the message</BR>");
+				
+				}
 
-		if (message != null) {
-			MapMessage map = (MapMessage) message;
-			
-			try {
-				System.out.println("       Message: "+ map.getString("card") + " </br>");
-			} catch (JMSException e) {
-				// TODO Auto-generated catch block
-				System.out.println("error");
-				e.printStackTrace();
+				} 
 			}
-					
-			Purchas order = new Purchas();
-			int randomNumber = 10000 + new Random().nextInt(90000);
-					
-			order.setConfirmationCode(randomNumber);
-			
+		
+	
 			// SAVE CONFIRMATION CODE TO BBDD
 			//
 			//
-		} 
+		
 	}
 	
 	public void stop() throws JMSException {
@@ -102,4 +151,61 @@ public class StartMessageListener implements MessageListener {
 		// Close the producer
 		consumer.close();
 	}
+	/*
+	if (message instanceof MapMessage) {
+		MapMessage m = (MapMessage) message;
+		try {
+			List<Product> cartList = (List<Product>)m.getObject("cartList");
+			List<Integer> cartQuantities = (List<Integer>) m.getObject("cartQuantities");
+			Appuser buyer = (Appuser)m.getObject("buyer");
+			int randomNumber = 10000 + new Random().nextInt(90000);
+			System.out.println("bbbbbbbbbbbbbbbbbbbbbb");
+			
+			for(int i = 0; i < cartList.size(); i ++) {
+				Purchas order = new Purchas();
+				order.setProduct(cartList.get(i));
+				order.setProductQuantity(cartQuantities.get(i));
+				order.setAppuser(buyer);
+				order.setConfirmationCode(randomNumber);
+				try {
+					purchaseManager.create(order);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			
+		} catch (JMSException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}else
+		*/
+	/*
+				try {	
+					if(m.getStringProperty("id").equals("buyer")) {
+						System.out.println("BuyerReady");
+						System.out.println("buyer"+buyerReady);
+						System.out.println("list"+cartListReady);
+						System.out.println("cantidad" +cartQuantitiesReady);
+						buyer=(Appuser)m.getObject();
+						buyerReady=true;
+					}else if (m.getStringProperty("id").equals("cartList")) {
+						System.out.println("listReady");
+						System.out.println("buyer"+buyerReady);
+						System.out.println("list"+cartListReady);
+						System.out.println("cantidad" +cartQuantitiesReady);
+						cartList = (List<Product>)m.getObject();
+						cartListReady=true;
+					}else if (m.getStringProperty("id").equals("cartQuantities")) {
+						System.out.println("cantidadready");
+						System.out.println("buyer"+buyerReady);
+						System.out.println("list"+cartListReady);
+						System.out.println("cantidad" +cartQuantitiesReady);
+						cartQuantities = (List<Integer>) m.getObject();
+						cartQuantitiesReady=true;
+					}
+					*/
 }

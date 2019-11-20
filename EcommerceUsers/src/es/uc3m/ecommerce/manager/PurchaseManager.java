@@ -66,4 +66,24 @@ public class PurchaseManager {
 		
 		return result;
 	}
+	
+	public void create(Purchas purchas) throws Exception {
+		try {
+			ut.begin();
+			em.persist(purchas);
+			ut.commit();
+		} catch (Exception ex) {
+			try {
+				if (em.getTransaction().isActive()) {
+					em.getTransaction().rollback();
+				}
+			} catch (Exception e) {
+				ex.printStackTrace();
+				throw e;
+			}
+			throw ex;
+		} finally {
+			em.close();
+		}
+	}
 }

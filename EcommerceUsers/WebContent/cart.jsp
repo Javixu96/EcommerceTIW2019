@@ -107,9 +107,11 @@
 								<div id="order_total_amount" class="order_total_amount"><%=session.getAttribute("cartTotal") %>&euro;</div>
 							</div>
 						</div> 
+						<form action="checkout.jsp">
 						<div class="cart_buttons">
-							<button type="button" class="button cart_button_checkout" onclick="submitForms()"> Finalizar compra</button>	
-						</div>						
+							<button type="submit" class="button cart_button_checkout"> Confirmar compra</button>	
+						</div>
+						</form>						
 					<% } %>		
 					</div>
 				</div>
