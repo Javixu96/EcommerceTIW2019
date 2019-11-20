@@ -17,10 +17,44 @@ import es.uc3m.ecommerce.model.Product;
 import es.uc3m.ecommerce.model.Category;
 
 public class ShowMsg1to1Handler implements IHandler {
-
+	
+	private boolean sellerOrTo1;
+	
+	public ShowMsg1to1Handler (boolean sellerOrTo1) {
+		this.sellerOrTo1 = sellerOrTo1;
+	}
+	
 	@Override
-	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public String handleRequest(HttpServletRequest request, HttpServletResponse res) throws ServletException, IOException {
+		return sellerOrTo1 ? processToSeller(request,res) : processTo1(request);
+	}
+
+
+	public String processToSeller(HttpServletRequest request,HttpServletResponse res){
+		// TODO Auto-generated method stub	
+		
+		String viewURL = null; 
+		
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("user") == null) {	
+			
+			try {
+				viewURL = new ForbiddenPageHandler().handleRequest(request, res);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return viewURL;
+		}else {
+			return "messages_1to1.jsp";
+		}
+	}
+	
+	public String processTo1(HttpServletRequest request){
 		// TODO Auto-generated method stub				
 		
 		int counter=Integer.parseInt(request.getParameter("contadorMsg"));

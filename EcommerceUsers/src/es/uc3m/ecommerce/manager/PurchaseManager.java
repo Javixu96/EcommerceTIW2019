@@ -46,10 +46,11 @@ public class PurchaseManager {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Integer> findAllConfirmationCode() {
+	public List<Integer> findAllConfirmationCode(Appuser user) {
 		List<Integer> result;
 
 		Query query = em.createNamedQuery("Purchas.findAllConfirmationCode",Product.class);
+		query.setParameter("user", user);	
 		result = query.getResultList();
 		
 		return result;

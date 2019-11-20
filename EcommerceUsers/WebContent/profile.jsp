@@ -79,9 +79,6 @@
 									<% 
 									}
 									%>
-									<div class="profile_dive_name" style="margin-left:30px;margin-top:20px;">
-										 <h5><b><a href="./readBrowserMessage.html">Ver mis notificaiones</a></b></h5>
-									</div>
 								</div>	
 								<div class="div_profile_right">
 
@@ -90,6 +87,13 @@
 									<input type="text" name ="profile_surnames" id="contact_form_surname" class="profile_form input_field" placeholder="Apellidos" required="required" data-error="Campo obligatorio."value=<% out.println(user.getUserSurnames()); %>>
 									<input type="text" name ="profile_email" id="contact_form_email" class="profile_form input_field" placeholder="Nº de teléfono"required="required"  value=<% out.println(user.getEmail()); %>>
 									<input type="text" name ="profile_address" id="contact_form_direction" class="profile_form input_field" placeholder="Dirección de envío" required="required" data-error="Campo obligatorio."value=<% out.println(user.getPostalAddress()); %>>
+									<div class="profile_dive_name" style="margin-left:30px;margin-top:3px;">
+										 <h5><b><a href="./readBrowserMessage.html">Ver mis notificaiones</a></b></h5>
+									</div>
+									
+									<div class="profile_dive_name" style="margin-left:30px;margin-top:20px;">
+										 <h5><b><a href="./purchase_list.html">Ver mis pedidos</a></b></h5>
+									</div>
 								</div>	
 							</div>						
 						

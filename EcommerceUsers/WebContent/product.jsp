@@ -89,7 +89,7 @@
      						<c:param name="productQuantity" value="${document.getElementById('quantity_input').value}"/>  
     	 					</c:url>" class="btn btn-rounded btn-info"> A�adir al carrito</a> -->
 						</form> 
-						<form action="messages_1to1.jsp" method="post">
+						<form action="sendeMessageToSeller.html" method="post">
 						<% HttpSession ses = request.getSession();
 						   ses.setAttribute("sender",product.getAppuser()); %>
 						<div class="cart_buttons">

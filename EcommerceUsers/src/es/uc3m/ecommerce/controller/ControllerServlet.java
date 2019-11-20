@@ -97,8 +97,8 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/readBrowserMessage.html", new ReadBrowserMessageHandler());
 	    handlerHash.put("/purchase_list.html", new ShowAllPurchasesHandler());
 	    handlerHash.put("/purchase.html", new ShowPurchaseHandler());
-	    handlerHash.put("/showMsg1to1.html", new ShowMsg1to1Handler());
-	    
+	    handlerHash.put("/showMsg1to1.html", new ShowMsg1to1Handler(false));    
+	    handlerHash.put("/sendeMessageToSeller.html", new ShowMsg1to1Handler(true));
 
 	    servletContext = getServletConfig().getServletContext();
 	    servletContext.setAttribute("categoryTree", getCategoryTree());

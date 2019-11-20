@@ -28,7 +28,7 @@ public class MessageManager {
 			// Context ctx = (Context) initCtx.lookup("java:comp");
 			connectionfactory = (ConnectionFactory) ctx.lookup("tiwconnectionfactory");
 
-			queue = (Queue) ctx.lookup("EcommerceQueue");
+			queue = (Queue) ctx.lookup("ecommercequeue");
 			topic = (Topic) ctx.lookup("EcommerceTopic");
 
 		} catch (NamingException e) {
