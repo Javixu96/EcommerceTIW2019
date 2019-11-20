@@ -30,35 +30,32 @@ public class RegisterRequestHandler implements IHandler {
 		
 		UserManager manager = new UserManager();
 
+		// Tomo los parametros del form de register
 		String introducedName = request.getParameter("register_name");
 		String introducedSurname = request.getParameter("register_surname");
 		String introducedAddress = request.getParameter("register_address");
 		String introducedEmail = request.getParameter("register_email");
 		String introducedPassword = request.getParameter("register_password");
 		int introducedRole = Integer.parseInt(request.getParameter("register_role"));
-				
-		System.out.println("introduced values");
-		System.out.println(introducedName);
-		System.out.println(introducedSurname);
-		System.out.println(introducedAddress);
-		System.out.println("email" + introducedEmail);
-		System.out.println(introducedPassword);
-
+			
+		// Retorno la lista de usuarios que tienen ese email (debería ser 0 o 1)
 		List<Appuser> userListByName = manager.findByEmail(introducedEmail);
 		System.out.println("UserListByName returned by manager when checking if email already registered is size " + userListByName.size());
+		
+		// Si el email ya esta registrado
 		if(userListByName.size() != 0) {
-			// Email already registered -> redirect to register.jsp with JS warning
+			// Redirijo a register.jsp con un mensaje marcado con un atributo de request 
 			System.out.println("Email already registered");
 			request.setAttribute("alreadyRegisteredError", 1);
 			viewURL = "register.jsp";
+		// Si el email no está registrado
 		} else {
 			System.out.println("Email free");
 			// El id se genera automaticamente cuando se pone una nueva tupla en la tabla 
 			manager.insert(introducedName, introducedSurname, introducedAddress, introducedEmail, introducedPassword, introducedRole);
 			
-			// Registration complete -> redirect to login.jsp with JS suggestion
+			// Registro completado con exito -> redirijo al login con un mensaje basado en un atributo de request
 			request.setAttribute("registrationSuccess", 1);
-			//System.out.println("Registration success. Now " + manager.findByEmail(introducedEmail).getEmail() + " is registered");
 			viewURL = "login.jsp";
 		}
 		return viewURL;

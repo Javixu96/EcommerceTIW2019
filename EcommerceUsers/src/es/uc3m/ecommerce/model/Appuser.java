@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * The persistent class for the appusers database table.
- * 
+ * Comentarios en la app de ADMIN
  */
 @Entity
 @Table(name="appusers")

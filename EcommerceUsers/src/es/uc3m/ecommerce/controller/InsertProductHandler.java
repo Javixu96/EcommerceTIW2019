@@ -17,7 +17,6 @@ public class InsertProductHandler implements IHandler {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		ProductManager im = new ProductManager();
 		CategoryManager ca = new CategoryManager();
 		//Obtener el usuario de la sesion

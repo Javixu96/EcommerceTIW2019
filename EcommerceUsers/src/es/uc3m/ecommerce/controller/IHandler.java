@@ -20,8 +20,7 @@ import javax.servlet.http.*;
 
 public interface IHandler {
   /**
-   * (probably a JSP), or null to indicate that the response has been
-   * generated already and processing is complete.
+   * Interfaz que siguen todos los handlers. Devuelve la vista a la que redirigir, o nulo si hay error
    */
 
   String handleRequest(HttpServletRequest request, 
