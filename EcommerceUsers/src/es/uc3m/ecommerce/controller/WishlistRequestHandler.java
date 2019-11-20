@@ -40,12 +40,12 @@ public class WishlistRequestHandler implements IHandler{
 			List<Product> wishlistList;
 			int wishlistTotal; 
 
-			// Si el usuario todavÃ­a no ha usado el carro, creamos su atributo de sesiÃ³n con los productos y cantidades del carro vacÃ­os
+			// Si el usuario todavía no ha usado el carro, creamos su atributo de sesión con los productos y cantidades del carro vacíos
 			if(session.getAttribute("wishlistList") == null) {
 				wishlistList = new ArrayList<Product>();
 				wishlistTotal = 0; 
 
-			// Si el usuario ya ha usado el carro, los atributos de sesiÃ³n ya existen
+			// Si el usuario ya ha usado el carro, los atributos de sesión ya existen
 			} else {
 				wishlistList = (List<Product>) session.getAttribute("wishlistList");
 				wishlistTotal = (int) session.getAttribute("wishlistTotal");
@@ -79,7 +79,7 @@ public class WishlistRequestHandler implements IHandler{
 					System.out.println("Producto en wishlist: " + runner.getProductName());
 				}
 				
-			// ACTION = 2 - AÃ‘ADIR PRODUCTO A WISHLIST	
+			// ACTION = 2 - AÑADIR PRODUCTO A WISHLIST	
 			} else if(action == 2) {
 				
 				System.out.println("ACTION = ADD");
@@ -88,7 +88,7 @@ public class WishlistRequestHandler implements IHandler{
 				ProductManager pManager = new ProductManager();
 				Product p = pManager.findById(id);
 
-				// AÃ±adimos el nuevo producto a la lista wishlistList
+				// Añadimos el nuevo producto a la lista wishlistList
 				wishlistList.add(p);
 				request.setAttribute("product", p);
 				request.setAttribute("productId", p.getProductId());
@@ -96,7 +96,7 @@ public class WishlistRequestHandler implements IHandler{
 				
 				// Sumamos el nuevo producto a la cuenta global de productos en wishlist
 				wishlistTotal ++;
-				// Retornamos la vista de producto de nuevo pero se actualizarÃ¡ el header con los nuevos atributos de sesiÃ³n
+				// Retornamos la vista de producto de nuevo pero se actualizará el header con los nuevos atributos de sesión
 				viewURL = "product.jsp";
 				
 				for(Product runner: wishlistList) {

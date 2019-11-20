@@ -112,7 +112,7 @@
 										<div class="product_name"><%=product.getProductName() %></div>
 										<form action="product.html" method="get">
 											<input type="hidden" name="productId" id="productId" value="<%=product.getProductId()%>">
-											<button type="submit">Ver</button>
+											<button type="submit">See product</button>
 										</form>						
 									</div>
 								<div class="product_fav"><i class="fas fa-heart"></i></div><!-- A�adir aqu� c�mo cargar en la wishlist -->

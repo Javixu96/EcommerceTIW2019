@@ -27,11 +27,10 @@ public class ShowProductHandler implements IHandler {
 		ProductManager productManager = new ProductManager();
 		Product product = productManager.findById(productId);
 		
-		System.out.println("El producto que se quiere ver es: " + product.getProductName());
+		System.out.println("El producto que se esta viendo es: " + product.getProductName());
 		
 		request.setAttribute("product", product);
-		request.setAttribute("productId", product.getProductId());
-
+	
 		viewURL = "product.jsp";
 		
 		return viewURL;

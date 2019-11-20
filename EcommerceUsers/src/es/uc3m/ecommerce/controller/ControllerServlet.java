@@ -61,6 +61,23 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/loggingin.html", new LoginRequestHandler());
 	    handlerHash.put("/registering.html", new RegisterRequestHandler());	 
 	    handlerHash.put("/loggingout.html", new LoginRequestHandler());	 
+
+	    handlerHash.put("/profile.html", new ShowProfileHandler());
+	    handlerHash.put("/modifyUser.html", new es.uc3m.ecommerce.controller.ModifyProfileHandler(true));
+	    handlerHash.put("/deleteUser.html", new es.uc3m.ecommerce.controller.ModifyProfileHandler(false));
+	    handlerHash.put("/product_list_seller.html", new es.uc3m.ecommerce.controller.ShowMyProductListHandler());
+	    handlerHash.put("/insert_product.html", new es.uc3m.ecommerce.controller.InsertProductHandler());
+	    handlerHash.put("/modify_product.html", new es.uc3m.ecommerce.controller.ModifyProductHandler(true));
+	    handlerHash.put("/deleteProduct.html", new es.uc3m.ecommerce.controller.ModifyProductHandler(false));
+	    handlerHash.put("/modif_product.html", new es.uc3m.ecommerce.controller.ShowProductForModifyHandler());    
+	    handlerHash.put("/shop.html", new ShowAllProductsHandler());
+	    handlerHash.put("/search.html", new SearchHandler());
+	    handlerHash.put("/product.html", new ShowProductHandler());
+	    handlerHash.put("/wishlist.html", new WishlistRequestHandler());	
+	    handlerHash.put("/cart.html", new CartRequestHandler());
+	    handlerHash.put("/add_to_cart.html", new AddCartRequestHandler());
+	    handlerHash.put("/sendOrderMessage.html", new SendOrderMessageHandler());
+
 	    handlerHash.put("/product.html", new ShowProductHandler());
 	    // Cart requests
 	    handlerHash.put("/cart.html", new AddCartRequestHandler());
@@ -73,33 +90,14 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/add_to_wishlist.html", new WishlistRequestHandler());
 	    handlerHash.put("/checkout.html", new CheckoutRequestHandler());
 
-
-	    handlerHash.put("/profile.html", new ShowProfileHandler());
-	    handlerHash.put("/modifyUser.html", new es.uc3m.ecommerce.controller.ModifyProfileHandler(true));
-	    handlerHash.put("/deleteUser.html", new es.uc3m.ecommerce.controller.ModifyProfileHandler(false));
-	    handlerHash.put("/product_list_seller.html", new es.uc3m.ecommerce.controller.ShowMyProductListHandler());
-	    handlerHash.put("/insert_product.html", new es.uc3m.ecommerce.controller.InsertProductHandler());
-	    handlerHash.put("/modify_product.html", new es.uc3m.ecommerce.controller.ModifyProductHandler(true));
-	    handlerHash.put("/deleteProduct.html", new es.uc3m.ecommerce.controller.ModifyProductHandler(false));
-	    handlerHash.put("/modif_product.html", new es.uc3m.ecommerce.controller.ShowProductForModifyHandler());    
-	    handlerHash.put("/shop.html", new ShowAllProductsHandler());
-	    handlerHash.put("/search.html", new SearchHandler());
-	    handlerHash.put("/sendOrderMessage.html", new SendOrderMessageHandler());
-
 	    // handlerHash.put("/sendMessages.html", new es.uc3m.ecommerce.controller.SendMessageQueueHandler());
-	    handlerHash.put("/sendMessageToSeller.html", new SendMessageHandler());
+	    handlerHash.put("/sendMessageToSeller.html", new SendMessageHandler(true));
+	    handlerHash.put("/sendMessageBroadcast.html", new SendMessageHandler(false));
 	    handlerHash.put("/readMessage.html", new ReadMessageHandler());
 	    handlerHash.put("/readBrowserMessage.html", new ReadBrowserMessageHandler());
-	    
-<<<<<<< HEAD
 	    handlerHash.put("/purchase_list.html", new ShowAllPurchasesHandler());
 	    handlerHash.put("/purchase.html", new ShowPurchaseHandler());
-	    
-	    servletContext = getServletConfig().getServletContext();
-	    setServletContextUtils();
-=======
 	    handlerHash.put("/showMsg1to1.html", new ShowMsg1to1Handler());
->>>>>>> marta
 	    
 
 	    servletContext = getServletConfig().getServletContext();

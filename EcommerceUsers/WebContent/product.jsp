@@ -76,23 +76,30 @@
 								
 							</div>
 							<%if(request.getAttribute("newProductAdded") != null) { %>
-								<span>Este producto ha sido añadido a tu carrito</span>
+								<span>Este producto ha sido aï¿½adido a tu carrito</span>
 							<% } %>
 							<div class="button_container">
 								<input type="hidden" name="productId" id="productId" value="${product.getProductId()}">
 								<input type="hidden" name="action" id="action" value="2">
-								<input type="submit" value="Añadir al carrito">	
+								<input type="submit" value="Aï¿½adir al carrito">	
 							</div>	
 						<!-- <a href="<c:url value="add_to_cart.html">
 						    <c:param name="action" value="2"/>
      						<c:param name="productId" value="${product.getProductId()}"/>
      						<c:param name="productQuantity" value="${document.getElementById('quantity_input').value}"/>  
-    	 					</c:url>" class="btn btn-rounded btn-info"> Añadir al carrito</a> -->
+    	 					</c:url>" class="btn btn-rounded btn-info"> Aï¿½adir al carrito</a> -->
 						</form> 
+						<form action="messages_1to1.jsp" method="post">
+						<% HttpSession ses = request.getSession();
+						   ses.setAttribute("sender",product.getAppuser()); %>
+						<div class="cart_buttons">
+							<button type="submit" class="button cart_button_checkout">Mensaje al vendedor</button>
+						</div>
+						</form>
 						<a href="<c:url value="wishlist.html">
 						    <c:param name="action" value="2"/>
      						<c:param name="productId" value="${product.getProductId()}"/>
-    	 					</c:url>" class="btn btn-rounded btn-info"> Añadir a mi Wishlist</a>
+    	 					</c:url>" class="btn btn-rounded btn-info"> Aï¿½adir a mi Wishlist</a>
 						</div>
 					</div>
 				</div>
@@ -259,5 +266,4 @@
 <script src="plugins/easing/easing.js"></script>
 <script src="js/product_custom.js"></script>
 </body>
-
 </html>

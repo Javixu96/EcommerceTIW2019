@@ -20,14 +20,14 @@ public class InsertProductHandler implements IHandler {
 		// TODO Auto-generated method stub
 		ProductManager im = new ProductManager();
 		CategoryManager ca = new CategoryManager();
+		//Obtener el usuario de la sesion
 		HttpSession session = request.getSession();
 		Appuser appuser = (Appuser) session.getAttribute("user");
 		
-		
+		//Crear un nuevo producto
 		Product product = new Product();
-		// Getting the image (file)
-		Part filePart = request.getPart("fileToUpload");
 
+		//Asignarle las propiedades recogidos por los input de la vista
 		String productName = request.getParameter("product_name");
 		String shortDescription = request.getParameter("pShortDesc");
 		String longDescription = request.getParameter("pLongDesc");
@@ -39,18 +39,21 @@ public class InsertProductHandler implements IHandler {
 		product.setLongDesc(longDescription);
 		product.setPrice(price);
 		product.setStock(stock);
-
+		
+		//foto
+		Part filePart = request.getPart("fileToUpload");
 	    byte[] data = new byte[(int) filePart.getSize()];
 	    filePart.getInputStream().read(data, 0, data.length);
-	    // i2.setTitulo(request.getParameter("titulo"));
 		product.setProductPicture(data);
 	    
+		//categoria
 	    String productCategory= request.getParameter("subcategory");
 	    product.setCategoryBean(ca.findByName(productCategory));
 	    
+	    //el propietario o seller
 		product.setAppuser(appuser);
 		
-		
+		//crear el producto con persist()
 		try {
 			im.create(product);
 		} catch (Exception e) {
@@ -58,7 +61,6 @@ public class InsertProductHandler implements IHandler {
 			e.printStackTrace();
 		}
 
-		// response.sendRedirect("controlador");
 		return "product_list_seller.html";
 	}
 

@@ -47,13 +47,13 @@ public class AddCartRequestHandler implements IHandler{
 			List<Integer> cartQuantities;
 			int cartTotal = 0; 
 
-			// Si el usuario todavÃ­a no ha usado el carro, creamos su atributo de sesiÃ³n con los productos y cantidades del carro vacÃ­os
+			// Si el usuario todavía no ha usado el carro, creamos su atributo de sesión con los productos y cantidades del carro vacíos
 			if(session.getAttribute("cartList") == null) {
 				cartList = new ArrayList<Product>();
 				cartQuantities = new ArrayList<Integer>();
 				session.setAttribute("cartTotal", 0);
 
-			// Si el usuario ya ha usado el carro, los atributos de sesiÃ³n ya existen
+			// Si el usuario ya ha usado el carro, los atributos de sesión ya existen
 			} else {
 				cartList = (List<Product>) session.getAttribute("cartList");
 				cartQuantities = (List<Integer>) session.getAttribute("cartQuantities");
@@ -83,16 +83,16 @@ public class AddCartRequestHandler implements IHandler{
 				viewURL = "cart.jsp";
 				
 
-			// ACTION = 2 - AÃ‘ADIR PRODUCTO AL CARRO	
+			// ACTION = 2 - AÑADIR PRODUCTO AL CARRO	
 			} else if(action == 2) {
 				
 				System.out.println("ACTION = ADD");
-				// Tomamos el ID del producto a aÃ±adir de los parametros enviados con la request
+				// Tomamos el ID del producto a añadir de los parametros enviados con la request
 				int id = Integer.parseInt(productId);
 				ProductManager pManager = new ProductManager();
 				Product p = pManager.findById(id);
 
-				// AÃ±adimos el nuevo producto a la lista cartList
+				// Añadimos el nuevo producto a la lista cartList
 				cartList.add(p);
 
 				// Generamos atributos de request para pintar la vista de este mismo producto con un mensaje 
@@ -100,14 +100,14 @@ public class AddCartRequestHandler implements IHandler{
 				request.setAttribute("productId", p.getProductId());
 				request.setAttribute("newProductAdded", 1);
 				
-				// AÃ±adimos la cantidad deseada a la lista cartQuantities (en la misma posiciÃ³n que su producto al que se refiere)
+				// Añadimos la cantidad deseada a la lista cartQuantities (en la misma posición que su producto al que se refiere)
 				int q = Integer.parseInt(request.getParameter("quantity_input"));
 				//int q = (int) request.getAttribute("quantity_input");
 				cartQuantities.add(q);
 				
 				// Sumamos el nuevo producto a la cuenta global de productos en cart
 				cartTotal = cartTotal + (q * p.getPrice());
-				// Retornamos la vista de producto de nuevo pero se actualizarÃ¡ el header con los nuevos atributos de sesiÃ³n
+				// Retornamos la vista de producto de nuevo pero se actualizará el header con los nuevos atributos de sesión
 				viewURL = "product.jsp";
 				
 				for(int i = 0; i < cartList.size(); i ++) {
@@ -116,7 +116,7 @@ public class AddCartRequestHandler implements IHandler{
 
 				}
 				
-			// ACTION = 0 - ENSEÃ‘AR CARRITO
+			// ACTION = 0 - ENSEÑAR CARRITO
 			} else if(action == 0) {
 				
 				System.out.println("ACTION = JUST SHOW");
@@ -152,9 +152,9 @@ public class AddCartRequestHandler implements IHandler{
 				} else if(operation == 1) {
 					q++;
 					cartTotal = cartTotal + product.getPrice();
-				// Error en parÃ¡metro operation
+				// Error en parámetro operation
 				} else {
-					System.out.println("Error de parÃ¡metro operation en action 3  -  edit_cart.html");
+					System.out.println("Error de parámetro operation en action 3  -  edit_cart.html");
 				}
 				
 				cartQuantities.set(index, q);

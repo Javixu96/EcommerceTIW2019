@@ -126,12 +126,12 @@
 					<div class="newsletter_container d-flex flex-lg-row flex-column align-items-lg-center align-items-center justify-content-lg-start justify-content-center">
 						<div class="newsletter_title_container">
 							<div class="newsletter_icon"><img src="images/send.png" alt=""></div>
-							<div class="newsletter_title">SuscrÃ­bete a nuestra newsletter</div>
-							<div class="newsletter_text"><p>...y obtÃ©n un cupÃ³n descuento del 20% para la 1Âª compra.</p></div>
+							<div class="newsletter_title">Suscríbete a nuestra newsletter</div>
+							<div class="newsletter_text"><p>...y obtén un cupón descuento del 20% para la 1ª compra.</p></div>
 						</div>
 						<div class="newsletter_content clearfix">
 							<form action="#" class="newsletter_form">
-								<input type="email" class="newsletter_input" required="required" placeholder="Introduce tu correo electrÃ³nico">
+								<input type="email" class="newsletter_input" required="required" placeholder="Introduce tu correo electrónico">
 								<button class="newsletter_button">Suscribirse</button>
 							</form>
 						</div>
