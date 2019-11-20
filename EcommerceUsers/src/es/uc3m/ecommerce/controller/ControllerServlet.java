@@ -25,7 +25,7 @@ import java.util.List;
 
 /*
  * Servlet que se encarga de escuchar todas las URL que acaban en .html y llamar al handler correspondiente, 
- * que redirigirá a la vista a cargar, después de haber realizado las operaciones necesarias
+ * que redirigira a la vista a cargar, después de haber realizado las operaciones necesarias
  * 
 */
 
@@ -96,7 +96,6 @@ public class ControllerServlet extends HttpServlet {
 	    // Wishlist 
 	    handlerHash.put("/wishlist.html", new WishlistRequestHandler());	
 	    handlerHash.put("/add_to_wishlist.html", new WishlistRequestHandler());
-	    handlerHash.put("/checkout.html", new CheckoutRequestHandler());
 
 	    // Handlers para los mensajes
 	    handlerHash.put("/sendMessageToSeller.html", new SendMessageHandler(true));

@@ -18,7 +18,16 @@ import es.uc3m.ecommerce.manager.UserManager;
 import es.uc3m.ecommerce.model.Appuser;
 import es.uc3m.ecommerce.model.Product;
 import es.uc3m.ecommerce.model.Purchas;
-
+/*
+ * 
+ * 
+ Este codigo no funciona correctamente debido un error 
+ de JMS:DirectConsumer:Caught Exception delivering, 
+ en la parte de OnMessage(), concretamente en m.getInt();
+ * 
+ * 
+ * 
+ */
 public class StartMessageListener implements MessageListener {
 
 	MessageManager messageManager;
@@ -30,11 +39,7 @@ public class StartMessageListener implements MessageListener {
 	Connection con;
 	Session ses;
 	MessageConsumer consumer;
-	
-	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		return "";
-	}
+	//start
 	public void start() throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
@@ -68,54 +73,51 @@ public class StartMessageListener implements MessageListener {
 	}
 
 	@Override
+	//cuando recibe un mensaje 
 	public void onMessage(Message message) {
 		// TODO Auto-generated method stub
 		if (message != null ) {
-			
+			// si es de tipo mapmessage
 			if (message instanceof MapMessage) {
 			
 				MapMessage m = (MapMessage) message;
+				//genera el codigo de confiramcion
 				int randomNumber = 10000 + new Random().nextInt(90000);
 				
 				try {
-				
-				int buyerId = m.getInt("buyer");
-				int size = m.getInt("size");
-				
-				for(int i = 0; i < size; i ++) {
-					System.out.println("aaaaaaaaaaaaaaaa"+size);
-					
-					Purchas order = new Purchas();
-					
-					int productId=m.getInt("cartList"+i);
-					System.out.println(productId);
-					
-					Product product=productManager.findById(productId);
-					System.out.println(product.getProductName());
-					order.setProduct(product);
-					System.out.println("cccccccccccccccc");
-					
-					int cantidad=m.getInt("cartQuantity"+i);
-					System.out.println(cantidad);
-					order.setProductQuantity(cantidad);					
-					System.out.println("ddddddddddddd");
-					
-					
-					order.setAppuser(userManager.getUserById(buyerId));
-					System.out.println("eeeeeeeeeeee");
-					
-					
-					order.setConfirmationCode(randomNumber);
-					
-					try {
-						System.out.println(order.getProductQuantity());
-						purchaseManager.create(order);
-					} catch (Exception e) {
-								// TODO Auto-generated catch block
-						e.printStackTrace();
+					//se obtiene el usuario comprador y numero de productos comprados
+					int buyerId = m.getInt("buyer");
+					int size = m.getInt("size");
+					//para cada uno de los productos comprados
+					for(int i = 0; i < size; i ++) {
+						//genera un pedido
+						Purchas order = new Purchas();
+						String cartList="cartList"+i;
+						String cartQuantity="cartQuantity"+i;
 						
+						//se obtiene el producto
+						int productId=m.getInt(cartList);
+						Product product=productManager.findById(productId);
+						order.setProduct(product);
+	
+						//se obtiene la cantidad
+						int cantidad=m.getInt(cartQuantity);
+						order.setProductQuantity(cantidad);									
+						
+						Appuser buyer = userManager.getUserById(buyerId);
+						order.setAppuser(buyer);					
+						
+						order.setConfirmationCode(randomNumber);
+						
+						//generamos el pedido
+						try {
+							purchaseManager.create(order);
+						} catch (Exception e) {
+									// TODO Auto-generated catch block
+							e.printStackTrace();
+							
+						}
 					}
-				}
 				} catch (JMSException e1) {
 					// TODO Auto-generated catch block
 					System.out.println(
@@ -129,16 +131,9 @@ public class StartMessageListener implements MessageListener {
 								+ e1.getLinkedException().toString());		
 						System.out.println(" Error when sending the message</BR>");
 				
-				}
-
-				} 
+				}				
 			}
-		
-	
-			// SAVE CONFIRMATION CODE TO BBDD
-			//
-			//
-		
+		}
 	}
 	
 	public void stop() throws JMSException {
@@ -151,61 +146,4 @@ public class StartMessageListener implements MessageListener {
 		// Close the producer
 		consumer.close();
 	}
-	/*
-	if (message instanceof MapMessage) {
-		MapMessage m = (MapMessage) message;
-		try {
-			List<Product> cartList = (List<Product>)m.getObject("cartList");
-			List<Integer> cartQuantities = (List<Integer>) m.getObject("cartQuantities");
-			Appuser buyer = (Appuser)m.getObject("buyer");
-			int randomNumber = 10000 + new Random().nextInt(90000);
-			System.out.println("bbbbbbbbbbbbbbbbbbbbbb");
-			
-			for(int i = 0; i < cartList.size(); i ++) {
-				Purchas order = new Purchas();
-				order.setProduct(cartList.get(i));
-				order.setProductQuantity(cartQuantities.get(i));
-				order.setAppuser(buyer);
-				order.setConfirmationCode(randomNumber);
-				try {
-					purchaseManager.create(order);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			
-		} catch (JMSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}else
-		*/
-	/*
-				try {	
-					if(m.getStringProperty("id").equals("buyer")) {
-						System.out.println("BuyerReady");
-						System.out.println("buyer"+buyerReady);
-						System.out.println("list"+cartListReady);
-						System.out.println("cantidad" +cartQuantitiesReady);
-						buyer=(Appuser)m.getObject();
-						buyerReady=true;
-					}else if (m.getStringProperty("id").equals("cartList")) {
-						System.out.println("listReady");
-						System.out.println("buyer"+buyerReady);
-						System.out.println("list"+cartListReady);
-						System.out.println("cantidad" +cartQuantitiesReady);
-						cartList = (List<Product>)m.getObject();
-						cartListReady=true;
-					}else if (m.getStringProperty("id").equals("cartQuantities")) {
-						System.out.println("cantidadready");
-						System.out.println("buyer"+buyerReady);
-						System.out.println("list"+cartListReady);
-						System.out.println("cantidad" +cartQuantitiesReady);
-						cartQuantities = (List<Integer>) m.getObject();
-						cartQuantitiesReady=true;
-					}
-					*/
 }
