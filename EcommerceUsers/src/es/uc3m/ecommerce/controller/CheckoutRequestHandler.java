@@ -11,6 +11,9 @@ import javax.servlet.http.HttpSession;
 import es.uc3m.ecommerce.manager.ProductManager;
 import es.uc3m.ecommerce.model.Product;
 
+/*
+* Handler para limpiar el carrito y actualizar stock una vez realizada la compra
+*/
 public class CheckoutRequestHandler implements IHandler{
 
 	@Override

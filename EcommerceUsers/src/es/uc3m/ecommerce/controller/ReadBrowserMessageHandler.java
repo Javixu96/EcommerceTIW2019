@@ -14,40 +14,41 @@ import javax.servlet.http.HttpSession;
 import es.uc3m.ecommerce.manager.MessageManager;
 import es.uc3m.ecommerce.manager.UserManager;
 import es.uc3m.ecommerce.model.Appuser;
-import es.uc3m.ecommerce.model.Purchas;
 
+
+/*
+* Handler para la vista de mensajes en el navegador
+*/
 public class ReadBrowserMessageHandler implements IHandler {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		MessageManager messageManager = new MessageManager();
 		ConnectionFactory tiwconnectionfactory = messageManager.connectionfactory;
 		Queue queue = messageManager.queue;
 		UserManager userManager = new UserManager();
 		try {
-			//Create the connection
+			//Create the connection JMS
 			Connection connection = tiwconnectionfactory.createConnection();
 
 			boolean bTransacted = false;
 
 			int iAcknowledgeMode = Session.CLIENT_ACKNOWLEDGE;
 
-			//Create the session
+			//Create the session JMS
 			Session session = connection.createSession(bTransacted, iAcknowledgeMode);
 			
 			HttpSession ses = request.getSession();
 			Appuser user = (Appuser) ses.getAttribute("user");
 		 		
 			QueueBrowser browser;
-			
+			//Tipo de mensaje: broadcast o dirigido a un usuario concreto
 			String selector = "(type='" + "broadcast" + "') "
 					+ "OR "
 					+ "(sendTo=" + user.getUserId() + ")";
 			
-			System.out.println(selector);
 			browser = session.createBrowser(queue,selector);
 			
 			//Start the connection

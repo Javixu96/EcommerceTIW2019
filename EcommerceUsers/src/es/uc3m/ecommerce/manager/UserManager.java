@@ -14,7 +14,9 @@ import javax.transaction.UserTransaction;
 import es.uc3m.ecommerce.model.Product;
 import es.uc3m.ecommerce.model.Appuser;
 
-
+/*
+* Clase que se encarga de las operaciones contra la tabla Appusers en BD
+*/
 public class UserManager {
 	
 	private EntityManager em;
@@ -40,7 +42,6 @@ public class UserManager {
 			 */
 			ut = (UserTransaction) ctx.lookup("java:comp/UserTransaction");
 		} catch (NamingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -102,13 +103,6 @@ public class UserManager {
 		}
 	}
 	
-	public Appuser getUserById(int id) {
-		
-		Appuser p =em.find(Appuser.class, id);
-		
-		return p;
-
-	}
 	
 	public void modifyUser(Appuser user) throws Exception {
 			ut.begin();
@@ -140,5 +134,13 @@ public class UserManager {
 		List <Appuser> lista = q.getResultList();	
 
 		return lista;	
+	}
+	
+	public Appuser getUserById(int id) {
+		
+		Appuser p =em.find(Appuser.class, id);
+		
+		return p;
+
 	}
 }

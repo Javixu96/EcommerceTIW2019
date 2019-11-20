@@ -12,13 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 import es.uc3m.ecommerce.manager.*;
 import es.uc3m.ecommerce.model.*;
 
+/*
+* Handler que muestra los productos de un pedido determinado al usuario
+*/
 public class ShowPurchaseHandler implements IHandler {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		
+		//se muestran los productos agrupados por pedido (mismo confirmation code)
 		PurchaseManager purchaseManager = new PurchaseManager();
 		Integer code = Integer.parseInt(request.getParameter("confirmationCode"));
 		//se obtiene los pedidos con el mismo confirmationCode

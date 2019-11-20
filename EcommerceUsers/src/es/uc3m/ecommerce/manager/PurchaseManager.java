@@ -14,7 +14,9 @@ import es.uc3m.ecommerce.model.Appuser;
 import es.uc3m.ecommerce.model.Category;
 import es.uc3m.ecommerce.model.Product;
 import es.uc3m.ecommerce.model.Purchas;
-
+/*
+* Clase que se encarga de las operaciones contra la tabla Purchases en BD
+*/
 public class PurchaseManager {
 
 	private EntityManager em;
@@ -40,7 +42,6 @@ public class PurchaseManager {
 			 */
 			ut = (UserTransaction) ctx.lookup("java:comp/UserTransaction");
 		} catch (NamingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -67,6 +68,7 @@ public class PurchaseManager {
 		return result;
 	}
 	
+	//las ordenes solo se crean, no se pueden borrar ni modificar
 	public void create(Purchas purchas) throws Exception {
 		try {
 			ut.begin();

@@ -12,6 +12,9 @@ import javax.servlet.http.Part;
 import es.uc3m.ecommerce.manager.*;
 import es.uc3m.ecommerce.model.*;
 
+/*
+* Handler para añadir un producto nuevo
+*/
 public class InsertProductHandler implements IHandler {
 
 	@Override

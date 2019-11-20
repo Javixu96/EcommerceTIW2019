@@ -19,6 +19,9 @@ import es.uc3m.ecommerce.manager.UserManager;
 import es.uc3m.ecommerce.model.Appuser;
 import es.uc3m.ecommerce.model.Product;
 
+/*
+ * Handler que muestra la vista de perfil de usuario
+*/
 public class ShowProfileHandler implements IHandler {
 	
 	@Override 
@@ -30,13 +33,10 @@ public class ShowProfileHandler implements IHandler {
 		UserManager us = new UserManager();
 		//si no esta logeado
 		if(session.getAttribute("user") == null) {
-			
 			viewURL = new ForbiddenPageHandler().handleRequest(request, response);
-			
 		} else {		
 			session.setAttribute("user", appuser);
 			viewURL = "profile.jsp";
-			
 		}
 		
 		//para saber si es comprador o no 
@@ -47,7 +47,6 @@ public class ShowProfileHandler implements IHandler {
 				request.setAttribute("isSeller", null);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

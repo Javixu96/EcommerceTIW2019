@@ -14,6 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import es.uc3m.ecommerce.model.Product;
 
+/*
+* Handler que gestiona la vista detalle de un producto determinado
+*/
 public class ShowProductHandler implements IHandler {
 
 	@Override

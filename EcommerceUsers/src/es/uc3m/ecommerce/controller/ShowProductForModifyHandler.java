@@ -16,12 +16,14 @@ import javax.servlet.http.HttpSession;
 import es.uc3m.ecommerce.model.Product;
 import es.uc3m.ecommerce.model.Category;
 
+/*
+* Handler que muestra un producto con sus atributos para que el vendedor pueda modificarlos
+*/
 public class ShowProductForModifyHandler implements IHandler {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		//contador para saber cual es el producto que queremos modificar
 		int counter=Integer.parseInt(request.getParameter("contadorModi"));
 		

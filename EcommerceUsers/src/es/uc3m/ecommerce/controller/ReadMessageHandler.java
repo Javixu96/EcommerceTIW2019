@@ -14,12 +14,15 @@ import es.uc3m.ecommerce.manager.MessageManager;
 import es.uc3m.ecommerce.model.Appuser;
 import es.uc3m.ecommerce.model.Purchas;
 
+
+/*
+* Handler para leer mensajes 1 a 1
+*/
 public class ReadMessageHandler implements IHandler {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		MessageManager messageManager = new MessageManager();
 		ConnectionFactory tiwconnectionfactory = messageManager.connectionfactory;
@@ -83,23 +86,9 @@ public class ReadMessageHandler implements IHandler {
 			//Close the connection
 			con.close();
 		} catch (javax.jms.JMSException e) {
-				System.out.println(
-					"JHC *************************************** Error in doPost: "
-						+ e);
-				System.out.println(
-					"JHC *************************************** Error MQ: "
-						+ e.getLinkedException().getMessage());
-				System.out.println(
-					"JHC *************************************** Error MQ: "
-						+ e.getLinkedException().toString());		
-				System.out.println(" Error when sending the message</BR>");
-		
-				
-			}catch (Exception e) {
-				System.out.println(
-					"JHC *************************************** Error in doPost: "
-						+ e.toString());
-				System.out.println(" Error when sending the message</BR>");
+				System.out.println("Error when sending the message</BR>");
+		} catch (Exception e) {
+				System.out.println("Error when sending the message</BR>");
 		}
 		return "messages_1to1.jsp";
 	}

@@ -20,13 +20,15 @@ import es.uc3m.ecommerce.manager.UserManager;
 import es.uc3m.ecommerce.model.Appuser;
 import es.uc3m.ecommerce.model.Product;
 
+/*
+* Handler que prepara la lista de productos a la venta de un determinado vendedor
+*/
 public class ShowMyProductListHandler implements IHandler {
 	
 	@Override 
 	public String handleRequest(HttpServletRequest request,
             HttpServletResponse response) throws ServletException,IOException {
 		
-		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		Appuser appuser = (Appuser) session.getAttribute("user");
 
@@ -37,7 +39,6 @@ public class ShowMyProductListHandler implements IHandler {
 		try {
 			resultado=im.findAllByAppuser(appuser);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 				

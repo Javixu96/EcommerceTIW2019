@@ -17,7 +17,6 @@ import es.uc3m.ecommerce.model.*;
 */
 public class ModifyProductHandler implements IHandler {
 	
-	
 	private boolean modifyOrDelete; //true->modify false->delete
 	
 	public ModifyProductHandler (boolean modifyOrDelete) {

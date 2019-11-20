@@ -12,6 +12,9 @@ import javax.servlet.http.HttpSession;
 import es.uc3m.ecommerce.manager.*;
 import es.uc3m.ecommerce.model.*;
 
+/*
+* Handler que prerpara la lista de pedidos de un usuario comprador
+*/
 public class ShowAllPurchasesHandler implements IHandler {
 
 	@Override
@@ -22,7 +25,7 @@ public class ShowAllPurchasesHandler implements IHandler {
 		Appuser user = (Appuser) session.getAttribute("user");
 		
 		PurchaseManager purchaseManager = new PurchaseManager();
-		//se obtiene los pedidos del usuario
+		//se obtienn los pedidos del usuario
 		List<Integer> purchases = purchaseManager.findAllConfirmationCode(user);
 	
 		request.setAttribute("allPurchases", purchases);

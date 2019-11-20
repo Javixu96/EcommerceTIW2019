@@ -17,12 +17,14 @@ import es.uc3m.ecommerce.model.Appuser;
 import es.uc3m.ecommerce.model.Product;
 import es.uc3m.ecommerce.model.Purchas;
 
+/*
+*Metodo que gestiona el envio del numero de confirmacion de compra
+*/
 public class SendOrderMessageHandler implements IHandler {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		MessageManager messageManager = new MessageManager();
 		ProductManager productManager = new ProductManager();

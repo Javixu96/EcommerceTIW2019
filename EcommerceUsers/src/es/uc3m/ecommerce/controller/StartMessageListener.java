@@ -19,6 +19,9 @@ import es.uc3m.ecommerce.model.Appuser;
 import es.uc3m.ecommerce.model.Product;
 import es.uc3m.ecommerce.model.Purchas;
 
+/*
+*Hander que gestiona la recogida del mensaje de confirmacion de compra
+*/
 public class StartMessageListener implements MessageListener {
 
 	MessageManager messageManager;
@@ -36,7 +39,6 @@ public class StartMessageListener implements MessageListener {
 		return "";
 	}
 	public void start() throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		messageManager = new MessageManager();
 		tiwconnectionfactory = messageManager.connectionfactory;
@@ -79,45 +81,29 @@ public class StartMessageListener implements MessageListener {
 				
 				try {
 				
-				int buyerId = m.getInt("buyer");
-				int size = m.getInt("size");
-				
-				for(int i = 0; i < size; i ++) {
-					System.out.println("aaaaaaaaaaaaaaaa"+size);
+					int buyerId = m.getInt("buyer");
+					int size = m.getInt("size");
 					
-					Purchas order = new Purchas();
-					
-					int productId=m.getInt("cartList"+i);
-					System.out.println(productId);
-					
-					Product product=productManager.findById(productId);
-					System.out.println(product.getProductName());
-					order.setProduct(product);
-					System.out.println("cccccccccccccccc");
-					
-					int cantidad=m.getInt("cartQuantity"+i);
-					System.out.println(cantidad);
-					order.setProductQuantity(cantidad);					
-					System.out.println("ddddddddddddd");
-					
-					
-					order.setAppuser(userManager.getUserById(buyerId));
-					System.out.println("eeeeeeeeeeee");
-					
-					
-					order.setConfirmationCode(randomNumber);
-					
-					try {
-						System.out.println(order.getProductQuantity());
-						purchaseManager.create(order);
-					} catch (Exception e) {
-								// TODO Auto-generated catch block
-						e.printStackTrace();
+					for(int i = 0; i < size; i ++) {
+						Purchas order = new Purchas();
+						int productId=m.getInt("cartList"+i);
+						Product product=productManager.findById(productId);
 						
+						order.setProduct(product);
+												
+						int cantidad=m.getInt("cartQuantity"+i);						
+						order.setProductQuantity(cantidad);								
+						order.setAppuser(userManager.getUserById(buyerId));
+						order.setConfirmationCode(randomNumber);
+						
+						try {
+							System.out.println(order.getProductQuantity());
+							purchaseManager.create(order);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
-				}
 				} catch (JMSException e1) {
-					// TODO Auto-generated catch block
 					System.out.println(
 							"JHC *************************************** Error in doPost: "
 								+ e1);
@@ -131,8 +117,8 @@ public class StartMessageListener implements MessageListener {
 				
 				}
 
-				} 
-			}
+			} 
+		}
 		
 	
 			// SAVE CONFIRMATION CODE TO BBDD

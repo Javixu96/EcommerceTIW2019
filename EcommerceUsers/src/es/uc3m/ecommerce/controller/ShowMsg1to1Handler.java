@@ -16,6 +16,9 @@ import javax.servlet.http.HttpSession;
 import es.uc3m.ecommerce.model.Product;
 import es.uc3m.ecommerce.model.Category;
 
+/*
+* Handler que gestiona el envío de mensajes 1 a 1
+*/
 public class ShowMsg1to1Handler implements IHandler {
 	
 	//true-accedido desde la pagina de productos, false- desde las notificaciones
@@ -32,10 +35,9 @@ public class ShowMsg1to1Handler implements IHandler {
 
 
 	public String processToSeller(HttpServletRequest request,HttpServletResponse res){
-		// TODO Auto-generated method stub	
 		
 		String viewURL = null; 
-		
+		//recogemos el usuario logueado
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("user") == null) {	
@@ -49,23 +51,21 @@ public class ShowMsg1to1Handler implements IHandler {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		return viewURL;
+			return viewURL;
 		}else {
 			return "messages_1to1.jsp";
 		}
 	}
 	
 	public String processTo1(HttpServletRequest request){
-		// TODO Auto-generated method stub				
 		//contador para saber cual es el otro usuario en chat
 		int counter=Integer.parseInt(request.getParameter("contadorMsg"));
-		
+		//recogemos el usuario logueado
 		HttpSession session = request.getSession(true);
 		
 		Appuser user = (Appuser) session.getAttribute("sender"+counter);
 		
 		session.setAttribute("sender", user);
-				
 	
 		return "readMessage.html";
 	}

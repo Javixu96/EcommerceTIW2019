@@ -15,6 +15,9 @@ import es.uc3m.ecommerce.model.Appuser;
 import es.uc3m.ecommerce.model.Category;
 import es.uc3m.ecommerce.model.Product;
 
+/*
+* Clase que se encarga de las operaciones contra la tabla Products en BD
+*/
 public class ProductManager {
 
 	private EntityManager em;
@@ -40,11 +43,10 @@ public class ProductManager {
 			 */
 			ut = (UserTransaction) ctx.lookup("java:comp/UserTransaction");
 		} catch (NamingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+	/*OPERACIONES DE INSERCIÓN, MODIFICACION Y BORRADO*/
 	
 	public String create(Product product) throws Exception {
 		try {
@@ -67,8 +69,31 @@ public class ProductManager {
 		return "";
 	}
 	
+	
+	public void removeProduct(Product product) throws Exception {		
+		ut.begin();
+		
+		if (!em.contains(product)) {
+		    product = em.merge(product);
+		}
+		
+		em.remove(product);
+		ut.commit();
+			
+		return;
+	}
+	
+	public void modifyProduct(Product product) throws Exception {
+		ut.begin();
+		em.merge(product);
+		ut.commit();
+		return;
+	}
+	
+	//METODOS DE QUERIES GENERALES
+	
 	// Esta anotación es para quitar el warning avisandonos que es esta
-	// haciendo una conversión de List a List<Product> y puede no ser válida
+	// haciendo una conversión que puede no ser válida
 	@SuppressWarnings("unchecked")
 	public List<Product> findAll() {
 		Query query = em.createNamedQuery("Product.findAll",Product.class);
@@ -112,25 +137,7 @@ public class ProductManager {
 		return resultado;
 	}
 	
-	public void removeProduct(Product product) throws Exception {		
-		ut.begin();
-		
-		if (!em.contains(product)) {
-		    product = em.merge(product);
-		}
-		
-		em.remove(product);
-		ut.commit();
-			
-		return;
-	}
 	
-	public void modifyProduct(Product product) throws Exception {
-		ut.begin();
-		em.merge(product);
-		ut.commit();
-		return;
-	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Product> findAllByAppuser(Appuser user) throws Exception {
@@ -154,6 +161,8 @@ public class ProductManager {
 	}
 
 
+	//QUERIES BUSQUEDA AVANZADA
+	
 	@SuppressWarnings("unchecked")
 	public List<Product> findAllByNameFilterPrice(String advancedQuery, String minPrice, String maxPrice) {
 		

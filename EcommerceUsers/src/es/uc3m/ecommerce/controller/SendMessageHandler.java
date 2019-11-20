@@ -14,6 +14,9 @@ import es.uc3m.ecommerce.manager.UserManager;
 import es.uc3m.ecommerce.model.Appuser;
 import es.uc3m.ecommerce.model.Purchas;
 
+/*
+* Handler que gestiona el envío de mensajes
+*/
 public class SendMessageHandler implements IHandler {
 
 	//true->1to1 false->Broadcast(para todos los compradores)
@@ -30,7 +33,6 @@ public class SendMessageHandler implements IHandler {
 	
 	public String processToOne(HttpServletRequest request)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		MessageManager messageManager = new MessageManager();
 		ConnectionFactory tiwconnectionfactory = messageManager.connectionfactory;
@@ -101,7 +103,6 @@ public class SendMessageHandler implements IHandler {
 	
 	public String processBroadcast(HttpServletRequest request)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		MessageManager messageManager = new MessageManager();
 		ConnectionFactory tiwconnectionfactory = messageManager.connectionfactory;

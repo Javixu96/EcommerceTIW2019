@@ -12,8 +12,10 @@ import javax.servlet.http.Part;
 import es.uc3m.ecommerce.manager.*;
 import es.uc3m.ecommerce.model.*;
 
+/*
+* Handler para la modificacion del perfil de usuario
+*/
 public class ModifyProfileHandler implements IHandler {
-	
 	
 	//true->modify false->delete
 	private boolean modifyOrDelete;
@@ -32,7 +34,6 @@ public class ModifyProfileHandler implements IHandler {
 	
 	public String processModify(HttpServletRequest request)
 			throws ServletException, IOException { 
-		// TODO Auto-generated method stub
 		UserManager im = new UserManager();
 		
 		String userName = request.getParameter("profile_name");
@@ -54,7 +55,6 @@ public class ModifyProfileHandler implements IHandler {
 		if((int) filePart.getSize()!=0) {
 			 byte[] data = new byte[(int) filePart.getSize()];
 			 filePart.getInputStream().read(data, 0, data.length);
-			 
 			 user.setUserPicture(data);
 		}
 		

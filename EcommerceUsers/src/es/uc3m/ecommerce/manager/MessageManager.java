@@ -7,8 +7,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-
-//Clase que crea los elementos necesarios para JMS: conexion, cola, y tema
+/*
+* Clase que crea e inicializa los elementos necesarios para JMS: conexion, cola, y tema
+*/
 public class MessageManager {
 
 	public ConnectionFactory connectionfactory;
@@ -25,7 +26,6 @@ public class MessageManager {
 			topic = (Topic) ctx.lookup("EcommerceTopic");
 
 		} catch (NamingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

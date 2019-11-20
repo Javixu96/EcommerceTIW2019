@@ -31,11 +31,6 @@ import es.uc3m.ecommerce.model.*;
 */
 public class LoginRequestHandler implements IHandler {
 	
-		
-    public LoginRequestHandler() {
-    	
-    }
-
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 			String viewURL = null; 

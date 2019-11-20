@@ -15,6 +15,9 @@ import es.uc3m.ecommerce.manager.ProductManager;
 import es.uc3m.ecommerce.model.Appuser;
 import es.uc3m.ecommerce.model.Product;
 
+/*
+* Handler para las gestiones del carrito
+*/
 public class CartRequestHandler implements IHandler{
 
 	@Override

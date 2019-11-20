@@ -7,7 +7,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+/*
+* handler para redigirir en el caso de estar intentando acceder una pagina de acceso restringido
+*/
 public class ForbiddenPageHandler implements IHandler{
 
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

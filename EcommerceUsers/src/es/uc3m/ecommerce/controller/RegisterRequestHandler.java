@@ -18,6 +18,9 @@ import javax.transaction.UserTransaction;
 import es.uc3m.ecommerce.manager.UserManager;
 import es.uc3m.ecommerce.model.Appuser;
 
+/*
+* Handler para registrar un nuevo usuario comprador / vendedor
+*/
 public class RegisterRequestHandler implements IHandler {
 	
 	private EntityManagerFactory emf;
@@ -38,19 +41,17 @@ public class RegisterRequestHandler implements IHandler {
 		String introducedPassword = request.getParameter("register_password");
 		int introducedRole = Integer.parseInt(request.getParameter("register_role"));
 			
-		// Retorno la lista de usuarios que tienen ese email (deber√≠a ser 0 o 1)
+		// Retorno la lista de usuarios que tienen ese email (deber· ser de tamaÒo 0 o 1)
 		List<Appuser> userListByName = manager.findByEmail(introducedEmail);
 		System.out.println("UserListByName returned by manager when checking if email already registered is size " + userListByName.size());
 		
 		// Si el email ya esta registrado
 		if(userListByName.size() != 0) {
 			// Redirijo a register.jsp con un mensaje marcado con un atributo de request 
-			System.out.println("Email already registered");
 			request.setAttribute("alreadyRegisteredError", 1);
 			viewURL = "register.jsp";
 		// Si el email no est√° registrado
 		} else {
-			System.out.println("Email free");
 			// El id se genera automaticamente cuando se pone una nueva tupla en la tabla 
 			manager.insert(introducedName, introducedSurname, introducedAddress, introducedEmail, introducedPassword, introducedRole);
 			

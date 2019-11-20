@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import es.uc3m.ecommerce.manager.*;
 import es.uc3m.ecommerce.model.*;
 
+/*
+ * Handler que gestiona la vista de todos los productos en la tienda
+*/
 public class ShowAllProductsHandler implements IHandler {
 
 	@Override
@@ -18,7 +21,7 @@ public class ShowAllProductsHandler implements IHandler {
 			throws ServletException, IOException {
 	
 		ProductManager productManager = new ProductManager();
-		//se obtiene los productos con el manager
+		//se obtienen los productos con el manager
 		List<Product> products = productManager.findAll();
 		
 		request.setAttribute("allProducts", products);

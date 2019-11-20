@@ -13,26 +13,25 @@ import es.uc3m.ecommerce.manager.ProductManager;
 import es.uc3m.ecommerce.model.Appuser;
 import es.uc3m.ecommerce.model.Product;
 
+/*
+ * Handler que gestiona la wishlist: mostrar, añadir y borrar elementos
+*/
 public class WishlistRequestHandler implements IHandler{
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		
 		String viewURL = null; 
 		HttpSession session = request.getSession();
-		Appuser u = (Appuser) session.getAttribute("user");
 
 		if(session.getAttribute("user") == null) {
-			
+			//si se esta intentado acceder a una pagina protegida por login, redirigir al handler correspondiente
 			viewURL = new ForbiddenPageHandler().handleRequest(request, response);
-			
 		} else {
 			
 			int action = Integer.parseInt(request.getParameter("action"));
 			String productId = request.getParameter("productId");
-			
-			
 			List<Product> wishlistList;
 			int wishlistTotal; 
 
@@ -49,7 +48,6 @@ public class WishlistRequestHandler implements IHandler{
 			// ACTION = 0 - MOSTRAR WISHLIST
 			if(action == 0) {
 				
-				System.out.println("ACTION = JUST SHOW");
 				// Mostrar simplemente la wishlist actual
 				viewURL = "wishlist.jsp";
 				
@@ -91,9 +89,8 @@ public class WishlistRequestHandler implements IHandler{
 				viewURL = "product.jsp";
 				
 				
-			} else {
-				System.out.println("ERROR ELSE");
-			}
+			} 
+			
 			// Actualizar session attributes con los valores modificados
 			session.setAttribute("wishlistList", wishlistList);			
 			session.setAttribute("wishlistTotal", wishlistTotal);

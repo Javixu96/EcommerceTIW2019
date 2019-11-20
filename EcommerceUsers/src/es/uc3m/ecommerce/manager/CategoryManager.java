@@ -14,6 +14,9 @@ import javax.transaction.UserTransaction;
 import es.uc3m.ecommerce.model.Category;
 import es.uc3m.ecommerce.model.Product;
 
+/*
+* Clase que se encarga de las operaciones contra la tabla Categories en BD
+*/
 public class CategoryManager {
 
 	private EntityManager em;
@@ -39,11 +42,13 @@ public class CategoryManager {
 			 */
 			ut = (UserTransaction) ctx.lookup("java:comp/UserTransaction");
 		} catch (NamingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	/*
+	* Crea un "ärbol" de categorias para pintar el header y la columna en shop.jsp
+	*/
 	@SuppressWarnings("unchecked")
 	public List<List<Category>> findCategoryTree(){
 		List<List<Category>> categoryTree = new LinkedList<List<Category>>();
