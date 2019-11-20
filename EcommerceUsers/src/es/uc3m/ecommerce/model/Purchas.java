@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 /**
  * The persistent class for the purchases database table.
- * 
+ * Comentarios en la app de ADMIN
  */
 @Entity
 @Table(name="purchases")
