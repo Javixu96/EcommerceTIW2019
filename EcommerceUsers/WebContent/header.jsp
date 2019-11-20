@@ -34,9 +34,9 @@
 				<div class="row">
 					<div class="col d-flex flex-row">
 						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="images/phone.png" alt=""></div>+34 91 654 43 21</div>
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="images/mail.png" alt=""></div><a href="mailto:fastsales@gmail.com">info@ecommerce.com</a></div>
+						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="images/mail.png" alt=""></div><a href="mailto:info@ecommerce.com">info@ecommerce.com</a></div>
 						<div class="top_bar_content ml-auto">
-							<div class="top_bar_menu">
+							<div class="top_bar_menu" style="visibility: hidden">
 								<ul class="standard_dropdown top_bar_dropdown">
 									<li>
 										<a href="#">Espa&ntilde;ol<i class="fas fa-chevron-down"></i></a>
@@ -56,15 +56,21 @@
 								</ul>
 							</div>
 							<div class="top_bar_user">
-								<% if(session.getAttribute("user") != null) {
-								%>
-								<div class="user_icon"><img src="https://cdn1.iconfinder.com/data/icons/navigation-elements/512/user-login-man-human-body-mobile-person-512.png" alt=""></div>
-								<div><a href="./loggingout.html">Logout</a></div>
-								<% } else { %>
-								<div><a href="./register.jsp">Register</a></div>
-								<div><a href="./login.jsp">Sign in</a></div>
-								<%} %>
-
+								<ul class="standard_dropdown top_bar_dropdown">
+									<% if(session.getAttribute("user") != null) {%>									
+									<li>
+										<a href="loggingout.html">Cerrar Sesi&oacute;n</a>
+									</li>
+									<% } else { %>
+									<li>
+										<a href="#">Comenzar<i class="fas fa-chevron-down"></i></a>
+										<ul>
+											<li><a href="register.jsp">Registro</a></li>
+											<li><a href="login.jsp">Iniciar Sesi&oacute;n</a></li>
+										</ul>
+									</li>
+									<%} %>
+								</ul>
 							</div>
 						</div>
 					</div>
@@ -95,11 +101,10 @@
 								<div class="header_search_form_container">
 									<form action="search.html" class="header_search_form clearfix">
 										<input type="search" name="searchQuery" value="<%=searchQueryInput%>" class="header_search_input" placeholder="Busca un producto...">
-										<div class="custom_dropdown" style="visibility: hidden">
+										<div class="custom_dropdown" >
 											<div class="custom_dropdown_list">
-												<span class="custom_dropdown_placeholder clc">Todas las categor&iacuteas</span>
-												<i class="fas fa-chevron-down"></i>
-												<ul class="custom_list clc">
+												<span class="custom_dropdown_placeholder clc"><a href="advanced_search.jsp"> B&uacute;squeda avanzada</a></span>
+												<ul class="custom_list clc" style="visibility: hidden" >
 													<li><a class="clc" href="#">Todas las categor&iacuteas</a></li>	
 												</ul>
 											</div>
@@ -137,7 +142,7 @@
 								<div class="cart_container d-flex flex-row align-items-center justify-content-end">
 									<div class="cart_icon">
 										<img src="images/cart.png" alt="">
-										<div class="cart_count"><span>1</span></div>
+										<div class="cart_count"><span>#</span></div>
 									</div>
 									<div class="cart_content">
 										<div class="cart_text"><a href="<c:url value="cart.html">

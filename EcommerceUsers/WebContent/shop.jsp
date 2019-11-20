@@ -112,7 +112,7 @@
 										<div class="product_name"><%=product.getProductName() %></div>
 										<form action="product.html" method="get">
 											<input type="hidden" name="productId" id="productId" value="<%=product.getProductId()%>">
-											<button type="submit">See product</button>
+											<button type="submit" class="button cart_button">Ver producto</button>
 										</form>						
 									</div>
 								<div class="product_fav" style="visibility: hidden;"><i class="fas fa-heart"></i></div>
