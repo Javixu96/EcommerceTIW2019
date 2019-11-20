@@ -34,22 +34,22 @@ public class ReadMessageHandler implements IHandler {
 			
 			con.start();		
 			
-			// String selector
-			// String selector = "sendTo = '" + request.getParameter("userId") + "'";
+			
 			HttpSession session = request.getSession();
 			Appuser user = (Appuser) session.getAttribute("user");			
 			
 			Appuser sender = (Appuser)session.getAttribute("sender");
 			
+			// selector
 			String selector = "(sendTo=" + user.getUserId()+")"
 					+ "AND "
 					+ "(sendFrom=" + sender.getUserId() + ")";
 			
 			
-			//String selector = "sendTo=" + user.getUserId();
 			//Create a consumer
 			MessageConsumer mc= ses.createConsumer(queue, selector);
-						
+			
+			//Se crea un lista de mensajes
 			List<String> listaMensaje=new ArrayList<String>();
 			
 			Message message = null;

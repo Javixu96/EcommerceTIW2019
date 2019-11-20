@@ -16,7 +16,7 @@ import es.uc3m.ecommerce.model.Purchas;
 
 public class SendMessageHandler implements IHandler {
 
-	//true->1to1 false->Broadcast
+	//true->1to1 false->Broadcast(para todos los compradores)
 		private boolean toOneOrBroadcast;
 		
 		public SendMessageHandler (boolean toOneOrBroadcast) {
@@ -54,37 +54,17 @@ public class SendMessageHandler implements IHandler {
 			
 			HttpSession session = request.getSession();
 			Appuser user = (Appuser) session.getAttribute("user");
-			/*
-			 * WAITING FOR THE PARAMETER 'message' FROM THE JSP FORM
-			 * 
-			 * */	
+
 			message.setString("msg", request.getParameter("message"));
 			message.setInt("senderId", user.getUserId());
 
-			// Setting a message property in order to filter in the listener
-			
-			/*
-			 * WAITING FOR THE PARAMETER 'receiverId' FROM THE JSP FORM
-			 * 
-			 * */
 			Appuser seller=(Appuser)session.getAttribute("sender");
 			request.setAttribute("sender", seller);
-
+			
+			//atributos para filtrar
 			message.setIntProperty("sendTo", seller.getUserId());
-
 			message.setIntProperty("sendFrom", user.getUserId());
-
-			
-			/*
-			 * 
-			 * IF THE SENDER IS A SELLER AND WANTS TO SEND A MSG TO ALL USERS, WE NEED TO SET A
-			 * NEW ATTRIBUTE
-			 * 
-			 * */
-			
-			// message.setStringProperty("type", "broadcast");
-			
-			
+						
 			// Use the message producer to send the message	messageProducer.send(textMessage);
 			producer.send(message);
 

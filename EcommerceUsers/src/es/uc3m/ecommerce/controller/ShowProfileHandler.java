@@ -23,13 +23,12 @@ public class ShowProfileHandler implements IHandler {
 	
 	@Override 
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
-		
-		// Retrieve current user data by accession session attribute	
+			
 		HttpSession session = request.getSession();
 		Appuser appuser = (Appuser) session.getAttribute("user");
 		String viewURL = null; 
 		UserManager us = new UserManager();
-		
+		//si no esta logeado
 		if(session.getAttribute("user") == null) {
 			
 			viewURL = new ForbiddenPageHandler().handleRequest(request, response);
@@ -39,6 +38,8 @@ public class ShowProfileHandler implements IHandler {
 			viewURL = "profile.jsp";
 			
 		}
+		
+		//para saber si es comprador o no 
 		try {
 			if(us.isSeller(appuser)) {
 				request.setAttribute("isSeller", 1);

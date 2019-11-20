@@ -22,12 +22,10 @@ public class ShowAllPurchasesHandler implements IHandler {
 		Appuser user = (Appuser) session.getAttribute("user");
 		
 		PurchaseManager purchaseManager = new PurchaseManager();
+		//se obtiene los pedidos del usuario
 		List<Integer> purchases = purchaseManager.findAllConfirmationCode(user);
 	
 		request.setAttribute("allPurchases", purchases);
-		for (Integer confirmationCode : purchases) {
-			System.out.println("Hola" + confirmationCode);
-		}
 		
 		return "purchase_list.jsp";
 	}

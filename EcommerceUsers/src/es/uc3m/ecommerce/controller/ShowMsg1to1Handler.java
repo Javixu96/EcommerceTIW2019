@@ -18,6 +18,7 @@ import es.uc3m.ecommerce.model.Category;
 
 public class ShowMsg1to1Handler implements IHandler {
 	
+	//true-accedido desde la pagina de productos, false- desde las notificaciones
 	private boolean sellerOrTo1;
 	
 	public ShowMsg1to1Handler (boolean sellerOrTo1) {
@@ -56,7 +57,7 @@ public class ShowMsg1to1Handler implements IHandler {
 	
 	public String processTo1(HttpServletRequest request){
 		// TODO Auto-generated method stub				
-		
+		//contador para saber cual es el otro usuario en chat
 		int counter=Integer.parseInt(request.getParameter("contadorMsg"));
 		
 		HttpSession session = request.getSession(true);

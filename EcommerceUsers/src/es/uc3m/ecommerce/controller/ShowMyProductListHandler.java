@@ -31,8 +31,8 @@ public class ShowMyProductListHandler implements IHandler {
 		Appuser appuser = (Appuser) session.getAttribute("user");
 
 		ProductManager im = new ProductManager();
-		//HttpSession sesion = request.getSession();
 		
+		//se obtiene todos los productos con el manager filtrando por el usuario
 		List<Product> resultado=null;
 		try {
 			resultado=im.findAllByAppuser(appuser);

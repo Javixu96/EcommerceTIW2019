@@ -16,15 +16,12 @@ public class ShowAllProductsHandler implements IHandler {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("ShowAllProductsHandler");
 	
 		ProductManager productManager = new ProductManager();
+		//se obtiene los productos con el manager
 		List<Product> products = productManager.findAll();
-	
+		
 		request.setAttribute("allProducts", products);
-		for (Product product : products) {
-			System.out.println("Hola" + product.getProductName());
-		}
 		
 		return "shop.jsp";
 	}

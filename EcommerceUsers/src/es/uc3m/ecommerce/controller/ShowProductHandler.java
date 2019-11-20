@@ -19,15 +19,11 @@ public class ShowProductHandler implements IHandler {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("SHOW PRODUCT HANDLER");
 		String viewURL = null;
-		// HttpSession session = request.getSession();
-
+		//se obtiene el producto con el manager pasandole el id 
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		ProductManager productManager = new ProductManager();
 		Product product = productManager.findById(productId);
-		
-		System.out.println("El producto que se esta viendo es: " + product.getProductName());
 		
 		request.setAttribute("product", product);
 	

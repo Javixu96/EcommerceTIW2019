@@ -49,6 +49,7 @@ public class ModifyProfileHandler implements IHandler {
 		user.setEmail(userEmail);
 		user.setPostalAddress(userAddress);
 		
+		//foto no obligatoria
 		Part filePart = request.getPart("fileToUpLoad");
 		if((int) filePart.getSize()!=0) {
 			 byte[] data = new byte[(int) filePart.getSize()];
@@ -57,6 +58,7 @@ public class ModifyProfileHandler implements IHandler {
 			 user.setUserPicture(data);
 		}
 		
+		//comprobacion del password
 		String oldPassword = request.getParameter("oldPassword");
 		String newPassword = request.getParameter("newPassword");
 		String newPwRepeat = request.getParameter("newPwRepeat");

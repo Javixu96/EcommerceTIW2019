@@ -54,7 +54,7 @@ public class ReadBrowserMessageHandler implements IHandler {
 			connection.start();
 
 			Enumeration enum1 = browser.getEnumeration();
-			
+			//Se crea 3 listas, uno para mensaje, otro para appuser, y otro para los id de appuser porque .contains no funciona bien
 			List<String> listaMensaje=new ArrayList<String>();
 			List<Integer> listaIdSender=new ArrayList<Integer>();
 			List<Appuser> listaSender=new ArrayList<Appuser>();
@@ -64,7 +64,7 @@ public class ReadBrowserMessageHandler implements IHandler {
 					if (message instanceof MapMessage) {
 						MapMessage Tmensaje =
 							(MapMessage) message;
-						
+						//si es el segundo o posterior mensaje del mismo ususario
 						if(listaIdSender.contains(Tmensaje.getInt("senderId"))){
 							continue;
 						}else {

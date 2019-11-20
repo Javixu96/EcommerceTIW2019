@@ -22,11 +22,7 @@ public class ShowProductForModifyHandler implements IHandler {
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ProductManager im = new ProductManager();
-		//HttpSession sesion = request.getSession();
-		
-		//System.out.println(request.getParameter("productId"));
-		
+		//contador para saber cual es el producto que queremos modificar
 		int counter=Integer.parseInt(request.getParameter("contadorModi"));
 		
 		HttpSession mySession = request.getSession(true);

@@ -17,13 +17,16 @@ public class ShowPurchaseHandler implements IHandler {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	
+		
+		
 		PurchaseManager purchaseManager = new PurchaseManager();
 		Integer code = Integer.parseInt(request.getParameter("confirmationCode"));
+		//se obtiene los pedidos con el mismo confirmationCode
 		List<Purchas> purchases = purchaseManager.findPurchase(code);
 
 		List<Product> products = new ArrayList<Product>();
 		
+		//se almacena todos los productos como un objeto
 		for (int i=0; i<purchases.size(); i++) {
 			Product p = purchases.get(i).getProduct();
 			products.add(p);
@@ -31,10 +34,6 @@ public class ShowPurchaseHandler implements IHandler {
 	
 		request.setAttribute("productPurchased", products);
 		request.setAttribute("purchase", purchases);
-		
-		for (Product confirmationCode : products) {
-			System.out.println("Hola" + confirmationCode);
-		}
 		
 		return "purchase.jsp";
 	}
