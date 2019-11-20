@@ -1,0 +1,58 @@
+package es.uc3m.ecommerce.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import es.uc3m.ecommerce.manager.ProductManager;
+import es.uc3m.ecommerce.model.Product;
+
+/*
+ * Handler que se encarga de la busqueda avanzada. Dependiendo de la opcion que elija el usuario, redirige a un metodo u a otro
+*/
+public class AdvancedSearchHandler implements IHandler {
+
+	@Override
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		//recoger parametros query del formulario
+		String advancedQuery = request.getParameter("advanced_query");
+		String searchField = request.getParameter("search_field");
+		//si uno de los parametros de precio no es introducido en base de datos, es guardado como String vacia
+		String minPrice = request.getParameter("min_price");
+		String maxPrice = request.getParameter("max_price");
+	
+		ProductManager productManager = new ProductManager();
+		List<Product> products = null;
+		
+		//filtrar por tipo de busqueda
+		switch(searchField) {
+			case "product_name":
+				//Buscando por nombre
+				products = productManager.findAllByNameFilterPrice(advancedQuery, minPrice, maxPrice);
+				break;
+			case "product_description":
+				//"Buscando por descripcion
+				products = productManager.findAllByDescriptionFilterPrice(advancedQuery, minPrice, maxPrice);
+				break;
+			case "product_category":
+				//"Buscando por categoria
+				products = productManager.findAllByCategoryFilterPrice(advancedQuery, minPrice, maxPrice);
+				break;
+			case "product_all":
+				//"Buscando por todo
+				products = productManager.findAllMergeFilterPrice(advancedQuery, minPrice, maxPrice);
+				break;
+		}
+		
+		String newSearchQuery = ""; //limpiar la query para que en el buscador no pinte nada
+		request.setAttribute("searchQuery", newSearchQuery);
+		request.setAttribute("allProducts", products); //cargar la lista de productos que devuelve la busqueda
+		
+		return "shop.jsp";
+	}
+
+}
