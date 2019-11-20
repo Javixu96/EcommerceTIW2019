@@ -85,9 +85,7 @@
 						</div>
 					</div>
 					<%
-					    ServletContext servletContext = request.getServletContext();
-						List<List<Category>> categories = (List<List<Category>>) servletContext.getAttribute("categoryTree");
-					
+						String searchQueryInput = request.getAttribute("searchQuery") != null ? (String) request.getAttribute("searchQuery") : "";
 					%>
 	
 					<!-- Search -->
@@ -95,22 +93,14 @@
 						<div class="header_search">
 							<div class="header_search_content">
 								<div class="header_search_form_container">
-									<form action="#" class="header_search_form clearfix">
-										<input type="search" required="required" class="header_search_input" placeholder="Busca un producto...">
-										<div class="custom_dropdown">
+									<form action="search.html" class="header_search_form clearfix">
+										<input type="search" name="searchQuery" value="<%=searchQueryInput%>" class="header_search_input" placeholder="Busca un producto...">
+										<div class="custom_dropdown" style="visibility: hidden">
 											<div class="custom_dropdown_list">
 												<span class="custom_dropdown_placeholder clc">Todas las categor&iacuteas</span>
 												<i class="fas fa-chevron-down"></i>
 												<ul class="custom_list clc">
 													<li><a class="clc" href="#">Todas las categor&iacuteas</a></li>	
-												<% for (List<Category> cList : categories){ %>
-													<li><a class="clc" href="#"> <%= cList.get(0).getCategory().getCategoryName()%></a></li>
-												<% } %>	
-												
-													<!-- <li><a class="clc" href="#">Todas las categor&iacuteas</a></li>
-													<li><a class="clc" href="#">Mujer</a></li>
-													<li><a class="clc" href="#">Hombre</a></li>
-													<li><a class="clc" href="#">Ni&ntilde;o</a></li> -->
 												</ul>
 											</div>
 										</div>
@@ -182,18 +172,30 @@
 							<!-- Categories Menu -->
 
 							<div class="cat_menu_container">
-								<div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
+								<div class="cat_menu_title d-flex flex-row align-items-center justify-content-start" >
 									<div class="cat_burger"><span></span><span></span><span></span></div>
 									<div class="cat_menu_text">Categor&iacuteas</div>
 								</div>
+								<%
+									List<List<Category>> categories = (request.getAttribute("categoryTree") != null) 
+											? (List<List<Category>>) request.getAttribute("categoryTree") 
+											: (List<List<Category>>) request.getServletContext().getAttribute("categoryTree");
+								%>
 								
-								<ul class="cat_menu">
+								<ul class="cat_menu" >
 									<% for (List<Category> cList : categories){ %>
 									<li class="hassubs">
-										<a href="#"><%= cList.get(0).getCategory().getCategoryName()%><i class="fas fa-chevron-right"></i></a>
+										<a href="<c:url value="search.html">
+					            			<c:param name="searchQuery" value="<%= searchQueryInput %>"/>
+							           	 	<c:param name="searchCategory" value="<%= Integer.toString(cList.get(0).getCategory().getCategoryId())%>"/>
+					            	 	</c:url>"><%= cList.get(0).getCategory().getCategoryName()%><i class="fas fa-chevron-right"></i></a>
 										<ul>
 											<% for (Category categoryChild : cList) { %>
-											<li><a href="#" > <%= categoryChild.getCategoryName() %> <i class="fas fa-chevron-right"></i></a></li>
+											<li>
+												<a href="<c:url value="search.html">
+							            			<c:param name="searchQuery" value="<%= searchQueryInput %>"/>
+									           	 	<c:param name="searchCategory" value="<%= Integer.toString(categoryChild.getCategoryId())%>"/>
+							            	 	</c:url>"> <%= categoryChild.getCategoryName() %> <i class="fas fa-chevron-right"></i></a></li>
 											
 											<% } %>
 										</ul>

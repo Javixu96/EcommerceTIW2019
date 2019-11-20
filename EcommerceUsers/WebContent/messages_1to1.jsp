@@ -23,6 +23,7 @@
 <div class="super_container">
 	
 	<!-- Header -->
+	
 	<%@ include file="header.jsp" %>
 
 	<!-- Cart -->
