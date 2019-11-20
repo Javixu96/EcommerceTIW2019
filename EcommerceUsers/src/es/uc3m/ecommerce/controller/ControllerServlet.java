@@ -57,7 +57,7 @@ public class ControllerServlet extends HttpServlet {
 		
     	//appContext = config.getServletContext();
 		
-	    // This will read mapping definitions and populate handlerHash
+	    // Esto populará handlerHash y será utilizado para instanciar el handler correspondiente al path de la request captada
 	    handlerHash.put("/loggingin.html", new LoginRequestHandler());
 	    handlerHash.put("/registering.html", new RegisterRequestHandler());	 
 	    handlerHash.put("/loggingout.html", new LoginRequestHandler());	 
@@ -73,17 +73,14 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/shop.html", new ShowAllProductsHandler());
 	    handlerHash.put("/search.html", new SearchHandler());
 	    handlerHash.put("/product.html", new ShowProductHandler());
-	    handlerHash.put("/wishlist.html", new WishlistRequestHandler());	
-	    handlerHash.put("/cart.html", new CartRequestHandler());
-	    handlerHash.put("/add_to_cart.html", new AddCartRequestHandler());
 	    handlerHash.put("/sendOrderMessage.html", new SendOrderMessageHandler());
 
 	    handlerHash.put("/product.html", new ShowProductHandler());
 	    // Cart requests
-	    handlerHash.put("/cart.html", new AddCartRequestHandler());
-	    handlerHash.put("/remove_from_cart.html", new AddCartRequestHandler());
-	    handlerHash.put("/add_to_cart.html", new AddCartRequestHandler());
-	    handlerHash.put("/edit_cart.html", new AddCartRequestHandler());
+	    handlerHash.put("/cart.html", new CartRequestHandler());
+	    handlerHash.put("/remove_from_cart.html", new CartRequestHandler());
+	    handlerHash.put("/add_to_cart.html", new CartRequestHandler());
+	    handlerHash.put("/edit_cart.html", new CartRequestHandler());
 
 	    // Wishlist requests
 	    handlerHash.put("/wishlist.html", new WishlistRequestHandler());	
@@ -113,19 +110,19 @@ public class ControllerServlet extends HttpServlet {
 	  
 		System.out.println("DO GET FRONT CONTROLLER");
 
-	    // Retrieve from the HashMap the instance of the class which implements the logic of the requested url
+	    // Coger del HashMap la instancia de la clase que implementa la lógica para la URL recibida
 	    IHandler rh = (IHandler) handlerHash.get(request.getServletPath());
-	    // If no instance is retrieved redirects to error
+	    // Si no hay instancia asociada a la URL, error
 	    if (rh == null) {
 		    response.sendError(HttpServletResponse.SC_NOT_FOUND);
 	    } else {
 	    	
-		    // Call the method handleRequsest of the instance in order to obtain the url 
+		    // Llamada al método handleRequsest de la instancia para obtener la URL a la que hay que redireccionar
 		    String viewURL = rh.handleRequest(request, response);
-		    // Dispatch the request to the url obtained
+		    // Dispatch de la URL
 		    System.out.println("En el Handler: mandando a la vista " + viewURL);
 		    if (viewURL == null) {
-			    // nothing
+			    // No hacer nada
 		    } else {
 			    System.out.println("Redirecting to URL: " + viewURL);
 			    request.setAttribute("categoryTree", getCategoryTree());

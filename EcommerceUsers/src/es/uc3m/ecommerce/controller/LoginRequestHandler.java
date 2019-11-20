@@ -39,43 +39,50 @@ public class LoginRequestHandler implements IHandler {
 			String viewURL = null; 
 			HttpSession session = request.getSession();
 
-			// LOG OUT -> If there's a user already logged in, then log out and redirect to log in
+			// LOG OUT -> Tiene que haber un usuario logueado para hacer log out
 			if(session.getAttribute("user") != null) {
+				// Borramos las variables de sesion del usuario
 				session.invalidate();
+				// Redirijo a log in 
 				viewURL = "login.jsp";
 				
 			} else {
 				
+				// Tomo los datos del formulario de log in 
 				String introducedEmail  = request.getParameter("register_email");
 				String introducedPassword = request.getParameter("register_password");
 
-
+				
+				// Busco en BD una objeto usuario que tenga el mismo email que el introducido
 				UserManager manager = new UserManager();
 				
 				List<Appuser> userListByName = manager.findByEmail(introducedEmail);
 				System.out.println("he size of the list of users under that email: " + userListByName.size());
+				// Si no existe ese email en BD, el usuario no esta registrado y no puede hacer log in
 				if(userListByName.size() != 0) {
 					
 					Appuser u = userListByName.get(0);
 					
-					// If data found check that email and password match
+					// Si existe el email en BD y la contraseña es correcta: 
 					if(u.getPw().equals(introducedPassword)) {
 
-						// Redirect to "index.jsp" and check there if there's a user logged in 
-						// -> is session attribute 'user' null
+						// Setear el atributo de sesión del usuario logueado
 						session.setAttribute("user", u);
-						// Redirect to index.jsp and add personalized elements if user logged in -> JS
+						// Redirigir a index.jsp
 						viewURL = "index.jsp";
-						
+					
+					// Si existe el email en BD pero la contraseña es incorrecta:
 					} else {
-						// Redirect to "login.jsp" with alert saying wrong credentials -> JS
-						// loginError = 1, email is registered but password is incorrect
+						// Redirigir a login con un atributo de request indicando que la contraseña ha sido incorrecta
+						// para informar al usuario de su error en el JSP
 						request.setAttribute("passwordError", 1);
 						viewURL = "login.jsp";
 	
 					}
+				// Si el email no existe en BD
 				} else {
-					// Email not registered -> redirect to register.jsp with a note
+					// Redirigir a login con un atributo de request indicando que el email o está registrado
+					// para informar al usuario de su error
 					request.setAttribute("notRegisteredError", 1);
 					viewURL = "login.jsp";
 				}
