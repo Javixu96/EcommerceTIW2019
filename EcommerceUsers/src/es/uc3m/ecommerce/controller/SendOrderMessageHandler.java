@@ -45,81 +45,64 @@ public class SendOrderMessageHandler implements IHandler {
 			
 			// Now use the session to create a map message
 			MapMessage message = ses.createMapMessage();
-			
-			ObjectMessage message2 = ses.createObjectMessage();	
-			ObjectMessage message3 = ses.createObjectMessage();	
-			ObjectMessage message4 = ses.createObjectMessage();			
+					
 			HttpSession session = request.getSession();
 			
+			//se obtiene la lista de los productos en la sesion
 			List<Product> cartList = (List<Product>) session.getAttribute("cartList");
-			
+			//para cada producto de la lista, hacemos un setInt de su id en el mensaje
+			//que posteriormente los recuperamos en el listener
 			for(int i = 0; i < cartList.size(); i ++) {
-				System.out.println("producto id "+cartList.get(i).getProductId());
 				message.setInt("cartList"+i,cartList.get(i).getProductId());
 			}
 			
+			//hacemos lo mismo con la lista de cantidades de cada producto comprado
 			List<Integer> cartQuantities = (List<Integer>) session.getAttribute("cartQuantities");
 			for(int i = 0; i < cartQuantities.size(); i ++) {
 				System.out.println("producto cantidad "+cartQuantities.get(i));
-				message.setInt("cartQuantity"+i,(int)cartQuantities.get(i));
 			}
 			
+			//el numero de los productos comprado
 			message.setInt("size",cartList.size());
 			
+			//el comprador
 			Appuser buyer = (Appuser)session.getAttribute("user");
 			int buyerId =buyer.getUserId();		
 			message.setInt("buyer", buyerId);
-		
+			
+			//el importe total y la tarjeta
 			int total = (int)session.getAttribute("cartTotal");
 			String card = request.getParameter("card");
 			
 			message.setString("card", card);
 			message.setInt("total", total);
 		
-			/*
-			message2.setObject(buyer);
-			message3.setObject((Serializable) cartList);
-			message4.setObject((Serializable) cartQuantities);	
-			
-			message2.setJMSMessageID("buyer");
-		
-			message2.setStringProperty("id", "buyer");	
-			message3.setStringProperty("id", "cartList");
-			message4.setStringProperty("id", "cartQuantities");
-			*/
+			//modificamos el stock de los productos vendidos
 			for(int i = 0; i < cartList.size(); i ++) {
-				cartList.get(i).setStock(cartList.get(i).getStock()-cartQuantities.get(i));
-				
+				cartList.get(i).setStock(cartList.get(i).getStock()-cartQuantities.get(i));	
 				try {
 					productManager.modifyProduct(cartList.get(i));
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}				
-			}			
+			}	
+			
 			// Setting a message property in order to filter in the listener
 			message.setStringProperty("type", "orderConfirmationCode");
-			/*
-			message2.setStringProperty("type", "orderConfirmationCode");
-			message3.setStringProperty("type", "orderConfirmationCode");
-			message4.setStringProperty("type", "orderConfirmationCode");
-			*/
+
 			// Use the message producer to send the message	messageProducer.send(textMessage);
 			producer.send(message);
-			System.out.println("message send");
-			//producer.send(message2);
-			//producer.send(message3);
-			//producer.send(message4);
-
-			// Close the producer
-			producer.close();
-			/*
+			
+			//borramos las dos listas 
 			cartList.clear();
 			cartQuantities.clear();
-			
 			session.setAttribute("cartList", cartList);
 			session.setAttribute("cartQuantities", cartQuantities);
-			*/
+			
+			// Close the producer
+			producer.close();			
+			
 			// Close the session 
 			ses.close(); 
 			
