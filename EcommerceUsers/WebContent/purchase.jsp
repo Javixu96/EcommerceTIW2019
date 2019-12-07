@@ -57,11 +57,6 @@
 											<div class="cart_item_title">Producto</div>
 											<div class="cart_item_text"><%= productPurchased.get(i).getProductName() %></div>
 										</div>
-										
-										<div style="flex: 0.3" class="cart_item_name cart_info_col">
-											<div class="cart_item_title">Categoría</div>
-											<div class="cart_item_text"><%= productPurchased.get(i).getCategoryBean().getCategoryName() %></div>
-										</div>
 					
 										<div style="flex: 0.15" class="cart_item_price cart_info_col">
 											<div class="cart_item_title">Precio</div>
