@@ -29,5 +29,10 @@ public class UsersMSController {
 		List<Integer> allConfirmation = daopurchas.findAllConfirmationCode(userId);
 		return new ResponseEntity<>(allConfirmation, HttpStatus.CREATED);
 	}
-
+	
+	@RequestMapping(method = RequestMethod.GET, value="/users/purchases/{confirmationCode}")
+	public ResponseEntity<List<Purchas>> findByConfirmationCode(@PathVariable int confirmationCode) {
+		List<Purchas> purchases = daopurchas.findByConfirmationCode(confirmationCode);
+		return new ResponseEntity<>(purchases, HttpStatus.CREATED);
+	}
 }
