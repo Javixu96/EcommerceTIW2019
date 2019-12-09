@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,15 +69,10 @@ public class CatalogueMSController {
 	}
 	
 	@RequestMapping(value="/categories", method=RequestMethod.POST)
-	public ResponseEntity<Category> newCategory(@RequestParam(value = "categoryName") String name, 
-			@RequestParam(value = "categoryParent") Integer parentId){
+	public ResponseEntity<Category> newCategory(@RequestBody Category newCategory){
 		System.out.println("creating new category");
 		ResponseEntity<Category> response = null;
-		Category category = new Category();
-		category.setCategoryName(name);
-		category.setParentId(parentId);
-		category.setIsDeleted(0);
-		Category newCat = categoryDAO.save(category);
+		Category newCat = categoryDAO.save(newCategory);
 		
 		if (newCat == null) {
 			response = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -86,21 +82,15 @@ public class CatalogueMSController {
 		return response;
 	}
 	
-	@RequestMapping(value="/categories/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Category> updateCategory(@PathVariable int id, @RequestParam(value = "categoryName") String newName, 
-			@RequestParam(value = "categoryParent") Integer newParentId){
-		System.out.println("updating category " + id);
+	@RequestMapping(value="/categories", method=RequestMethod.PUT)
+	public ResponseEntity<Category> updateCategory(@RequestBody Category categoryToUpdate){
 		ResponseEntity<Category> response = null;
-		Category updateCategory = categoryDAO.findByCategoryIdAndIsDeleted(id, 0);
+		Category updatedCategory = categoryDAO.save(categoryToUpdate);	
 		
-		if (updateCategory == null) {
+		if (updatedCategory == null) {
 			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			updateCategory.setCategoryName(newName);
-			updateCategory.setParentId(newParentId);
-			updateCategory.setIsDeleted(0);
-			categoryDAO.save(updateCategory);
-			response = new ResponseEntity<>(updateCategory, HttpStatus.CREATED);
+			response = new ResponseEntity<>(updatedCategory, HttpStatus.OK);
 		}
 		return response;
 	}
