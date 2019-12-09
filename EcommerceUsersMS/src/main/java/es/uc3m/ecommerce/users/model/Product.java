@@ -13,6 +13,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="products")
+/*
 @NamedQueries({
 	@NamedQuery(name="Product.findAll", 
 				query="SELECT p FROM Product p WHERE p.isDeleted= 0"),
@@ -35,6 +36,7 @@ import java.util.List;
 	@NamedQuery(name="Product.findBySimilarCategoryPriceFilter", 
 		query="SELECT p FROM Product p WHERE UPPER(p.categoryBean.categoryName) LIKE UPPER(:query) AND p.isDeleted = 0 AND p.price BETWEEN :priceMin AND :priceMax")
 })
+*/
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 

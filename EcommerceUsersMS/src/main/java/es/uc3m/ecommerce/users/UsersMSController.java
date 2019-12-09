@@ -34,6 +34,14 @@ public class UsersMSController {
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
+	// Modificar usuario por su ID 
+	@RequestMapping(method = RequestMethod.PUT, value="/users/{userId}")
+	public ResponseEntity<Appuser> modifyUserById(@PathVariable int userId,
+			@RequestBody Appuser appUser) {
+		Appuser user = daoappuser.save(appUser);
+		return new ResponseEntity<>(user, HttpStatus.OK);
+	}
+	
 	// Buscar todos los pedidos de un usuario
 	@RequestMapping(method = RequestMethod.GET, value="/users/buyers/{userId}")
 	public ResponseEntity<List<Integer>> findAllConfirmationCode(@PathVariable int userId) {
