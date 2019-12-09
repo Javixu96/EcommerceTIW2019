@@ -38,7 +38,8 @@ public class BankMSController {
 		Integer exp_month = (Integer) purchaseInfo.get("expiration_month");
 		Integer exp_year = (Integer) purchaseInfo.get("expiration_year");
 		String cvv = (String) purchaseInfo.get("CVV");
-		boolean validate = isDivisibleBy3(cardNumber) && isNotExpired(exp_month, exp_year) && cvvCorrect(cvv);
+		Double purchaseCost = (Double) purchaseInfo.get("purchaseCost");
+		boolean validate = isDivisibleBy3(cardNumber) && isNotExpired(exp_month, exp_year) && cvvCorrect(cvv) && purchaseCost > 0.0;
 		return validate;
 	}
 
