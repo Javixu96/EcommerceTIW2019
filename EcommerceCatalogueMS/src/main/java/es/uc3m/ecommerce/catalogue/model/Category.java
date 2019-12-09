@@ -13,13 +13,6 @@ import java.util.List;
  */
 @Entity
 @Table(name="categories")
-/*@NamedQueries({
-	@NamedQuery(name="Category.findAll", query="SELECT c FROM Category c WHERE c.isDeleted = 0"),
-	@NamedQuery(name="Category.findCount", query="SELECT Count(c) FROM Category c WHERE c.isDeleted = 0"),
-	@NamedQuery(name="Category.findById", query="SELECT c FROM Category c WHERE c.categoryId = :categoryId AND c.isDeleted = 0"),
-	@NamedQuery(name="Category.findRootCategories",
-		query="SELECT c FROM Category c WHERE c.categoryId in (SELECT DISTINCT c.categoryId FROM Category c WHERE c.category.categoryId = 1) AND c.category.categoryId IS NOT NULL AND c.isDeleted = 0")
-})*/
 public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 
