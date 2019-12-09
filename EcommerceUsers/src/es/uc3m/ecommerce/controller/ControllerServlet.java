@@ -92,6 +92,7 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/remove_from_cart.html", new CartRequestHandler());
 	    handlerHash.put("/add_to_cart.html", new CartRequestHandler());
 	    handlerHash.put("/edit_cart.html", new CartRequestHandler());
+	    handlerHash.put("/insert_purchase.html", new InsertPurchaseHandler());
 
 	    // Wishlist 
 	    handlerHash.put("/wishlist.html", new WishlistRequestHandler());	

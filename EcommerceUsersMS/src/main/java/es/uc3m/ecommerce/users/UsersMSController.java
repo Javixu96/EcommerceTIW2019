@@ -24,15 +24,24 @@ public class UsersMSController {
 	@Autowired
 	PurchasDAO daopurchas;
 	
+	// Buscar todos los pedidos de un usuario
 	@RequestMapping(method = RequestMethod.GET, value="/users/buyers/{userId}")
 	public ResponseEntity<List<Integer>> findAllConfirmationCode(@PathVariable int userId) {
 		List<Integer> allConfirmation = daopurchas.findAllConfirmationCode(userId);
 		return new ResponseEntity<>(allConfirmation, HttpStatus.OK);
 	}
 	
+	// Buscar todos los productos de un pedido
 	@RequestMapping(method = RequestMethod.GET, value="/users/purchases/{confirmationCode}")
 	public ResponseEntity<List<Purchas>> findByConfirmationCode(@PathVariable int confirmationCode) {
 		List<Purchas> purchases = daopurchas.findByConfirmationCode(confirmationCode);
 		return new ResponseEntity<>(purchases, HttpStatus.OK);
+	}
+		
+	// Insertar un pedido
+	@RequestMapping(method = RequestMethod.POST, value="/users/purchases")
+	public ResponseEntity<Purchas> insertPurchase(@RequestBody Purchas purchase) {
+		Purchas newPurchase = daopurchas.save(purchase);
+		return new ResponseEntity<>(newPurchase, HttpStatus.OK);
 	}
 }
