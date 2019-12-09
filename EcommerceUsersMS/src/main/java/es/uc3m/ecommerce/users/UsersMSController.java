@@ -24,6 +24,16 @@ public class UsersMSController {
 	@Autowired
 	PurchasDAO daopurchas;
 	
+	@Autowired
+	AppuserDAO daoappuser;
+	
+	// Buscar usuario por su ID
+	@RequestMapping(method = RequestMethod.GET, value="/users/{userId}")
+	public ResponseEntity<Appuser> findByUserId(@PathVariable int userId) {
+		Appuser user = daoappuser.findByUserId(userId);
+		return new ResponseEntity<>(user, HttpStatus.OK);
+	}
+	
 	// Buscar todos los pedidos de un usuario
 	@RequestMapping(method = RequestMethod.GET, value="/users/buyers/{userId}")
 	public ResponseEntity<List<Integer>> findAllConfirmationCode(@PathVariable int userId) {
