@@ -63,19 +63,85 @@ public class CatalogueMSController {
 	}
 	
 	@RequestMapping(value="/products", method= RequestMethod.GET) // buscar todos los productos filtrados por campos
-	public ResponseEntity<List<Product>> findAllProductsSearch(
+	public ResponseEntity<List<Product>> findByAttributes(
 			@RequestParam(value="productName", required=false) String productName,
-			@RequestParam(value="shortDesc", required=false) String shortDec,
+			@RequestParam(value="shortDesc", required=false) String shortDesc,
 			@RequestParam(value="categoryBean", required=false) Category categoryBean, 
-			@RequestParam(value="price", required=false) int price){
+			@RequestParam(value="price", required=false) Integer price){
 		
 		ResponseEntity<List<Product>> response = null;
+		List<Product> pList = null; 
 		
-		if(productName == null) {
-			
+		// Sin filtro de busqueda mostrar todos los productos
+		if(productName == null && shortDesc == null && categoryBean == null && price == null) {
+			pList = (List<Product>) productDAO.findAll();		
 		}
-		List<Product> pList = (List<Product>) productDAO.findAll();
+		/* BUSQUEDA POR 1 ATRIBUTO */
+		// Buscar solo por nombre de producto
+		else if(productName != null && shortDesc == null && categoryBean == null && price == null) {
+			pList = (List<Product>) productDAO.findByName();		
+		}
+		// Buscar solo por descripcion
+		else if(productName == null && shortDesc != null && categoryBean == null && price == null) {
+			pList = (List<Product>) productDAO.findByName();		
+		}
+		// Buscar solo por cateogria
+		else if(productName == null && shortDesc == null && categoryBean != null && price == null) {
+			pList = (List<Product>) productDAO.findByCategory();		
+		}		
+		// Buscar solo por precio
+		else if(productName == null && shortDesc == null && categoryBean == null && price != null) {
+			pList = (List<Product>) productDAO.findByPrice();		
+		}
+		/* BUSQUEDA POR 2 ATRIBUTOS */
+		// Buscar por nombre y descripcion
+		else if(productName != null && shortDesc != null && categoryBean == null && price == null) {
+			pList = (List<Product>) productDAO.findByNameAndDesc();		
+		}
+		// Buscar por nombe y categoria
+		else if(productName != null && shortDesc == null && categoryBean != null && price == null) {
+			pList = (List<Product>) productDAO.findByNameAndCategory();		
+		}
+		// Buscar por nombre y precio
+		else if(productName != null && shortDesc == null && categoryBean == null && price != null) {
+			pList = (List<Product>) productDAO.findByNameAndPrice();		
+		}
+		// Buscar por descripcion y categoria
+		else if(productName == null && shortDesc != null && categoryBean != null && price != null) {
+			pList = (List<Product>) productDAO.findByDescAndCategory();		
+		}
+		// Buscar por descripcion y precio
+		else if(productName == null && shortDesc != null && categoryBean == null && price != null) {
+			pList = (List<Product>) productDAO.findByDescAndPrice();		
+		}
+		// Buscar por categoria y precio
+		else if(productName == null && shortDesc == null && categoryBean != null && price != null) {
+			pList = (List<Product>) productDAO.findByCategoryAndPrice();		
+		}
+		/* BUSQUEDA POR 3 ATRIBUTOS */
+		// Buscar por nombre, categoria y precio
+		else if(productName != null && shortDesc == null && categoryBean != null && price != null) {
+			pList = (List<Product>) productDAO.findByNameAndCategoryAndPrice();		
+		}
+		// Buscar por nombre, categoria y descripcion
+		else if(productName != null && shortDesc != null && categoryBean != null && price == null) {
+			pList = (List<Product>) productDAO.findByNameAndCategoryAndDesc();		
+		}
+		// Buscar por categoria, precio y descripcion
+		else if(productName == null && shortDesc != null && categoryBean != null && price != null) {
+			pList = (List<Product>) productDAO.findByPriceAndCategoryAndDesc();		
+		}
+		// Buscar por nombre, precio y descripcion
+		else if(productName != null && shortDesc != null && categoryBean == null && price != null) {
+			pList = (List<Product>) productDAO.findByPriceAndNameAndDesc();		
+		}
+		/* BUSQUEDA POR 4 ATRIBUTOS */
+		// Buscar por nombre, precio, descripcion y categoria
+		else {
+			pList = (List<Product>) productDAO.findByPriceAndNameAndDescAndCategory();		
+		}
 		
+		// COMPROBAR SI LA BUSQUEDA A RETORNADO RESULTADOS
 		if (pList == null) {
 			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
@@ -112,13 +178,13 @@ public class CatalogueMSController {
 			
 			// Edit product with new attributes
 			p.setPrice(newP.getPrice());
-			//p.setAppuser(newP.getAppuser());
+			p.setAppuser(newP.getAppuser());
 			p.setCategoryBean(newP.getCategoryBean());
 			p.setLongDesc(newP.getLongDesc());
 			p.setProductId(newP.getProductId());
 			p.setProductName(newP.getProductName());
 			p.setProductPicture(newP.getProductPicture());
-			//p.setPurchases(newP.getPurchases());
+			p.setPurchases(newP.getPurchases());
 			p.setShortDesc(newP.getShortDesc());
 			p.setStock(newP.getStock());
 			
