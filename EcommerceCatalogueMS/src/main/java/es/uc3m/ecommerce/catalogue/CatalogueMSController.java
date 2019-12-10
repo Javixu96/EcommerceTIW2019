@@ -62,83 +62,84 @@ public class CatalogueMSController {
 		return response;
 	}
 	
-	@RequestMapping(value="/products", method= RequestMethod.GET) // buscar todos los productos filtrados por campos
+	@RequestMapping(value="/products/attributes", method= RequestMethod.GET) // buscar todos los productos filtrados por campos
 	public ResponseEntity<List<Product>> findByAttributes(
-			@RequestParam(value="productName", required=false) String productName,
-			@RequestParam(value="shortDesc", required=false) String shortDesc,
-			@RequestParam(value="categoryBean", required=false) Category categoryBean, 
-			@RequestParam(value="price", required=false) Integer price){
+			@RequestParam(value="productName", required = false) String productName,
+			@RequestParam(value="shortDesc", required = false) String shortDesc,
+			@RequestParam(value="categoryBean", required = false) Category categoryBean, 
+			@RequestParam(value="priceMin", required = false) Integer priceMin,
+			@RequestParam(value="priceMax", required = false) Integer priceMax){
 		
 		ResponseEntity<List<Product>> response = null;
 		List<Product> pList = null; 
 		
 		// Sin filtro de busqueda mostrar todos los productos
-		if(productName == null && shortDesc == null && categoryBean == null && price == null) {
+		if(productName == null && shortDesc == null && categoryBean == null && priceMin == null && priceMax == null) {
 			pList = (List<Product>) productDAO.findAll();		
 		}
 		/* BUSQUEDA POR 1 ATRIBUTO */
 		// Buscar solo por nombre de producto
-		else if(productName != null && shortDesc == null && categoryBean == null && price == null) {
-			pList = (List<Product>) productDAO.findByName();		
+		else if(productName != null && shortDesc == null && categoryBean == null && priceMin == null && priceMax == null) {
+			pList = (List<Product>) productDAO.findByName(productName);		
 		}
 		// Buscar solo por descripcion
-		else if(productName == null && shortDesc != null && categoryBean == null && price == null) {
-			pList = (List<Product>) productDAO.findByName();		
+		else if(productName == null && shortDesc != null && categoryBean == null && priceMin == null && priceMax == null) {
+			pList = (List<Product>) productDAO.findByDesc(shortDesc);		
 		}
 		// Buscar solo por cateogria
-		else if(productName == null && shortDesc == null && categoryBean != null && price == null) {
-			pList = (List<Product>) productDAO.findByCategory();		
+		else if(productName == null && shortDesc == null && categoryBean != null && priceMin == null && priceMax == null) {
+			pList = (List<Product>) productDAO.findByCategory(categoryBean.getCategoryId());		
 		}		
 		// Buscar solo por precio
-		else if(productName == null && shortDesc == null && categoryBean == null && price != null) {
-			pList = (List<Product>) productDAO.findByPrice();		
+		else if(productName == null && shortDesc == null && categoryBean == null && priceMin != null && priceMax != null) {
+			pList = (List<Product>) productDAO.findByPrice(priceMin, priceMax);		
 		}
 		/* BUSQUEDA POR 2 ATRIBUTOS */
 		// Buscar por nombre y descripcion
-		else if(productName != null && shortDesc != null && categoryBean == null && price == null) {
-			pList = (List<Product>) productDAO.findByNameAndDesc();		
+		else if(productName != null && shortDesc != null && categoryBean == null && priceMin == null && priceMax == null) {
+			pList = (List<Product>) productDAO.findByNameAndDesc(productName, shortDesc);		
 		}
 		// Buscar por nombe y categoria
-		else if(productName != null && shortDesc == null && categoryBean != null && price == null) {
-			pList = (List<Product>) productDAO.findByNameAndCategory();		
+		else if(productName != null && shortDesc == null && categoryBean != null && priceMin == null && priceMax == null) {
+			pList = (List<Product>) productDAO.findByNameAndCategory(productName, categoryBean.getCategoryId());		
 		}
 		// Buscar por nombre y precio
-		else if(productName != null && shortDesc == null && categoryBean == null && price != null) {
-			pList = (List<Product>) productDAO.findByNameAndPrice();		
+		else if(productName != null && shortDesc == null && categoryBean == null && priceMin != null && priceMax != null) {
+			pList = (List<Product>) productDAO.findByNameAndPrice(productName, priceMin, priceMax);		
 		}
 		// Buscar por descripcion y categoria
-		else if(productName == null && shortDesc != null && categoryBean != null && price != null) {
-			pList = (List<Product>) productDAO.findByDescAndCategory();		
+		else if(productName == null && shortDesc != null && categoryBean != null && priceMin != null && priceMax != null) {
+			pList = (List<Product>) productDAO.findByDescAndCategory(shortDesc, categoryBean.getCategoryId());		
 		}
 		// Buscar por descripcion y precio
-		else if(productName == null && shortDesc != null && categoryBean == null && price != null) {
-			pList = (List<Product>) productDAO.findByDescAndPrice();		
+		else if(productName == null && shortDesc != null && categoryBean == null && priceMin != null && priceMax != null) {
+			pList = (List<Product>) productDAO.findByDescAndPrice(shortDesc, priceMin, priceMax);		
 		}
 		// Buscar por categoria y precio
-		else if(productName == null && shortDesc == null && categoryBean != null && price != null) {
-			pList = (List<Product>) productDAO.findByCategoryAndPrice();		
+		else if(productName == null && shortDesc == null && categoryBean != null && priceMin != null && priceMax != null) {
+			pList = (List<Product>) productDAO.findByCategoryAndPrice(categoryBean.getCategoryId(), priceMin, priceMax);		
 		}
 		/* BUSQUEDA POR 3 ATRIBUTOS */
 		// Buscar por nombre, categoria y precio
-		else if(productName != null && shortDesc == null && categoryBean != null && price != null) {
-			pList = (List<Product>) productDAO.findByNameAndCategoryAndPrice();		
+		else if(productName != null && shortDesc == null && categoryBean != null && priceMin != null && priceMax != null) {
+			pList = (List<Product>) productDAO.findByNameAndCategoryAndPrice(productName, categoryBean.getCategoryId(), priceMin, priceMax);		
 		}
 		// Buscar por nombre, categoria y descripcion
-		else if(productName != null && shortDesc != null && categoryBean != null && price == null) {
-			pList = (List<Product>) productDAO.findByNameAndCategoryAndDesc();		
+		else if(productName != null && shortDesc != null && categoryBean != null && priceMin == null && priceMax == null) {
+			pList = (List<Product>) productDAO.findByNameAndCategoryAndDesc(productName, categoryBean.getCategoryId(), shortDesc);		
 		}
 		// Buscar por categoria, precio y descripcion
-		else if(productName == null && shortDesc != null && categoryBean != null && price != null) {
-			pList = (List<Product>) productDAO.findByPriceAndCategoryAndDesc();		
+		else if(productName == null && shortDesc != null && categoryBean != null && priceMin != null && priceMax != null) {
+			pList = (List<Product>) productDAO.findByPriceAndCategoryAndDesc(priceMin, priceMax, categoryBean.getCategoryId(), shortDesc);		
 		}
 		// Buscar por nombre, precio y descripcion
-		else if(productName != null && shortDesc != null && categoryBean == null && price != null) {
-			pList = (List<Product>) productDAO.findByPriceAndNameAndDesc();		
+		else if(productName != null && shortDesc != null && categoryBean == null && priceMin != null && priceMax != null) {
+			pList = (List<Product>) productDAO.findByPriceAndNameAndDesc(priceMin, priceMax, productName, shortDesc);		
 		}
 		/* BUSQUEDA POR 4 ATRIBUTOS */
 		// Buscar por nombre, precio, descripcion y categoria
 		else {
-			pList = (List<Product>) productDAO.findByPriceAndNameAndDescAndCategory();		
+			pList = (List<Product>) productDAO.findByPriceAndNameAndDescAndCategory(priceMin, priceMax, productName, categoryBean.getCategoryId(), shortDesc);		
 		}
 		
 		// COMPROBAR SI LA BUSQUEDA A RETORNADO RESULTADOS
