@@ -32,7 +32,10 @@
 	<div class="single_product">
 		<div class="container">
 			<div class="row">				
-				<%Product product=(Product)request.getAttribute("product"); %>
+				<% 	
+					Product product=(Product)request.getAttribute("product");
+					Category parentCategory = (Category) request.getAttribute("parentCategory");
+				%>
 				<!-- Image -->
 				<div class="col-lg-6 order-lg-2 order-1">
 					<div class="image_selected"><img src="<% StringBuilder sb = new StringBuilder();
@@ -48,14 +51,13 @@
 				<div class="col-lg-6 order-3">
 					<div>
 							<div class="clearfix row_container catego" style="z-index: 1000;">
-								
-							
 								<div class="row_item">
 									<h4>Categoría</h4>
 									<ul class="product_size">
 										<li>
 											<div class="size_mark_container" style="width:400px;left:-100px;text-align:left;">
-												<% out.println(product.getCategoryBean().getCategory().getCategoryName()); %>											</div>	
+												<% out.println(parentCategory.getCategoryName()); %>			
+											</div>	
 										</li>
 									</ul>
 								</div>
@@ -77,7 +79,7 @@
 												 <%
 												 
                                                 	Boolean checked;
-                                            		for(Category c: product.getCategoryBean().getCategory().getCategories()){
+                                            		for(Category c: parentCategory.getCategories()){
                                             			cont++;
                                             			//checked = (c.getCategoryName().equals(productToModify.getCategoryBean().getCategoryName())) ? "checked" : "";
                                             			if (c.getCategoryName().equals(product.getCategoryBean().getCategoryName())){
