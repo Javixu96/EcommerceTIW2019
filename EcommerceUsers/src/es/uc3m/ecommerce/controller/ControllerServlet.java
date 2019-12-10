@@ -12,11 +12,17 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletConfig;
 
-import es.uc3m.ecommerce.manager.CategoryManager;
 import es.uc3m.ecommerce.model.Category;
 
 import java.util.Map;
@@ -34,6 +40,11 @@ import java.util.List;
 public class ControllerServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
+	Client client;
+	WebTarget webTarget;
+	WebTarget webTargetPath;
+	Invocation.Builder invocationBuilder;
+	Response resp;	
 	
 	private ServletContext servletContext; //usamos el servletcontext para cargar la vista de categorias al principio, cuando se carga el index.html
 	
@@ -43,7 +54,6 @@ public class ControllerServlet extends HttpServlet {
 	// Mapa con los handlers que getionan las acciones a realizar por cada html 
 	private Map<String,IHandler> handlerHash = new HashMap<String,IHandler>();
 	//JMS: escucha cualquier mensaje, y cuando recibe uno de tipo confirmación, realiza las acciones necesarias	
-	private StartMessageListener msgListener;
 	
 	public ControllerServlet() {
         super();
@@ -52,13 +62,8 @@ public class ControllerServlet extends HttpServlet {
 
 	// Initialize mappings: not implemented here
 	public void init() throws ServletException {
-		msgListener = new StartMessageListener();
-		try {
-			msgListener.start();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		
+		client = ClientBuilder.newClient();
 		
 	    // Esto popula handlerHash y es utilizado para instanciar el handler correspondiente al path de la request captada
 		
@@ -92,6 +97,7 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/remove_from_cart.html", new CartRequestHandler());
 	    handlerHash.put("/add_to_cart.html", new CartRequestHandler());
 	    handlerHash.put("/edit_cart.html", new CartRequestHandler());
+	    handlerHash.put("/insert_purchase.html", new InsertPurchaseHandler());
 
 	    // Wishlist 
 	    handlerHash.put("/wishlist.html", new WishlistRequestHandler());	
@@ -109,12 +115,22 @@ public class ControllerServlet extends HttpServlet {
 
 	    //popula la vista de categorias del header cuando se inicia la app (antes de llamar a cualquier página)
 	    servletContext = getServletConfig().getServletContext();
-	    servletContext.setAttribute("categoryTree", getCategoryTree());
+	    servletContext.setAttribute("categoryTree", findCategoryList());
 	  }
 	
-	private List<List<Category>> getCategoryTree() {
-		CategoryManager categoryManager = new CategoryManager();
-		return categoryManager.findCategoryTree();
+	private List<Category> findCategoryList() {
+		webTarget = client.target("http://localhost:13100");		
+		webTargetPath = webTarget.path("categories/parents");
+		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
+		List<Category> categoryList = null;
+		
+		// Invocar al servicio
+		resp = invocationBuilder.get();
+		if (resp.getStatus() == 200) {
+			categoryList = resp.readEntity(new GenericType<List<Category>>() {});
+		} 
+		
+		return categoryList;
 	}
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -130,7 +146,7 @@ public class ControllerServlet extends HttpServlet {
 			    // No hacer nada
 		    } else {
 		    	//Arbol de categorias en request por si hay algun cambio desde admin, que coja la version mas actualizada
-			    request.setAttribute("categoryTree", getCategoryTree());
+			    request.setAttribute("categoryTree", findCategoryList());
 			    //Redirige a la vista correspondiente, devuelta por el handler
 			    request.getRequestDispatcher(viewURL).forward(request, response);
 		    }
@@ -144,6 +160,6 @@ public class ControllerServlet extends HttpServlet {
 	  
 	 public void destroy(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, JMSException {
-		 msgListener.stop(); //al terminar con el listener, se para
+		
 	 }
 }

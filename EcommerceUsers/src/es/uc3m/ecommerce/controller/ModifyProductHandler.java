@@ -8,6 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import es.uc3m.ecommerce.manager.*;
 import es.uc3m.ecommerce.model.*;
@@ -18,6 +24,11 @@ import es.uc3m.ecommerce.model.*;
 public class ModifyProductHandler implements IHandler {
 	
 	private boolean modifyOrDelete; //true->modify false->delete
+	Client client;
+	WebTarget webTarget;
+	WebTarget webTargetPath;
+	Invocation.Builder invocationBuilder;
+	Response resp;	
 	
 	public ModifyProductHandler (boolean modifyOrDelete) {
 		this.modifyOrDelete = modifyOrDelete;
@@ -25,6 +36,7 @@ public class ModifyProductHandler implements IHandler {
 	
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse res) throws ServletException, IOException {
+		client = ClientBuilder.newClient();
 		return modifyOrDelete ? processModify(request) : processDelete(request);
 	}
 
@@ -32,7 +44,6 @@ public class ModifyProductHandler implements IHandler {
 	public String processModify(HttpServletRequest request) 
 			throws ServletException, IOException {
 		ProductManager im = new ProductManager();
-		CategoryManager ca = new CategoryManager();
 		
 		//recoger parametros del form
 		String productName = request.getParameter("name");
@@ -52,7 +63,7 @@ public class ModifyProductHandler implements IHandler {
 		product.setPrice(productPrice);
 		product.setStock(productStock);
 		
-		product.setCategoryBean(ca.findByName(productCategory));
+		product.setCategoryBean(findCategoryByName(productCategory));
 
 		//foto no obligatoria: comprobamos que existe para realizar el update en bd
 		String control = request.getParameter("fileToUpLoad");
@@ -98,4 +109,21 @@ public class ModifyProductHandler implements IHandler {
 	
 	}
 
+	private Category findCategoryByName(String productCategory) {
+		String path = "categories";
+		webTarget = client.target("http://localhost:13100");		
+		webTargetPath = webTarget.path(path);
+		invocationBuilder = webTargetPath.queryParam("categoryName", productCategory).request(MediaType.APPLICATION_JSON);
+		Category category = null;
+		
+		// Invocar al servicio
+		resp = invocationBuilder.get();
+		if (resp.getStatus() == 200) {
+			category = resp.readEntity(Category.class);
+		} 
+		
+		return category;
+	}
+	
+	
 }
