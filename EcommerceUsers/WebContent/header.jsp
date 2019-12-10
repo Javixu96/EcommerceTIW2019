@@ -182,23 +182,23 @@
 									<div class="cat_menu_text">Categor&iacuteas</div>
 								</div>
 								<%
-									List<List<Category>> categories = (request.getAttribute("categoryTree") != null) 
-											? (List<List<Category>>) request.getAttribute("categoryTree") 
-											: (List<List<Category>>) request.getServletContext().getAttribute("categoryTree");
+									List<Category> categories = (request.getAttribute("categoryTree") != null) 
+											? (List<Category>) request.getAttribute("categoryTree") 
+											: (List<Category>) request.getServletContext().getAttribute("categoryTree");
 								%>
 								
 								<ul class="cat_menu" >
-									<% for (List<Category> cList : categories){ %>
+									<% for (Category parent : categories){ %>
 									<li class="hassubs">
 										<a href="<c:url value="search.html">
-					            			<c:param name="searchQuery" value="<%= searchQueryInput %>"/>
-							           	 	<c:param name="searchCategory" value="<%= Integer.toString(cList.get(0).getCategory().getCategoryId())%>"/>
-					            	 	</c:url>"><%= cList.get(0).getCategory().getCategoryName()%><i class="fas fa-chevron-right"></i></a>
+					            			<c:param name="searchQuery" value="all"/>
+							           	 	<c:param name="searchCategory" value="<%= Integer.toString(parent.getCategoryId())%>"/>
+					            	 	</c:url>"><%= parent.getCategoryName()%><i class="fas fa-chevron-right"></i></a>
 										<ul>
-											<% for (Category categoryChild : cList) { %>
+											<% for (Category categoryChild : parent.getCategories()) { %>
 											<li>
 												<a href="<c:url value="search.html">
-							            			<c:param name="searchQuery" value="<%= searchQueryInput %>"/>
+							            			<c:param name="searchQuery" value="all"/>
 									           	 	<c:param name="searchCategory" value="<%= Integer.toString(categoryChild.getCategoryId())%>"/>
 							            	 	</c:url>"> <%= categoryChild.getCategoryName() %> <i class="fas fa-chevron-right"></i></a></li>
 											
@@ -206,7 +206,6 @@
 										</ul>
 									</li>
 									<% } %>	
-									
 								</ul>
 							</div>
 
