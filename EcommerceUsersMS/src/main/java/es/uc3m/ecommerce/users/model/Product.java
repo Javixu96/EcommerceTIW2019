@@ -35,7 +35,6 @@ import java.util.List;
 	@NamedQuery(name="Product.findBySimilarCategoryPriceFilter", 
 		query="SELECT p FROM Product p WHERE UPPER(p.categoryBean.categoryName) LIKE UPPER(:query) AND p.isDeleted = 0 AND p.price BETWEEN :priceMin AND :priceMax")
 })
-
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -65,7 +64,7 @@ public class Product implements Serializable {
 	//bi-directional many-to-one association to Category
 	@ManyToOne
 	@JoinColumn(name="category")
-	@JsonIgnore
+	// @JsonIgnore
 	private Category categoryBean;
 
 	//bi-directional many-to-one association to Purchas
