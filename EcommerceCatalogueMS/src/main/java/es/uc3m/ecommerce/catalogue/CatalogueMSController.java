@@ -34,7 +34,8 @@ public class CatalogueMSController {
 	ProductDAO productDAO;
 	
 	//PRODUCT - LLAMADAS GET
-	@RequestMapping(value="/products/{id}", method= RequestMethod.GET) // buscar producto por su ID
+	// buscar producto por su ID
+	@RequestMapping(value="/products/{id}", method= RequestMethod.GET) 
 	public ResponseEntity<Product> findProductById(@PathVariable int id){
 		
 		ResponseEntity<Product> response = null;
@@ -48,7 +49,8 @@ public class CatalogueMSController {
 		return response;
 	}
 	
-	@RequestMapping(value="/products", method= RequestMethod.GET) // buscar todos los productos
+	// buscar todos los productos
+	@RequestMapping(value="/products", method= RequestMethod.GET) 
 	public ResponseEntity<List<Product>> findAllProducts(){
 		
 		ResponseEntity<List<Product>> response = null;
@@ -62,84 +64,62 @@ public class CatalogueMSController {
 		return response;
 	}
 	
+	// Buscar producto según sus atributos descripcion, precio, nombre y categoria
 	@RequestMapping(value="/products/attributes", method= RequestMethod.GET) // buscar todos los productos filtrados por campos
 	public ResponseEntity<List<Product>> findByAttributes(
 			@RequestParam(value="productName", required = false) String productName,
 			@RequestParam(value="shortDesc", required = false) String shortDesc,
-			@RequestParam(value="categoryBean", required = false) Category categoryBean, 
+			@RequestParam(value="category", required = false) Integer categoryId, 
 			@RequestParam(value="priceMin", required = false) Integer priceMin,
 			@RequestParam(value="priceMax", required = false) Integer priceMax){
 		
 		ResponseEntity<List<Product>> response = null;
 		List<Product> pList = null; 
 		
-		// Sin filtro de busqueda mostrar todos los productos
-		if(productName == null && shortDesc == null && categoryBean == null && priceMin == null && priceMax == null) {
-			pList = (List<Product>) productDAO.findAll();		
+		if(priceMin == null) {
+			priceMin = 0; 
 		}
-		/* BUSQUEDA POR 1 ATRIBUTO */
-		// Buscar solo por nombre de producto
-		else if(productName != null && shortDesc == null && categoryBean == null && priceMin == null && priceMax == null) {
-			pList = (List<Product>) productDAO.findByName(productName);		
+		if(priceMax == null) {
+			priceMax = Integer.MAX_VALUE;
 		}
-		// Buscar solo por descripcion
-		else if(productName == null && shortDesc != null && categoryBean == null && priceMin == null && priceMax == null) {
-			pList = (List<Product>) productDAO.findByDesc(shortDesc);		
-		}
-		// Buscar solo por cateogria
-		else if(productName == null && shortDesc == null && categoryBean != null && priceMin == null && priceMax == null) {
-			pList = (List<Product>) productDAO.findByCategory(categoryBean.getCategoryId());		
-		}		
-		// Buscar solo por precio
-		else if(productName == null && shortDesc == null && categoryBean == null && priceMin != null && priceMax != null) {
+		
+		// Sin filtro de busqueda mostrar todos los productos con precio de 0 a Integer.MAX_VALUE
+		
+		if(productName == null && shortDesc == null && categoryId == null) {
 			pList = (List<Product>) productDAO.findByPrice(priceMin, priceMax);		
 		}
-		/* BUSQUEDA POR 2 ATRIBUTOS */
-		// Buscar por nombre y descripcion
-		else if(productName != null && shortDesc != null && categoryBean == null && priceMin == null && priceMax == null) {
-			pList = (List<Product>) productDAO.findByNameAndDesc(productName, shortDesc);		
-		}
-		// Buscar por nombe y categoria
-		else if(productName != null && shortDesc == null && categoryBean != null && priceMin == null && priceMax == null) {
-			pList = (List<Product>) productDAO.findByNameAndCategory(productName, categoryBean.getCategoryId());		
-		}
-		// Buscar por nombre y precio
-		else if(productName != null && shortDesc == null && categoryBean == null && priceMin != null && priceMax != null) {
+		/* BUSQUEDA POR 1 ATRIBUTO + rango de precios */
+		// Buscar solo por nombre de producto
+		else if(productName != null && shortDesc == null && categoryId == null) {
 			pList = (List<Product>) productDAO.findByNameAndPrice(productName, priceMin, priceMax);		
 		}
-		// Buscar por descripcion y categoria
-		else if(productName == null && shortDesc != null && categoryBean != null && priceMin != null && priceMax != null) {
-			pList = (List<Product>) productDAO.findByDescAndCategory(shortDesc, categoryBean.getCategoryId());		
-		}
-		// Buscar por descripcion y precio
-		else if(productName == null && shortDesc != null && categoryBean == null && priceMin != null && priceMax != null) {
+		// Buscar solo por descripcion
+		else if(productName == null && shortDesc != null && categoryId == null) {
 			pList = (List<Product>) productDAO.findByDescAndPrice(shortDesc, priceMin, priceMax);		
 		}
-		// Buscar por categoria y precio
-		else if(productName == null && shortDesc == null && categoryBean != null && priceMin != null && priceMax != null) {
-			pList = (List<Product>) productDAO.findByCategoryAndPrice(categoryBean.getCategoryId(), priceMin, priceMax);		
-		}
-		/* BUSQUEDA POR 3 ATRIBUTOS */
-		// Buscar por nombre, categoria y precio
-		else if(productName != null && shortDesc == null && categoryBean != null && priceMin != null && priceMax != null) {
-			pList = (List<Product>) productDAO.findByNameAndCategoryAndPrice(productName, categoryBean.getCategoryId(), priceMin, priceMax);		
-		}
-		// Buscar por nombre, categoria y descripcion
-		else if(productName != null && shortDesc != null && categoryBean != null && priceMin == null && priceMax == null) {
-			pList = (List<Product>) productDAO.findByNameAndCategoryAndDesc(productName, categoryBean.getCategoryId(), shortDesc);		
-		}
-		// Buscar por categoria, precio y descripcion
-		else if(productName == null && shortDesc != null && categoryBean != null && priceMin != null && priceMax != null) {
-			pList = (List<Product>) productDAO.findByPriceAndCategoryAndDesc(priceMin, priceMax, categoryBean.getCategoryId(), shortDesc);		
-		}
-		// Buscar por nombre, precio y descripcion
-		else if(productName != null && shortDesc != null && categoryBean == null && priceMin != null && priceMax != null) {
+		// Buscar solo por cateogria
+		else if(productName == null && shortDesc == null && categoryId != null) {
+			pList = (List<Product>) productDAO.findByCategoryAndPrice(categoryId, priceMin, priceMax);		
+		}		
+		
+		/* BUSQUEDA POR 2 ATRIBUTOS + rango de precios */
+		// Buscar por nombre y descripcion
+		else if(productName != null && shortDesc != null && categoryId == null) {
 			pList = (List<Product>) productDAO.findByPriceAndNameAndDesc(priceMin, priceMax, productName, shortDesc);		
 		}
-		/* BUSQUEDA POR 4 ATRIBUTOS */
-		// Buscar por nombre, precio, descripcion y categoria
+		// Buscar por nombe y categoria
+		else if(productName != null && shortDesc == null && categoryId != null) {
+			pList = (List<Product>) productDAO.findByNameAndCategoryAndPrice(productName, categoryId, priceMin, priceMax);		
+		}
+		// Buscar por descripcion y categoria
+		else if(productName == null && shortDesc != null && categoryId != null) {
+			pList = (List<Product>) productDAO.findByPriceAndCategoryAndDesc(priceMin, priceMax, categoryId, shortDesc);		
+		}
+		/* BUSQUEDA POR 3 ATRIBUTOS + rango de precios */
+		
+		// Buscar por nombre, categoria y descripcion
 		else {
-			pList = (List<Product>) productDAO.findByPriceAndNameAndDescAndCategory(priceMin, priceMax, productName, categoryBean.getCategoryId(), shortDesc);		
+			pList = (List<Product>) productDAO.findByPriceAndNameAndDescAndCategory(priceMin, priceMax, productName, categoryId, shortDesc);		
 		}
 		
 		// COMPROBAR SI LA BUSQUEDA A RETORNADO RESULTADOS
@@ -151,8 +131,9 @@ public class CatalogueMSController {
 		return response;
 	}
 	
-	//PRODUCT - LLAMADAS POST
-	@RequestMapping(value="/products", method= RequestMethod.POST) // insertar un nuevo producto
+	// PRODUCT - LLAMADAS POST
+	// insertar un nuevo producto
+	@RequestMapping(value="/products", method= RequestMethod.POST) 
 	public ResponseEntity<Product> insertProduct(@RequestBody @Validated Product p){
 		
 		ResponseEntity<Product> response = null;
@@ -166,8 +147,9 @@ public class CatalogueMSController {
 		return response;
 	}
 	
-	//PRODUCT - LLAMADAS PUT
-	@RequestMapping(value="/products/{id}", method= RequestMethod.PUT) // editar un producto existente
+	// PRODUCT - LLAMADAS PUT
+	// Editar un producto existente por si ID, dado otro objeto con los nuevos atributos deseados
+	@RequestMapping(value="/products/{id}", method= RequestMethod.PUT) 
 	public ResponseEntity<Product> modifyProductById(@PathVariable int id, @RequestBody @Validated Product newP){
 		
 		ResponseEntity<Product> response = null;
@@ -196,7 +178,8 @@ public class CatalogueMSController {
 		return response;
 	}
 	
-	//PRODUCT - LLAMADAS DELETE
+	// PRODUCT - LLAMADAS DELETE
+	// Borrar producto por su ID
 	@RequestMapping(value="/products/{id}", method= RequestMethod.DELETE) // eliminar un producto (editar el flag isDeleted)
 	public ResponseEntity<Product> deleteProduct(@PathVariable int id){
 		
