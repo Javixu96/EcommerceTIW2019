@@ -12,9 +12,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name="purchases")
-@NamedQuery(name="Purchas.findAll", query="SELECT p FROM Purchas p")
-@NamedQuery(name="Purchas.findAllConfirmationCode", query="SELECT DISTINCT p.confirmationCode FROM Purchas p where p.appuser= :user")
-@NamedQuery(name="Purchas.findPurchase", query="SELECT p FROM Purchas p WHERE p.confirmationCode = :confirmationCode")
 public class Purchas implements Serializable {
 	private static final long serialVersionUID = 1L;
 
