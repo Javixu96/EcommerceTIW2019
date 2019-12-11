@@ -116,7 +116,6 @@ public class CatalogueMSController {
 			pList = (List<Product>) productDAO.findByPriceAndCategoryAndDesc(priceMin, priceMax, categoryId, shortDesc);		
 		}
 		/* BUSQUEDA POR 3 ATRIBUTOS + rango de precios */
-		
 		// Buscar por nombre, categoria y descripcion
 		else {
 			pList = (List<Product>) productDAO.findByPriceAndNameAndDescAndCategory(priceMin, priceMax, productName, categoryId, shortDesc);		
