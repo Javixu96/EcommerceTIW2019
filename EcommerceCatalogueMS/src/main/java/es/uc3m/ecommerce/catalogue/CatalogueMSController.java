@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import es.uc3m.ecommerce.catalogue.model.Product;
 import es.uc3m.ecommerce.catalogue.model.ProductDAO;
@@ -29,7 +30,6 @@ public class CatalogueMSController {
 	@Autowired
 	CategoryDAO categoryDAO;
 	
-
 	@Autowired
 	ProductDAO productDAO;
 	
@@ -49,23 +49,8 @@ public class CatalogueMSController {
 		return response;
 	}
 	
-	// buscar todos los productos
-	@RequestMapping(value="/products", method= RequestMethod.GET) 
-	public ResponseEntity<List<Product>> findAllProducts(){
-		
-		ResponseEntity<List<Product>> response = null;
-		List<Product> pList = (List<Product>) productDAO.findAll();
-		
-		if (pList == null) {
-			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} else {
-			response = new ResponseEntity<>(pList, HttpStatus.OK);
-		}
-		return response;
-	}
-	
 	// Buscar producto según sus atributos descripcion, precio, nombre y categoria
-	@RequestMapping(value="/products/attributes", method= RequestMethod.GET) // buscar todos los productos filtrados por campos
+	@RequestMapping(value="/products", method= RequestMethod.GET) // buscar todos los productos filtrados por campos
 	public ResponseEntity<List<Product>> findByAttributes(
 			@RequestParam(value="productName", required = false) String productName,
 			@RequestParam(value="shortDesc", required = false) String shortDesc,
@@ -83,43 +68,8 @@ public class CatalogueMSController {
 			priceMax = Integer.MAX_VALUE;
 		}
 		
-		// Sin filtro de busqueda mostrar todos los productos con precio de 0 a Integer.MAX_VALUE
+		pList = (List<Product>) productDAO.searchProducts(priceMin, priceMax, productName, categoryId, shortDesc);
 		
-		if(productName == null && shortDesc == null && categoryId == null) {
-			pList = (List<Product>) productDAO.findByPrice(priceMin, priceMax);		
-		}
-		/* BUSQUEDA POR 1 ATRIBUTO + rango de precios */
-		// Buscar solo por nombre de producto
-		else if(productName != null && shortDesc == null && categoryId == null) {
-			pList = (List<Product>) productDAO.findByNameAndPrice(productName, priceMin, priceMax);		
-		}
-		// Buscar solo por descripcion
-		else if(productName == null && shortDesc != null && categoryId == null) {
-			pList = (List<Product>) productDAO.findByDescAndPrice(shortDesc, priceMin, priceMax);		
-		}
-		// Buscar solo por cateogria
-		else if(productName == null && shortDesc == null && categoryId != null) {
-			pList = (List<Product>) productDAO.findByCategoryAndPrice(categoryId, priceMin, priceMax);		
-		}		
-		
-		/* BUSQUEDA POR 2 ATRIBUTOS + rango de precios */
-		// Buscar por nombre y descripcion
-		else if(productName != null && shortDesc != null && categoryId == null) {
-			pList = (List<Product>) productDAO.findByPriceAndNameAndDesc(priceMin, priceMax, productName, shortDesc);		
-		}
-		// Buscar por nombe y categoria
-		else if(productName != null && shortDesc == null && categoryId != null) {
-			pList = (List<Product>) productDAO.findByNameAndCategoryAndPrice(productName, categoryId, priceMin, priceMax);		
-		}
-		// Buscar por descripcion y categoria
-		else if(productName == null && shortDesc != null && categoryId != null) {
-			pList = (List<Product>) productDAO.findByPriceAndCategoryAndDesc(priceMin, priceMax, categoryId, shortDesc);		
-		}
-		/* BUSQUEDA POR 3 ATRIBUTOS + rango de precios */
-		// Buscar por nombre, categoria y descripcion
-		else {
-			pList = (List<Product>) productDAO.findByPriceAndNameAndDescAndCategory(priceMin, priceMax, productName, categoryId, shortDesc);		
-		}
 		
 		// COMPROBAR SI LA BUSQUEDA A RETORNADO RESULTADOS
 		if (pList == null) {
