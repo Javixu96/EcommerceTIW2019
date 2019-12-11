@@ -36,12 +36,11 @@ public class ChatMsController {
 		List<Message>  allMessage= (List<Message>) msgDAO.findAll();
 		List<Message>  myList=new ArrayList<Message>();
 		for(Message myMessage:allMessage) {
-			if(myMessage.getReceiver().getUserId()==receiverId) {
+			if((myMessage.getReceiver().getUserId()==receiverId && myMessage.getIsRead()==0)) {
 				myList.add(myMessage);
 			}
 		}
-		
-		return new ResponseEntity<List<Message>>(allMessage,HttpStatus.OK);
+		return new ResponseEntity<List<Message>>(myList,HttpStatus.OK);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value="/message/{receiverId}/{senderId}")
@@ -49,12 +48,20 @@ public class ChatMsController {
 		List<Message>  allMessage= (List<Message>) msgDAO.findAll();
 		List<Message>  myList=new ArrayList<Message>();
 		for(Message myMessage:allMessage) {
-			if(myMessage.getReceiver().getUserId()==receiverId && myMessage.getSender().getUserId()==senderId ) {
+			if(myMessage.getReceiver().getUserId()==receiverId && myMessage.getSender().getUserId()==senderId && myMessage.getIsRead()==0) {
 				myList.add(myMessage);
 			}
 		}
-		
-		return new ResponseEntity<List<Message>>(allMessage,HttpStatus.OK);
+		return new ResponseEntity<List<Message>>(myList,HttpStatus.OK);
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, value="/message")
+	public ResponseEntity<List<Message>> updateMessage(@RequestBody List<Message> MessagesToUpdate) {
+		for(Message msg:MessagesToUpdate) {
+			msg.setIsRead(1);
+			msgDAO.save(msg);
+		}
+		return new ResponseEntity<List<Message>>(MessagesToUpdate,HttpStatus.OK);
 	}
 
 }

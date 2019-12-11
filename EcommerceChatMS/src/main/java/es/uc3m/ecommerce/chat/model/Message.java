@@ -30,9 +30,6 @@ public class Message implements Serializable {
 	
 	private String message;
 	
-	@Column(name="broadcast")
-	private int broadcast;
-	
 	@Column(name="isread")
 	private int isRead;
 
@@ -67,14 +64,6 @@ public class Message implements Serializable {
 
 	public void setMessage(String message) {
 		this.message = message;
-	}
-
-	public int getBroadcast() {
-		return broadcast;
-	}
-
-	public void setBroadcast(int broadcast) {
-		this.broadcast = broadcast;
 	}
 
 	public int getIsRead() {

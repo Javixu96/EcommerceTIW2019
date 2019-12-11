@@ -7,6 +7,7 @@
 		<class>es.uc3m.ecommerce.model.Category</class>
 		<class>es.uc3m.ecommerce.model.Product</class>
 		<class>es.uc3m.ecommerce.model.Purchas</class>
+		<class>es.uc3m.ecommerce.model.Message</class>
 		<properties>
 			<property name="eclipselink.logging.level" value="FINE"/>
 			<property name="javax.persistence.schema-generation.database.action" value="create"/>
