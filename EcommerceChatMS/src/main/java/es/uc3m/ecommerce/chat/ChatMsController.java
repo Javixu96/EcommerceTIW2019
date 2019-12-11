@@ -40,7 +40,11 @@ public class ChatMsController {
 				myList.add(myMessage);
 			}
 		}
-		return new ResponseEntity<List<Message>>(myList,HttpStatus.OK);
+		if (myList.isEmpty()){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}else {
+			return new ResponseEntity<List<Message>>(myList,HttpStatus.OK);	
+		}
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value="/message/{receiverId}/{senderId}")
@@ -52,7 +56,11 @@ public class ChatMsController {
 				myList.add(myMessage);
 			}
 		}
-		return new ResponseEntity<List<Message>>(myList,HttpStatus.OK);
+		if (myList.isEmpty()){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}else {
+			return new ResponseEntity<List<Message>>(myList,HttpStatus.OK);	
+		}
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, value="/message")

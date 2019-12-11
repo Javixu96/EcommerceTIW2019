@@ -61,79 +61,7 @@ public class SendMessageHandler implements IHandler {
 		msg.setIsRead(0);
 		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);	
 		resp= invocationBuilder.post(Entity.entity(msg,MediaType.APPLICATION_JSON));
-
-		int status = resp.getStatus();
 		
-		Message ms= resp.readEntity(Message.class);
-		
-		System.out.println(status);
-		System.out.println(ms.getMessage());
-		
-		/*
-		MessageManager messageManager = new MessageManager();
-		ConnectionFactory tiwconnectionfactory = messageManager.connectionfactory;
-		Queue queue = messageManager.queue;
-		
-		try {
-			// First create a connection using the connectionFactory
-			Connection con = tiwconnectionfactory.createConnection();
-		      
-		    // Next create the session. Indicate that transaction will not be supported
-			Session ses = con.createSession(false, Session.AUTO_ACKNOWLEDGE);
-			
-			con.start();
-			
-			// Now use the session to create a message producer associated to the queue
-			MessageProducer producer = ses.createProducer(queue);
-			
-			
-			// Now use the session to create a map message
-			MapMessage message = ses.createMapMessage();
-			
-			HttpSession session = request.getSession();
-			Appuser user = (Appuser) session.getAttribute("user");
-
-			message.setString("msg", request.getParameter("message"));
-			message.setInt("senderId", user.getUserId());
-
-			Appuser seller=(Appuser)session.getAttribute("sender");
-			request.setAttribute("sender", seller);
-			
-			//atributos para filtrar
-			message.setIntProperty("sendTo", seller.getUserId());
-			message.setIntProperty("sendFrom", user.getUserId());
-						
-			// Use the message producer to send the message	messageProducer.send(textMessage);
-			producer.send(message);
-
-			// Close the producer
-			producer.close();
-			
-			// Close the session 
-			ses.close(); 
-			
-			// Close the connection 
-			con.close();	
-		} catch (javax.jms.JMSException e) {
-				System.out.println(
-					"JHC *************************************** Error in doPost: "
-						+ e);
-				System.out.println(
-					"JHC *************************************** Error MQ: "
-						+ e.getLinkedException().getMessage());
-				System.out.println(
-					"JHC *************************************** Error MQ: "
-						+ e.getLinkedException().toString());		
-				System.out.println(" Error when sending the message</BR>");
-		
-				
-			}catch (Exception e) {
-				System.out.println(
-					"JHC *************************************** Error in doPost: "
-						+ e.toString());
-				System.out.println(" Error when sending the message</BR>");
-		}
-		*/
 		return "messages_1to1.jsp";
 	}
 	
@@ -141,101 +69,31 @@ public class SendMessageHandler implements IHandler {
 			throws ServletException, IOException {
 
 		client = ClientBuilder.newClient();
-		webTarget = client.target("http://localhost:13103");
-		String path = "message";
+		webTarget = client.target("http://localhost:13101");
+		String path = "users/buyers";
 		webTargetPath = webTarget.path(path);
-		
-		Message msg = new Message();
-		HttpSession session = request.getSession();
-		Appuser user = (Appuser) session.getAttribute("user");
-		msg.setSender(user);
-		msg.setMessage(request.getParameter("message"));
-		msg.setIsRead(0);
 		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);	
-		resp= invocationBuilder.post(Entity.entity(msg,MediaType.APPLICATION_JSON));
-
-		int status = resp.getStatus();
+		resp= invocationBuilder.get();
 		
-		Message ms= resp.readEntity(Message.class);
-		
-		System.out.println(status);
-		System.out.println(ms.getMessage());
-		/*
-		MessageManager messageManager = new MessageManager();
-		ConnectionFactory tiwconnectionfactory = messageManager.connectionfactory;
-		Queue queue = messageManager.queue;
-		UserManager us = new UserManager();
-		
-		try {
-			// First create a connection using the connectionFactory
-			Connection con = tiwconnectionfactory.createConnection();
-		      
-		    // Next create the session. Indicate that transaction will not be supported
-			Session ses = con.createSession(false, Session.AUTO_ACKNOWLEDGE);
-			
-			con.start();
-			
-			// Now use the session to create a message producer associated to the queue
-			MessageProducer producer = ses.createProducer(queue);
-			
-			List<Appuser> buyersList = us.getBuyers();
-			
-			String mensajeTosend = request.getParameter("message");
-			
-			for(Appuser seller:buyersList) {
-				// Now use the session to create a map message
-				MapMessage message = ses.createMapMessage();
-				
-				HttpSession session = request.getSession();
-				Appuser user = (Appuser) session.getAttribute("user");
-
-				message.setString("msg", mensajeTosend);
-				message.setInt("senderId", user.getUserId());
-
-				// Setting a message property in order to filter in the listener
-
-				request.setAttribute("sender", seller);
-
-				message.setIntProperty("sendTo", seller.getUserId());
-
-				message.setIntProperty("sendFrom", user.getUserId());
-
-				
-				// message.setStringProperty("type", "broadcast");
-				
-				
-				// Use the message producer to send the message	messageProducer.send(textMessage);
-				producer.send(message);
-			}		
-
-			// Close the producer
-			producer.close();
-			
-			// Close the session 
-			ses.close(); 
-			
-			// Close the connection 
-			con.close();	
-		} catch (javax.jms.JMSException e) {
-				System.out.println(
-					"JHC *************************************** Error in doPost: "
-						+ e);
-				System.out.println(
-					"JHC *************************************** Error MQ: "
-						+ e.getLinkedException().getMessage());
-				System.out.println(
-					"JHC *************************************** Error MQ: "
-						+ e.getLinkedException().toString());		
-				System.out.println(" Error when sending the message</BR>");
-		
-				
-			}catch (Exception e) {
-				System.out.println(
-					"JHC *************************************** Error in doPost: "
-						+ e.toString());
-				System.out.println(" Error when sending the message</BR>");
+		if(resp.getStatus()==200) {
+			Appuser[] buyers= resp.readEntity(Appuser[].class);
+	
+			HttpSession session = request.getSession();
+			Appuser user = (Appuser) session.getAttribute("user");
+			for(int i=0;i<buyers.length;i++) {
+				System.out.println(buyers[i].getUserName());
+				Message msg = new Message();
+				msg.setSender(user);
+				msg.setReceiver(buyers[i]);
+				msg.setMessage(request.getParameter("message"));
+				msg.setIsRead(0);
+				webTarget = client.target("http://localhost:13103");
+				path = "message";
+				webTargetPath = webTarget.path(path);
+				invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);	
+				resp= invocationBuilder.post(Entity.entity(msg,MediaType.APPLICATION_JSON));
+			}
 		}
-		*/
 		return "messages_broadcast.jsp";
 	}
 	

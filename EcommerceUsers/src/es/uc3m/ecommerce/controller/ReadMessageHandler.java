@@ -48,24 +48,25 @@ public class ReadMessageHandler implements IHandler {
 		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);	
 		resp= invocationBuilder.get();
 		
-		int status = resp.getStatus();
-		Message[] miMensajes= resp.readEntity(Message[].class);
-		List<String> listaMensaje=new ArrayList<String>();
-		List<Message> MessagesToUpdate=new ArrayList<Message>();
-		
-		for(int i=0;i<miMensajes.length;i++) {
-			Message msg=(Message)miMensajes[i];
-			listaMensaje.add(msg.getMessage());
-			MessagesToUpdate.add(msg);
-		}			
-		
-		request.setAttribute("listaMensaje", listaMensaje);
-		session.setAttribute("sender", sender);
-		
-		path = "message";
-		webTargetPath = webTarget.path(path);
-		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);	
-		resp= invocationBuilder.put(Entity.entity(MessagesToUpdate,MediaType.APPLICATION_JSON));
+		if(resp.getStatus()==200) {
+			Message[] miMensajes= resp.readEntity(Message[].class);
+			List<String> listaMensaje=new ArrayList<String>();
+			List<Message> MessagesToUpdate=new ArrayList<Message>();
+			
+			for(int i=0;i<miMensajes.length;i++) {
+				Message msg=(Message)miMensajes[i];
+				listaMensaje.add(msg.getMessage());
+				MessagesToUpdate.add(msg);
+			}			
+			
+			request.setAttribute("listaMensaje", listaMensaje);
+			session.setAttribute("sender", sender);
+			
+			path = "message";
+			webTargetPath = webTarget.path(path);
+			invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);	
+			resp= invocationBuilder.put(Entity.entity(MessagesToUpdate,MediaType.APPLICATION_JSON));
+		}
 		
 		
 		/*
