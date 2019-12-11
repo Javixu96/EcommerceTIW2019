@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import es.uc3m.ecommerce.catalogue.model.Product;
 import es.uc3m.ecommerce.catalogue.model.ProductDAO;
@@ -29,12 +30,12 @@ public class CatalogueMSController {
 	@Autowired
 	CategoryDAO categoryDAO;
 	
-
 	@Autowired
 	ProductDAO productDAO;
 	
 	//PRODUCT - LLAMADAS GET
-	@RequestMapping(value="/products/{id}", method= RequestMethod.GET) // buscar producto por su ID
+	// buscar producto por su ID
+	@RequestMapping(value="/products/{id}", method= RequestMethod.GET) 
 	public ResponseEntity<Product> findProductById(@PathVariable int id){
 		
 		ResponseEntity<Product> response = null;
@@ -48,99 +49,27 @@ public class CatalogueMSController {
 		return response;
 	}
 	
-	@RequestMapping(value="/products", method= RequestMethod.GET) // buscar todos los productos
-	public ResponseEntity<List<Product>> findAllProducts(){
-		
-		ResponseEntity<List<Product>> response = null;
-		List<Product> pList = (List<Product>) productDAO.findAll();
-		
-		if (pList == null) {
-			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} else {
-			response = new ResponseEntity<>(pList, HttpStatus.OK);
-		}
-		return response;
-	}
-	
-	@RequestMapping(value="/products/attributes", method= RequestMethod.GET) // buscar todos los productos filtrados por campos
+	// Buscar producto según sus atributos descripcion, precio, nombre y categoria
+	@RequestMapping(value="/products", method= RequestMethod.GET) // buscar todos los productos filtrados por campos
 	public ResponseEntity<List<Product>> findByAttributes(
 			@RequestParam(value="productName", required = false) String productName,
 			@RequestParam(value="shortDesc", required = false) String shortDesc,
-			@RequestParam(value="categoryBean", required = false) Category categoryBean, 
+			@RequestParam(value="category", required = false) Integer categoryId, 
 			@RequestParam(value="priceMin", required = false) Integer priceMin,
 			@RequestParam(value="priceMax", required = false) Integer priceMax){
 		
 		ResponseEntity<List<Product>> response = null;
 		List<Product> pList = null; 
 		
-		// Sin filtro de busqueda mostrar todos los productos
-		if(productName == null && shortDesc == null && categoryBean == null && priceMin == null && priceMax == null) {
-			pList = (List<Product>) productDAO.findAll();		
+		if(priceMin == null) {
+			priceMin = 0; 
 		}
-		/* BUSQUEDA POR 1 ATRIBUTO */
-		// Buscar solo por nombre de producto
-		else if(productName != null && shortDesc == null && categoryBean == null && priceMin == null && priceMax == null) {
-			pList = (List<Product>) productDAO.findByName(productName);		
+		if(priceMax == null) {
+			priceMax = Integer.MAX_VALUE;
 		}
-		// Buscar solo por descripcion
-		else if(productName == null && shortDesc != null && categoryBean == null && priceMin == null && priceMax == null) {
-			pList = (List<Product>) productDAO.findByDesc(shortDesc);		
-		}
-		// Buscar solo por cateogria
-		else if(productName == null && shortDesc == null && categoryBean != null && priceMin == null && priceMax == null) {
-			pList = (List<Product>) productDAO.findByCategory(categoryBean.getCategoryId());		
-		}		
-		// Buscar solo por precio
-		else if(productName == null && shortDesc == null && categoryBean == null && priceMin != null && priceMax != null) {
-			pList = (List<Product>) productDAO.findByPrice(priceMin, priceMax);		
-		}
-		/* BUSQUEDA POR 2 ATRIBUTOS */
-		// Buscar por nombre y descripcion
-		else if(productName != null && shortDesc != null && categoryBean == null && priceMin == null && priceMax == null) {
-			pList = (List<Product>) productDAO.findByNameAndDesc(productName, shortDesc);		
-		}
-		// Buscar por nombe y categoria
-		else if(productName != null && shortDesc == null && categoryBean != null && priceMin == null && priceMax == null) {
-			pList = (List<Product>) productDAO.findByNameAndCategory(productName, categoryBean.getCategoryId());		
-		}
-		// Buscar por nombre y precio
-		else if(productName != null && shortDesc == null && categoryBean == null && priceMin != null && priceMax != null) {
-			pList = (List<Product>) productDAO.findByNameAndPrice(productName, priceMin, priceMax);		
-		}
-		// Buscar por descripcion y categoria
-		else if(productName == null && shortDesc != null && categoryBean != null && priceMin != null && priceMax != null) {
-			pList = (List<Product>) productDAO.findByDescAndCategory(shortDesc, categoryBean.getCategoryId());		
-		}
-		// Buscar por descripcion y precio
-		else if(productName == null && shortDesc != null && categoryBean == null && priceMin != null && priceMax != null) {
-			pList = (List<Product>) productDAO.findByDescAndPrice(shortDesc, priceMin, priceMax);		
-		}
-		// Buscar por categoria y precio
-		else if(productName == null && shortDesc == null && categoryBean != null && priceMin != null && priceMax != null) {
-			pList = (List<Product>) productDAO.findByCategoryAndPrice(categoryBean.getCategoryId(), priceMin, priceMax);		
-		}
-		/* BUSQUEDA POR 3 ATRIBUTOS */
-		// Buscar por nombre, categoria y precio
-		else if(productName != null && shortDesc == null && categoryBean != null && priceMin != null && priceMax != null) {
-			pList = (List<Product>) productDAO.findByNameAndCategoryAndPrice(productName, categoryBean.getCategoryId(), priceMin, priceMax);		
-		}
-		// Buscar por nombre, categoria y descripcion
-		else if(productName != null && shortDesc != null && categoryBean != null && priceMin == null && priceMax == null) {
-			pList = (List<Product>) productDAO.findByNameAndCategoryAndDesc(productName, categoryBean.getCategoryId(), shortDesc);		
-		}
-		// Buscar por categoria, precio y descripcion
-		else if(productName == null && shortDesc != null && categoryBean != null && priceMin != null && priceMax != null) {
-			pList = (List<Product>) productDAO.findByPriceAndCategoryAndDesc(priceMin, priceMax, categoryBean.getCategoryId(), shortDesc);		
-		}
-		// Buscar por nombre, precio y descripcion
-		else if(productName != null && shortDesc != null && categoryBean == null && priceMin != null && priceMax != null) {
-			pList = (List<Product>) productDAO.findByPriceAndNameAndDesc(priceMin, priceMax, productName, shortDesc);		
-		}
-		/* BUSQUEDA POR 4 ATRIBUTOS */
-		// Buscar por nombre, precio, descripcion y categoria
-		else {
-			pList = (List<Product>) productDAO.findByPriceAndNameAndDescAndCategory(priceMin, priceMax, productName, categoryBean.getCategoryId(), shortDesc);		
-		}
+		
+		pList = (List<Product>) productDAO.searchProducts(priceMin, priceMax, productName, categoryId, shortDesc);
+		
 		
 		// COMPROBAR SI LA BUSQUEDA A RETORNADO RESULTADOS
 		if (pList == null) {
@@ -151,8 +80,9 @@ public class CatalogueMSController {
 		return response;
 	}
 	
-	//PRODUCT - LLAMADAS POST
-	@RequestMapping(value="/products", method= RequestMethod.POST) // insertar un nuevo producto
+	// PRODUCT - LLAMADAS POST
+	// insertar un nuevo producto
+	@RequestMapping(value="/products", method= RequestMethod.POST) 
 	public ResponseEntity<Product> insertProduct(@RequestBody @Validated Product p){
 		
 		ResponseEntity<Product> response = null;
@@ -166,8 +96,9 @@ public class CatalogueMSController {
 		return response;
 	}
 	
-	//PRODUCT - LLAMADAS PUT
-	@RequestMapping(value="/products/{id}", method= RequestMethod.PUT) // editar un producto existente
+	// PRODUCT - LLAMADAS PUT
+	// Editar un producto existente por si ID, dado otro objeto con los nuevos atributos deseados
+	@RequestMapping(value="/products/{id}", method= RequestMethod.PUT) 
 	public ResponseEntity<Product> modifyProductById(@PathVariable int id, @RequestBody @Validated Product newP){
 		
 		ResponseEntity<Product> response = null;
@@ -196,7 +127,8 @@ public class CatalogueMSController {
 		return response;
 	}
 	
-	//PRODUCT - LLAMADAS DELETE
+	// PRODUCT - LLAMADAS DELETE
+	// Borrar producto por su ID
 	@RequestMapping(value="/products/{id}", method= RequestMethod.DELETE) // eliminar un producto (editar el flag isDeleted)
 	public ResponseEntity<Product> deleteProduct(@PathVariable int id){
 		

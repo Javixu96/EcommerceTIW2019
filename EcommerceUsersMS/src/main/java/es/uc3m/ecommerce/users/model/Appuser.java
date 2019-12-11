@@ -14,19 +14,14 @@ import java.util.List;
  */
 @Entity
 @Table(name="appusers")
-@NamedQueries({
-	@NamedQuery(name="Appuser.findAll", query="SELECT u FROM Appuser u"),
-	@NamedQuery(name="Appuser.findByEmail", query="SELECT u FROM Appuser u where u.email = :email AND u.isDeleted = 0"),
-	@NamedQuery(name="Appuser.findSellers", query="SELECT a FROM Appuser a WHERE a.userRole = 1 AND a.isDeleted = 0"),
-	@NamedQuery(name="Appuser.findBuyers", query="SELECT a FROM Appuser a WHERE a.userRole = 2 AND a.isDeleted = 0"),
-})
 public class Appuser implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name="userId")
 	private int userId;
-
+	
+	@Column(name="email")
 	private String email;
 
 	@Column(name="isDeleted")
@@ -35,6 +30,7 @@ public class Appuser implements Serializable {
 	@Column(name="postalAddress")
 	private String postalAddress;
 
+	@Column(name="pw")
 	private String pw;
 	
 	@Column(name="userName")
