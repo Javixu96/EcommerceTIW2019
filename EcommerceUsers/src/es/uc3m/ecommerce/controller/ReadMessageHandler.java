@@ -64,7 +64,7 @@ public class ReadMessageHandler implements IHandler {
 			path = "message";
 			webTargetPath = webTarget.path(path);
 			invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);	
-			resp= invocationBuilder.put(Entity.entity(MessagesToUpdate,MediaType.APPLICATION_JSON));
+			resp = invocationBuilder.put(Entity.entity(MessagesToUpdate,MediaType.APPLICATION_JSON));
 		}
 		
 		return "messages_1to1.jsp";
