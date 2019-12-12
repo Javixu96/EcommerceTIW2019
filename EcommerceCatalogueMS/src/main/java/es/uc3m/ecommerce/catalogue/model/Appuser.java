@@ -2,6 +2,9 @@ package es.uc3m.ecommerce.catalogue.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 
@@ -43,10 +46,11 @@ public class Appuser implements Serializable {
 
 	private String userSurnames;
 
+	@JsonIgnore
 	//bi-directional many-to-one association to Product
 	@OneToMany(mappedBy="appuser")
 	private List<Product> products;
-
+	@JsonIgnore
 	//bi-directional many-to-one association to Purchas
 	@OneToMany(mappedBy="appuser")
 	private List<Purchas> purchases;

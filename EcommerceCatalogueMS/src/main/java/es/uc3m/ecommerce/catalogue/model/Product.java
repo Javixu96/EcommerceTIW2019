@@ -2,6 +2,9 @@ package es.uc3m.ecommerce.catalogue.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 /**
@@ -65,7 +68,7 @@ public class Product implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="category")
 	private Category categoryBean;
-
+	@JsonIgnore
 	//bi-directional many-to-one association to Purchas
 	@OneToMany(mappedBy="product")
 	private List<Purchas> purchases;
