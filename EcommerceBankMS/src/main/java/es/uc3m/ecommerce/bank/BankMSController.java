@@ -3,7 +3,6 @@ package es.uc3m.ecommerce.bank;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.Map;
 import java.util.Random;
 
 import org.springframework.http.HttpStatus;
@@ -14,17 +13,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.uc3m.ecommerce.bank.model.*;
+
 @CrossOrigin
 @RestController
 public class BankMSController {
 
 	@RequestMapping(value="/bank", method= RequestMethod.POST)
-	public ResponseEntity<Integer> processPurchase(@RequestBody Map<String, Object> purchaseInfo){
-		ResponseEntity<Integer> response;
+	public ResponseEntity<ConfirmationNumber> processPurchase(@RequestBody PurchaseData purchaseInfo){
+		ResponseEntity<ConfirmationNumber> response;
 		
 		if (validateCardInformation(purchaseInfo)) {
 			Integer confirmationCode = new Integer(10000 +  + new Random().nextInt(90000));
-			response = new ResponseEntity<>(confirmationCode, HttpStatus.OK);
+			ConfirmationNumber cn = new ConfirmationNumber();
+			cn.setConfirmationNumber(confirmationCode);
+			response = new ResponseEntity<>(cn, HttpStatus.OK);
 		} else {
 			response = new ResponseEntity<>(HttpStatus.PAYMENT_REQUIRED);
 		}
@@ -32,14 +35,14 @@ public class BankMSController {
 		
 	}
 	
-	private boolean validateCardInformation(Map<String, Object> purchaseInfo) {
+	private boolean validateCardInformation(PurchaseData purchaseInfo) {
 		
-		String cardNumber = (String) purchaseInfo.get("card_number");
-		Integer exp_month = (Integer) purchaseInfo.get("expiration_month");
-		Integer exp_year = (Integer) purchaseInfo.get("expiration_year");
-		String cvv = (String) purchaseInfo.get("CVV");
-		Double purchaseCost = (Double) purchaseInfo.get("purchaseCost");
-		boolean validate = isDivisibleBy3(cardNumber) && isNotExpired(exp_month, exp_year) && cvvCorrect(cvv) && purchaseCost > 0.0;
+		String cardNumber = purchaseInfo.getCardNumber();
+		Integer exp_month = purchaseInfo.getExpMonth();
+		Integer exp_year = purchaseInfo.getExpYear();
+		String cvv =  purchaseInfo.getCvv();
+		Integer purchaseCost = purchaseInfo.getPurchaseCost();
+		boolean validate = isDivisibleBy3(cardNumber) && isNotExpired(exp_month, exp_year) && cvvCorrect(cvv) && purchaseCost > 0;
 		return validate;
 	}
 
@@ -55,7 +58,6 @@ public class BankMSController {
 		} else {
 			isDivisible = false;
 		}
-		
 		return isDivisible;
 	}
 	
