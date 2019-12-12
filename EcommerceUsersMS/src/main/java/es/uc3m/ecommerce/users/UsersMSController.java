@@ -1,20 +1,17 @@
 package es.uc3m.ecommerce.users;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import es.uc3m.ecommerce.users.model.*;
 
@@ -49,7 +46,7 @@ public class UsersMSController {
 		return new ResponseEntity<>(newPurchase, HttpStatus.OK);
 	}
 	
-	
+	// Buscar los compradores
 	@RequestMapping(method = RequestMethod.GET, value="/users/buyers")
 	public ResponseEntity<List<Appuser>> findAllBuyers(){
 		ResponseEntity<List<Appuser>> response;
@@ -63,6 +60,7 @@ public class UsersMSController {
 		return response;
 	}
 	
+	// Buscar los vendedores
 	@RequestMapping(method = RequestMethod.GET, value="/users/sellers")
 	public ResponseEntity<List<Appuser>> findAllSellers(){
 		ResponseEntity<List<Appuser>> response;
@@ -76,6 +74,7 @@ public class UsersMSController {
 		return response;
 	}
 	
+	// Buscar todos los usuarios
 	@RequestMapping(method = RequestMethod.GET, value="/users")
 	public ResponseEntity<List<Appuser>> findAllUsers(){
 		ResponseEntity<List<Appuser>> response;
@@ -85,6 +84,59 @@ public class UsersMSController {
 			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
 			response = new ResponseEntity<>(sellers, HttpStatus.OK);
+		}
+		return response;
+	}
+	
+	// Buscar usuario por su ID
+	@RequestMapping(method = RequestMethod.GET, value="/users/{userId}")
+	public ResponseEntity<Appuser> findByUserId(@PathVariable int userId) {
+		ResponseEntity<Appuser> response = null;
+		Appuser user = appuserDAO.findByUserIdAndIsDeleted(userId, 0);
+		if (user == null) {
+			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} else {
+			response = new ResponseEntity<>(user, HttpStatus.OK);
+		}
+		return response;
+	}
+	
+	// Modificar usuario por su ID 
+	@RequestMapping(method = RequestMethod.PUT, value="/users")
+	public ResponseEntity<Appuser> modifyUser(@RequestBody Appuser appUser) {
+		Appuser user = appuserDAO.save(appUser);
+		ResponseEntity<Appuser> response = null;
+		if (user == null) {
+			response = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		} else {
+			response = new ResponseEntity<>(user, HttpStatus.OK);
+		}
+		return response;
+	}
+		
+	// Modificar usuario por su ID 
+	@RequestMapping(method = RequestMethod.POST, value="/users")
+	public ResponseEntity<Appuser> insertUser(@RequestBody Appuser appUser) {
+		Appuser user = appuserDAO.save(appUser);
+		ResponseEntity<Appuser> response = null;
+		if (user == null) {
+			response = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		} else {
+			response = new ResponseEntity<>(user, HttpStatus.CREATED);
+		}
+		return response;
+	}	
+	
+	@RequestMapping(value="/users/{id}", method= RequestMethod.DELETE) // eliminar un producto (editar el flag isDeleted)
+	public ResponseEntity<Appuser> deleteUser(@PathVariable int id){
+		ResponseEntity<Appuser> response = null;
+		Appuser p = appuserDAO.findByUserIdAndIsDeleted(id, 0);
+		if (p == null) {
+			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} else {
+			p.setIsDeleted(1);
+			appuserDAO.save(p);
+			response = new ResponseEntity<>(p, HttpStatus.OK);
 		}
 		return response;
 	}
