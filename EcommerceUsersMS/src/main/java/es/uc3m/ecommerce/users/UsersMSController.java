@@ -29,21 +29,21 @@ public class UsersMSController {
 	ProductDAO productDAO;
 	
 	// Buscar todos los pedidos de un usuario
-	@RequestMapping(method = RequestMethod.GET, value="/users/purchases")
-	public ResponseEntity<List<Integer>> findAllConfirmationCode(@RequestParam(value = "userId") int userId) {
+	@RequestMapping(method = RequestMethod.GET, value="/users/{userId}/purchases")
+	public ResponseEntity<List<Integer>> findAllConfirmationCode(@PathVariable int userId) {
 		List<Integer> allConfirmation = daopurchas.findAllConfirmationCode(userId);
 		return new ResponseEntity<>(allConfirmation, HttpStatus.OK);
 	}
 	
 	// Buscar todos los productos de un pedido
-	@RequestMapping(method = RequestMethod.GET, value="/users/purchases/{confirmationCode}")
-	public ResponseEntity<List<Purchas>> findByConfirmationCode(@PathVariable int confirmationCode) {
+	@RequestMapping(method = RequestMethod.GET, value="/purchases")
+	public ResponseEntity<List<Purchas>> findByConfirmationCode(@RequestParam(value = "confirmationCode") int confirmationCode) {
 		List<Purchas> purchases = daopurchas.findByConfirmationCode(confirmationCode);
 		return new ResponseEntity<>(purchases, HttpStatus.OK);
 	}
 		
 	// Insertar un pedido
-	@RequestMapping(method = RequestMethod.POST, value="/users/purchases")
+	@RequestMapping(method = RequestMethod.POST, value="/purchases")
 	public ResponseEntity<Purchas> insertPurchase(@RequestBody Purchas purchase) {
 		Purchas newPurchase = daopurchas.save(purchase);
 		return new ResponseEntity<>(newPurchase, HttpStatus.OK);
@@ -120,7 +120,7 @@ public class UsersMSController {
 	}
 	
 	// Buscar productos de un usuario por su ID
-	@RequestMapping(method = RequestMethod.GET, value="/users/products/{userId}")
+	@RequestMapping(method = RequestMethod.GET, value="/users/{userId}/products")
 	public ResponseEntity<List<Product>> findUserProductsByUserId(@PathVariable int userId) {
 		ResponseEntity<List<Product>> response = null;
 		Appuser user = appuserDAO.findByUserIdAndIsDeleted(userId, 0);
