@@ -25,6 +25,9 @@ public class UsersMSController {
 	@Autowired
 	AppuserDAO appuserDAO;
 	
+	@Autowired
+	ProductDAO productDAO;
+	
 	// Buscar todos los pedidos de un usuario
 	@RequestMapping(method = RequestMethod.GET, value="/users/purchases")
 	public ResponseEntity<List<Integer>> findAllConfirmationCode(@RequestParam(value = "userId") int userId) {
@@ -102,21 +105,35 @@ public class UsersMSController {
 	}
 	
 	// Buscar usuario por email y password
-		@RequestMapping(method = RequestMethod.GET, value="/users/login")
-		public ResponseEntity<Appuser> findByUserId(@RequestParam(value = "email") String email,
-				@RequestParam(value = "pw",required = false) String password) {
-			ResponseEntity<Appuser> response = null;
-			
-			Appuser user = (password == null) ? appuserDAO.findByEmailAndIsDeleted(email, 0) : appuserDAO.findByEmailAndPwAndIsDeleted(email, password, 0);
-			if (user == null) {
-				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			} else {
-				response = new ResponseEntity<>(user, HttpStatus.OK);
-			}
-			return response;
+	@RequestMapping(method = RequestMethod.GET, value="/users/login")
+	public ResponseEntity<Appuser> findByUserId(@RequestParam(value = "email") String email,
+			@RequestParam(value = "pw",required = false) String password) {
+		ResponseEntity<Appuser> response = null;
+		
+		Appuser user = (password == null) ? appuserDAO.findByEmailAndIsDeleted(email, 0) : appuserDAO.findByEmailAndPwAndIsDeleted(email, password, 0);
+		if (user == null) {
+			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} else {
+			response = new ResponseEntity<>(user, HttpStatus.OK);
 		}
+		return response;
+	}
 	
-
+	// Buscar productos de un usuario por su ID
+	@RequestMapping(method = RequestMethod.GET, value="/users/products/{userId}")
+	public ResponseEntity<List<Product>> findUserProductsByUserId(@PathVariable int userId) {
+		ResponseEntity<List<Product>> response = null;
+		Appuser user = appuserDAO.findByUserIdAndIsDeleted(userId, 0);
+		
+		List<Product> userProducts = productDAO.findByAppuserAndIsDeleted(user, 0);
+		if (userProducts == null) {
+			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} else {
+			response = new ResponseEntity<>(userProducts, HttpStatus.OK);
+		}
+		return response;
+	}	
+		
 	// Modificar usuario por su ID 
 	@RequestMapping(method = RequestMethod.PUT, value="/users")
 	public ResponseEntity<Appuser> modifyUser(@RequestBody Appuser appUser) {
