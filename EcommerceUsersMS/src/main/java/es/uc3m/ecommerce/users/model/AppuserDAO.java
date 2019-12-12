@@ -12,5 +12,9 @@ public interface AppuserDAO extends CrudRepository<Appuser, Long>{
 	List<Appuser> findByIsDeleted(int isDeleted);
 	
 	Appuser findByUserIdAndIsDeleted(int userId, int isDeleted);
+
+	Appuser findByEmailAndPwAndIsDeleted(String email, String password, int isDeleted);
+	Appuser findByEmailAndIsDeleted(String email, int isDeleted);
+
 	
 }

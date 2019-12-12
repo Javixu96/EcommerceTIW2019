@@ -101,6 +101,22 @@ public class UsersMSController {
 		return response;
 	}
 	
+	// Buscar usuario por email y password
+		@RequestMapping(method = RequestMethod.GET, value="/users/login")
+		public ResponseEntity<Appuser> findByUserId(@RequestParam(value = "email") String email,
+				@RequestParam(value = "pw",required = false) String password) {
+			ResponseEntity<Appuser> response = null;
+			
+			Appuser user = (password == null) ? appuserDAO.findByEmailAndIsDeleted(email, 0) : appuserDAO.findByEmailAndPwAndIsDeleted(email, password, 0);
+			if (user == null) {
+				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			} else {
+				response = new ResponseEntity<>(user, HttpStatus.OK);
+			}
+			return response;
+		}
+	
+
 	// Modificar usuario por su ID 
 	@RequestMapping(method = RequestMethod.PUT, value="/users")
 	public ResponseEntity<Appuser> modifyUser(@RequestBody Appuser appUser) {
@@ -141,4 +157,8 @@ public class UsersMSController {
 		return response;
 	}
 	
+
+	
+	
+
 }
