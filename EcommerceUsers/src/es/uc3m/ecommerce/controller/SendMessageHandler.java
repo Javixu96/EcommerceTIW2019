@@ -14,11 +14,9 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import es.uc3m.ecommerce.manager.MessageManager;
-import es.uc3m.ecommerce.manager.UserManager;
 import es.uc3m.ecommerce.model.Appuser;
 import es.uc3m.ecommerce.model.Message;
-import es.uc3m.ecommerce.model.Purchas;
+
 
 /*
 * Handler que gestiona el envío de mensajes

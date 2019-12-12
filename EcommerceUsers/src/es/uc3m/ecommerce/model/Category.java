@@ -9,39 +9,19 @@ import java.util.List;
  * The persistent class for the categories database table.
  * Comentarios en la app de ADMIN
  */
-@Entity
-@Table(name="categories")
-
-@NamedQueries({
-	@NamedQuery(name="Category.findAll", query="SELECT c FROM Category c"),
-	@NamedQuery(name="Category.findById", query="SELECT c FROM Category c WHERE c.categoryId = :categoryId"),
-	@NamedQuery(name="Category.findByName", query="SELECT c FROM Category c WHERE c.categoryName = :categoryName")	
-//	@NamedQuery(name="Category.findRootCategories",
-//		query="SELECT c FROM Category c WHERE c.categoryId in (SELECT DISTINCT c.category FROM Category c) AND c.category IS NOT NULL"),
-//	@NamedQuery(name="Category.findChildCategories", 
-//			query="SELECT c FROM Category c WHERE c.categoryId = :parentId")
-})
-
 public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
 	private int categoryId;
 
 	private String categoryName;
 
 	private int isDeleted;
-	//bi-directional many-to-one association to Category
-	@ManyToOne
-	@JoinColumn(name="parentId")
+
 	private Category category;
 
-	//bi-directional many-to-one association to Category
-	@OneToMany(mappedBy="category")
 	private List<Category> categories;
 
-	//bi-directional many-to-one association to Product
-	@OneToMany(mappedBy="categoryBean")
 	private List<Product> products;
 
 	public Category() {

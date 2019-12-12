@@ -98,31 +98,16 @@ public class CatalogueMSController {
 	
 	// PRODUCT - LLAMADAS PUT
 	// Editar un producto existente por si ID, dado otro objeto con los nuevos atributos deseados
-	@RequestMapping(value="/products/{id}", method= RequestMethod.PUT) 
-	public ResponseEntity<Product> modifyProductById(@PathVariable int id, @RequestBody @Validated Product newP){
+	@RequestMapping(value="/products", method= RequestMethod.PUT) 
+	public ResponseEntity<Product> modifyProductById(@RequestBody @Validated Product product){
 		
 		ResponseEntity<Product> response = null;
-		Product p = productDAO.findById(id).orElse(null);
 		
-		if (p == null) {
+		if (product == null) {
 			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} else {
-			
-			// Edit product with new attributes
-			p.setPrice(newP.getPrice());
-			p.setAppuser(newP.getAppuser());
-			p.setCategoryBean(newP.getCategoryBean());
-			p.setLongDesc(newP.getLongDesc());
-			p.setProductId(newP.getProductId());
-			p.setProductName(newP.getProductName());
-			p.setProductPicture(newP.getProductPicture());
-			p.setPurchases(newP.getPurchases());
-			p.setShortDesc(newP.getShortDesc());
-			p.setStock(newP.getStock());
-			
-			productDAO.save(p);
-
-			response = new ResponseEntity<>(p, HttpStatus.OK);
+		} else {	
+			productDAO.save(product);
+			response = new ResponseEntity<Product>(product, HttpStatus.OK);
 		}
 		return response;
 	}

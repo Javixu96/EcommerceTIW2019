@@ -8,29 +8,17 @@ import javax.persistence.*;
  * The persistent class for the purchases database table.
  * Comentarios en la app de ADMIN
  */
-@Entity
-@Table(name="purchases")
-@NamedQuery(name="Purchas.findAll", query="SELECT p FROM Purchas p")
-@NamedQuery(name="Purchas.findAllConfirmationCode", query="SELECT DISTINCT p.confirmationCode FROM Purchas p where p.appuser= :user")
-@NamedQuery(name="Purchas.findPurchase", query="SELECT p FROM Purchas p WHERE p.confirmationCode = :confirmationCode")
 public class Purchas implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
 	private int purchaseId;
 
 	private int confirmationCode;
 
 	private int productQuantity;
 
-	//bi-directional many-to-one association to Appuser
-	@ManyToOne
-	@JoinColumn(name="buyerId")
 	private Appuser appuser;
 
-	//bi-directional many-to-one association to Product
-	@ManyToOne
-	@JoinColumn(name="productId")
 	private Product product;
 
 	public Purchas() {

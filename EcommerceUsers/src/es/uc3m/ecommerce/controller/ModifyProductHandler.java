@@ -43,7 +43,6 @@ public class ModifyProductHandler implements IHandler {
 	
 	public String processModify(HttpServletRequest request) 
 			throws ServletException, IOException {
-		ProductManager im = new ProductManager();
 		
 		//recoger parametros del form
 		String productName = request.getParameter("name");

@@ -7,7 +7,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import es.uc3m.ecommerce.manager.ProductManager;
 import es.uc3m.ecommerce.model.Product;
 
 /*

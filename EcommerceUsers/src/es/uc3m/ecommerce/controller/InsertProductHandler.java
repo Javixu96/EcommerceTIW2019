@@ -12,12 +12,12 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import es.uc3m.ecommerce.manager.*;
 import es.uc3m.ecommerce.model.*;
 
 /*
@@ -35,8 +35,9 @@ public class InsertProductHandler implements IHandler {
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		client = ClientBuilder.newClient();
-	
-		ProductManager im = new ProductManager();
+		webTarget = client.target("http://localhost:13100");
+		String path = "products";
+		webTargetPath = webTarget.path(path);
 		
 		//Obtener el usuario de la sesion
 		HttpSession session = request.getSession();
@@ -71,13 +72,8 @@ public class InsertProductHandler implements IHandler {
 	    //el propietario o seller
 		product.setAppuser(appuser);
 		
-		//crear el producto con persist()
-		try {
-			im.create(product);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);	
+		resp= invocationBuilder.post(Entity.entity(product,MediaType.APPLICATION_JSON));
 
 		return "product_list_seller.html";
 	}
