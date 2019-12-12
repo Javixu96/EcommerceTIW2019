@@ -43,9 +43,7 @@ public class ModifyProductHandler implements IHandler {
 	
 	public String processModify(HttpServletRequest request) 
 			throws ServletException, IOException {
-		webTarget = client.target("http://localhost:13100");
-		String path = "products";
-		webTargetPath = webTarget.path(path);
+		
 		
 		//recoger parametros del form
 		String productName = request.getParameter("name");
@@ -64,6 +62,7 @@ public class ModifyProductHandler implements IHandler {
 		product.setLongDesc(productLongDesc);
 		product.setPrice(productPrice);
 		product.setStock(productStock);
+		product.setIsDeleted(0);
 		
 		product.setCategoryBean(findCategoryByName(productCategory));
 
@@ -76,10 +75,14 @@ public class ModifyProductHandler implements IHandler {
 			 
 			 product.setProductPicture(data);
 		}
+		webTarget = client.target("http://localhost:13100");
+		String path = "products";
+		webTargetPath = webTarget.path(path);
 		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);	
 		resp= invocationBuilder.put(Entity.entity(product,MediaType.APPLICATION_JSON));
 
 		request.setAttribute("product", product);
+		request.setAttribute("isSeller", 1);
 		
 		return "product_list_seller.html";
 	}

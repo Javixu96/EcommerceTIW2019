@@ -18,7 +18,7 @@ public class Category implements Serializable {
 
 	private int isDeleted;
 
-	private Category category;
+	private Integer parentId;
 
 	private List<Category> categories;
 
@@ -43,14 +43,6 @@ public class Category implements Serializable {
 		this.categoryName = categoryName;
 	}
 
-	public Category getCategory() {
-		return this.category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
 	public List<Category> getCategories() {
 		return this.categories;
 	}
@@ -58,20 +50,6 @@ public class Category implements Serializable {
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}	
-	
-	public Category addCategory(Category category) {
-		getCategories().add(category);
-		category.setCategory(this);
-
-		return category;
-	}
-
-	public Category removeCategory(Category category) {
-		getCategories().remove(category);
-		category.setCategory(null);
-
-		return category;
-	}
 
 	public int getIsDeleted() {
 		return isDeleted;
@@ -79,5 +57,13 @@ public class Category implements Serializable {
 
 	public void setIsDeleted(int isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+
+	public Integer getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 }

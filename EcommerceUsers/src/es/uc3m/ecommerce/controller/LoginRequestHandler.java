@@ -62,19 +62,15 @@ public class LoginRequestHandler implements IHandler {
 				String introducedPassword = request.getParameter("register_password");
 				List<Appuser> userListByName=new ArrayList<Appuser>();
 				WebTarget webTargetPath = webTarget
-						.path("users/login").queryParam("email",introducedEmail).queryParam("pw", introducedPassword);
+						.path("users/login")
+						.queryParam("email",introducedEmail)
+						.queryParam("pw", introducedPassword);
 				invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
 				Response responsews = invocationBuilder.get();
+				Appuser u=(Appuser)responsews.readEntity(Appuser.class);
 				
-				Appuser[] allUsers=responsews.readEntity(Appuser[].class);
-				for(int i=0;i<allUsers.length;i++) {
-					userListByName.add(allUsers[i]);
-				}
-				
-				// Si no existe ese email en BD, el usuario no esta registrado y no puede hacer log in
-				if(userListByName.size() != 0) {
-					
-					Appuser u = userListByName.get(0);
+				// Si existe
+				if(u!=null) {
 					
 					// Si existe el email en BD y la contraseña es correcta: 
 					if(u.getPw().equals(introducedPassword)) {

@@ -47,6 +47,7 @@ public class ShowProfileHandler implements IHandler {
 		
 		if(session.getAttribute("user") == null) {
 			viewURL = new ForbiddenPageHandler().handleRequest(request, response);
+			return viewURL;
 		} else {		
 			session.setAttribute("user", appuser);
 			viewURL = "profile.jsp";
@@ -59,7 +60,7 @@ public class ShowProfileHandler implements IHandler {
 		
 		if(resp.getStatus()==200) {
 			Appuser[] buyers= resp.readEntity(Appuser[].class);
-	
+
 			for(int i=0;i<buyers.length;i++) {
 				if(buyers[i].getUserId()==appuser.getUserId()) {
 					request.setAttribute("isSeller", 1);

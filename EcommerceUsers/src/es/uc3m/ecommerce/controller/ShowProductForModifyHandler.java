@@ -43,7 +43,7 @@ public class ShowProductForModifyHandler implements IHandler {
 		Product product = (Product)mySession.getAttribute("productToModify"+counter);
 		
 		request.setAttribute("product", product);
-		request.setAttribute("parentCategory", findCategoryById(product.getCategoryBean().getCategory().getCategoryId()));
+		request.setAttribute("parentCategory", findCategoryById(product.getCategoryBean().getParentId()));
 	
 		return "modif_product.jsp";
 	}

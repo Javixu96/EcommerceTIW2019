@@ -22,16 +22,17 @@ import es.uc3m.ecommerce.model.*;
  * Handler que gestiona la vista de todos los productos en la tienda
 */
 public class ShowAllProductsHandler implements IHandler {
+	
+	Client client;
+	WebTarget webTarget;
+	WebTarget webTargetPath;
+	Invocation.Builder invocationBuilder;
+	Response resp;	
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	
-		Client client;
-		WebTarget webTarget;
-		WebTarget webTargetPath;
-		Invocation.Builder invocationBuilder;
-		Response resp;	
+
 		
 		client = ClientBuilder.newClient();
 		webTarget = client.target("http://localhost:13100");
@@ -46,6 +47,7 @@ public class ShowAllProductsHandler implements IHandler {
 		
 		for(int i=0;i<allProduct.length;i++) {
 			products.add(allProduct[i]);
+			System.out.println(allProduct[i].getProductName());
 		}
 		//se obtienen los productos con el manager
 

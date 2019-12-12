@@ -26,6 +26,10 @@ import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.client.ClientConfig;
 
+import es.uc3m.ecommerce.model.Appuser;
+import es.uc3m.ecommerce.model.Product;
+import es.uc3m.ecommerce.model.Purchas;
+
 
 /*
 * Handler para añadir un producto nuevo
@@ -75,50 +79,47 @@ public class InsertPurchaseHandler implements IHandler {
 
 		// Codigo HTTP
 		int status = responsews.getStatus();
+		Integer confirmationCode=8888;
 		
 		// Todo OK
 		if (status == 200) {
 			// Consumir el recurso. Se obtiene el codigo de confirmacion
-			Integer confirmationCode = responsews.readEntity(Integer.class);
+			confirmationCode = responsews.readEntity(Integer.class);
 			System.out.println("*** InsertPurchaseHandler() \n" + confirmationCode);		
 		} else { // Error
 			
 		}
-
-		/*
-		 * Guardar el pedido en BD
-		 * 
-		 * HttpSession session = request.getSession(); Appuser u = (Appuser)
-		 * session.getAttribute("user");
-		 * 
-		 * List<Product> cartList = (List<Product>) session.getAttribute("cartList");
-		 * List<Integer> cartQuantities = (List<Integer>)
-		 * session.getAttribute("cartQuantities"); int cartTotal = (int)
-		 * session.getAttribute("cartTotal");
-		 * 
-		 * // Configuracion del cliente ClientConfig config = new ClientConfig(); Client
-		 * client = ClientBuilder.newClient(config);
-		 * 
-		 * // Path al recurso WebTarget webtarget =
-		 * client.target("http://localhost:13101");
-		 * 
-		 * WebTarget webTargetPath = webtarget.path("users").path("purchases");
-		 * 
-		 * // Request con tipo de dato Invocation.Builder invocationBuilder =
-		 * webTargetPath.request(MediaType.APPLICATION_JSON);
-		 * 
-		 * // Invocar al servicio // Response responsews =
-		 * invocationBuilder.post(Entity.entity(postUser, MediaType.APPLICATION_JSON));
-		 * 
-		 * Purchas purchase = new Purchas();
-		 * 
-		 * for (int i = 0; i < cartList.size(); i++) { purchase.setAppuser(u);
-		 * purchase.setConfirmationCode(888); purchase.setProduct(cartList.get(i));
-		 * purchase.setProductQuantity(cartQuantities.get(i));
-		 * purchase.setPurchaseId(22); invocationBuilder.post(Entity.entity(purchase,
-		 * MediaType.APPLICATION_JSON)); }
-		 */
-
+	  
+		  Appuser u = (Appuser)session.getAttribute("user");
+		  
+		  @SuppressWarnings("unchecked")
+		  List<Product> cartList = (List<Product>) session.getAttribute("cartList");
+		  
+		  @SuppressWarnings("unchecked")
+		  List<Integer> cartQuantities = (List<Integer>)session.getAttribute("cartQuantities"); 
+		  int cartTotal = (int)session.getAttribute("cartTotal");
+		  
+		  // Configuracion del cliente ClientConfig config = new ClientConfig(); Client
+		  client = ClientBuilder.newClient(config);
+		  
+		  // Path al recurso WebTarget webtarget =
+		  client.target("http://localhost:13101");
+		  
+		  webTargetPath =  webtarget
+				  .path("users")
+				  .path("purchases");
+		  
+		  // Request con tipo de dato Invocation.Builder invocationBuilder =
+		  webTargetPath.request(MediaType.APPLICATION_JSON);
+		  
+		  Purchas purchase = new Purchas();
+		  
+		  for (int i = 0; i < cartList.size(); i++) { purchase.setAppuser(u);
+		  purchase.setConfirmationCode(confirmationCode); purchase.setProduct(cartList.get(i));
+		  purchase.setProductQuantity(cartQuantities.get(i));
+		  purchase.setPurchaseId(22); 
+		  invocationBuilder.post(Entity.entity(purchase, MediaType.APPLICATION_JSON)); }
+		 
 		return "index.jsp";
 	}
 

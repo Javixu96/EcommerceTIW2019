@@ -34,6 +34,7 @@ public class CatalogueMSController {
 	ProductDAO productDAO;
 	
 	//PRODUCT - LLAMADAS GET
+	
 	// buscar producto por su ID
 	@RequestMapping(value="/products/{id}", method= RequestMethod.GET) 
 	public ResponseEntity<Product> findProductById(@PathVariable int id){
@@ -61,22 +62,14 @@ public class CatalogueMSController {
 		ResponseEntity<List<Product>> response = null;
 		List<Product> pList = null; 
 		
-		if(priceMin == null) {
-			priceMin = 0; 
-		}
-		if(priceMax == null) {
-			priceMax = Integer.MAX_VALUE;
-		}
 		
 		pList = (List<Product>) productDAO.searchProducts(priceMin, priceMax, productName, categoryId, shortDesc);
 		
 		
 		// COMPROBAR SI LA BUSQUEDA A RETORNADO RESULTADOS
-		if (pList == null) {
-			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} else {
-			response = new ResponseEntity<>(pList, HttpStatus.OK);
-		}
+		
+		response = new ResponseEntity<>(pList, HttpStatus.OK);
+		
 		return response;
 	}
 	
@@ -169,7 +162,6 @@ public class CatalogueMSController {
 	
 	@RequestMapping(value="/categories/parents", method= RequestMethod.GET)
 	public ResponseEntity<List<Category>> getCategoryParents(){
-		System.out.println("category parents");
 		ResponseEntity<List<Category>> response = null;
 		List<Category> parentCategories = categoryDAO.findCategoryParents();
 		

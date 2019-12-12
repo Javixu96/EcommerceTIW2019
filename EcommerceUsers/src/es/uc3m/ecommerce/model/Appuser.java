@@ -1,7 +1,13 @@
 package es.uc3m.ecommerce.model;
 
 import java.io.Serializable;
+
+import javax.json.bind.annotation.JsonbTypeDeserializer;
+import javax.json.bind.annotation.JsonbTypeSerializer;
 import javax.persistence.*;
+
+import es.uc3m.ecommerce.controller.BytesSerializerDeserializer;
+
 import java.util.List;
 
 
@@ -25,6 +31,8 @@ public class Appuser implements Serializable {
 	private String userName;
 
 	@Lob
+	@JsonbTypeDeserializer(BytesSerializerDeserializer.class)
+	@JsonbTypeSerializer(BytesSerializerDeserializer.class)
 	private byte[] userPicture;
 
 

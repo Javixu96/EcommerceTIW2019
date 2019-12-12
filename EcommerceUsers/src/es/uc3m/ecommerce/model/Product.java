@@ -1,7 +1,13 @@
 package es.uc3m.ecommerce.model;
 
 import java.io.Serializable;
+
+import javax.json.bind.annotation.JsonbTypeDeserializer;
+import javax.json.bind.annotation.JsonbTypeSerializer;
 import javax.persistence.*;
+
+import es.uc3m.ecommerce.controller.BytesSerializerDeserializer;
+
 import java.util.List;
 
 /**
@@ -22,6 +28,8 @@ public class Product implements Serializable {
 	private String productName;
 
 	@Lob
+	@JsonbTypeDeserializer(BytesSerializerDeserializer.class)
+	@JsonbTypeSerializer(BytesSerializerDeserializer.class)
 	private byte[] productPicture;
 
 	private String shortDesc;

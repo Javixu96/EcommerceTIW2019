@@ -2,6 +2,7 @@ package es.uc3m.ecommerce.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -14,9 +15,13 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.NotSupportedException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-import es.uc3m.ecommerce.manager.ProductManager;
-import es.uc3m.ecommerce.manager.UserManager;
 import es.uc3m.ecommerce.model.Appuser;
 import es.uc3m.ecommerce.model.Product;
 
@@ -24,24 +29,33 @@ import es.uc3m.ecommerce.model.Product;
 * Handler que prepara la lista de productos a la venta de un determinado vendedor
 */
 public class ShowMyProductListHandler implements IHandler {
+	Client client;
+	WebTarget webTarget;
+	WebTarget webTargetPath;
+	Invocation.Builder invocationBuilder;
+	Response resp;
 	
 	@Override 
 	public String handleRequest(HttpServletRequest request,
             HttpServletResponse response) throws ServletException,IOException {
+		client = ClientBuilder.newClient();
+		webTarget = client.target("http://localhost:13101");
 		
 		HttpSession session = request.getSession();
 		Appuser appuser = (Appuser) session.getAttribute("user");
+		List<Product> resultado=new ArrayList<Product>();
 
-		ProductManager im = new ProductManager();
+		WebTarget webTargetPath = webTarget
+				.path("users/products")
+				.path(Integer.toString(appuser.getUserId()));
+		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
+		Response responsews = invocationBuilder.get();
 		
-		//se obtiene todos los productos con el manager filtrando por el usuario
-		List<Product> resultado=null;
-		try {
-			resultado=im.findAllByAppuser(appuser);
-		} catch (Exception e) {
-			e.printStackTrace();
+		Product[] allMyProducts=responsews.readEntity(Product[].class);
+		for(int i=0;i<allMyProducts.length;i++) {
+			resultado.add(allMyProducts[i]);
 		}
-				
+			
 		request.setAttribute("allProducts", resultado);		
  
 		return "product_list_seller.jsp";

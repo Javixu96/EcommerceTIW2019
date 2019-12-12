@@ -35,9 +35,6 @@ public class InsertProductHandler implements IHandler {
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		client = ClientBuilder.newClient();
-		webTarget = client.target("http://localhost:13100");
-		String path = "products";
-		webTargetPath = webTarget.path(path);
 		
 		//Obtener el usuario de la sesion
 		HttpSession session = request.getSession();
@@ -58,6 +55,7 @@ public class InsertProductHandler implements IHandler {
 		product.setLongDesc(longDescription);
 		product.setPrice(price);
 		product.setStock(stock);
+		product.setIsDeleted(0);
 		
 		//foto
 		Part filePart = request.getPart("fileToUpload");
@@ -71,7 +69,9 @@ public class InsertProductHandler implements IHandler {
 	    
 	    //el propietario o seller
 		product.setAppuser(appuser);
-		
+		webTarget = client.target("http://localhost:13100");
+		String path = "products";
+		webTargetPath = webTarget.path(path);
 		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);	
 		resp= invocationBuilder.post(Entity.entity(product,MediaType.APPLICATION_JSON));
 
@@ -89,7 +89,7 @@ public class InsertProductHandler implements IHandler {
 		resp = invocationBuilder.get();
 		if (resp.getStatus() == 200) {
 			category = resp.readEntity(Category.class);
-		} 
+		}
 		
 		return category;
 	}
