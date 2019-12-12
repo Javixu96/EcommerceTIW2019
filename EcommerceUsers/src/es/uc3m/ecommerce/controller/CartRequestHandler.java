@@ -10,8 +10,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-import es.uc3m.ecommerce.manager.ProductManager;
 import es.uc3m.ecommerce.model.Appuser;
 import es.uc3m.ecommerce.model.Product;
 
@@ -19,6 +24,11 @@ import es.uc3m.ecommerce.model.Product;
 * Handler para las gestiones del carrito
 */
 public class CartRequestHandler implements IHandler{
+	Client client;
+	WebTarget webTarget;
+	WebTarget webTargetPath;
+	Invocation.Builder invocationBuilder;
+	Response resp;
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -79,9 +89,16 @@ public class CartRequestHandler implements IHandler{
 			} else if(action == 2) {
 				
 				// Tomamos el ID del producto a a�adir de los parametros enviados con la request
-				int id = Integer.parseInt(productId);
-				ProductManager pManager = new ProductManager();
-				Product p = pManager.findById(id);
+				client = ClientBuilder.newClient();
+				webTarget = client.target("http://localhost:13100");		
+				WebTarget webTargetPath = webTarget
+						.path("products")
+						.path(productId);
+				invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
+				Response responsews = invocationBuilder.get();
+
+				// A�adimos el nuevo producto a la lista wishlistList
+				Product p=(Product)responsews.readEntity(Product.class);
 
 				// A�adimos el nuevo producto a la lista cartList
 				cartList.add(p);
@@ -98,7 +115,7 @@ public class CartRequestHandler implements IHandler{
 				
 				// Sumamos el nuevo producto a la cuenta global de productos en cart
 				cartTotal = cartTotal + (q * p.getPrice());
-				// Retornamos la vista de producto de nuevo pero se actualizar� el header con los nuevos atributos de sesi�n
+				// Retornamos la vista de producto de nuevo pero se actualizar el header con los nuevos atributos de sesi�n
 				viewURL = "product.jsp";
 				
 				
@@ -118,8 +135,16 @@ public class CartRequestHandler implements IHandler{
 				int q = 0;  
 				int index = -1;
 				
-				ProductManager pManager = new ProductManager();
-				Product product = pManager.findById(p);
+				client = ClientBuilder.newClient();
+				webTarget = client.target("http://localhost:13100");		
+				WebTarget webTargetPath = webTarget
+						.path("products")
+						.path(productId);
+				invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
+				Response responsews = invocationBuilder.get();
+
+				// A�adimos el nuevo producto a la lista wishlistList
+				Product product=(Product)responsews.readEntity(Product.class);
 				
 				for(int i = 0; i < cartList.size(); i ++) {
 					if(cartList.get(i).getProductId() == p) {

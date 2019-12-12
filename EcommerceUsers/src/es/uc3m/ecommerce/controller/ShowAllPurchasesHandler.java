@@ -20,7 +20,6 @@ import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.client.ClientConfig;
 
-import es.uc3m.ecommerce.manager.*;
 import es.uc3m.ecommerce.model.*;
 
 /*

@@ -14,40 +14,59 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.NotSupportedException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-import es.uc3m.ecommerce.manager.UserManager;
 import es.uc3m.ecommerce.model.Appuser;
+import es.uc3m.ecommerce.model.Message;
 import es.uc3m.ecommerce.model.Product;
 
 /*
  * Handler que muestra la vista de perfil de usuario
 */
 public class ShowProfileHandler implements IHandler {
+	Client client;
+	WebTarget webTarget;
+	WebTarget webTargetPath;
+	Invocation.Builder invocationBuilder;
+	Response resp;
 	
 	@Override 
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
 			
+		client = ClientBuilder.newClient();
 		HttpSession session = request.getSession();
 		Appuser appuser = (Appuser) session.getAttribute("user");
 		String viewURL = null; 
-		UserManager us = new UserManager();
-		//si no esta logeado
+	
+		
 		if(session.getAttribute("user") == null) {
 			viewURL = new ForbiddenPageHandler().handleRequest(request, response);
 		} else {		
 			session.setAttribute("user", appuser);
 			viewURL = "profile.jsp";
 		}
+		String path = "users/sellers";
+		webTarget = client.target("http://localhost:13101");		
+		webTargetPath = webTarget.path(path);
+		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
+		resp = invocationBuilder.get();
 		
-		//para saber si es comprador o no 
-		try {
-			if(us.isSeller(appuser)) {
-				request.setAttribute("isSeller", 1);
-			}else {
-				request.setAttribute("isSeller", null);
+		if(resp.getStatus()==200) {
+			Appuser[] buyers= resp.readEntity(Appuser[].class);
+	
+			for(int i=0;i<buyers.length;i++) {
+				if(buyers[i].getUserId()==appuser.getUserId()) {
+					request.setAttribute("isSeller", 1);
+					return viewURL;
+				}
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+			request.setAttribute("isSeller", null);
 		}
 		
 		return viewURL;

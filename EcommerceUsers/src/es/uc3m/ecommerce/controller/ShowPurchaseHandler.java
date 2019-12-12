@@ -19,7 +19,6 @@ import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.client.ClientConfig;
 
-import es.uc3m.ecommerce.manager.*;
 import es.uc3m.ecommerce.model.*;
 
 /*
@@ -30,27 +29,6 @@ public class ShowPurchaseHandler implements IHandler {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("ShowPurchaseHandler()");
-		/*
-		//se muestran los productos agrupados por pedido (mismo confirmation code)
-		PurchaseManager purchaseManager = new PurchaseManager();
-		Integer code = Integer.parseInt(request.getParameter("confirmationCode"));
-		//se obtiene los pedidos con el mismo confirmationCode
-		List<Purchas> purchases = purchaseManager.findPurchase(code);
-
-		List<Product> products = new ArrayList<Product>();
-		
-		//se almacena todos los productos como un objeto
-		for (int i=0; i<purchases.size(); i++) {
-			Product p = purchases.get(i).getProduct();
-			products.add(p);
-		}
-	
-		request.setAttribute("productPurchased", products);
-		request.setAttribute("purchase", purchases);
-		
-		return "purchase.jsp";
-		*/
 		
 		// Configuracion del cliente
 		ClientConfig config = new ClientConfig();
@@ -92,8 +70,6 @@ public class ShowPurchaseHandler implements IHandler {
 		for (int i=0; i<purchases.size(); i++) {
 			// purchases.add(integers[i]);
 			Product p = purchases.get(i).getProduct();
-			System.out.println("AAAAAMMMM"+p.getProductName());
-			System.out.println(purchases.get(i).getProductQuantity());
 			products.add(p);
 		}
 		

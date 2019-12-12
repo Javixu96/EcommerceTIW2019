@@ -8,8 +8,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-import es.uc3m.ecommerce.manager.ProductManager;
 import es.uc3m.ecommerce.model.Appuser;
 import es.uc3m.ecommerce.model.Product;
 
@@ -17,6 +22,11 @@ import es.uc3m.ecommerce.model.Product;
  * Handler que gestiona la wishlist: mostrar, añadir y borrar elementos
 */
 public class WishlistRequestHandler implements IHandler{
+	Client client;
+	WebTarget webTarget;
+	WebTarget webTargetPath;
+	Invocation.Builder invocationBuilder;
+	Response resp;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -73,11 +83,18 @@ public class WishlistRequestHandler implements IHandler{
 			} else if(action == 2) {
 				
 				// Tomamos el nuevo producto 
-				int id = Integer.parseInt(productId);
-				ProductManager pManager = new ProductManager();
-				Product p = pManager.findById(id);
+
+				
+				client = ClientBuilder.newClient();
+				webTarget = client.target("http://localhost:13100");		
+				WebTarget webTargetPath = webTarget
+						.path("products")
+						.path(productId);
+				invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
+				Response responsews = invocationBuilder.get();
 
 				// Aï¿½adimos el nuevo producto a la lista wishlistList
+				Product p=(Product)responsews.readEntity(Product.class);
 				wishlistList.add(p);
 				request.setAttribute("product", p);
 				request.setAttribute("productId", p.getProductId());
@@ -85,7 +102,7 @@ public class WishlistRequestHandler implements IHandler{
 				
 				// Sumamos el nuevo producto a la cuenta global de productos en wishlist
 				wishlistTotal ++;
-				// Retornamos la vista de producto de nuevo pero se actualizarï¿½ el header con los nuevos atributos de sesiï¿½n
+				// Retornamos la vista de producto de nuevo pero se actualizar el header con los nuevos atributos de sesiï¿½n
 				viewURL = "product.jsp";
 				
 				

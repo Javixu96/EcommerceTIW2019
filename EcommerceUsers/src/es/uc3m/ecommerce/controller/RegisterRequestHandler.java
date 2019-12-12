@@ -30,8 +30,6 @@ public class RegisterRequestHandler implements IHandler {
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String viewURL = null;
-		
-		UserManager manager = new UserManager();
 
 		// Tomo los parametros del form de register
 		String introducedName = request.getParameter("register_name");
@@ -41,7 +39,7 @@ public class RegisterRequestHandler implements IHandler {
 		String introducedPassword = request.getParameter("register_password");
 		int introducedRole = Integer.parseInt(request.getParameter("register_role"));
 			
-		// Retorno la lista de usuarios que tienen ese email (deberá ser de tamaño 0 o 1)
+		// Retorno la lista de usuarios que tienen ese email (deber ser de tamaño 0 o 1)
 		List<Appuser> userListByName = manager.findByEmail(introducedEmail);
 		System.out.println("UserListByName returned by manager when checking if email already registered is size " + userListByName.size());
 		

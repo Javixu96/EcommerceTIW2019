@@ -88,9 +88,6 @@ public class ControllerServlet extends HttpServlet {
 	    handlerHash.put("/search.html", new SearchHandler());
 	    handlerHash.put("/advanced_search.html", new AdvancedSearchHandler());
 	    handlerHash.put("/product.html", new ShowProductHandler());
-	    
-	    //getsiona la confirmación de compra
-	    handlerHash.put("/sendOrderMessage.html", new SendOrderMessageHandler());
 
 	    // Carrito
 	    handlerHash.put("/cart.html", new CartRequestHandler());

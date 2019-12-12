@@ -1,18 +1,29 @@
 
 package es.uc3m.ecommerce.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-import es.uc3m.ecommerce.manager.ProductManager;
 import es.uc3m.ecommerce.model.Product;
 
 /*
  * Handler que realiza la búsqueda simple y el filtrado por categorias
 */
 public class SearchHandler implements IHandler {
+	Client client;
+	WebTarget webTarget;
+	WebTarget webTargetPath;
+	Invocation.Builder invocationBuilder;
+	Response resp;
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
@@ -23,24 +34,58 @@ public class SearchHandler implements IHandler {
 		String searchCategory = 
 				!request.getParameter("searchQuery").equals("") ? request.getParameter("searchCategory") : "1";
 		
-		ProductManager productManager = new ProductManager();
-		List<Product> products = null;
+
+		List<Product> products = new ArrayList<Product>();
+		client = ClientBuilder.newClient();
+		webTarget = client.target("http://localhost:13100");
 		
 		if(searchQuery.equals("all") && searchCategory.equals("1")) {
-			//pintar todos
-			products = productManager.findAll();
+			//pintar todos	
+			WebTarget webTargetPath = webTarget
+					.path("products");
+			invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
+			Response responsews = invocationBuilder.get();
+			
+			Product[] AllProducts=responsews.readEntity(Product[].class);
+			for(int i=0;i<AllProducts.length;i++) {
+				products.add(AllProducts[i]);
+			}
 			
 		} else if (!searchQuery.equals("all") && searchCategory.equals("1")) {
 			//pintar todos los de la query de cualquier categoría
-			products = productManager.findBySimilarTitle(searchQuery);
+			WebTarget webTargetPath = webTarget
+					.path("products").queryParam("productName",searchQuery);
+			invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
+			Response responsews = invocationBuilder.get();
+			
+			Product[] AllProducts=responsews.readEntity(Product[].class);
+			for(int i=0;i<AllProducts.length;i++) {
+				products.add(AllProducts[i]);
+			}
 			
 		} else if (searchQuery.equals("all") && !searchCategory.equals("1")) {
 			//pintar todos los de una misma categoría
-			products = productManager.findByCategory(searchCategory);
+			WebTarget webTargetPath = webTarget
+					.path("products").queryParam("category",searchCategory);
+			invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
+			Response responsews = invocationBuilder.get();
+			
+			Product[] AllProducts=responsews.readEntity(Product[].class);
+			for(int i=0;i<AllProducts.length;i++) {
+				products.add(AllProducts[i]);
+			}
 			
 		} else {
 			//pintar los de la query de una categoría			
-			products = productManager.findByNameAndCategory(searchQuery, searchCategory);
+			WebTarget webTargetPath = webTarget
+					.path("products").queryParam("category",searchCategory).queryParam("productName", searchQuery);
+			invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
+			Response responsews = invocationBuilder.get();
+			
+			Product[] AllProducts=responsews.readEntity(Product[].class);
+			for(int i=0;i<AllProducts.length;i++) {
+				products.add(AllProducts[i]);
+			}
 			
 		}
 		//preparamos la query para mostrarse de vuelta en el buscador

@@ -8,14 +8,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-import es.uc3m.ecommerce.manager.*;
 import es.uc3m.ecommerce.model.*;
 
 /*
 * Handler para la modificacion del perfil de usuario
 */
 public class ModifyProfileHandler implements IHandler {
+
+	Client client;
+	WebTarget webTarget;
+	WebTarget webTargetPath;
+	Invocation.Builder invocationBuilder;
+	Response resp;	
 	
 	//true->modify false->delete
 	private boolean modifyOrDelete;
@@ -27,14 +39,17 @@ public class ModifyProfileHandler implements IHandler {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		client = ClientBuilder.newClient();
 		return modifyOrDelete ? processModify(request) : processDelete(request);
 	}
 	
 	
 	public String processModify(HttpServletRequest request)
 			throws ServletException, IOException { 
-		UserManager im = new UserManager();
+		webTarget = client.target("http://localhost:13101");
+		String path = "users";
+		webTargetPath = webTarget.path(path);
+		
 		
 		String userName = request.getParameter("profile_name");
 		String userSurnames = request.getParameter("profile_surnames");
@@ -78,18 +93,8 @@ public class ModifyProfileHandler implements IHandler {
 			request.setAttribute("invalidRepeatError", null);
 		}
 		
-
-		// Update DB and Session attribute -> both or none
-		// Check if this way this is accomplished
-		try {
-			im.modifyUser(user);
-			session.setAttribute("user", user);
-			// Display success message to user 
-			request.setAttribute("modifyUserSuccess", 1);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);	
+		resp= invocationBuilder.put(Entity.entity(user,MediaType.APPLICATION_JSON));	
 		
 		return "profile.html";
 	}
@@ -97,18 +102,16 @@ public class ModifyProfileHandler implements IHandler {
 	
 	public String processDelete(HttpServletRequest request) { 
 		
-		UserManager im = new UserManager();
+		webTarget = client.target("http://localhost:13101");
+		
 		HttpSession session = request.getSession();
 		Appuser user = (Appuser) session.getAttribute("user");
+		String path = "users"+"/"+user.getUserId();
+		webTargetPath = webTarget.path(path);
 		
-		user.setIsDeleted(1);
+		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);	
+		resp= invocationBuilder.delete();
 		
-		try {
-			im.modifyUser(user);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		return "loggingin.html";
 	}

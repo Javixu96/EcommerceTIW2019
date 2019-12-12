@@ -79,7 +79,6 @@ public class SendMessageHandler implements IHandler {
 			HttpSession session = request.getSession();
 			Appuser user = (Appuser) session.getAttribute("user");
 			for(int i=0;i<buyers.length;i++) {
-				System.out.println(buyers[i].getUserName());
 				Message msg = new Message();
 				msg.setSender(user);
 				msg.setReceiver(buyers[i]);
