@@ -45,27 +45,29 @@ public class ShowAllPurchasesHandler implements IHandler {
 		
 		WebTarget webTargetPath = webtarget
 				.path("users")
-				.path("buyers")
-				.path(userId);
+				.path(userId)
+				.path("purchases");
+
 		
 		// Request con tipo de dato
 		Invocation.Builder invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
 		
 		// Invocar al servicio
 		Response responsews = invocationBuilder.get();
-		
+		List<Integer> purchases=new ArrayList<Integer>();
 		// Codigo HTTP
-		int status = responsews.getStatus();
+		if(responsews.getStatus()==200) {
 		
-		// Consumir el recurso
-		Integer[] integers = responsews.readEntity(Integer[].class);
-		List<Integer> purchases = new ArrayList<Integer>(integers.length);
-		for (int i : integers)
-		{
-		    purchases.add(i);
+			// Consumir el recurso
+			
+			Integer[] integers = responsews.readEntity(Integer[].class);
+			for (int i=0;i<integers.length;i++)
+			{
+			    purchases.add(integers[i]);
+			}
+			
+			request.setAttribute("allPurchases", purchases);
 		}
-		
-		request.setAttribute("allPurchases", purchases);
 		
 		return "purchase_list.jsp";
 	

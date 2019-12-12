@@ -41,9 +41,8 @@ public class ShowPurchaseHandler implements IHandler {
 		WebTarget webtarget = client.target("http://localhost:13101");
 				
 		WebTarget webTargetPath = webtarget
-			.path("users")
 			.path("purchases")
-			.path(code);
+			.queryParam("confirmationCode", Integer.parseInt(code));
 				
 		// Request con tipo de dato
 		Invocation.Builder invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);

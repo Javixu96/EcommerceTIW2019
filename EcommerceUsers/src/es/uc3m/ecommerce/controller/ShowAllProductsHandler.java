@@ -41,7 +41,7 @@ public class ShowAllProductsHandler implements IHandler {
 		
 		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);	
 		resp= invocationBuilder.get();
-		
+
 		Product[] allProduct = resp.readEntity(Product[].class);
 		List<Product> products = new ArrayList<Product>();
 		

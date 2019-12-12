@@ -32,6 +32,10 @@ public class UsersMSController {
 	@RequestMapping(method = RequestMethod.GET, value="/users/{userId}/purchases")
 	public ResponseEntity<List<Integer>> findAllConfirmationCode(@PathVariable int userId) {
 		List<Integer> allConfirmation = daopurchas.findAllConfirmationCode(userId);
+		
+		if(allConfirmation.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 		return new ResponseEntity<>(allConfirmation, HttpStatus.OK);
 	}
 	
