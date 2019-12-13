@@ -88,7 +88,8 @@ public class InsertProductHandler implements IHandler {
 		// Invocar al servicio
 		resp = invocationBuilder.get();
 		if (resp.getStatus() == 200) {
-			category = resp.readEntity(Category.class);
+			Category [] c = resp.readEntity(Category[].class);
+			category=c[0];
 		}
 		
 		return category;

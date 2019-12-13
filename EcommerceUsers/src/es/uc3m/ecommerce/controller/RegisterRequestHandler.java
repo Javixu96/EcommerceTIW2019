@@ -62,15 +62,11 @@ public class RegisterRequestHandler implements IHandler {
 				.path("users/login").queryParam("email",introducedEmail);
 		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
 		responsews = invocationBuilder.get();
-		
-		Appuser[] allUsers=responsews.readEntity(Appuser[].class);
-		for(int i=0;i<allUsers.length;i++) {
-			userListByName.add(allUsers[i]);
-		}
+
 		System.out.println("UserListByName returned by manager when checking if email already registered is size " + userListByName.size());
 		
 		// Si el email ya esta registrado
-		if(userListByName.size() != 0) {
+		if(responsews.getStatus()==200) {
 			// Redirijo a register.jsp con un mensaje marcado con un atributo de request 
 			request.setAttribute("alreadyRegisteredError", 1);
 			viewURL = "register.jsp";
@@ -87,7 +83,7 @@ public class RegisterRequestHandler implements IHandler {
 			user.setUserRole(introducedRole);
 			user.setIsDeleted(0);
 			webTargetPath = webTarget
-					.path("users/login").queryParam("email",introducedEmail);
+					.path("users");
 			invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
 			responsews = invocationBuilder.post(Entity.entity(user,MediaType.APPLICATION_JSON));
 			

@@ -46,8 +46,9 @@ public class ShowMyProductListHandler implements IHandler {
 		List<Product> resultado=new ArrayList<Product>();
 
 		WebTarget webTargetPath = webTarget
-				.path("users/products")
-				.path(Integer.toString(appuser.getUserId()));
+				.path("users")
+				.path(Integer.toString(appuser.getUserId()))
+				.path("products");
 		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
 		Response responsews = invocationBuilder.get();
 		

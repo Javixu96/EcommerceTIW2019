@@ -27,8 +27,7 @@ public class Purchas implements Serializable {
 	@JoinColumn(name="buyerId")
 	private Appuser appuser;
 
-	//bi-directional many-to-one association to Product
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="productId")
 	private Product product;
 

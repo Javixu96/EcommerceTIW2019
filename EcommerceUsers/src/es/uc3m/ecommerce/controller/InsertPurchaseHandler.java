@@ -1,21 +1,12 @@
 package es.uc3m.ecommerce.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -24,22 +15,22 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.glassfish.jersey.client.ClientConfig;
-
 import es.uc3m.ecommerce.model.Appuser;
+import es.uc3m.ecommerce.model.ConfirmationNumber;
 import es.uc3m.ecommerce.model.Product;
 import es.uc3m.ecommerce.model.Purchas;
+import es.uc3m.ecommerce.model.PurchaseData;
 
 
 /*
 * Handler para añadir un producto nuevo
 */
 public class InsertPurchaseHandler implements IHandler {
-	/*
-	 * Convertir los productos a purchase Obtener codigo de confirmacion y llamar a
-	 * la url para insertar pedido
-	 * 
-	 */
+	Client client;
+	WebTarget webTarget;
+	WebTarget webTargetPath;
+	Invocation.Builder invocationBuilder;
+	Response resp;	
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -47,16 +38,15 @@ public class InsertPurchaseHandler implements IHandler {
 		HttpSession session = request.getSession();
 		
 		// Configuracion del cliente
-		ClientConfig config = new ClientConfig();
-		Client client = ClientBuilder.newClient(config);
+		client = ClientBuilder.newClient();
 
 		// Path al recurso. Se llama al microservicio Banco
-		WebTarget webtarget = client.target("http://localhost:13102");
+		webTarget = client.target("http://localhost:13102");
 
-		WebTarget webTargetPath = webtarget.path("bank");
+		webTargetPath = webTarget.path("bank");
 
 		// Request con tipo de dato
-		Invocation.Builder invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
+		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
 		
 		// Parametros y total de la compra
 		String cardNumber = request.getParameter("card");
@@ -64,30 +54,26 @@ public class InsertPurchaseHandler implements IHandler {
 		Integer expirationYear = Integer.parseInt(request.getParameter("expiration_year"));
 		String cvv = request.getParameter("cvv");
 		Integer purchaseCost = (Integer) session.getAttribute("cartTotal");
+	
+		PurchaseData data = new PurchaseData();
+		data.setCardNumber(cardNumber);
+		data.setCvv(cvv);
+		data.setExpMonth(expirationMonth);
+		data.setExpYear(expirationYear);
+		data.setPurchaseCost(purchaseCost);
 		
-		// Informacion del request body
-		JsonObject requestBody = Json.createObjectBuilder()
-				.add("card_number", cardNumber)
-				.add("expiration_month", expirationMonth)
-				.add("expiration_year", expirationYear)
-				.add("CVV", cvv)
-				.add("purchaseCost", purchaseCost)
-				.build();
-
 		// Invocar al servicio
-		Response responsews = invocationBuilder.post(Entity.json(requestBody));
+		resp= invocationBuilder.post(Entity.entity(data,MediaType.APPLICATION_JSON));
 
 		// Codigo HTTP
-		int status = responsews.getStatus();
-		Integer confirmationCode=8888;
+		int status = resp.getStatus();
+		int confirmationCode=8888;
 		
 		// Todo OK
 		if (status == 200) {
 			// Consumir el recurso. Se obtiene el codigo de confirmacion
-			confirmationCode = responsews.readEntity(Integer.class);
-			System.out.println("*** InsertPurchaseHandler() \n" + confirmationCode);		
-		} else { // Error
-			
+			ConfirmationNumber code = (ConfirmationNumber)resp.readEntity(ConfirmationNumber.class);
+			confirmationCode=code.getConfirmationNumber();	
 		}
 	  
 		  Appuser u = (Appuser)session.getAttribute("user");
@@ -97,28 +83,31 @@ public class InsertPurchaseHandler implements IHandler {
 		  
 		  @SuppressWarnings("unchecked")
 		  List<Integer> cartQuantities = (List<Integer>)session.getAttribute("cartQuantities"); 
-		  int cartTotal = (int)session.getAttribute("cartTotal");
 		  
 		  // Configuracion del cliente ClientConfig config = new ClientConfig(); Client
-		  client = ClientBuilder.newClient(config);
 		  
 		  // Path al recurso WebTarget webtarget =
 		  client.target("http://localhost:13101");
 		  
-		  webTargetPath =  webtarget
-				  .path("users")
+		  webTargetPath =  webTarget
 				  .path("purchases");
-		  
-		  // Request con tipo de dato Invocation.Builder invocationBuilder =
-		  webTargetPath.request(MediaType.APPLICATION_JSON);
 		  
 		  Purchas purchase = new Purchas();
 		  
-		  for (int i = 0; i < cartList.size(); i++) { purchase.setAppuser(u);
-		  purchase.setConfirmationCode(confirmationCode); purchase.setProduct(cartList.get(i));
-		  purchase.setProductQuantity(cartQuantities.get(i));
-		  purchase.setPurchaseId(22); 
-		  invocationBuilder.post(Entity.entity(purchase, MediaType.APPLICATION_JSON)); }
+		  for (int i = 0; i < cartList.size(); i++) { 
+			  purchase.setAppuser(u);
+			  // purchase.setConfirmationCode(confirmationCode); 
+			  purchase.setConfirmationCode(22222); 
+			  purchase.setProduct(cartList.get(i));
+			  System.out.println("aaaaaaaaaaaaaaaaaaa"+cartList.get(i).getProductName());
+			  purchase.setProductQuantity(cartQuantities.get(i));
+			  System.out.println("bbbbbbbbbbbbbbbb"+(int)cartQuantities.get(i));
+			  System.out.println("ccccccccccc" + u.getEmail());
+			  invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
+			  resp= invocationBuilder.post(Entity.entity(purchase,MediaType.APPLICATION_JSON));
+			  
+			  Purchas p=(Purchas)resp.readEntity(Purchas.class);
+		  }
 		 
 		return "index.jsp";
 	}

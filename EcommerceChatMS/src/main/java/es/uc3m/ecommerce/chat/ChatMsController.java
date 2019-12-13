@@ -28,6 +28,7 @@ public class ChatMsController {
 	
 	@RequestMapping(method = RequestMethod.POST, value="/message")
 	public ResponseEntity<Message> saveMessage(@RequestBody Message msg) {
+		System.out.println("he creado un msg");
 		return new ResponseEntity<Message>(msgDAO.save(msg),HttpStatus.CREATED);
 	}
 	

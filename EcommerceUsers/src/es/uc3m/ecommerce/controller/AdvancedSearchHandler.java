@@ -48,7 +48,8 @@ public class AdvancedSearchHandler implements IHandler {
 			case "product_name":
 				//Buscando por nombre
 				webTargetPath = webTarget
-					.path("products").queryParam("productName", advancedQuery)
+					.path("products")
+					.queryParam("productName", advancedQuery)
 					.queryParam("priceMin", minPrice)
 					.queryParam("priceMax", maxPrice);
 				invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);

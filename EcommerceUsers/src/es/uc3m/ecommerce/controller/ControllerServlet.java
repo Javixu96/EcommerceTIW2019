@@ -3,15 +3,11 @@ package es.uc3m.ecommerce.controller;
 
 import java.io.IOException;
 
-import javax.jms.JMSException;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
@@ -21,7 +17,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletConfig;
 
 import es.uc3m.ecommerce.model.Category;
 
@@ -47,9 +42,6 @@ public class ControllerServlet extends HttpServlet {
 	Response resp;	
 	
 	private ServletContext servletContext; //usamos el servletcontext para cargar la vista de categorias al principio, cuando se carga el index.html
-	
-	@PersistenceContext(unitName = "EcommerceUsersPU",name = "jpa/pc")
-	private EntityManager em;
        
 	// Mapa con los handlers que getionan las acciones a realizar por cada html 
 	private Map<String,IHandler> handlerHash = new HashMap<String,IHandler>();
@@ -117,7 +109,7 @@ public class ControllerServlet extends HttpServlet {
 	
 	private List<Category> findCategoryList() {
 		webTarget = client.target("http://localhost:13100");		
-		webTargetPath = webTarget.path("categories/parents");
+		webTargetPath = webTarget.path("categories");
 		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
 		List<Category> categoryList = null;
 		
@@ -155,8 +147,4 @@ public class ControllerServlet extends HttpServlet {
 		  	doGet(request,response); //redirige al post
 	 }
 	  
-	 public void destroy(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, JMSException {
-		
-	 }
 }

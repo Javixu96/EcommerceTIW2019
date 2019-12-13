@@ -49,8 +49,9 @@ public class UsersMSController {
 	// Insertar un pedido
 	@RequestMapping(method = RequestMethod.POST, value="/purchases")
 	public ResponseEntity<Purchas> insertPurchase(@RequestBody Purchas purchase) {
+		System.out.println("dddddddddddddddddddddds"+purchase.getProduct().getProductName());
 		Purchas newPurchase = daopurchas.save(purchase);
-		return new ResponseEntity<>(newPurchase, HttpStatus.OK);
+		return new ResponseEntity<Purchas>(newPurchase, HttpStatus.OK);
 	}
 	
 	// Buscar los compradores
@@ -151,7 +152,7 @@ public class UsersMSController {
 		return response;
 	}
 		
-	// Modificar usuario por su ID 
+	// Crear usuario por su ID 
 	@RequestMapping(method = RequestMethod.POST, value="/users")
 	public ResponseEntity<Appuser> insertUser(@RequestBody Appuser appUser) {
 		Appuser user = appuserDAO.save(appUser);

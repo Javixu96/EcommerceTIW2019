@@ -48,6 +48,7 @@ public class Appuser implements Serializable {
 
 	//bi-directional many-to-one association to Product
 	@OneToMany(mappedBy="appuser")
+	@JsonIgnore
 	private List<Product> products;
 
 	//bi-directional many-to-one association to Purchas
