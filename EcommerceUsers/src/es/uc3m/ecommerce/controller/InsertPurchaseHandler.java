@@ -89,8 +89,6 @@ public class InsertPurchaseHandler implements IHandler {
 		  
 		  // Path al recurso WebTarget webtarget =
 		  
-		  client.target("http://localhost:13101");
-		  
 		  webtarget = client.target("http://localhost:13101");
 		  webTargetPath = webtarget.path("purchases");
 		  
