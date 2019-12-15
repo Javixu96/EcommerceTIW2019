@@ -1,5 +1,8 @@
 package es.uc3m.ecommerce.bank;
-
+/*
+ * Microservicio Banco, recibe las informaciones de una tarjeta y las comprueba, genera un codigo de confirmacion
+ * en caso de que esten correctas todas.
+ * */
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -18,12 +21,16 @@ import es.uc3m.ecommerce.bank.model.*;
 @CrossOrigin
 @RestController
 public class BankMSController {
-
+	
+	//generar un objeto de tipo ConfirmationNumber y lo devuelve
 	@RequestMapping(value="/bank", method= RequestMethod.POST)
 	public ResponseEntity<ConfirmationNumber> processPurchase(@RequestBody PurchaseData purchaseInfo){
 		ResponseEntity<ConfirmationNumber> response;
 		
+		//comprobacion de informaciones de la tarjeta
 		if (validateCardInformation(purchaseInfo)) {
+			
+			//generar el numero aleatorio
 			Integer confirmationCode = new Integer(10000 +  + new Random().nextInt(90000));
 			ConfirmationNumber cn = new ConfirmationNumber();
 			cn.setConfirmationNumber(confirmationCode);
@@ -34,7 +41,7 @@ public class BankMSController {
 		return response;
 		
 	}
-	
+	//validar la informacion de la tarjeta
 	private boolean validateCardInformation(PurchaseData purchaseInfo) {
 		
 		String cardNumber = purchaseInfo.getCardNumber();
@@ -42,6 +49,7 @@ public class BankMSController {
 		Integer exp_year = purchaseInfo.getExpYear();
 		String cvv =  purchaseInfo.getCvv();
 		Integer purchaseCost = purchaseInfo.getPurchaseCost();
+		//comprobacion 1-divisible entre 3  2-no caducada 3-formato de cvv
 		boolean validate = isDivisibleBy3(cardNumber) && isNotExpired(exp_month, exp_year) && cvvCorrect(cvv) && purchaseCost > 0;
 		return validate;
 	}

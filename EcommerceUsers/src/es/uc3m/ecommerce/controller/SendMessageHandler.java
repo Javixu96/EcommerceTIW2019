@@ -49,6 +49,7 @@ public class SendMessageHandler implements IHandler {
 		String path = "message";
 		webTargetPath = webTarget.path(path);
 		
+		//obtener el cuerpo de mensaje, el emisor y el receptor
 		Message msg = new Message();
 		HttpSession session = request.getSession();
 		Appuser user = (Appuser) session.getAttribute("user");
@@ -68,11 +69,14 @@ public class SendMessageHandler implements IHandler {
 
 		client = ClientBuilder.newClient();
 		webTarget = client.target("http://localhost:13101");
+		
+		//Obtener la lista de todos los compradores
 		String path = "users/buyers";
 		webTargetPath = webTarget.path(path);
 		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);	
 		resp= invocationBuilder.get();
 		
+		//envia un mensaje individual para cada uno de los compradores
 		if(resp.getStatus()==200) {
 			Appuser[] buyers= resp.readEntity(Appuser[].class);
 	

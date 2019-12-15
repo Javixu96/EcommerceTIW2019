@@ -28,6 +28,7 @@ import es.uc3m.ecommerce.model.PurchaseData;
 public class InsertPurchaseHandler implements IHandler {
 	Client client;
 	WebTarget webTarget;
+	WebTarget webtarget;
 	WebTarget webTargetPath;
 	Invocation.Builder invocationBuilder;
 	Response resp;	
@@ -87,26 +88,22 @@ public class InsertPurchaseHandler implements IHandler {
 		  // Configuracion del cliente ClientConfig config = new ClientConfig(); Client
 		  
 		  // Path al recurso WebTarget webtarget =
+		  
 		  client.target("http://localhost:13101");
 		  
-		  webTargetPath =  webTarget
-				  .path("purchases");
+		  webtarget = client.target("http://localhost:13101");
+		  webTargetPath = webtarget.path("purchases");
 		  
 		  Purchas purchase = new Purchas();
 		  
 		  for (int i = 0; i < cartList.size(); i++) { 
 			  purchase.setAppuser(u);
 			  // purchase.setConfirmationCode(confirmationCode); 
-			  purchase.setConfirmationCode(22222); 
+			  purchase.setConfirmationCode(confirmationCode); 
 			  purchase.setProduct(cartList.get(i));
-			  System.out.println("aaaaaaaaaaaaaaaaaaa"+cartList.get(i).getProductName());
 			  purchase.setProductQuantity(cartQuantities.get(i));
-			  System.out.println("bbbbbbbbbbbbbbbb"+(int)cartQuantities.get(i));
-			  System.out.println("ccccccccccc" + u.getEmail());
 			  invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
 			  resp= invocationBuilder.post(Entity.entity(purchase,MediaType.APPLICATION_JSON));
-			  
-			  Purchas p=(Purchas)resp.readEntity(Purchas.class);
 		  }
 		 
 		return "index.jsp";

@@ -49,7 +49,6 @@ public class UsersMSController {
 	// Insertar un pedido
 	@RequestMapping(method = RequestMethod.POST, value="/purchases")
 	public ResponseEntity<Purchas> insertPurchase(@RequestBody Purchas purchase) {
-		System.out.println("dddddddddddddddddddddds"+purchase.getProduct().getProductName());
 		Purchas newPurchase = daopurchas.save(purchase);
 		return new ResponseEntity<Purchas>(newPurchase, HttpStatus.OK);
 	}
@@ -109,12 +108,12 @@ public class UsersMSController {
 		return response;
 	}
 	
-	// Buscar usuario por email y password
+	// Buscar usuario por email y/o password--> tanto para login como registro
 	@RequestMapping(method = RequestMethod.GET, value="/users/login")
 	public ResponseEntity<Appuser> findByUserId(@RequestParam(value = "email") String email,
 			@RequestParam(value = "pw",required = false) String password) {
 		ResponseEntity<Appuser> response = null;
-		
+		//dependiendo de pw
 		Appuser user = (password == null) ? appuserDAO.findByEmailAndIsDeleted(email, 0) : appuserDAO.findByEmailAndPwAndIsDeleted(email, password, 0);
 		if (user == null) {
 			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -165,7 +164,8 @@ public class UsersMSController {
 		return response;
 	}	
 	
-	@RequestMapping(value="/users/{id}", method= RequestMethod.DELETE) // eliminar un producto (editar el flag isDeleted)
+	// eliminar un producto (editar el flag isDeleted)
+	@RequestMapping(value="/users/{id}", method= RequestMethod.DELETE) 
 	public ResponseEntity<Appuser> deleteUser(@PathVariable int id){
 		ResponseEntity<Appuser> response = null;
 		Appuser p = appuserDAO.findByUserIdAndIsDeleted(id, 0);

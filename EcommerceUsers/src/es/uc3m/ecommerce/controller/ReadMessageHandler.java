@@ -39,14 +39,20 @@ public class ReadMessageHandler implements IHandler {
 		
 		client = ClientBuilder.newClient();
 		webTarget = client.target("http://localhost:13103");
+		
+		
 		HttpSession session = request.getSession();
+		//obtener el emisor y receptor
 		Appuser user = (Appuser) session.getAttribute("user");
 		Appuser sender = (Appuser)session.getAttribute("sender");
+		
+		
 		String path = "message"+"/"+user.getUserId()+"/"+sender.getUserId();
 		webTargetPath = webTarget.path(path);
 		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);	
 		resp= invocationBuilder.get();
 		
+		//si hemos recibido correctamente los mensajes
 		if(resp.getStatus()==200) {
 			Message[] miMensajes= resp.readEntity(Message[].class);
 			List<String> listaMensaje=new ArrayList<String>();
@@ -61,6 +67,7 @@ public class ReadMessageHandler implements IHandler {
 			request.setAttribute("listaMensaje", listaMensaje);
 			session.setAttribute("sender", sender);
 			
+			//cambiamos sus flags de isRead a 1
 			path = "message";
 			webTargetPath = webTarget.path(path);
 			invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);	

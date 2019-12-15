@@ -17,7 +17,6 @@ import es.uc3m.ecommerce.chat.model.Message;
 import es.uc3m.ecommerce.chat.model.MessageDAO;
 
 
-
 @RestController
 @CrossOrigin
 public class ChatMsController {
@@ -26,16 +25,19 @@ public class ChatMsController {
 	@Autowired
 	MessageDAO msgDAO;
 	
+	//insertar un mensaje
 	@RequestMapping(method = RequestMethod.POST, value="/message")
 	public ResponseEntity<Message> saveMessage(@RequestBody Message msg) {
-		System.out.println("he creado un msg");
 		return new ResponseEntity<Message>(msgDAO.save(msg),HttpStatus.CREATED);
 	}
 	
+	//obtener los mensajes no leido para un usuario determinado--> para bandeja de entrada de los mensajes
 	@RequestMapping(method = RequestMethod.GET, value="/message/{receiverId}")
 	public ResponseEntity<List<Message>> readAllMessage(@PathVariable int receiverId) {
 		List<Message>  allMessage= (List<Message>) msgDAO.findAll();
 		List<Message>  myList=new ArrayList<Message>();
+		
+		//filtrar todos los mensajes
 		for(Message myMessage:allMessage) {
 			if((myMessage.getReceiver().getUserId()==receiverId && myMessage.getIsRead()==0)) {
 				myList.add(myMessage);
@@ -48,6 +50,7 @@ public class ChatMsController {
 		}
 	}
 	
+	//obtener los mensajes no leido para un usuario determinado y un emisor determinado
 	@RequestMapping(method = RequestMethod.GET, value="/message/{receiverId}/{senderId}")
 	public ResponseEntity<List<Message>> readMessage(@PathVariable int receiverId,@PathVariable int senderId) {
 		List<Message>  allMessage= (List<Message>) msgDAO.findAll();
@@ -64,6 +67,7 @@ public class ChatMsController {
 		}
 	}
 	
+	//leer un mensaje -->cambiar su flag isRead a 1
 	@RequestMapping(method = RequestMethod.PUT, value="/message")
 	public ResponseEntity<List<Message>> updateMessage(@RequestBody List<Message> MessagesToUpdate) {
 		for(Message msg:MessagesToUpdate) {

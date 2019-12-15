@@ -51,7 +51,8 @@ public class CatalogueMSController {
 	}
 	
 	// Buscar producto según sus atributos descripcion, precio, nombre y categoria
-	@RequestMapping(value="/products", method= RequestMethod.GET) // buscar todos los productos filtrados por campos
+	//si no recibe ningun atributo, devuelve la lista de todos los productos
+	@RequestMapping(value="/products", method= RequestMethod.GET)
 	public ResponseEntity<List<Product>> findByAttributes(
 			@RequestParam(value="productName", required = false) String productName,
 			@RequestParam(value="shortDesc", required = false) String shortDesc,
@@ -61,14 +62,14 @@ public class CatalogueMSController {
 		
 		ResponseEntity<List<Product>> response = null;
 		List<Product> pList = null; 
-		
-		
+			
 		pList = (List<Product>) productDAO.searchProducts(priceMin, priceMax, productName, categoryId, shortDesc);
 		
-		System.out.println(pList.size());
-		// COMPROBAR SI LA BUSQUEDA A RETORNADO RESULTADOS
-		
-		response = new ResponseEntity<>(pList, HttpStatus.OK);
+		if(pList.size()!=0) {
+			response = new ResponseEntity<>(pList, HttpStatus.OK);
+		}else {
+			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 		
 		return response;
 	}
@@ -117,6 +118,7 @@ public class CatalogueMSController {
 			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
 			
+			//no eliminamos el producto, sino cambiamos su flag a 1
 			p.setIsDeleted(1);
 			
 			productDAO.save(p);

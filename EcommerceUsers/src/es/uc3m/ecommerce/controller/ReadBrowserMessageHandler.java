@@ -36,8 +36,10 @@ public class ReadBrowserMessageHandler implements IHandler {
 		
 		client = ClientBuilder.newClient();
 		webTarget = client.target("http://localhost:13103");
+		
 		HttpSession session = request.getSession();
 		Appuser user = (Appuser) session.getAttribute("user");
+		
 		String path = "message"+"/"+user.getUserId();
 		webTargetPath = webTarget.path(path);
 		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);	
@@ -46,6 +48,8 @@ public class ReadBrowserMessageHandler implements IHandler {
 		List<Appuser> listaSender=new ArrayList<Appuser>();
 		List<Integer> listaIdSender=new ArrayList<Integer>();
 		List<String> listaMensaje=new ArrayList<String>();
+		
+		//solamente se muestra 1 mensaje de cada uno de los emisores
 		if(resp.getStatus()==200) {
 			Message[] miMensajes= resp.readEntity(Message[].class);
 			for(int i=0;i<miMensajes.length;i++) {
