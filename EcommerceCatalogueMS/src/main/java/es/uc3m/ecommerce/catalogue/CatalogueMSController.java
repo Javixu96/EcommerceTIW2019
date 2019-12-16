@@ -45,6 +45,7 @@ public class CatalogueMSController {
 		if (p == null) {
 			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
+			System.out.println("aaaaaaaaaaaaaaaa"+p.getCategoryBean().getParentId());
 			response = new ResponseEntity<>(p, HttpStatus.OK);
 		}
 		return response;
@@ -134,7 +135,6 @@ public class CatalogueMSController {
 
 	@RequestMapping(value="/categories/{id}", method= RequestMethod.GET)
 	public ResponseEntity<Category> getCategoryById(@PathVariable int id){
-		System.out.println("looking for id");
 		ResponseEntity<Category> response = null;
 		Category cat = categoryDAO.findByCategoryIdAndIsDeleted(id, 0);
 		
