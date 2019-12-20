@@ -22,17 +22,29 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import javax.transaction.UserTransaction;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-import es.uc3m.ecommerce.manager.UserManager;
 import es.uc3m.ecommerce.model.*;
 
 /*
 * Handler que se encarga del login del usuario
 */
 public class LoginRequestHandler implements IHandler {
+	Client client;
+	WebTarget webTarget;
+	WebTarget webTargetPath;
+	Invocation.Builder invocationBuilder;
+	Response resp;
 	
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+			
+			client = ClientBuilder.newClient();
+			webTarget = client.target("http://localhost:13101");
 			String viewURL = null; 
 			HttpSession session = request.getSession();
 
@@ -48,17 +60,17 @@ public class LoginRequestHandler implements IHandler {
 				// Tomo los datos del formulario de log in 
 				String introducedEmail  = request.getParameter("register_email");
 				String introducedPassword = request.getParameter("register_password");
-
+				List<Appuser> userListByName=new ArrayList<Appuser>();
+				WebTarget webTargetPath = webTarget
+						.path("users/login")
+						.queryParam("email",introducedEmail)
+						.queryParam("pw", introducedPassword);
+				invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);
+				Response responsews = invocationBuilder.get();
+				Appuser u=(Appuser)responsews.readEntity(Appuser.class);
 				
-				// Busco en BD una objeto usuario que tenga el mismo email que el introducido
-				UserManager manager = new UserManager();
-				
-				List<Appuser> userListByName = manager.findByEmail(introducedEmail);
-				System.out.println("he size of the list of users under that email: " + userListByName.size());
-				// Si no existe ese email en BD, el usuario no esta registrado y no puede hacer log in
-				if(userListByName.size() != 0) {
-					
-					Appuser u = userListByName.get(0);
+				// Si existe
+				if(u!=null) {
 					
 					// Si existe el email en BD y la contraseña es correcta: 
 					if(u.getPw().equals(introducedPassword)) {

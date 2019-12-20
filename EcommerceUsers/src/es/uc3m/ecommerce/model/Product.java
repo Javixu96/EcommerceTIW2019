@@ -1,42 +1,22 @@
 package es.uc3m.ecommerce.model;
 
 import java.io.Serializable;
+
+import javax.json.bind.annotation.JsonbTypeDeserializer;
+import javax.json.bind.annotation.JsonbTypeSerializer;
 import javax.persistence.*;
+
+import es.uc3m.ecommerce.controller.BytesSerializerDeserializer;
+
 import java.util.List;
 
 /**
  * The persistent class for the products database table.
  * Comentarios en la app de ADMIN
  */
-@Entity
-@Table(name="products")
-@NamedQueries({
-	@NamedQuery(name="Product.findAll", 
-				query="SELECT p FROM Product p WHERE p.isDeleted= 0"),
-	@NamedQuery(name="Product.findByAppuser", 
-		query="SELECT p FROM Product p WHERE p.appuser = :user and p.isDeleted= 0"),
-	@NamedQuery(name="Product.findBySimilarTitle", 
-		query="SELECT p FROM Product p WHERE UPPER(p.productName) LIKE UPPER(:title) AND p.isDeleted = 0"),
-	@NamedQuery(name="Product.findBySimilarTitleWithCategory", 
-		query="SELECT p FROM Product p WHERE UPPER(p.productName) LIKE UPPER(:title) AND p.categoryBean.categoryId = :category AND p.isDeleted = 0"),
-	@NamedQuery(name="Product.findBySimilarTitleWithCategoryParent", 
-		query="SELECT p FROM Product p WHERE UPPER(p.productName) LIKE UPPER(:title) AND p.categoryBean.category.categoryId = :category AND p.isDeleted = 0"),
-	@NamedQuery(name="Product.findByCategory", 
-		query="SELECT p FROM Product p WHERE p.categoryBean.categoryId = :category AND p.isDeleted = 0"),
-	@NamedQuery(name="Product.findByCategoryParent", 
-		query="SELECT p FROM Product p WHERE p.categoryBean.category.categoryId = :category AND p.isDeleted = 0"),
-	@NamedQuery(name="Product.findBySimilarNamePriceFilter", 
-		query="SELECT p FROM Product p WHERE UPPER(p.productName) LIKE UPPER(:query) AND p.isDeleted = 0 AND p.price BETWEEN :priceMin AND :priceMax"),
-	@NamedQuery(name="Product.findBySimilarDescriptionPriceFilter", 
-		query="SELECT p FROM Product p WHERE UPPER(p.shortDesc) LIKE UPPER(:query) AND p.isDeleted = 0 AND p.price BETWEEN :priceMin AND :priceMax"),
-	@NamedQuery(name="Product.findBySimilarCategoryPriceFilter", 
-		query="SELECT p FROM Product p WHERE UPPER(p.categoryBean.categoryName) LIKE UPPER(:query) AND p.isDeleted = 0 AND p.price BETWEEN :priceMin AND :priceMax")
-})
-
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
 	private int productId;
 	
 	private int isDeleted;
@@ -48,24 +28,18 @@ public class Product implements Serializable {
 	private String productName;
 
 	@Lob
+	@JsonbTypeDeserializer(BytesSerializerDeserializer.class)
+	@JsonbTypeSerializer(BytesSerializerDeserializer.class)
 	private byte[] productPicture;
 
 	private String shortDesc;
 
 	private int stock;
 
-	//bi-directional many-to-one association to Appuser
-	@ManyToOne
-	@JoinColumn(name="sellerId")
 	private Appuser appuser;
 
-	//bi-directional many-to-one association to Category
-	@ManyToOne
-	@JoinColumn(name="category")
 	private Category categoryBean;
 
-	//bi-directional many-to-one association to Purchas
-	@OneToMany(mappedBy="product")
 	private List<Purchas> purchases;
 
 	public Product() {

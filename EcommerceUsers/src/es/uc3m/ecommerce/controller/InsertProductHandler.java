@@ -1,6 +1,8 @@
 package es.uc3m.ecommerce.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -8,8 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-import es.uc3m.ecommerce.manager.*;
 import es.uc3m.ecommerce.model.*;
 
 /*
@@ -17,11 +25,17 @@ import es.uc3m.ecommerce.model.*;
 */
 public class InsertProductHandler implements IHandler {
 
+	Client client;
+	WebTarget webTarget;
+	WebTarget webTargetPath;
+	Invocation.Builder invocationBuilder;
+	Response resp;	
+	
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ProductManager im = new ProductManager();
-		CategoryManager ca = new CategoryManager();
+		client = ClientBuilder.newClient();
+		
 		//Obtener el usuario de la sesion
 		HttpSession session = request.getSession();
 		Appuser appuser = (Appuser) session.getAttribute("user");
@@ -41,6 +55,7 @@ public class InsertProductHandler implements IHandler {
 		product.setLongDesc(longDescription);
 		product.setPrice(price);
 		product.setStock(stock);
+		product.setIsDeleted(0);
 		
 		//foto
 		Part filePart = request.getPart("fileToUpload");
@@ -50,20 +65,33 @@ public class InsertProductHandler implements IHandler {
 	    
 		//categoria
 	    String productCategory= request.getParameter("subcategory");
-	    product.setCategoryBean(ca.findByName(productCategory));
+	    product.setCategoryBean(findCategoryByName(productCategory));
 	    
 	    //el propietario o seller
 		product.setAppuser(appuser);
-		
-		//crear el producto con persist()
-		try {
-			im.create(product);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		webTarget = client.target("http://localhost:13100");
+		String path = "products";
+		webTargetPath = webTarget.path(path);
+		invocationBuilder = webTargetPath.request(MediaType.APPLICATION_JSON);	
+		resp= invocationBuilder.post(Entity.entity(product,MediaType.APPLICATION_JSON));
 
 		return "product_list_seller.html";
 	}
-
+	
+	private Category findCategoryByName(String productCategory) {
+		String path = "categories";
+		webTarget = client.target("http://localhost:13100");		
+		webTargetPath = webTarget.path(path);
+		invocationBuilder = webTargetPath.queryParam("categoryName", productCategory).request(MediaType.APPLICATION_JSON);
+		Category category = null;
+		
+		// Invocar al servicio
+		resp = invocationBuilder.get();
+		if (resp.getStatus() == 200) {
+			Category [] c = resp.readEntity(Category[].class);
+			category=c[0];
+		}
+		
+		return category;
+	}
 }

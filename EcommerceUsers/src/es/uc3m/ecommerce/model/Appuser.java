@@ -1,7 +1,13 @@
 package es.uc3m.ecommerce.model;
 
 import java.io.Serializable;
+
+import javax.json.bind.annotation.JsonbTypeDeserializer;
+import javax.json.bind.annotation.JsonbTypeSerializer;
 import javax.persistence.*;
+
+import es.uc3m.ecommerce.controller.BytesSerializerDeserializer;
+
 import java.util.List;
 
 
@@ -9,18 +15,9 @@ import java.util.List;
  * The persistent class for the appusers database table.
  * Comentarios en la app de ADMIN
  */
-@Entity
-@Table(name="appusers")
-@NamedQueries({
-	@NamedQuery(name="Appuser.findAll", query="SELECT u FROM Appuser u"),
-	@NamedQuery(name="Appuser.findByEmail", query="SELECT u FROM Appuser u where u.email = :email AND u.isDeleted = 0"),
-	@NamedQuery(name="Appuser.findSellers", query="SELECT a FROM Appuser a WHERE a.userRole = 1 AND a.isDeleted = 0"),
-	@NamedQuery(name="Appuser.findBuyers", query="SELECT a FROM Appuser a WHERE a.userRole = 2 AND a.isDeleted = 0"),
-})
 public class Appuser implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
 	private int userId;
 
 	private String email;
@@ -34,6 +31,8 @@ public class Appuser implements Serializable {
 	private String userName;
 
 	@Lob
+	@JsonbTypeDeserializer(BytesSerializerDeserializer.class)
+	@JsonbTypeSerializer(BytesSerializerDeserializer.class)
 	private byte[] userPicture;
 
 
@@ -41,12 +40,8 @@ public class Appuser implements Serializable {
 
 	private String userSurnames;
 
-	//bi-directional many-to-one association to Product
-	@OneToMany(mappedBy="appuser")
 	private List<Product> products;
 
-	//bi-directional many-to-one association to Purchas
-	@OneToMany(mappedBy="appuser")
 	private List<Purchas> purchases;
 
 	public Appuser() {

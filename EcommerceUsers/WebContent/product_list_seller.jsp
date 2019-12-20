@@ -120,11 +120,6 @@
 								<div class="order_total_amount">850&euro;</div>
 							</div>
 						</div>
-						<form action="./profile.jsp">
-						<div class="cart_buttons">
-							<button type="submit" class="button cart_button_checkout">Guardar cambios</button>
-						</div>
-						</form>
 					</div>
 				</div>
 			</div>
